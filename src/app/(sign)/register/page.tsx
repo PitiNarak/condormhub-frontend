@@ -16,13 +16,13 @@ export default function Home() {
         <ConfirmPassword></ConfirmPassword>
         <button
           type="submit"
-          className="text-xl text-black hover:bg-black hover:text-white mt-12 bg-gray-400 py-1 w-5/12 rounded-full block m-auto"
+          className="text-xl text-black font-semibold hover:bg-black hover:text-white mt-12 bg-gray-400 py-1 w-5/12 rounded-full block m-auto"
         >
           Sign Up
         </button>
         <Link
           href="/login"
-          className="text-xl text-black hover:bg-black hover:text-white hover:border-0 mt-12 bg-transparent border border-gray-400 py-1 w-5/12 rounded-full block m-auto"
+          className="text-xl text-black font-semibold hover:bg-black hover:text-white hover:border-0 mt-12 bg-transparent border border-gray-400 py-1 w-5/12 rounded-full block m-auto"
         >
           Login
         </Link>
