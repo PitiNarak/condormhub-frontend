@@ -1,6 +1,4 @@
 import LanguageSw from './LanguageSw';
-import Image from 'next/image';
-import Logo from '@/media/Logo.png';
 import Link from 'next/link';
 
 const Header = () => {
@@ -11,7 +9,8 @@ const Header = () => {
       </div>
       <div className="flex-1">
         <Link href="/">
-          <Image src={Logo} width={300} height={300} alt="website logo" />
+          <p className="text-5xl font-extrabold">ConDormHub</p>
+          <p className="">By PitiNarak</p>
         </Link>
       </div>
     </div>

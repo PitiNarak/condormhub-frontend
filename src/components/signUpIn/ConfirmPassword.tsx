@@ -1,16 +1,17 @@
 import { Lock } from 'lucide-react';
+import { Input } from '@/components/ui/input';
 
 const ConfirmPassword = () => {
   return (
-    <div className="flex justify-center mt-12">
+    <div className="flex justify-center mt-12 items-center">
       <div className="bg-gray-400 w-12 h-12 p-3">
         <Lock color="black" />
       </div>
-      <input
+      <Input
         name="confirm_password"
-        placeholder="  Confirm Password"
+        placeholder="Confirm Password"
         type="password"
-        className="text-black w-4/12 text-xl"
+        className="text-black bg-white w-4/12 text-xl rounded-l-none"
       />
     </div>
   );
