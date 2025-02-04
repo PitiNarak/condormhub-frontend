@@ -28,14 +28,16 @@ jobs:
         run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
       - name: Deploy Project Artifacts to Vercel (Development)
         run: |
+          echo "Deploying to Vercel..."
           DEPLOY_URL=$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})
           echo "Deployment URL: $DEPLOY_URL"
           echo "DEPLOY_URL=$DEPLOY_URL" >> $GITHUB_ENV
       - name: Output Deployment URL
-        run: echo "Vercel Deployment URL: $DEPLOY_URL"
+        run: |
+          echo "Vercel Deployment URL: ${{ env.DEPLOY_URL }}"
       - name: Add Deployment Summary
         run: |
           echo "### Vercel Deployment 🚀" >> $GITHUB_STEP_SUMMARY
           echo "| Environment | URL |" >> $GITHUB_STEP_SUMMARY
           echo "|------------|-----|" >> $GITHUB_STEP_SUMMARY
-          echo "| Development | [$DEPLOY_URL]($DEPLOY_URL) |" >> $GITHUB_STEP_SUMMARY
+          echo "| Development | [${{ env.DEPLOY_URL }}](${{ env.DEPLOY_URL }}) |" >> $GITHUB_STEP_SUMMARY
