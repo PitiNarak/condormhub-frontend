@@ -8,6 +8,7 @@ on:
   push:
     branches:
       - main
+
 jobs:
   Deploy-Production:
     runs-on: ubuntu-latest
@@ -21,9 +22,22 @@ jobs:
           version: latest
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
-      - name: Pull Vercel Environment Information
+      - name: Pull Vercel Environment Information (Production)
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Project Artifacts
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
-      - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Deploy Project Artifacts to Vercel (Production)
+        run: |
+          echo "Deploying to Vercel..."
+          DEPLOY_URL=$(vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }})
+          echo "Deployment URL: $DEPLOY_URL"
+          echo "DEPLOY_URL=$DEPLOY_URL" >> $GITHUB_ENV
+      - name: Output Deployment URL
+        run: |
+          echo "Vercel Production Deployment URL: ${{ env.DEPLOY_URL }}"
+      - name: Add Deployment Summary
+        run: |
+          echo "### Vercel Production Deployment 🚀" >> $GITHUB_STEP_SUMMARY
+          echo "| Environment | URL |" >> $GITHUB_STEP_SUMMARY
+          echo "|------------|-----|" >> $GITHUB_STEP_SUMMARY
+          echo "| Production  | [${{ env.DEPLOY_URL }}](${{ env.DEPLOY_URL }}) |" >> $GITHUB_STEP_SUMMARY
