@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'NextAuth Server Session Info',
+  title: 'NextAuth Client Session Info',
 };
 
 export default async function RootLayout({
