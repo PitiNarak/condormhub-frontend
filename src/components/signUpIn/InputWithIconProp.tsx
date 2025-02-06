@@ -16,7 +16,7 @@ const InputWithIcon = ({
   type,
 }: InputWithIconProp) => {
   return (
-    <div className="w-2/12 justify-center m-auto mt-12">
+    <div className="">
       <label htmlFor={name}>{label}</label>
       <div className="relative">
         <div className="absolute left-1 top-1 h-4 w-4 text-muted-foreground">
