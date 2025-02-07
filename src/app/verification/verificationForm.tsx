@@ -23,6 +23,7 @@ export default function VerificationForm() {
       if (result?.error) {
         setError(result.error);
       } else {
+        router.push('/');
         router.refresh();
       }
     });
@@ -40,7 +41,7 @@ export default function VerificationForm() {
   }
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="w-full flex justify-center items-center">
       <div className="w-full max-w-md p-6">
         <form
           onSubmit={handleSubmit}
@@ -49,7 +50,7 @@ export default function VerificationForm() {
         >
           <div className="flex justify-center mb-4">
             {previewImage ? (
-              <div className="w-full h-48 relative">
+              <div className="w-full h-64 relative">
                 <Image
                   src={previewImage}
                   alt="Preview"
@@ -58,12 +59,12 @@ export default function VerificationForm() {
                 />
               </div>
             ) : (
-              <div className="w-full h-48 bg-white border border-gray-300 rounded-lg flex items-center justify-center">
+              <div className="w-full h-64 bg-white border border-gray-300 rounded-lg flex items-center justify-center">
                 Upload Student Verification
               </div>
             )}
           </div>
-          <div className="flex justify-center">
+          <div className="flex bg-white border border-gray-300 rounded-lg items-center justify-center p-3">
             <input
               id="picture"
               name="picture"
@@ -77,17 +78,17 @@ export default function VerificationForm() {
           <div className="flex justify-center space-x-4">
             <Button
               size="lg"
-              type="submit"
-              disabled={isPending || !previewImage}
-            >
-              {isPending ? 'Uploading...' : 'Send Verification'}
-            </Button>
-            <Button
-              size="lg"
               variant="outline"
               onClick={() => router.push('/')}
             >
               Back
+            </Button>
+            <Button
+              size="lg"
+              type="submit"
+              disabled={isPending || !previewImage}
+            >
+              {isPending ? 'Uploading...' : 'Send Verification'}
             </Button>
           </div>
         </form>

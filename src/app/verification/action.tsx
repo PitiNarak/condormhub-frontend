@@ -1,7 +1,7 @@
 import {
   verificationData,
   VerificationRecord,
-} from '@/app/verification/mockingTable/fakeVerificationTable';
+} from '@/app/verification/dataTable/dataRecord';
 
 export async function uploadVerification(
   formData: FormData
@@ -19,6 +19,7 @@ export async function uploadVerification(
 
   verificationData.push(record);
   console.log('New verification record:', record);
+  console.log('All verification record:', verificationData);
 
   return { success: true };
 }
