@@ -20,7 +20,7 @@ import {
 import InputWithIcon from '@/components/signUpIn/InputWithIconProp';
 
 const formSchema = z.object({
-  email: z.string(),
+  email: z.string().email({ message: 'Invalid email address' }),
   username: z.string().min(1).max(20),
   password: z.string().min(5).max(20),
   confirmPassword: z.string().min(5).max(20),
@@ -45,7 +45,7 @@ export default function MyForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 max-w-3xl mx-auto py-10"
+        className="space-y-4 max-w-3xl mx-auto py-7"
       >
         <FormField
           control={form.control}
@@ -56,9 +56,9 @@ export default function MyForm() {
               <FormControl>
                 <InputWithIcon
                   placeholder="eg. piti1234@xyz.com"
-                  type="email"
+                  type="text"
                   icon={<Mail />}
-                  {...field}
+                  fields={field}
                 />
               </FormControl>
 
@@ -78,7 +78,7 @@ export default function MyForm() {
                   placeholder="eg. Piti1234"
                   icon={<User />}
                   type="text"
-                  {...field}
+                  fields={field}
                 />
               </FormControl>
               <FormDescription>
@@ -100,7 +100,7 @@ export default function MyForm() {
                   placeholder=""
                   type="password"
                   icon={<Lock />}
-                  {...field}
+                  fields={field}
                 />
               </FormControl>
 
@@ -120,7 +120,7 @@ export default function MyForm() {
                   placeholder=""
                   icon={<Lock />}
                   type="password"
-                  {...field}
+                  fields={field}
                 />
               </FormControl>
 
@@ -128,7 +128,9 @@ export default function MyForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button className="w-full" type="submit">
+          Submit
+        </Button>
       </form>
     </Form>
   );

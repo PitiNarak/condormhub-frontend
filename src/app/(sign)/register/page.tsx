@@ -4,12 +4,13 @@ import { buttonVariants } from '@/components/ui/button';
 
 export default function Page() {
   return (
-    <div>
+    <div className="max-w-3xl m-auto">
+      <p className="text-center font-bold text-3xl pt-7">Sign Up</p>
       <MyForm />
       <div className="text-center">
         <Link
           href="/login"
-          className={`${buttonVariants({ variant: 'outline' })} w-4/12`}
+          className={`${buttonVariants({ variant: 'outline' })} w-full`}
         >
           Login
         </Link>
