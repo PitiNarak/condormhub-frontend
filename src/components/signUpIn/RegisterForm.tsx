@@ -19,12 +19,22 @@ import {
 } from '@/components/ui/form';
 import InputWithIcon from '@/components/signUpIn/InputWithIconProp';
 
-const formSchema = z.object({
-  email: z.string().email({ message: 'Invalid email address' }),
-  username: z.string().min(1).max(20),
-  password: z.string().min(5).max(20),
-  confirmPassword: z.string().min(5).max(20),
-});
+const formSchema = z
+  .object({
+    email: z.string().email({ message: 'Invalid email address' }),
+    username: z.string().min(1).max(20),
+    password: z.string().min(5).max(20),
+    confirmPassword: z.string().min(5).max(20),
+  })
+  .superRefine(({ confirmPassword, password }, ctx) => {
+    if (confirmPassword !== password) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'The passwords did not match',
+        path: ['confirmPassword'],
+      });
+    }
+  });
 
 export default function MyForm() {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -45,7 +55,7 @@ export default function MyForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 max-w-3xl mx-auto py-7"
+        className="space-y-4 max-w-3xl mx-auto pt-0"
       >
         <FormField
           control={form.control}
@@ -128,9 +138,11 @@ export default function MyForm() {
             </FormItem>
           )}
         />
-        <Button className="w-full" type="submit">
-          Submit
-        </Button>
+        <div>
+          <Button className="w-full mt-3" type="submit">
+            Sign Up
+          </Button>
+        </div>
       </form>
     </Form>
   );
