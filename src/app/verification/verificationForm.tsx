@@ -135,10 +135,7 @@ export default function VerificationForm() {
                       />
                     )}
                     <div className="mt-4 flex justify-end">
-                      <Button
-                        variant="outline"
-                        onClick={() => setZoomedImage(null)}
-                      >
+                      <Button onClick={() => setZoomedImage(null)}>
                         Close
                       </Button>
                     </div>
