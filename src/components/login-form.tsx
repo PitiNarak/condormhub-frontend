@@ -12,25 +12,40 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
-  username: z.string().email({ message: 'Input must be in Email format' }),
+  email: z.string().email({ message: 'Input must be in Email format' }),
   password: z.string(),
 });
 
 export function LoginForm() {
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: '',
+      email: '',
       password: '',
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
+    const result = await signIn('credentials', {
+      email: values.email,
+      password: values.password,
+      redirect: false,
+    });
+    if (result?.error) {
+      console.error('Login failed:', result.error);
+    } else {
+      router.push('/home'); // Redirect to a protected page
+      // console.log(values);
+    }
+    // console.log(values);
   }
 
   return (
@@ -39,7 +54,7 @@ export function LoginForm() {
         <div className="flex flex-col gap-6">
           <FormField
             control={form.control}
-            name="username"
+            name="email"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Email</FormLabel>

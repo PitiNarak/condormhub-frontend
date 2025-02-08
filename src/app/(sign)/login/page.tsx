@@ -10,12 +10,11 @@ import { cn } from '@/lib/utils';
 
 export default function Page({
   className,
-  ...props
 }: React.ComponentPropsWithoutRef<'div'>) {
   return (
     <div className="flex w-full items-center justify-center h-[100vh]">
       <div className="w-full max-w-sm">
-        <div className={cn('flex flex-col gap-6', className)} {...props}>
+        <div className={cn('flex flex-col gap-6', className)}>
           <Card>
             <CardHeader>
               <CardTitle className="text-2xl">Login</CardTitle>

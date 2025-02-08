@@ -57,7 +57,8 @@ export const nextAuthConfig = {
       },
       authorize: async (credentials) => {
         if (!credentials) return null;
-
+        //waiting for backend implementation
+        console.log(credentials);
         return {
           id: '1',
           name: 'John Doe',
