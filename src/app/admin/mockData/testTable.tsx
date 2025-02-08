@@ -10,13 +10,13 @@ export const studentData: Student[] = [
   {
     id: 1,
     name: 'John Doe',
-    studentCard: '/fakeid.jpg',
+    studentCard: '/fakeid2.jpg',
     reviewed: false,
   },
   {
     id: 2,
     name: 'Jane Smith',
-    studentCard: '/fakeid.jpg',
+    studentCard: '/fakeid3.jpg',
     reviewed: false,
   },
   {

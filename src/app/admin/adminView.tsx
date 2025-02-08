@@ -21,7 +21,7 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import Image from 'next/image';
-import { Student, studentData } from '@/app/admin-view/mockData/testTable';
+import { Student, studentData } from '@/app/admin/mockData/testTable';
 
 export default function AdminView() {
   const [students, setStudents] = useState<Student[]>(studentData);
@@ -62,8 +62,6 @@ export default function AdminView() {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Admin</h1>
-
       <Tabs defaultValue="pendingReview">
         <TabsList className="mb-4">
           <TabsTrigger value="pendingReview">Pending Review</TabsTrigger>
