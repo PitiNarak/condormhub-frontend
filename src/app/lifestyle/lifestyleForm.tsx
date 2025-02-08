@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   LifestyleTag,
-  availableLifestyleTags,
+  allLifestyleTags,
 } from '@/app/lifestyle/allLifestyleTag';
 import { mockPerson, PersonData } from '@/app/lifestyle/mockData/mockPerson';
 
@@ -27,7 +27,7 @@ export default function LifestyleForm() {
   };
 
   // Group available tags by their type for display
-  const groupedTags = availableLifestyleTags.reduce(
+  const groupedTags = allLifestyleTags.reduce(
     (acc, tag) => {
       if (!acc[tag.type]) {
         acc[tag.type] = [];
@@ -53,10 +53,10 @@ export default function LifestyleForm() {
 
   return (
     <div className="p-1 max-w-4xl mx-auto rounded-lg">
-      {/* Available Tags */}
+      {/* All Tags */}
       <Card className="mb-6">
         <CardHeader>
-          <CardTitle className="text-lg">Available Tags</CardTitle>
+          <CardTitle className="text-lg">All Tags</CardTitle>
         </CardHeader>
         <CardContent>
           {Object.entries(groupedTags).map(([type, tags]) => (

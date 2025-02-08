@@ -4,7 +4,7 @@ export type LifestyleTag = {
   type: string;
 };
 
-export const availableLifestyleTags: LifestyleTag[] = [
+export const allLifestyleTags: LifestyleTag[] = [
   // General Interests
   { id: 1, name: 'Active', type: 'General' },
   { id: 2, name: 'Creative', type: 'General' },

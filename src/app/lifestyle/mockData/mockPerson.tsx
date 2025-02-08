@@ -1,5 +1,5 @@
 import {
-  availableLifestyleTags,
+  allLifestyleTags,
   LifestyleTag,
 } from '@/app/lifestyle/allLifestyleTag';
 
@@ -14,7 +14,7 @@ export const mockPerson: PersonData = {
   name: 'Keen',
   // For example, preselect tags with id 1 ("Active") and id 5 ("Creative")
   lifestyleTags: [
-    availableLifestyleTags.find((tag) => tag.id === 1)!,
-    availableLifestyleTags.find((tag) => tag.id === 5)!,
+    allLifestyleTags.find((tag) => tag.id === 1)!,
+    allLifestyleTags.find((tag) => tag.id === 5)!,
   ],
 };
