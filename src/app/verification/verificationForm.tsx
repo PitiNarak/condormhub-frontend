@@ -22,6 +22,7 @@ import {
 } from '@/app/verification/mockData/testTable';
 import {
   Dialog,
+  DialogTrigger,
   DialogContent,
   DialogTitle,
   DialogDescription,
@@ -41,7 +42,8 @@ export default function VerificationForm() {
   const [pendingRecord, setPendingRecord] = useState<VerificationRecord | null>(
     null
   );
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
+  const [zoomedImage, setZoomedImage] = useState<string | null>(null);
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -75,7 +77,7 @@ export default function VerificationForm() {
     };
 
     setPendingRecord(record);
-    setIsDialogOpen(true);
+    setIsConfirmDialogOpen(true);
   }
 
   const handleConfirm = () => {
@@ -84,7 +86,7 @@ export default function VerificationForm() {
       console.log('New verification record:', pendingRecord);
       console.log('All verification records:', verificationData);
     }
-    setIsDialogOpen(false);
+    setIsConfirmDialogOpen(false);
     setPendingRecord(null);
 
     // router.push('/')
@@ -92,7 +94,7 @@ export default function VerificationForm() {
   };
 
   const handleCancel = () => {
-    setIsDialogOpen(false);
+    setIsConfirmDialogOpen(false);
     setPendingRecord(null);
   };
 
@@ -102,15 +104,47 @@ export default function VerificationForm() {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <div className="flex justify-center mb-4">
+              {/* Zoomed Image Dialog */}
               {previewImage ? (
-                <div className="w-full h-64 relative">
-                  <Image
-                    src={previewImage}
-                    alt="Preview"
-                    fill
-                    className="object-cover rounded-lg"
-                  />
-                </div>
+                <Dialog
+                  open={!!zoomedImage}
+                  onOpenChange={(open) => {
+                    if (!open) setZoomedImage(null);
+                  }}
+                >
+                  <DialogTrigger asChild>
+                    <div className="cursor-pointer w-full h-64 relative">
+                      <Image
+                        src={previewImage}
+                        alt="Preview"
+                        fill
+                        className="object-cover rounded-lg"
+                        onClick={() => setZoomedImage(previewImage)}
+                      />
+                    </div>
+                  </DialogTrigger>
+                  <DialogContent className="p-4">
+                    <DialogTitle>Your Student Verification</DialogTitle>
+                    {zoomedImage && (
+                      <Image
+                        src={zoomedImage}
+                        alt="Zoomed Image"
+                        width={900}
+                        height={900}
+                        className="object-contain rounded-lg"
+                      />
+                    )}
+                    <div className="mt-4 flex justify-end">
+                      <Button
+                        variant="outline"
+                        onClick={() => setZoomedImage(null)}
+                      >
+                        Close
+                      </Button>
+                    </div>
+                  </DialogContent>
+                  <DialogDescription></DialogDescription>
+                </Dialog>
               ) : (
                 <div className="w-full h-64 bg-white border border-gray-300 rounded-lg flex items-center justify-center">
                   Your Student Verification
@@ -156,7 +190,7 @@ export default function VerificationForm() {
       </div>
 
       {/* Confirmation Dialog */}
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+      <Dialog open={isConfirmDialogOpen} onOpenChange={setIsConfirmDialogOpen}>
         <DialogContent>
           <DialogTitle>Confirm Submission</DialogTitle>
           <DialogDescription>
