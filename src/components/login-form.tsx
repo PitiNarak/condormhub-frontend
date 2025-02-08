@@ -60,7 +60,7 @@ export function LoginForm() {
                 <FormLabel>Email</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="m@example.com"
+                    placeholder="piti1234@xyz.com"
                     id="email"
                     type="email"
                     required
@@ -98,7 +98,7 @@ export function LoginForm() {
         </div>
         <div className="mt-4 text-center text-sm">
           Don&apos;t have an account?{' '}
-          <a href="signUp" className="underline underline-offset-4">
+          <a href="register" className="underline underline-offset-4">
             Sign up
           </a>
         </div>
