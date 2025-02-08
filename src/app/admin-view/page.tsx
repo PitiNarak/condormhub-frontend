@@ -21,41 +21,10 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import Image from 'next/image';
-
-// Define the student data type
-interface Student {
-  id: number;
-  name: string;
-  studentCard: string;
-  reviewed: boolean;
-  status?: 'Accepted' | 'Rejected';
-}
-
-// Mock-up data for demonstration
-const initialStudents: Student[] = [
-  {
-    id: 1,
-    name: 'John Doe',
-    studentCard: '/fakeid.jpg',
-    reviewed: false,
-  },
-  {
-    id: 2,
-    name: 'Jane Smith',
-    studentCard: '/fakeid.jpg',
-    reviewed: false,
-  },
-  {
-    id: 3,
-    name: 'Alice Johnson',
-    studentCard: '/fakeid.jpg',
-    reviewed: true,
-    status: 'Accepted',
-  },
-];
+import { Student, studentData } from '@/app/admin-view/mockData/testTable';
 
 export default function AdminView() {
-  const [students, setStudents] = useState<Student[]>(initialStudents);
+  const [students, setStudents] = useState<Student[]>(studentData);
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const [actionType, setActionType] = useState<'accept' | 'reject' | null>(
     null
@@ -219,15 +188,15 @@ export default function AdminView() {
 
       {/* Zoomed Image Dialog */}
       <Dialog open={!!zoomedImage} onOpenChange={() => setZoomedImage(null)}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="p-4">
           <DialogTitle>Student Card</DialogTitle>
           {zoomedImage && (
             <Image
               src={zoomedImage}
               alt="Zoomed Student Card"
-              width={600}
-              height={300}
-              className="rounded"
+              width={900}
+              height={900}
+              className="object-contain rounded-lg"
             />
           )}
           <DialogFooter className="mt-4 flex justify-end">
