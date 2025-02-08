@@ -20,6 +20,13 @@ import {
   verificationData,
   VerificationRecord,
 } from '@/app/verification/mockData/testTable';
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from '@/components/ui/dialog';
 
 const formSchema = z.object({
   picture: z
@@ -31,6 +38,10 @@ export default function VerificationForm() {
   const [error, setError] = useState<string | null>(null);
   const [isPending] = useTransition();
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [pendingRecord, setPendingRecord] = useState<VerificationRecord | null>(
+    null
+  );
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -45,7 +56,7 @@ export default function VerificationForm() {
       reader.onloadend = () => {
         setPreviewImage(reader.result as string);
       };
-      reader.readAsDataURL(e.target.files?.[0]);
+      reader.readAsDataURL(e.target.files[0]);
     }
   }
 
@@ -63,13 +74,27 @@ export default function VerificationForm() {
       file,
     };
 
-    verificationData.push(record);
-    console.log('New verification record:', record);
-    console.log('All verification records:', verificationData);
-
-    // router.push('/');
-    router.refresh();
+    setPendingRecord(record);
+    setIsDialogOpen(true);
   }
+
+  const handleConfirm = () => {
+    if (pendingRecord) {
+      verificationData.push(pendingRecord);
+      console.log('New verification record:', pendingRecord);
+      console.log('All verification records:', verificationData);
+    }
+    setIsDialogOpen(false);
+    setPendingRecord(null);
+
+    // router.push('/')
+    router.refresh();
+  };
+
+  const handleCancel = () => {
+    setIsDialogOpen(false);
+    setPendingRecord(null);
+  };
 
   return (
     <div className="w-full flex justify-center items-center">
@@ -129,6 +154,23 @@ export default function VerificationForm() {
           </form>
         </Form>
       </div>
+
+      {/* Confirmation Dialog */}
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent>
+          <DialogTitle>Confirm Submission</DialogTitle>
+          <DialogDescription>
+            Are you sure you want to send this verification image? You
+            won&apos;t be able to change it once submitted.
+          </DialogDescription>
+          <DialogFooter>
+            <Button variant="outline" onClick={handleCancel}>
+              Cancel
+            </Button>
+            <Button onClick={handleConfirm}>Confirm</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
