@@ -2,7 +2,7 @@ import { RegisterBox } from '@/components/signUpIn/RegisterBox';
 
 export default function Page() {
   return (
-    <div className="justify-center m-auto items-center flex w-4/12 h-[80%]">
+    <div className="justify-center m-auto pt-14 flex w-9/12 max-w-[450px]">
       <div className="flex-1">
         <RegisterBox />
       </div>
