@@ -10,9 +10,7 @@ import { auth } from '@/lib/auth';
 import { cn } from '@/lib/utils';
 import { redirect } from 'next/navigation';
 
-export default async function Page({
-  className,
-}: React.ComponentPropsWithoutRef<'div'>) {
+export default async function Page() {
   const session = await auth();
   if (session) {
     redirect('/home');
@@ -20,7 +18,7 @@ export default async function Page({
     return (
       <div className="flex w-full items-center justify-center h-[100vh]">
         <div className="w-full max-w-sm">
-          <div className={cn('flex flex-col gap-6', className)}>
+          <div className={cn('flex flex-col gap-6')}>
             <Card>
               <CardHeader>
                 <CardTitle className="text-2xl">Login</CardTitle>
