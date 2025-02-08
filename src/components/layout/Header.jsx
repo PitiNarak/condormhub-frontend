@@ -1,4 +1,4 @@
-import LanguageSw from './LanguageSw';
+import LanguageSw from '@/components/layout/LanguageSw';
 import Link from 'next/link';
 
 const Header = () => {
