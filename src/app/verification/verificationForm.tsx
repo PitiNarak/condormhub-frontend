@@ -168,11 +168,12 @@ export default function VerificationForm() {
             {error && <p className="text-red-500 text-center">{error}</p>}
             <div className="flex justify-center space-x-4">
               <Button
+                type="button"
                 size="lg"
                 variant="outline"
                 onClick={() => router.push('/')}
               >
-                Back
+                Skip
               </Button>
               <Button
                 size="lg"
