@@ -47,6 +47,7 @@ export default function AdminView() {
                 ...s,
                 reviewed: true,
                 status: actionType === 'accept' ? 'Accepted' : 'Rejected',
+                reviewDate: new Date().toISOString(),
               }
             : s
         )
@@ -58,7 +59,13 @@ export default function AdminView() {
   };
 
   const pendingReview = students.filter((s) => !s.reviewed);
-  const reviewedStudents = students.filter((s) => s.reviewed);
+  const reviewedStudents = students
+    .filter((s) => s.reviewed)
+    .sort((a, b) => {
+      const dateA = new Date(a.reviewDate || 0);
+      const dateB = new Date(b.reviewDate || 0);
+      return dateB.getTime() - dateA.getTime();
+    });
 
   return (
     <div className="p-4">
@@ -125,6 +132,7 @@ export default function AdminView() {
                 <TableHead>Name</TableHead>
                 <TableHead>Student Card</TableHead>
                 <TableHead>Status</TableHead>
+                <TableHead>Reviewed Date</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -154,6 +162,17 @@ export default function AdminView() {
                     }
                   >
                     {student.status}
+                  </TableCell>
+                  <TableCell>
+                    {student.reviewDate
+                      ? new Date(student.reviewDate).toLocaleString('en-US', {
+                          month: 'long',
+                          day: 'numeric',
+                          year: 'numeric',
+                          hour: 'numeric',
+                          minute: 'numeric',
+                        })
+                      : '-'}
                   </TableCell>
                 </TableRow>
               ))}

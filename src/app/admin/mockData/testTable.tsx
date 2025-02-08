@@ -4,6 +4,7 @@ export type Student = {
   studentCard: string;
   reviewed: boolean;
   status?: 'Accepted' | 'Rejected';
+  reviewDate?: string;
 };
 
 export const studentData: Student[] = [
@@ -25,5 +26,6 @@ export const studentData: Student[] = [
     studentCard: '/fakeid.jpg',
     reviewed: true,
     status: 'Accepted',
+    reviewDate: '2025-02-05T14:00:00.000Z',
   },
 ];
