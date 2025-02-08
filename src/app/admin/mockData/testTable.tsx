@@ -10,19 +10,19 @@ export type Student = {
 export const studentData: Student[] = [
   {
     id: 1,
-    name: 'John Doe',
+    name: 'Peaw',
     studentCard: '/fakeid2.jpg',
     reviewed: false,
   },
   {
     id: 2,
-    name: 'Jane Smith',
+    name: 'Keen',
     studentCard: '/fakeid3.jpg',
     reviewed: false,
   },
   {
     id: 3,
-    name: 'Alice Johnson',
+    name: 'Bright',
     studentCard: '/fakeid.jpg',
     reviewed: true,
     status: 'Accepted',

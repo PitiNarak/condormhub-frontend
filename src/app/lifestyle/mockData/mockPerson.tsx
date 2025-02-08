@@ -11,7 +11,7 @@ export type PersonData = {
 
 export const mockPerson: PersonData = {
   id: 1,
-  name: 'John Doe',
+  name: 'Keen',
   // For example, preselect tags with id 1 ("Active") and id 5 ("Creative")
   lifestyleTags: [
     availableLifestyleTags.find((tag) => tag.id === 1)!,
