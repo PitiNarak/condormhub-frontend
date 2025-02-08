@@ -1,11 +1,17 @@
+import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-export default function Home() {
+import React from 'react';
+
+const page = () => {
   return (
-    <div>
-      <h1> Hello</h1>
-      <Link href="/register" className="text-3xl">
-        click
-      </Link>
+    <div className="flex justify-center h-[100vh] border-2 border-gray-950">
+      <div className="flex items-center">
+        <Link href={'./login'}>
+          <Button>Login</Button>
+        </Link>
+      </div>
     </div>
   );
-}
+};
+
+export default page;
