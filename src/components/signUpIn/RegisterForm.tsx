@@ -53,7 +53,7 @@ export default function MyForm() {
     try {
       const result = await sendRegistration(values);
       if (result && result.message) {
-        console.log('err');
+        console.log(result.message);
       }
     } catch (e: unknown) {
       console.log(e);

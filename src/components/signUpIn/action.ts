@@ -14,7 +14,14 @@ export const sendRegistration = async (
     if (objectUser.username.startsWith(' ')) {
       throw new Error('TEST ERROR ' + Date.now());
     }
-    console.log(objectUser);
+
+    const response = await fetch('#', {
+      method: 'POST',
+      body: JSON.stringify(objectUser),
+    });
+    // Handle response if necessary
+    const data = await response.json();
+    console.log(data);
   } catch (e: unknown) {
     if (e instanceof Error) {
       return { message: e.message };
