@@ -4,9 +4,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Button } from '@/components/ui/button';
-import { Mail } from 'lucide-react';
-import { Lock } from 'lucide-react';
-import { User } from 'lucide-react';
+import { Mail, Lock, User } from 'lucide-react';
+import { sendRegistration } from './action';
 
 import {
   Form,
@@ -47,8 +46,16 @@ export default function MyForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
+    try {
+      const result = await sendRegistration(values);
+      if (result && result.message) {
+        console.log(result.message);
+      }
+    } catch (e: unknown) {
+      console.log(e);
+    }
   }
 
   return (
