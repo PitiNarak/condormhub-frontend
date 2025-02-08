@@ -1,4 +1,4 @@
-import { VerificationHeader } from '@/app/verification/verificationHeader';
+import VerificationHeader from '@/app/verification/verificationHeader';
 import VerificationForm from '@/app/verification/verificationForm';
 
 export default function VerificationPage() {
