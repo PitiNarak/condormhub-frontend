@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 
-// Import shadcn/ui components (adjust paths if needed)
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   Table,
@@ -27,8 +26,8 @@ import Image from 'next/image';
 interface Student {
   id: number;
   name: string;
-  studentCard: string; // URL to student card image
-  reviewed: boolean; // whether the admin has taken an action
+  studentCard: string;
+  reviewed: boolean;
   status?: 'Accepted' | 'Rejected';
 }
 
@@ -37,43 +36,39 @@ const initialStudents: Student[] = [
   {
     id: 1,
     name: 'John Doe',
-    studentCard: '/mock_images/fakeng',
+    studentCard: '/fakeid.jpg',
     reviewed: false,
   },
   {
     id: 2,
     name: 'Jane Smith',
-    studentCard: '/images/jane.png',
+    studentCard: '/fakeid.jpg',
     reviewed: false,
   },
   {
     id: 3,
     name: 'Alice Johnson',
-    studentCard: '/images/alice.png',
+    studentCard: '/fakeid.jpg',
     reviewed: true,
     status: 'Accepted',
   },
 ];
 
 export default function AdminView() {
-  // State to hold student records
   const [students, setStudents] = useState<Student[]>(initialStudents);
-
-  // State for confirmation dialog
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const [actionType, setActionType] = useState<'accept' | 'reject' | null>(
     null
   );
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [zoomedImage, setZoomedImage] = useState<string | null>(null);
 
-  // Handle review action
   const handleReview = (student: Student, action: 'accept' | 'reject') => {
     setSelectedStudent(student);
     setActionType(action);
     setDialogOpen(true);
   };
 
-  // Once the admin confirms the action, update the student record
   const confirmReview = () => {
     if (selectedStudent) {
       setStudents((prev) =>
@@ -93,7 +88,6 @@ export default function AdminView() {
     setActionType(null);
   };
 
-  // Filter lists based on whether the admin has reviewed
   const pendingReview = students.filter((s) => !s.reviewed);
   const reviewedStudents = students.filter((s) => s.reviewed);
 
@@ -101,7 +95,6 @@ export default function AdminView() {
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Admin</h1>
 
-      {/* Tabs to switch between views */}
       <Tabs defaultValue="pendingReview">
         <TabsList className="mb-4">
           <TabsTrigger value="pendingReview">Pending Review</TabsTrigger>
@@ -123,11 +116,19 @@ export default function AdminView() {
                 <TableRow key={student.id}>
                   <TableCell>{student.name}</TableCell>
                   <TableCell>
-                    <Image
-                      src={student.studentCard}
-                      alt={`${student.name} student card`}
-                      className="w-20 h-auto rounded"
-                    />
+                    {/* Image Click to Zoom */}
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Image
+                          src={student.studentCard}
+                          alt={`${student.name} student card`}
+                          width={200}
+                          height={100}
+                          className="rounded cursor-pointer hover:opacity-80"
+                          onClick={() => setZoomedImage(student.studentCard)}
+                        />
+                      </DialogTrigger>
+                    </Dialog>
                   </TableCell>
                   <TableCell className="space-x-2">
                     <Button
@@ -164,11 +165,19 @@ export default function AdminView() {
                 <TableRow key={student.id}>
                   <TableCell>{student.name}</TableCell>
                   <TableCell>
-                    <Image
-                      src={student.studentCard}
-                      alt={`${student.name} student card`}
-                      className="w-20 h-auto rounded"
-                    />
+                    {/* Image Click to Zoom */}
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Image
+                          src={student.studentCard}
+                          alt={`${student.name} student card`}
+                          width={200}
+                          height={100}
+                          className="rounded cursor-pointer hover:opacity-80"
+                          onClick={() => setZoomedImage(student.studentCard)}
+                        />
+                      </DialogTrigger>
+                    </Dialog>
                   </TableCell>
                   <TableCell
                     className={
@@ -204,6 +213,25 @@ export default function AdminView() {
               Cancel
             </Button>
             <Button onClick={confirmReview}>Confirm</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Zoomed Image Dialog */}
+      <Dialog open={!!zoomedImage} onOpenChange={() => setZoomedImage(null)}>
+        <DialogContent className="max-w-2xl">
+          <DialogTitle>Student Card</DialogTitle>
+          {zoomedImage && (
+            <Image
+              src={zoomedImage}
+              alt="Zoomed Student Card"
+              width={600}
+              height={300}
+              className="rounded"
+            />
+          )}
+          <DialogFooter className="mt-4 flex justify-end">
+            <Button onClick={() => setZoomedImage(null)}>Close</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
