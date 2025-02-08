@@ -1,34 +1,34 @@
 'use client';
-import React from 'react';
 
-//It is for the tailwind to work with the dynamic classname
-const bgc1 = 'bg-white';
-const bgc2 = 'bg-black';
-const txtc1 = 'text-white';
-const txtc2 = 'text-black';
-const bold = 'font-bold';
+import * as React from 'react';
+
+import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 export default function LanguageSw() {
-  const [EN_TH, setEN_TH] = React.useState(true);
-  const toggle = () => {
-    setEN_TH(!EN_TH);
-    console.log(EN_TH);
-  };
-  return (
-    <div className="flex-1 border-red-700 border-">
-      <button
-        className={`${!EN_TH ? bgc1 : bgc2} ${EN_TH ? txtc1 : txtc2} disabled: px-5 py-3 rounded-l ${!EN_TH ? bold : ''}`}
-        onClick={toggle}
-      >
-        TH
-      </button>
+  const [language, setLanguage] = React.useState('English');
 
-      <button
-        className={`${EN_TH ? bgc1 : bgc2} ${!EN_TH ? txtc1 : txtc2} px-5 py-3 rounded-r ${EN_TH ? bold : ''}`}
-        onClick={toggle}
-      >
-        EN
-      </button>
-    </div>
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline">{language} &#9660;</Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-56">
+        <DropdownMenuLabel>Select Language</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuRadioGroup value={language} onValueChange={setLanguage}>
+          <DropdownMenuRadioItem value="English">English</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="ไทย">ไทย</DropdownMenuRadioItem>
+        </DropdownMenuRadioGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
