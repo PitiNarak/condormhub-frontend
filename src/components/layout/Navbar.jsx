@@ -16,7 +16,7 @@ const Header = () => {
           <LanguageSw />
         </div>
       </div>
-      <div className="flex-[4] flex">
+      <div className="flex-[4] flex text-center">
         <SelectedMenu text="Chat" path="/navigation/chat" />
         <SelectedMenu text="Setting" path="/navigation/setting" />
         <div className="flex-[5] flex text-center">
