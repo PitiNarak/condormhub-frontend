@@ -52,15 +52,15 @@ const UpdateInformationForm = ({ session }: { session: Session }) => {
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         noValidate
-        className="w-full flex flex-col justify-center items-center gap-10"
+        className="w-full max-w-3xl flex flex-col gap-10"
       >
-        <div className="md:grid md:grid-cols-2 justify-center w-max gap-6 flex flex-col">
+        <div className="justify-center w-full gap-6 flex flex-col">
           {/* Name Field */}
           <FormField
             control={form.control}
             name="name"
             render={({ field }) => (
-              <FormItem className="w-96">
+              <FormItem>
                 <FormLabel className="font-semibold">Name</FormLabel>
                 <FormControl>
                   <Input id="name" type="name" required {...field} />
@@ -75,7 +75,7 @@ const UpdateInformationForm = ({ session }: { session: Session }) => {
             control={form.control}
             name="phone"
             render={({ field }) => (
-              <FormItem className="w-96">
+              <FormItem>
                 <FormLabel className="font-semibold">Phone Number</FormLabel>
                 <FormControl>
                   <Input placeholder="e.g., 0123456789" required {...field} />
@@ -90,72 +90,14 @@ const UpdateInformationForm = ({ session }: { session: Session }) => {
             control={form.control}
             name="birthday"
             render={({ field }) => (
-              <FormItem className="w-96">
+              <FormItem>
                 <FormLabel className="font-semibold">Birthday</FormLabel>
                 <FormControl>
                   <Input required {...field} />
                 </FormControl>
-                <FormDescription>YYYY-MM-DD</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Province Field */}
-          <FormField
-            control={form.control}
-            name="province"
-            render={({ field }) => (
-              <FormItem className="w-96">
-                <FormLabel className="font-semibold">Province</FormLabel>
-                <FormControl>
-                  <Input required {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* District Field */}
-          <FormField
-            control={form.control}
-            name="district"
-            render={({ field }) => (
-              <FormItem className="w-96">
-                <FormLabel className="font-semibold">District</FormLabel>
-                <FormControl>
-                  <Input required {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Sub-District Field */}
-          <FormField
-            control={form.control}
-            name="subDistrict"
-            render={({ field }) => (
-              <FormItem className="w-96">
-                <FormLabel className="font-semibold">Sub-District</FormLabel>
-                <FormControl>
-                  <Input required {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Postal Code Field */}
-          <FormField
-            control={form.control}
-            name="postalCode"
-            render={({ field }) => (
-              <FormItem className="w-96">
-                <FormLabel className="font-semibold">Postal Code</FormLabel>
-                <FormControl>
-                  <Input required {...field} />
-                </FormControl>
+                <FormDescription>
+                  Format: &quot;YYYY-MM-DD&quot;
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
