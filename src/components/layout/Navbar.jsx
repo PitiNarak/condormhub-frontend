@@ -1,6 +1,7 @@
 import LanguageSw from '@/components/layout/LanguageSw';
 import Link from 'next/link';
 import { Bell, Search } from 'lucide-react';
+import SelectedMenu from './SelectedMenu';
 
 const Header = () => {
   return (
@@ -16,12 +17,8 @@ const Header = () => {
         </div>
       </div>
       <div className="flex-[4] flex">
-        <div className="flex-1 text-sm xl:text-base pr-5">
-          <Link href="#">Chat</Link>
-        </div>
-        <div className="flex-1 text-sm xl:text-base">
-          <Link href="#">Setting</Link>
-        </div>
+        <SelectedMenu text="Chat" path="/navigation/chat" />
+        <SelectedMenu text="Setting" path="/navigation/setting" />
         <div className="flex-[5] flex text-center">
           <div className="flex-[1]"></div>
           <div className="flex-1 justify-end m-auto flex">
@@ -29,9 +26,7 @@ const Header = () => {
               <Bell />
             </div>
           </div>
-          <div className="flex-1 text-sm xl:text-base">
-            <Link href="#">Profile</Link>
-          </div>
+          <SelectedMenu text="Profile" path="/navigation/profile" />
           <div className="pr-[2%]">
             <Search />
           </div>
