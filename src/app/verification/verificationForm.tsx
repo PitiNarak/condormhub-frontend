@@ -31,8 +31,11 @@ import {
 
 const formSchema = z.object({
   picture: z
-    .instanceof(FileList)
-    .refine((files) => files.length > 0, 'Image is required'),
+    .any()
+    .refine(
+      (files) => files instanceof FileList && files.length > 0,
+      'Image is required'
+    ),
 });
 
 export default function VerificationForm() {
