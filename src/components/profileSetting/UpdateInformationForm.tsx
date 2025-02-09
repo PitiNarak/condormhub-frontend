@@ -23,10 +23,6 @@ const formSchema = z.object({
     .length(10, { message: 'Phone number must be 10 digits long' })
     .regex(/^[0-9]+$/, { message: 'Phone number can only contain digits' }),
   birthday: z.string().date('Birthday must be in YYYY-MM-DD format'),
-  province: z.string(),
-  district: z.string(),
-  subDistrict: z.string(),
-  postalCode: z.string(),
 });
 
 const UpdateInformationForm = ({ session }: { session: Session }) => {
@@ -36,10 +32,6 @@ const UpdateInformationForm = ({ session }: { session: Session }) => {
       name: session.user.name,
       phone: '',
       birthday: '',
-      province: '',
-      district: '',
-      subDistrict: '',
-      postalCode: '',
     },
   });
 
