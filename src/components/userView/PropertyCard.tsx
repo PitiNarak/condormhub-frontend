@@ -5,7 +5,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
@@ -20,7 +19,7 @@ export default function PropertyCard() {
           Clickable Seller&apos;s Profile and Rating
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pb-3">
         <div className="flex">
           <div className="justify-center m-auto">
             <Image src="/image.jpeg" width={300} height={200} alt="Img"></Image>
@@ -30,13 +29,12 @@ export default function PropertyCard() {
             <p>32 sq.m.</p>
             <p>254 Phaya Thai Rd, Wang Mai, Pathum Wan, Bangkok 10330</p>
             <p>15,000 Baht</p>
-            <div className="mt-2">
-              <PropertyDetailButton />
-            </div>
           </div>
         </div>
+        <div className="mt-2 text-center md:text-end">
+          <PropertyDetailButton />
+        </div>
       </CardContent>
-      <CardFooter className="flex justify-between"></CardFooter>
     </Card>
   );
 }
