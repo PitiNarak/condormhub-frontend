@@ -10,7 +10,7 @@ const tags = Array.from({ length: 50 }).map(
 
 export function PropertyScroll() {
   return (
-    <ScrollArea className="h-[600px] w-9/12 rounded-md border items-center m-auto">
+    <ScrollArea className="h-[600px] w-9/12 max-w-[800px] rounded-md border items-center m-auto">
       <div className="p-4">
         <h4 className="mb-4 text-xl font-medium leading-none">No Filters</h4>
         {tags.map((tag) => (
