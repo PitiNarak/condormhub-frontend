@@ -104,18 +104,18 @@ export default function AdminView() {
                       </DialogTrigger>
                     </Dialog>
                   </TableCell>
-                  <TableCell className="space-x-2">
+                  <TableCell className="space-x-1">
                     <Button
                       variant="outline"
                       onClick={() => handleReview(student, 'accept')}
-                      className="text-green-500 border-green-500 hover:bg-green-500 hover:text-white w-6 h-6 p-0 rounded-full"
+                      className="text-green-500 border-green-500 hover:bg-green-500 hover:text-white w-7 h-7 p-0 rounded-lg"
                     >
                       <Check className="w-4 h-4" />
                     </Button>
                     <Button
                       variant="outline"
                       onClick={() => handleReview(student, 'reject')}
-                      className="text-red-500 border-red-500 hover:bg-red-500 hover:text-white w-6 h-6 p-0 rounded-full"
+                      className="text-red-500 border-red-500 hover:bg-red-500 hover:text-white w-7 h-7 p-0 rounded-lg"
                     >
                       <X className="w-4 h-4" />
                     </Button>
