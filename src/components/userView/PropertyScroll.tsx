@@ -18,7 +18,7 @@ export function PropertyScroll() {
             <div key={tag} className="text-sm">
               <PropertyCard />
             </div>
-            <Separator className="my-2" />
+            <Separator className="my-4" />
           </>
         ))}
       </div>
