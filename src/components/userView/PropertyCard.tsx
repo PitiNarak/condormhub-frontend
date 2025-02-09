@@ -24,7 +24,7 @@ export default function PropertyCard() {
           <div className="justify-center m-auto">
             <Image src="/image.jpeg" width={300} height={200} alt="Img"></Image>
           </div>
-          <div className="ml-11 hidden md:block">
+          <div className="flex-1 ml-11 text-start hidden md:block">
             <p>2 Bed 2 Bath</p>
             <p>32 sq.m.</p>
             <p>254 Phaya Thai Rd, Wang Mai, Pathum Wan, Bangkok 10330</p>
