@@ -17,7 +17,10 @@ import { Button } from '../ui/button';
 import { Session } from 'next-auth';
 
 const formSchema = z.object({
-  name: z.string(),
+  username: z
+    .string()
+    .min(2, { message: 'Username must be at least 2 characters.' }),
+  name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
   phone: z
     .string()
     .length(10, { message: 'Phone number must be 10 digits long' })
@@ -29,6 +32,7 @@ const UpdateInformationForm = ({ session }: { session: Session }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      username: '',
       name: session.user.name,
       phone: '',
       birthday: '',
@@ -47,6 +51,23 @@ const UpdateInformationForm = ({ session }: { session: Session }) => {
         className="w-full max-w-3xl flex flex-col gap-10"
       >
         <div className="justify-center w-full gap-6 flex flex-col">
+          {/* Username Field */}
+          <FormField
+            control={form.control}
+            name="username"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-semibold">Username</FormLabel>
+                <FormControl>
+                  <Input required {...field} />
+                </FormControl>
+                <FormDescription>
+                  This is your public display name.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           {/* Name Field */}
           <FormField
             control={form.control}
@@ -55,7 +76,7 @@ const UpdateInformationForm = ({ session }: { session: Session }) => {
               <FormItem>
                 <FormLabel className="font-semibold">Name</FormLabel>
                 <FormControl>
-                  <Input id="name" type="name" required {...field} />
+                  <Input required {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
