@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Button } from '@/components/ui/button';
+import { PropertyDetailButton } from './PropertyDetail';
 import {
   Card,
   CardContent,
@@ -26,12 +26,12 @@ export default function PropertyCard() {
             <Image src="/image.jpeg" width={300} height={200} alt="Img"></Image>
           </div>
           <div className="ml-11">
-            <p>Bedroom Bathroom</p>
-            <p>Size</p>
-            <p>Location</p>
-            <p>Price</p>
+            <p>2 Bed 2 Bath</p>
+            <p>32 sq.m.</p>
+            <p>254 Phaya Thai Rd, Wang Mai, Pathum Wan, Bangkok 10330</p>
+            <p>15,000 Baht</p>
             <div className="mt-2">
-              <Button>See Details</Button>
+              <PropertyDetailButton />
             </div>
           </div>
         </div>
