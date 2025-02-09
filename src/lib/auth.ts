@@ -7,6 +7,8 @@ import { getServerSession, NextAuthOptions, User } from 'next-auth';
 import { DefaultJWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
+const BACKEND_URL = '';
+
 declare module 'next-auth' {
   interface Session {
     user: {
@@ -57,16 +59,30 @@ export const nextAuthConfig = {
       },
       authorize: async (credentials) => {
         if (!credentials) return null;
-        //waiting for backend implementation
-        console.log(credentials);
-        return {
-          id: '1',
-          name: 'John Doe',
-          email: credentials.email || '',
-          access_token: 'ACCESS_TOKEN',
-          refresh_token: 'REFRESH_TOKEN',
-          access_token_expired: Date.now() + 3600 * 1000,
-        };
+        try {
+          console.log(credentials);
+          const response = await fetch(`${BACKEND_URL}/user/login`, {
+            method: 'POST',
+            body: JSON.stringify(credentials),
+          });
+          const data = await response.json();
+          console.log(data.message);
+          if (data.success) {
+            return {
+              id: '1',
+              name: 'John Doe',
+              email: credentials.email || '',
+              access_token: 'ACCESS_TOKEN',
+              refresh_token: 'REFRESH_TOKEN',
+              access_token_expired: Date.now() + 3600 * 1000,
+            };
+          } else {
+            throw new Error('No user in the database');
+          }
+        } catch (e) {
+          console.error(e);
+          return null;
+        }
       },
     }),
   ],
