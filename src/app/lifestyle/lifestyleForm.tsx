@@ -68,7 +68,7 @@ export default function LifestyleForm() {
                     key={tag.id}
                     className={`cursor-pointer px-3 py-1 rounded-lg transition-all ${
                       selectedTags.some((t) => t.id === tag.id)
-                        ? 'bg-gray-300 text-gray-700 pointer-events-none'
+                        ? 'bg-gray-300 text-gray-700 hover:bg-gray-300 cursor-not-allowed'
                         : 'bg-blue-500 text-white hover:bg-blue-700'
                     }`}
                     onClick={() => addTag(tag)}
