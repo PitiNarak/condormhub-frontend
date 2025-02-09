@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-
+import { Check, X } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   Table,
@@ -108,14 +108,16 @@ export default function AdminView() {
                     <Button
                       variant="outline"
                       onClick={() => handleReview(student, 'accept')}
+                      className="text-green-500 border-green-500 hover:bg-green-500 hover:text-white w-6 h-6 p-0 rounded-full"
                     >
-                      Accept
+                      <Check className="w-4 h-4" />
                     </Button>
                     <Button
-                      variant="destructive"
+                      variant="outline"
                       onClick={() => handleReview(student, 'reject')}
+                      className="text-red-500 border-red-500 hover:bg-red-500 hover:text-white w-6 h-6 p-0 rounded-full"
                     >
-                      Reject
+                      <X className="w-4 h-4" />
                     </Button>
                   </TableCell>
                 </TableRow>
