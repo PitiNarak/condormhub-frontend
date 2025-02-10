@@ -1,7 +1,5 @@
 import PropertyCard from './PropertyCard';
-const tags = Array.from({ length: 50 }).map(
-  (_, i, a) => `v1.2.0-beta.${a.length - i}`
-);
+import { mockData } from '../example/mockdata';
 
 export function PropertyScroll() {
   return (
@@ -10,10 +8,19 @@ export function PropertyScroll() {
         No Filters
       </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mx-5">
-        {tags.map((tag) => (
+        {mockData.map((data) => (
           <>
-            <div key={tag} className="text-sm">
-              <PropertyCard />
+            <div key={data.id} className="text-sm">
+              <PropertyCard 
+                image = {data.image}
+                owner = {data.owner}
+                rating = {data.rating}
+                bedroom = {data.bedroom}
+                bathroom = {data.bathroom}
+                province = {data.province}
+                district = {data.district}
+                price = {data.price}
+              />
             </div>
           </>
         ))}
