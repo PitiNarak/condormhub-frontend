@@ -53,8 +53,10 @@ export default function PropertyCard({
               </p>
               <p>{price} Baht</p>
             </div>
-            <div className="justify-end m-auto content-end">
-              <PropertyDetailButton />
+            <div className="flex-1 relative">
+              <div className="absolute bottom-0 right-0">
+                <PropertyDetailButton />
+              </div>
             </div>
           </div>
         </div>
