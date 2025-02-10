@@ -1,14 +1,3 @@
-interface PropertyProp {
-  image: string;
-  owner: string;
-  rating: number;
-  bedroom: number;
-  bathroom: number;
-  province: string;
-  district: string;
-  price: number;
-}
-
 class Property {
   id = 0;
   image = '';
