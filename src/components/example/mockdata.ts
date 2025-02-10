@@ -64,4 +64,26 @@ export const mockData = [
     'Pathumwan',
     20000
   ),
+  new Property(
+    4,
+    '/image.jpeg',
+    'Piti3',
+    4.6,
+    7,
+    12,
+    'Bangkok',
+    'Pathumwan',
+    200000
+  ),
+  new Property(
+    5,
+    '/image.jpeg',
+    'Piti5',
+    4.8,
+    9,
+    11,
+    'Bangkok',
+    'Pathumwan',
+    45000
+  ),
 ];
