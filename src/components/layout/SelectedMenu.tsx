@@ -12,7 +12,7 @@ const SelectedMenu = ({ text, path }: SelectedMenuProp) => {
   console.log(pathname);
   return (
     <div
-      className={`flex-1 text-sm xl:text-base pr-5 text-center ${path === pathname ? 'underline' : ''}`}
+      className={`flex-1 text-sm xl:text-base pr-5 text-center font-bold ${path === pathname ? 'underline' : ''}`}
     >
       <Link href={path}>{text}</Link>
     </div>
