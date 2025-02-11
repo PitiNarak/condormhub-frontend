@@ -86,4 +86,114 @@ export const mockData = [
     'Pathumwan',
     45000
   ),
+  new Property(
+    6,
+    '/image.jpeg',
+    'Piti5',
+    4.8,
+    9,
+    11,
+    'Bangkok',
+    'Pathumwan',
+    45000
+  ),
+  new Property(
+    7,
+    '/image.jpeg',
+    'Piti5',
+    4.8,
+    9,
+    11,
+    'Bangkok',
+    'Pathumwan',
+    45000
+  ),
+  new Property(
+    8,
+    '/image.jpeg',
+    'Piti5',
+    4.8,
+    9,
+    11,
+    'Bangkok',
+    'Pathumwan',
+    45000
+  ),
+  new Property(
+    9,
+    '/image.jpeg',
+    'Piti5',
+    4.8,
+    9,
+    11,
+    'Bangkok',
+    'Pathumwan',
+    45000
+  ),
+  new Property(
+    10,
+    '/image.jpeg',
+    'Piti5',
+    4.8,
+    9,
+    11,
+    'Bangkok',
+    'Pathumwan',
+    45000
+  ),
+  new Property(
+    11,
+    '/image.jpeg',
+    'Piti5',
+    4.8,
+    9,
+    11,
+    'Bangkok',
+    'Pathumwan',
+    45000
+  ),
+  new Property(
+    12,
+    '/image.jpeg',
+    'Piti5',
+    4.8,
+    9,
+    11,
+    'Bangkok',
+    'Pathumwan',
+    45000
+  ),
+  new Property(
+    13,
+    '/image.jpeg',
+    'Piti5',
+    4.8,
+    9,
+    11,
+    'Bangkok',
+    'Pathumwan',
+    45000
+  ),
+  new Property(
+    14,
+    '/image.jpeg',
+    'Paew',
+    9.0,
+    1,
+    11,
+    'Bangkok',
+    'Pathumwan',
+    50000
+  ),
+  new Property(
+    15,
+    '/image.jpeg',
+    'Jump',
+    3.0,
+    3,
+    4,
+    'Bangkok',
+    'Pathumwan',
+    90000
+  ),
 ];
