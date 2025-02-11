@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/dialog';
 import PropertyCard from './PropertyCard';
 import { PropertyI } from '../dataClass/property';
+import { displayPrice } from '../dataClass/display';
 
 export function PropertyDetail({
   image,
@@ -54,7 +55,7 @@ export function PropertyDetail({
           </DialogDescription>
         </DialogHeader>
         <div>
-          <p>Price : {price}</p>
+          <p>Price : {displayPrice(price)}</p>
         </div>
         <DialogFooter>
           <Button>Contact</Button>

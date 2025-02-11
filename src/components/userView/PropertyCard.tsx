@@ -3,6 +3,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import Image from 'next/image';
 import { Star } from 'lucide-react';
 import { MiniPropertyI } from '../dataClass/property';
+import { displayPrice } from '../dataClass/display';
 
 export default function PropertyCard({
   image,
@@ -36,7 +37,7 @@ export default function PropertyCard({
               <p>
                 {bedroom} Bed {bathroom} Bath
               </p>
-              <p>{price} Baht</p>
+              <p>{displayPrice(price)} Baht</p>
             </div>
             <div className="flex-1 relative">
               <div className="absolute top-0 right-0 flex ">
