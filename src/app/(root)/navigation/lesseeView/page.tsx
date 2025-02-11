@@ -2,7 +2,7 @@ import { PropertyScroll } from '@/components/userView/PropertyScroll';
 
 export default function Page() {
   return (
-    <div className="pt-14">
+    <div className="">
       <div className="text-center text-3xl font-bold">
         <p>Properties</p>
       </div>

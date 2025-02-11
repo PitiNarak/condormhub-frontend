@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { buttonVariants } from '@/components/ui/button';
 export default function Home() {
   return (
-    <div className="mt-12">
+    <div className="">
       <h1 className="p-2 text-2xl font-bold">Where do you want to go</h1>
       <div className="block p-2">
         <Link
