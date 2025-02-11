@@ -1,4 +1,4 @@
-import PropertyCard from './PropertyCard';
+import { PropertyDetail } from './PropertyDetail';
 import { mockData } from '../example/mockdata';
 
 export function PropertyScroll() {
@@ -11,15 +11,18 @@ export function PropertyScroll() {
         {mockData.map((data) => (
           <>
             <div key={data.id} className="text-sm">
-              <PropertyCard
+              <PropertyDetail
                 image={data.image}
-                owner={data.owner}
                 rating={data.rating}
                 bedroom={data.bedroom}
                 bathroom={data.bathroom}
                 province={data.province}
                 district={data.district}
                 price={data.price}
+                propertyName={data.propertyName}
+                owner={data.owner}
+                size={data.size}
+                description={data.description}
               />
             </div>
           </>

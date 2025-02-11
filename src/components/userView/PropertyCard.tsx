@@ -1,30 +1,19 @@
 import * as React from 'react';
-import { PropertyDetailButton } from './PropertyDetail';
 import { Card, CardContent } from '@/components/ui/card';
 import Image from 'next/image';
 import { Star } from 'lucide-react';
-interface PropertyProp {
-  image: string;
-  owner: string;
-  rating: number;
-  bedroom: number;
-  bathroom: number;
-  province: string;
-  district: string;
-  price: number;
-}
+import { MiniPropertyI } from '../dataClass/property';
 
 export default function PropertyCard({
   image,
-  owner,
   rating,
   bedroom,
   bathroom,
+  propertyName,
   province,
   district,
   price,
-}: PropertyProp) {
-  console.log(owner);
+}: MiniPropertyI) {
   return (
     <Card className="w-full shadow-none border-none">
       <CardContent className="pb-3 px-0">
@@ -40,6 +29,7 @@ export default function PropertyCard({
           </div>
           <div className="flex">
             <div className="pl-2">
+              <p className="font-bold text-lg">{propertyName}</p>
               <p className="font-bold">
                 {district}, {province}
               </p>
@@ -52,9 +42,6 @@ export default function PropertyCard({
               <div className="absolute top-0 right-0 flex ">
                 <p className="content-center">{rating}&nbsp;</p>
                 <Star size={18} />
-              </div>
-              <div className="absolute bottom-0 right-0">
-                <PropertyDetailButton />
               </div>
             </div>
           </div>

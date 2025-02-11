@@ -8,22 +8,53 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import PropertyCard from './PropertyCard';
+import { PropertyI } from '../dataClass/property';
 
-export function PropertyDetailButton() {
+export function PropertyDetail({
+  image,
+  rating,
+  bedroom,
+  bathroom,
+  province,
+  district,
+  price,
+  propertyName,
+  owner,
+  size,
+  description,
+}: PropertyI) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">See Details</Button>
+        <PropertyCard
+          image={image}
+          rating={rating}
+          bedroom={bedroom}
+          bathroom={bathroom}
+          propertyName={propertyName}
+          province={province}
+          district={district}
+          price={price}
+        />
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Property Detail</DialogTitle>
+          <DialogTitle>{propertyName}</DialogTitle>
           <DialogDescription>
-            This is the detail of the property.
+            <p>Bedroom : {bedroom}</p>
+            <p>Bathroom : {bathroom}</p>
+            <p>
+              Location : {province}, {district}
+            </p>
+            <p>Size : {size} sq.m.</p>
+            <p>Own by {owner}</p>
+            <p>Description :</p>
+            <p>&emsp;{description}</p>
           </DialogDescription>
         </DialogHeader>
         <div>
-          <p>Details</p>
+          <p>Price : {price}</p>
         </div>
         <DialogFooter>
           <Button>Contact</Button>
