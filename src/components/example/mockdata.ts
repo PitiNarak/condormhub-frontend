@@ -1,6 +1,6 @@
 import { Property } from '../dataClass/property';
 
-export const mockData = [
+const mockArray = [
   new Property(
     1,
     '/image.jpeg',
@@ -198,3 +198,5 @@ export const mockData = [
     'This is condo opposite of Samyam Mitrtown'
   ),
 ];
+
+export const mockData = JSON.stringify(mockArray);

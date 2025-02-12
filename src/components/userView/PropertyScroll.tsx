@@ -1,17 +1,20 @@
 import { PropertyDetail } from './PropertyDetail';
 import { mockData } from '../example/mockdata';
+import { PropertyI } from '../dataClass/property';
 
 export function PropertyScroll() {
+  const propertyData = JSON.parse(mockData);
   return (
     <div className="shadow-md border border-gray-100 pt-14 pb-12">
       <p className="block text-center text-lg w-[150px] mb-8 ml-2 rounded-2xl border border-gray-400">
         No Filters
       </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mx-5">
-        {mockData.map((data) => (
+        {propertyData.map((data: PropertyI) => (
           <>
-            <div key={data.id} className="text-sm">
+            <div key={String(data.id)} className="text-sm">
               <PropertyDetail
+                id={data.id}
                 image={data.image}
                 rating={data.rating}
                 bedroom={data.bedroom}

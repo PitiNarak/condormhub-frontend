@@ -41,6 +41,7 @@ export class Property {
 }
 
 export interface PropertyI {
+  id: number;
   image: string;
   rating: number;
   bedroom: number;
