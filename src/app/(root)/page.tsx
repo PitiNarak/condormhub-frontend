@@ -14,7 +14,7 @@ export default function Home() {
       </div>
       <div className="block p-2">
         <Link
-          href="/navigation/lesseeView"
+          href="/home/lesseeView"
           className={buttonVariants({ variant: 'default' })}
         >
           Lessee Page
