@@ -40,6 +40,7 @@ const UpdateInformationForm = ({ session }: { session: Session }) => {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    //TODO when submit
     console.log(values);
   }
 
