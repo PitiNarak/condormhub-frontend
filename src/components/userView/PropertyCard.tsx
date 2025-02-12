@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import Image from 'next/image';
 import { Star } from 'lucide-react';
-import { MiniPropertyI } from '../dataClass/property';
-import { displayPrice } from '../dataClass/display';
+import { MiniPropertyI } from '../../utility/types/property';
+import { displayPrice } from '../../utility/function/display';
 
 export default function PropertyCard({
   image,

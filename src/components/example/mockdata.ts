@@ -1,4 +1,4 @@
-import { Property } from '../dataClass/property';
+import { Property } from '../../utility/types/property';
 
 const mockArray = [
   new Property(
