@@ -1,6 +1,6 @@
 import { PropertyScroll } from '@/components/userView/PropertyScroll';
 
-export default function Page() {
+export default async function Page() {
   return (
     <div className="">
       <div className="text-center text-3xl font-bold">
