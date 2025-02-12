@@ -1,4 +1,4 @@
-import { Property } from '../../utility/types/property';
+import { Property } from '../../types/property';
 
 const mockArray = [
   new Property(

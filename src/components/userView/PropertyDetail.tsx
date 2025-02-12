@@ -9,8 +9,8 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import PropertyCard from './PropertyCard';
-import { PropertyI } from '../../utility/types/property';
-import { displayPrice } from '../../utility/function/display';
+import { PropertyI } from '../../types/property';
+import { displayPrice } from '../../function/display';
 
 export function PropertyDetail({
   image,
