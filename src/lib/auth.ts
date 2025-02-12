@@ -7,23 +7,18 @@ import { getServerSession, NextAuthOptions, User } from 'next-auth';
 import { DefaultJWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-const BACKEND_URL = '';
-
 declare module 'next-auth' {
   interface Session {
     user: {
       id: string;
       name: string;
       email: string;
+      phone: string;
     };
-    access_token?: string;
-    refresh_token?: string;
-    access_token_expired?: number;
+    accessToken?: string;
   }
   interface User {
-    access_token: string;
-    refresh_token: string;
-    access_token_expired?: number;
+    accessToken: string;
   }
 }
 
@@ -38,13 +33,13 @@ declare module 'next-auth/jwt' {
 }
 
 // Simulate an actual token refresh request
-async function refreshToken() {
-  return {
-    access_token: 'NEW_ACCESS_TOKEN',
-    refresh_token: 'NEW_REFRESH_TOKEN',
-    access_token_expired: Date.now() + 3600 * 1000,
-  };
-}
+// async function refreshToken() {
+//   return {
+//     access_token: 'NEW_ACCESS_TOKEN',
+//     refresh_token: 'NEW_REFRESH_TOKEN',
+//     access_token_expired: Date.now() + 3600 * 1000,
+//   };
+// }
 
 export const nextAuthConfig = {
   providers: [
@@ -60,23 +55,31 @@ export const nextAuthConfig = {
       authorize: async (credentials) => {
         if (!credentials) return null;
         try {
-          console.log(credentials);
-          const response = await fetch(`${BACKEND_URL}/user/login`, {
-            method: 'POST',
-            body: JSON.stringify(credentials),
-          });
-          const data = await response.json();
-          console.log(data.message);
-          if (data.success) {
+          const response = await fetch(
+            `${process.env.BACKEND_URL}/auth/login`,
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                email: credentials.email,
+                password: credentials.password,
+              }),
+            }
+          );
+          const d = await response.json();
+          const data = d.data;
+          console.log(data.userInformation.isVerified);
+          if (d.success) {
             return {
-              id: '1',
-              name: 'John Doe',
+              id: data.userInformation.id,
+              // name: data.userInformation.firstname,
               email: credentials.email || '',
-              access_token: 'ACCESS_TOKEN',
-              refresh_token: 'REFRESH_TOKEN',
-              access_token_expired: Date.now() + 3600 * 1000,
+              accessToken: data.accessToken,
             };
           } else {
+            console.log(response.status);
             throw new Error('No user in the database');
           }
         } catch (e) {
@@ -90,31 +93,27 @@ export const nextAuthConfig = {
     jwt: async ({ token, user }) => {
       if (user) {
         token.user = user;
-        token.access_token = user.access_token;
-        token.refresh_token = user.refresh_token;
-        token.access_token_expired = user.access_token_expired;
+        token.accessToken = user.accessToken;
       }
 
-      if (
-        token.access_token_expired &&
-        token.access_token_expired < Date.now()
-      ) {
-        const refreshed = await refreshToken();
+      // if (
+      //   token.access_token_expired &&
+      //   token.access_token_expired < Date.now()
+      // ) {
+      //   const refreshed = await refreshToken();
 
-        token.access_token = refreshed.access_token;
-        token.refresh_token = refreshed.refresh_token;
-        token.access_token_expired = refreshed.access_token_expired;
-        token.user.access_token = refreshed.access_token;
-        token.user.refresh_token = refreshed.refresh_token;
-        token.user.access_token_expired = refreshed.access_token_expired;
-      }
+      //   token.access_token = refreshed.access_token;
+      //   token.refresh_token = refreshed.refresh_token;
+      //   token.access_token_expired = refreshed.access_token_expired;
+      //   token.user.access_token = refreshed.access_token;
+      //   token.user.refresh_token = refreshed.refresh_token;
+      //   token.user.access_token_expired = refreshed.access_token_expired;
+      // }
 
       return token;
     },
     session: async ({ session, token }) => {
-      session.access_token = token.access_token;
-      session.refresh_token = token.refresh_token;
-      session.access_token_expired = token.access_token_expired;
+      session.accessToken = token.access_token;
       session.user.id = token.user.id;
       return session;
     },
