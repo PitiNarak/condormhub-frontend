@@ -41,8 +41,8 @@ export function PropertyDetail({
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>{propertyName}</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className="text-left">{propertyName}</DialogTitle>
+          <DialogDescription className="text-left">
             <p>Bedroom : {bedroom}</p>
             <p>Bathroom : {bathroom}</p>
             <p>
