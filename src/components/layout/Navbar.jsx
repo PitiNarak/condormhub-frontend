@@ -9,27 +9,24 @@ const Header = () => {
       <div className="text-center flex-row px-[2%]">
         <div className="flex-1">
           <Link href="/">
-            <p className="text-xl font-extrabold">ConDormHub</p>
+            <p className="text-lg md:text-xl font-extrabold">ConDormHub</p>
           </Link>
         </div>
         <div className="flex-1">
           <LanguageSw />
         </div>
       </div>
-      <div className="flex-[4] flex text-center">
+      <div className="sm:flex-[1] md:flex-[2] xl:flex-[3]"></div>
+      <div className="flex-[3] flex text-center">
         <SelectedMenu text="Chat" path="/navigation/chat" />
         <SelectedMenu text="Setting" path="/navigation/setting" />
-        <div className="flex-[5] flex text-center">
-          <div className="flex-[1]"></div>
-          <div className="flex-1 justify-end m-auto flex">
-            <div className="">
-              <Bell />
-            </div>
-          </div>
-          <SelectedMenu text="Profile" path="/navigation/profile" />
-          <div className="pr-[2%]">
-            <Search />
-          </div>
+        <SelectedMenu text="Profile" path="/navigation/profile" />
+        <div className="flex-1 justify-center m-auto flex">
+          <Bell />
+        </div>
+
+        <div className="flex-1 justify-center m-auto flex">
+          <Search />
         </div>
       </div>
     </div>
