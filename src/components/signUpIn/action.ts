@@ -15,9 +15,16 @@ export const sendRegistration = async (
       throw new Error('TEST ERROR ' + Date.now());
     }
 
-    const response = await fetch('#', {
+    const response = await fetch(`${process.env.BACKEND_URL}/auth/register`, {
       method: 'POST',
-      body: JSON.stringify(objectUser),
+      body: JSON.stringify({
+        email: objectUser.email,
+        username: objectUser.username,
+        password: objectUser.password,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
     // Handle response if necessary
     const data = await response.json();
