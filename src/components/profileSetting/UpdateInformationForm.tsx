@@ -15,6 +15,7 @@ import {
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { Session } from 'next-auth';
+import { redirect } from 'next/navigation';
 
 const formSchema = z.object({
   username: z
@@ -40,6 +41,7 @@ const UpdateInformationForm = ({ session }: { session: Session }) => {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    //TODO when submit
     console.log(values);
   }
 
@@ -116,11 +118,22 @@ const UpdateInformationForm = ({ session }: { session: Session }) => {
             )}
           />
 
-          {/* Submit Button */}
+          {/* Submit Button and Back Button*/}
         </div>
-        <Button type="submit" className="w-44">
-          Save Changes
-        </Button>
+        <div className="flex gap-4">
+          <Button type="submit" className="w-44">
+            Save Changes
+          </Button>
+          <Button
+            type="button"
+            className="w-44 bg-red-500"
+            onClick={() => redirect('/profile')}
+          >
+            {' '}
+            {/*redirect to profile page*/}
+            Cancel
+          </Button>
+        </div>
       </form>
     </Form>
   );
