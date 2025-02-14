@@ -11,9 +11,7 @@ declare module 'next-auth' {
   interface Session {
     user: {
       id: string;
-      name: string;
       email: string;
-      phone: string;
     };
     accessToken?: string;
   }
@@ -25,9 +23,9 @@ declare module 'next-auth' {
 declare module 'next-auth/jwt' {
   interface JWT extends DefaultJWT {
     id: string;
-    access_token?: string;
-    refresh_token?: string;
-    access_token_expired?: number;
+    accessToken?: string;
+    // refresh_token?: string;
+    // access_token_expired?: number;
     user: User;
   }
 }
@@ -70,17 +68,16 @@ export const nextAuthConfig = {
           );
           const d = await response.json();
           const data = d.data;
-          console.log(data.userInformation.isVerified);
+          console.log(data.accessToken);
           if (d.success) {
             return {
               id: data.userInformation.id,
-              // name: data.userInformation.firstname,
               email: credentials.email || '',
               accessToken: data.accessToken,
             };
           } else {
             console.log(response.status);
-            throw new Error('No user in the database');
+            throw new Error(d.message);
           }
         } catch (e) {
           console.error(e);
@@ -113,7 +110,7 @@ export const nextAuthConfig = {
       return token;
     },
     session: async ({ session, token }) => {
-      session.accessToken = token.access_token;
+      session.accessToken = token.accessToken;
       session.user.id = token.user.id;
       return session;
     },

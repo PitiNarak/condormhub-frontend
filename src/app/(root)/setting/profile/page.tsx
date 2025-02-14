@@ -26,7 +26,7 @@ const page = async () => {
             <ChangeEmailDialog />
           </div>
         </div>
-        <UpdateInformationForm session={session} />
+        <UpdateInformationForm />
         <div className="flex flex-col gap-3 max-w-3xl w-full">
           <h1 className="text-2xl pt-3 font-semibold text-red-500">
             Delete account
