@@ -68,7 +68,6 @@ export const nextAuthConfig = {
           );
           const d = await response.json();
           const data = d.data;
-          console.log(data.accessToken);
           if (d.success) {
             return {
               id: data.userInformation.id,
@@ -80,8 +79,9 @@ export const nextAuthConfig = {
             throw new Error(d.message);
           }
         } catch (e) {
-          console.error(e);
-          return null;
+          throw new Error(
+            e instanceof Error ? e.message : 'An unknown error occurred'
+          );
         }
       },
     }),

@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/form';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Input must be in Email format' }),
@@ -21,6 +22,8 @@ const formSchema = z.object({
 });
 
 export function LoginForm() {
+  const [errorMessage, setErrorMessage] = useState('');
+
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -32,20 +35,17 @@ export function LoginForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     const result = await signIn('credentials', {
       email: values.email,
       password: values.password,
       redirect: false,
     });
     if (result?.error) {
-      console.error('Login failed:', result.error);
+      console.log('Login failed:', result.error);
+      setErrorMessage(result.error);
     } else {
       router.push('/home'); // Redirect to a protected page
-      // console.log(values);
     }
-    // console.log(values);
   }
 
   return (
@@ -92,6 +92,9 @@ export function LoginForm() {
               </FormItem>
             )}
           />
+          {errorMessage && (
+            <p className="text-red-500 text-sm">{errorMessage}</p>
+          )}
           <Button type="submit" className="w-full">
             Login
           </Button>
