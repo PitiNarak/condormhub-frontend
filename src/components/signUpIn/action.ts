@@ -28,7 +28,9 @@ export const sendRegistration = async (
     });
     // Handle response if necessary
     const data = await response.json();
-    console.log(data);
+    if (!data.success) {
+      return { message: data.message };
+    }
   } catch (e: unknown) {
     if (e instanceof Error) {
       return { message: e.message };

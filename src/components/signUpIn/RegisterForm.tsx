@@ -6,6 +6,7 @@ import * as z from 'zod';
 import { Button } from '@/components/ui/button';
 import { Mail, Lock, User } from 'lucide-react';
 import { sendRegistration } from './action';
+import Toast from 'typescript-toastify';
 
 import {
   Form,
@@ -17,6 +18,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import InputWithIcon from '@/components/signUpIn/InputWithIconProp';
+import { useRouter } from 'next/navigation';
 
 const formSchema = z
   .object({
@@ -36,6 +38,7 @@ const formSchema = z
   });
 
 export default function MyForm() {
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -50,8 +53,23 @@ export default function MyForm() {
     console.log(values);
     try {
       const result = await sendRegistration(values);
-      if (result && result.message) {
-        console.log(result.message);
+      if (result && result.message !== 'user successfully registered') {
+        //Tell user why
+        const toast = new Toast({
+          position: 'top-right',
+          toastMsg: result.message,
+          autoCloseTime: 2000,
+          canClose: true,
+          showProgress: true,
+          pauseOnHover: true,
+          pauseOnFocusLoss: true,
+          type: 'default',
+          theme: 'light',
+        });
+        console.log(toast);
+      } else {
+        //Redirect to email verification
+        router.push('/');
       }
     } catch (e: unknown) {
       console.log(e);
