@@ -6,7 +6,7 @@ import * as z from 'zod';
 import { Button } from '@/components/ui/button';
 import { Mail, Lock, User } from 'lucide-react';
 import { sendRegistration } from './action';
-import Toast from 'typescript-toastify';
+import { useState } from 'react';
 
 import {
   Form,
@@ -39,6 +39,7 @@ const formSchema = z
 
 export default function MyForm() {
   const router = useRouter();
+  const [err, setErr] = useState('');
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -53,20 +54,10 @@ export default function MyForm() {
     console.log(values);
     try {
       const result = await sendRegistration(values);
+      setErr('');
       if (result && result.message !== 'user successfully registered') {
         //Tell user why
-        const toast = new Toast({
-          position: 'top-right',
-          toastMsg: result.message,
-          autoCloseTime: 2000,
-          canClose: true,
-          showProgress: true,
-          pauseOnHover: true,
-          pauseOnFocusLoss: true,
-          type: 'default',
-          theme: 'light',
-        });
-        console.log(toast);
+        setErr(result.message);
       } else {
         //Redirect to email verification
         router.push('/');
@@ -163,6 +154,9 @@ export default function MyForm() {
             </FormItem>
           )}
         />
+        <div>
+          <p className="text-red-500 font-extralight text-sm">{err}</p>
+        </div>
         <div>
           <Button className="w-full mt-3" type="submit">
             Sign Up
