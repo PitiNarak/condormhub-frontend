@@ -13,7 +13,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import { Textarea } from '../ui/textarea';
 
 const FormSchema = z.object({
@@ -44,7 +43,7 @@ export function RequestForm() {
             <FormItem>
               <FormLabel>Proposal :</FormLabel>
               <FormControl>
-                <Textarea placeholder="" className='resize-none' {...field} />
+                <Textarea placeholder="" className="resize-none" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
