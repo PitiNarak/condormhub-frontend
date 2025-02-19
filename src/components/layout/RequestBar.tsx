@@ -11,8 +11,9 @@ export default function RequestBar({
   requestUser,
   propName,
 }: notification) {
+  console.log(requestId);
   return (
-    <div key={requestId} className="grid grid-cols-[1fr_2fr_2fr]">
+    <div className="grid grid-cols-[1fr_2fr_2fr]">
       <div className="text-right">
         <p>{propName}</p>
         <p className="text-xs text-gray-500">{requestUser}</p>
