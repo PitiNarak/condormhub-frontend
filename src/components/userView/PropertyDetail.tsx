@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -11,6 +10,7 @@ import {
 import PropertyCard from './PropertyCard';
 import { PropertyI } from '../../types/property';
 import { displayPrice } from '../../function/display';
+import { RequestBtn } from './RequestBtn';
 
 export function PropertyDetail({
   image,
@@ -58,7 +58,7 @@ export function PropertyDetail({
           <p>Price : {displayPrice(price)}</p>
         </div>
         <DialogFooter>
-          <Button>Contact</Button>
+          <RequestBtn />
         </DialogFooter>
       </DialogContent>
     </Dialog>
