@@ -1,6 +1,6 @@
-import { PropertyDetail } from './PropertyDetail';
+import { PropertyDetail } from '@/components/userView/PropertyDetail';
 import { mockData } from '../example/mockdata';
-import { PropertyI } from '../../types/property';
+import { PropertyI } from '@/types/property';
 
 export function PropertyScroll() {
   const propertyData = JSON.parse(mockData);

@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Button } from '@/components/ui/button';
 import { Mail, Lock, User } from 'lucide-react';
-import { sendRegistration } from './action';
+import { sendRegistration } from '@/components/signUpIn/action';
 import { useState } from 'react';
 
 import {
