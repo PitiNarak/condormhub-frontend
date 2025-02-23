@@ -35,13 +35,13 @@ declare module 'next-auth/jwt' {
 }
 
 // Simulate an actual token refresh request
-async function refreshToken() {
-  return {
-    access_token: 'NEW_ACCESS_TOKEN',
-    refresh_token: 'NEW_REFRESH_TOKEN',
-    access_token_expired: Date.now() + 3600 * 1000,
-  };
-}
+// async function refreshToken() {
+//   return {
+//     access_token: 'NEW_ACCESS_TOKEN',
+//     refresh_token: 'NEW_REFRESH_TOKEN',
+//     access_token_expired: Date.now() + 3600 * 1000,
+//   };
+// }
 
 export const nextAuthConfig = {
   providers: [
@@ -105,16 +105,18 @@ export const nextAuthConfig = {
         token.access_token_expired &&
         token.access_token_expired < Date.now()
       ) {
-        const refreshed = await refreshToken();
+        // const refreshed = await refreshToken();
 
-        token.access_token = refreshed.access_token;
-        token.refresh_token = refreshed.refresh_token;
-        token.access_token_expired = refreshed.access_token_expired;
+        // token.access_token = refreshed.access_token;
+        // token.refresh_token = refreshed.refresh_token;
+        // token.access_token_expired = refreshed.access_token_expired;
+        return {} as typeof token;
       }
 
       return token;
     },
     session: async ({ session, token }) => {
+      if (!token) return {} as typeof session;
       session.access_token = token.access_token;
       session.refresh_token = token.refresh_token;
       session.access_token_expired = token.access_token_expired;
