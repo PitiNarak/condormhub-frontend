@@ -16,8 +16,8 @@ import {
 import { Textarea } from '../ui/textarea';
 
 const FormSchema = z.object({
-  proposal: z.string().max(70, {
-    message: 'The proposal must not exceeds 70 characters',
+  proposal: z.string().max(150, {
+    message: 'The proposal must not exceeds 150 characters',
   }),
 });
 
