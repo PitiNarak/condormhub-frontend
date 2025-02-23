@@ -51,8 +51,13 @@ export function NotiBtn() {
       <DropdownMenuTrigger asChild>
         <Bell />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-[300] h-[200]">
-        <DropdownMenuLabel>Notification</DropdownMenuLabel>
+      <DropdownMenuContent className="w-[260] md:w-[300] h-[200]">
+        <DropdownMenuLabel>
+          Notification
+          <span className="ml-1 text-gray-400 font-thin text-xs">
+            &#40;Click to read&#41;
+          </span>
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <ScrollArea className="h-[150]">
           <div className="grid grid-cols-1 gap-5">

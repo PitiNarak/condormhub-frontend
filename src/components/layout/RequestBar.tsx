@@ -1,5 +1,4 @@
-import { Button } from '../ui/button';
-
+import Image from 'next/image';
 export interface notification {
   requestId: string;
   requestUser: string;
@@ -13,18 +12,22 @@ export default function RequestBar({
 }: notification) {
   console.log(requestId);
   return (
-    <div className="grid grid-cols-[1fr_2fr_2fr]">
-      <div className="text-right">
+    <div className="grid grid-cols-[1fr_1fr_2fr]">
+      <div className="justify-center m-auto">
+        <Image
+          src="/image.jpeg"
+          alt="This is user profile image which will request late using user id"
+          width={50}
+          height={50}
+          className="object-cover rounded-3xl h-[30] w-[30]"
+        ></Image>
+      </div>
+      <div className="text-left">
         <p>{propName}</p>
         <p className="text-xs text-gray-500">{requestUser}</p>
       </div>
-      <div className="text-right">
-        <Button className="w-20 text-xs md:text-sm ">Accept</Button>
-      </div>
-      <div className="pl-2">
-        <Button variant={'outline'} className="w-20 text-xs md:text-sm">
-          Decline
-        </Button>
+      <div className="content-center text-right pr-4">
+        <p className="text-xs text-gray-400">17 Dec 2024</p>
       </div>
     </div>
   );

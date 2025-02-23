@@ -7,6 +7,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import RequestBar from './RequestBar';
+import { Button } from '../ui/button';
 
 export interface notiProposal {
   requestId: string;
@@ -30,12 +31,20 @@ export function RequestDetail({
           propName={propName}
         />
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] sm:max-h-[400]">
         <DialogHeader>
           <DialogTitle className="text-left">Request Detail</DialogTitle>
           <DialogDescription className="text-left">
             <p>{proposal}</p>
           </DialogDescription>
+          <div className="flex justify-end m-auto]">
+            <div className="flex1 mr-2">
+              <Button>Accept</Button>
+            </div>
+            <div className="flex1">
+              <Button variant={'outline'}>Decline</Button>
+            </div>
+          </div>
         </DialogHeader>
       </DialogContent>
     </Dialog>
