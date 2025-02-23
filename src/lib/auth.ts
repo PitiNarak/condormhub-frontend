@@ -6,6 +6,7 @@ import {
 import { getServerSession, NextAuthOptions, User } from 'next-auth';
 import { DefaultJWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { jwtDecode } from 'jwt-decode';
 
 declare module 'next-auth' {
   interface Session {
@@ -66,15 +67,6 @@ declare module 'next-auth/jwt' {
   }
 }
 
-// Simulate an actual token refresh request
-// async function refreshToken() {
-//   return {
-//     access_token: 'NEW_ACCESS_TOKEN',
-//     refresh_token: 'NEW_REFRESH_TOKEN',
-//     access_token_expired: Date.now() + 3600 * 1000,
-//   };
-// }
-
 export const nextAuthConfig = {
   providers: [
     CredentialsProvider({
@@ -104,11 +96,12 @@ export const nextAuthConfig = {
           );
           const d = await response.json();
           const data = d.data;
+          const decode = jwtDecode(data.accessToken);
           if (d.success) {
             return {
               access_token: data.accessToken,
-              refresh_token: 'NEW_REFRESH_TOKEN',
-              access_token_expired: Date.now() + 3600 * 1000,
+              refresh_token: data.refreshToken,
+              access_token_expired: decode.exp,
               ...data.userInformation,
             };
           } else {
@@ -142,12 +135,35 @@ export const nextAuthConfig = {
         token.access_token_expired &&
         token.access_token_expired < Date.now()
       ) {
-        // const refreshed = await refreshToken();
-
-        // token.access_token = refreshed.access_token;
-        // token.refresh_token = refreshed.refresh_token;
-        // token.access_token_expired = refreshed.access_token_expired;
-        return {} as typeof token;
+        try {
+          const refreshed = await fetch(
+            `${process.env.BACKEND_URL}/auth/refresh`,
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                refreshToken: token.refresh_token,
+              }),
+            }
+          );
+          const refresh = await refreshed.json();
+          const decode = jwtDecode(refresh.data.accessToken);
+          if (refresh.success) {
+            token.access_token = refresh.data.accessToken;
+            token.refresh_token = refresh.data.refreshToken;
+            token.access_token_expired = decode.exp;
+          } else {
+            console.log(token.refresh_token);
+            console.log(refresh.status);
+            throw new Error(refresh.message);
+          }
+        } catch (e) {
+          throw new Error(
+            e instanceof Error ? e.message : 'An unknown error occurred'
+          );
+        }
       }
 
       return token;
