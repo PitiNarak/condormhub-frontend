@@ -1,19 +1,8 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
 import '@/app/globals.css';
 import Navbar from '@/components/layout/Navbar';
-import { auth } from '@/lib/auth';
-import { redirect } from 'next/navigation';
-
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
+//import { auth } from '@/lib/auth';
+//import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -25,20 +14,16 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await auth();
+  // const session = await auth();
 
-  if (!session) {
-    redirect('/login');
-  }
-  console.log(session);
+  // if (!session) {
+  //   redirect('/login');
+  // }
+  // console.log(session);
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <Navbar />
-        <div className="pt-24">{children}</div>
-      </body>
-    </html>
+    <div>
+      <Navbar />
+      <div className="pt-24">{children}</div>
+    </div>
   );
 }
