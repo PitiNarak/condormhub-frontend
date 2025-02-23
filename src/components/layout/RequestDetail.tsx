@@ -6,8 +6,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import RequestBar from './RequestBar';
-import { Button } from '../ui/button';
+import RequestBar from '@/components/layout/RequestBar';
+import { Button } from '@/components/ui/button';
 
 export interface notiProposal {
   requestId: string;
@@ -31,7 +31,7 @@ export function RequestDetail({
           propName={propName}
         />
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] sm:max-h-[400]">
+      <DialogContent className="sm:max-w-[425px] sm:max-h-[400px]">
         <DialogHeader>
           <DialogTitle className="text-left">Request Detail</DialogTitle>
           <DialogDescription className="text-left">

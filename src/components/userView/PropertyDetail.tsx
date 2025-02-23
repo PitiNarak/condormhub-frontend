@@ -7,10 +7,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import PropertyCard from './PropertyCard';
-import { PropertyI } from '../../types/property';
-import { displayPrice } from '../../function/display';
-import { RequestBtn } from './RequestBtn';
+import PropertyCard from '@/components/userView/PropertyCard';
+import { PropertyI } from '@/types/property';
+import { displayPrice } from '@/function/display';
+import { RequestBtn } from '@/components/userView/RequestBtn';
 
 export function PropertyDetail({
   image,
