@@ -51,7 +51,7 @@ export function NotiBtn() {
       <DropdownMenuTrigger asChild>
         <Bell />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-[260] md:w-[300px] h-[200px]">
+      <DropdownMenuContent className="w-[220px] md:w-[300px] h-[200px]">
         <DropdownMenuLabel>
           Notification
           <span className="ml-1 text-gray-400 font-thin text-xs">
