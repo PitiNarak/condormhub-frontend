@@ -10,53 +10,34 @@ on:
       - main
 
 jobs:
-  Deploy-Preview:
+  Deploy-Production:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v3
         with:
           node-version: 20
-          cache: 'pnpm' # Enables Node modules cache
-
       - uses: pnpm/action-setup@v3
         with:
           version: latest
-
-      - name: Cache pnpm Store
-        uses: actions/cache@v3
-        with:
-          path: ~/.pnpm-store # Caches dependencies
-          key: pnpm-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            pnpm-${{ runner.os }}-
-
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
-
       - name: Install Vercel CLI
-        run: pnpm add --global vercel@latest
-
-      - name: Pull Vercel Environment Information (Preview)
-        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
-
+        run: npm install --global vercel@latest
+      - name: Pull Vercel Environment Information (Production)
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Project Artifacts
-        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
-
-      - name: Deploy Project Artifacts to Vercel (Preview)
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Deploy Project Artifacts to Vercel (Production)
         run: |
           echo "Deploying to Vercel..."
-          DEPLOY_URL=$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})
+          DEPLOY_URL=$(vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }})
           echo "Deployment URL: $DEPLOY_URL"
           echo "DEPLOY_URL=$DEPLOY_URL" >> $GITHUB_ENV
-
       - name: Output Deployment URL
-        run: echo "Vercel Preview Deployment URL: ${{ env.DEPLOY_URL }}"
-
+        run: |
+          echo "Vercel Production Deployment URL: ${{ env.DEPLOY_URL }}"
       - name: Add Deployment Summary
         run: |
-          echo "### Vercel Preview Deployment 🚀" >> $GITHUB_STEP_SUMMARY
+          echo "### Vercel Production Deployment 🚀" >> $GITHUB_STEP_SUMMARY
           echo "| Environment | URL |" >> $GITHUB_STEP_SUMMARY
           echo "|------------|-----|" >> $GITHUB_STEP_SUMMARY
-          echo "| Preview     | [${{ env.DEPLOY_URL }}](${{ env.DEPLOY_URL }}) |" >> $GITHUB_STEP_SUMMARY
+          echo "| Production  | [${{ env.DEPLOY_URL }}](${{ env.DEPLOY_URL }}) |" >> $GITHUB_STEP_SUMMARY
