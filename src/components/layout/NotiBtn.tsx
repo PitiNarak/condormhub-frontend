@@ -62,16 +62,14 @@ export function NotiBtn() {
         <ScrollArea className="h-[150]">
           <div className="grid grid-cols-1 gap-5">
             {allNoti.map((data: notiProposal) => (
-              <>
-                <div key={String(data.requestId)} className="text-sm">
-                  <RequestDetail
-                    requestId={data.requestId}
-                    requestUser={data.requestUser}
-                    propName={data.propName}
-                    proposal={data.proposal}
-                  />
-                </div>
-              </>
+              <div key={String(data.requestId)} className="text-sm">
+                <RequestDetail
+                  requestId={data.requestId}
+                  requestUser={data.requestUser}
+                  propName={data.propName}
+                  proposal={data.proposal}
+                />
+              </div>
             ))}
           </div>
         </ScrollArea>
