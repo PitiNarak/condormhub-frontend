@@ -19,7 +19,7 @@ import {
   FormField,
   FormItem,
   FormMessage,
-} from '../ui/form';
+} from '@/components/ui/form';
 import { useState } from 'react';
 
 const formSchema = z.object({
