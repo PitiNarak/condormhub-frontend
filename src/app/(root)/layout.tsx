@@ -1,8 +1,19 @@
 import type { Metadata } from 'next';
 import '@/app/globals.css';
 import Navbar from '@/components/layout/Navbar';
-//import { auth } from '@/lib/auth';
-//import { redirect } from 'next/navigation';
+// import { auth } from '@/lib/auth';
+// import { redirect } from 'next/navigation';
+
+const geistSans = Geist({
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
+});
+
+const geistMono = Geist_Mono({
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
+});
+
 
 export const metadata: Metadata = {
   title: 'Create Next App',

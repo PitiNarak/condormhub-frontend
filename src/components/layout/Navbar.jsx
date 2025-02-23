@@ -1,7 +1,8 @@
 import LanguageSw from '@/components/layout/LanguageSw';
 import Link from 'next/link';
-import { Bell, Search } from 'lucide-react';
+import { Search } from 'lucide-react';
 import SelectedMenu from './SelectedMenu';
+import { NotiBtn } from './NotiBtn';
 
 const Header = () => {
   return (
@@ -22,7 +23,7 @@ const Header = () => {
         <SelectedMenu text="Setting" path="/setting/profile" />
         <SelectedMenu text="Profile" path="/navigation/profile" />
         <div className="flex-1 justify-center m-auto flex">
-          <Bell />
+          <NotiBtn />
         </div>
 
         <div className="flex-1 justify-center m-auto flex">
