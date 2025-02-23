@@ -15,14 +15,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v3
+      - name: Setup Node.js and Enable Corepack
+        uses: actions/setup-node@v3
         with:
           node-version: 20
-          cache: 'pnpm'
 
-      - uses: pnpm/action-setup@v3
-        with:
-          version: latest
+      - name: Enable pnpm via Corepack
+        run: corepack enable && corepack prepare pnpm@latest --activate
 
       - name: Cache pnpm Store
         uses: actions/cache@v3
