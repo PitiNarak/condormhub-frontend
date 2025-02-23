@@ -10,15 +10,47 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 declare module 'next-auth' {
   interface Session {
     user: {
-      id: string;
+      createAt: string;
       email: string;
+      filledPersonalInfo: boolean;
+      firstname: string;
+      gender: string;
+      id: string;
+      isStudentVerified: boolean;
+      isVerified: boolean;
+      lastname: string;
+      lifestyle1: string;
+      lifestyle2: string;
+      lifestyle3: string;
+      nationalID: string;
+      role: string;
+      studentEvidence: string;
+      updateAt: string;
+      username: string;
     };
     access_token?: string;
     refresh_token?: string;
     access_token_expired?: number;
   }
   interface User {
-    access_token: string;
+    createAt: string;
+    email: string;
+    filledPersonalInfo: boolean;
+    firstname: string;
+    gender: string;
+    id: string;
+    isStudentVerified: boolean;
+    isVerified: boolean;
+    lastname: string;
+    lifestyle1: string;
+    lifestyle2: string;
+    lifestyle3: string;
+    nationalID: string;
+    role: string;
+    studentEvidence: string;
+    updateAt: string;
+    username: string;
+    access_token?: string;
     refresh_token?: string;
     access_token_expired?: number;
   }
@@ -74,11 +106,10 @@ export const nextAuthConfig = {
           const data = d.data;
           if (d.success) {
             return {
-              id: data.userInformation.id,
-              email: credentials.email || '',
               access_token: data.accessToken,
               refresh_token: 'NEW_REFRESH_TOKEN',
               access_token_expired: Date.now() + 3600 * 1000,
+              ...data.userInformation,
             };
           } else {
             console.log(response.status);
@@ -95,10 +126,16 @@ export const nextAuthConfig = {
   callbacks: {
     jwt: async ({ token, user }) => {
       if (user) {
-        token.user = user;
-        token.access_token = user.access_token;
-        token.refresh_token = user.refresh_token;
-        token.access_token_expired = user.access_token_expired;
+        const {
+          access_token,
+          refresh_token,
+          access_token_expired,
+          ...profile
+        } = user;
+        token.user = profile;
+        token.access_token = access_token;
+        token.refresh_token = refresh_token;
+        token.access_token_expired = access_token_expired;
       }
 
       if (
@@ -120,7 +157,7 @@ export const nextAuthConfig = {
       session.access_token = token.access_token;
       session.refresh_token = token.refresh_token;
       session.access_token_expired = token.access_token_expired;
-      session.user.id = token.user.id;
+      session.user = token.user;
       return session;
     },
   },

@@ -44,7 +44,7 @@ export function LoginForm() {
       console.log('Login failed:', result.error);
       setErrorMessage(result.error);
     } else {
-      router.push('/home'); // Redirect to a protected page
+      router.push('/home/lesseeView'); // Redirect to a protected page
     }
   }
 
