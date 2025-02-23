@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
 import '@/app/globals.css';
 import Header from '@/components/layout/Header';
 // import { auth } from '@/lib/auth';
@@ -32,15 +31,9 @@ export default async function RootLayout({
   //   redirect('/home/lesseeView');
   // }
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <div className="flex flex-col h-screen">
-          <Header />
-          {children}
-        </div>
-      </body>
-    </html>
+    <div className="flex flex-col h-screen">
+      <Header />
+      {children}
+    </div>
   );
 }
