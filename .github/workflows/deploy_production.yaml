@@ -13,19 +13,16 @@ jobs:
   Deploy-Production:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 20
-          cache: 'pnpm'
-
-      - uses: pnpm/action-setup@v3
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
           version: latest
 
       - name: Cache pnpm Store
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.pnpm-store
           key: pnpm-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -58,7 +55,7 @@ jobs:
 
       - name: Add Deployment Summary
         run: |
-          echo "### Vercel Production Deployment 🚀" >> $GITHUB_STEP_SUMMARY
+          echo "### 🚀 Vercel Production Deployment" >> $GITHUB_STEP_SUMMARY
           echo "| Environment | URL |" >> $GITHUB_STEP_SUMMARY
           echo "|------------|-----|" >> $GITHUB_STEP_SUMMARY
           echo "| Production  | [${{ env.DEPLOY_URL }}](${{ env.DEPLOY_URL }}) |" >> $GITHUB_STEP_SUMMARY
