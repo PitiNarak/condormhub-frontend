@@ -1,17 +1,30 @@
-import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import React from 'react';
+import { buttonVariants } from '@/components/ui/button';
 
-const page = () => {
+interface LinkBtnProp {
+  text: string;
+  path: string;
+}
+
+function LinkBtn({ text, path }: LinkBtnProp) {
   return (
-    <div className="flex justify-center h-[100vh] border-2 border-gray-950">
-      <div className="flex items-center">
-        <Link href={'./login'}>
-          <Button>Login</Button>
-        </Link>
-      </div>
+    <div className="block p-2">
+      <Link href={path} className={buttonVariants({ variant: 'default' })}>
+        {text}
+      </Link>
     </div>
   );
-};
+}
 
-export default page;
+export default function Home() {
+  return (
+    <div className="">
+      <h1 className="p-2 text-2xl font-bold">Where do you want to go</h1>
+      <LinkBtn text="Register Page" path="/register" />
+      <LinkBtn text="Lessee Page" path="/home/lesseeView" />
+      <LinkBtn text="Admin Page" path="/admin" />
+      <LinkBtn text="LifeStyle Page" path="/lifestyle" />
+      <LinkBtn text="Verification Page" path="/verification" />
+    </div>
+  );
+}
