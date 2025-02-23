@@ -17,9 +17,9 @@ export default function RequestBar({
         <Image
           src="/image.jpeg"
           alt="This is user profile image which will request late using user id"
-          width={50}
-          height={50}
-          className="object-cover rounded-3xl h-[30] w-[30]"
+          width={30}
+          height={30}
+          className="object-cover rounded-3xl h-[30px] w-[30px]"
         ></Image>
       </div>
       <div className="text-left">
