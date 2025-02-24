@@ -25,6 +25,7 @@ export default function Home() {
       <LinkBtn text="Admin Page" path="/admin" />
       <LinkBtn text="LifeStyle Page" path="/lifestyle" />
       <LinkBtn text="Verification Page" path="/verification" />
+      <LinkBtn text="Lessor Rent Income Page" path="/lessorIncome" />
     </div>
   );
 }
