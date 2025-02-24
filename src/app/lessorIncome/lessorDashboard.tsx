@@ -10,13 +10,22 @@ export default function LessorDashboard() {
   const properties: PropertyI[] = JSON.parse(mockData);
 
   // Mocking: if leased properties of 'PitiOwner' (login as 'PitiOwner') are IDs 1-7
+  const user = 'PitiOwner';
+
   const leasedProperties = properties.filter(
-    (property) =>
-      property.id >= 1 && property.id <= 7 && property.owner == 'PitiOwner'
+    (property) => property.id >= 1 && property.id <= 7 && property.owner == user
   );
 
-  // Mocking Lessee Name of properties (ID = 1-7)
-  const lesseeNames = ['Yoke', 'Keen', 'Keen', 'Bright', 'Rak', 'Peaw', 'Krit'];
+  // Mocking Lessee Name of properties ID = 1-7
+  const lesseeNames = [
+    'Yoke',
+    'Keen',
+    'Porsche',
+    'Bright',
+    'Rak',
+    'Peaw',
+    'Krit',
+  ];
 
   // Calculate the total income, fee, and final earning
   const totalIncome = leasedProperties.reduce(
@@ -52,7 +61,7 @@ export default function LessorDashboard() {
 
       {/* Leased Properties Visualization */}
       <h2 className="text-2xl font-semibold mb-4 text-gray-700">
-        <span className="text-blue-700">PitiOwner</span> Leased Properties
+        <span className="text-blue-700">{user}&apos;s</span> Leased Properties
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {leasedProperties.map((property, index) => (
