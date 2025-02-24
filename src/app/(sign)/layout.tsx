@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import '@/app/globals.css';
 import Header from '@/components/layout/Header';
-// import { auth } from '@/lib/auth';
-// import { redirect } from 'next/navigation';
+import { auth } from '@/lib/auth';
+import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -14,12 +14,12 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const session = await auth();
+  const session = await auth();
 
-  // if (session) {
-  //   console.log(session);
-  //   redirect('/home/lesseeView');
-  // }
+  if (session) {
+    console.log(session);
+    redirect('/home/lesseeView');
+  }
   return (
     <div className="flex flex-col h-screen">
       <Header />
