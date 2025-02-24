@@ -1,5 +1,4 @@
 import { auth } from '@/lib/auth';
-import ChangeEmailDialog from '@/components/profileSetting/ChangeEmailDialog';
 import UpdateInformationForm from '@/components/profileSetting/UpdateInformationForm';
 import { redirect } from 'next/navigation';
 import Divider from '@/components/layout/Divider';
@@ -23,7 +22,6 @@ const page = async () => {
           </div>
           <div className="flex items-center gap-10 w-full">
             <p>{session?.user.email}</p>
-            <ChangeEmailDialog />
           </div>
         </div>
         <UpdateInformationForm />
