@@ -15,17 +15,30 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { redirect } from 'next/navigation';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../ui/select';
 
 const formSchema = z.object({
   username: z
     .string()
     .min(2, { message: 'Username must be at least 2 characters.' }),
-  name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
-  phone: z
+  firstname: z
     .string()
-    .length(10, { message: 'Phone number must be 10 digits long' })
-    .regex(/^[0-9]+$/, { message: 'Phone number can only contain digits' }),
+    .min(2, { message: 'First name must be at least 2 characters.' }),
+  lastname: z
+    .string()
+    .min(2, { message: 'Laat name must be at least 2 characters.' }),
+  // phone: z
+  //   .string()
+  //   .length(10, { message: 'Phone number must be 10 digits long' })
+  //   .regex(/^[0-9]+$/, { message: 'Phone number can only contain digits' }),
   birthday: z.string().date('Birthday must be in YYYY-MM-DD format'),
+  gender: z.string(),
 });
 
 const UpdateInformationForm = () => {
@@ -33,9 +46,10 @@ const UpdateInformationForm = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: '',
-      // name: session.user.name,
-      phone: '',
+      firstname: '',
+      lastname: '',
       birthday: '',
+      gender: '',
     },
   });
 
@@ -69,13 +83,27 @@ const UpdateInformationForm = () => {
               </FormItem>
             )}
           />
-          {/* Name Field */}
+          {/* First name Field */}
           <FormField
             control={form.control}
-            name="name"
+            name="firstname"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="font-semibold">Name</FormLabel>
+                <FormLabel className="font-semibold">First name</FormLabel>
+                <FormControl>
+                  <Input required {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {/* Last name Field */}
+          <FormField
+            control={form.control}
+            name="lastname"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-semibold">Last name</FormLabel>
                 <FormControl>
                   <Input required {...field} />
                 </FormControl>
@@ -85,7 +113,7 @@ const UpdateInformationForm = () => {
           />
 
           {/* Phone Field */}
-          <FormField
+          {/* <FormField
             control={form.control}
             name="phone"
             render={({ field }) => (
@@ -97,7 +125,7 @@ const UpdateInformationForm = () => {
                 <FormMessage />
               </FormItem>
             )}
-          />
+          /> */}
 
           {/* Birthday Field */}
           <FormField
@@ -112,6 +140,32 @@ const UpdateInformationForm = () => {
                 <FormDescription>
                   Format: &quot;YYYY-MM-DD&quot;
                 </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* gender */}
+          <FormField
+            control={form.control}
+            name="gender"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-semibold">Gender</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select your gender" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="Male">Male</SelectItem>
+                    <SelectItem value="Female">Female</SelectItem>
+                  </SelectContent>
+                </Select>
                 <FormMessage />
               </FormItem>
             )}
