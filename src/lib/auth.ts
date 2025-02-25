@@ -11,6 +11,7 @@ import { jwtDecode } from 'jwt-decode';
 declare module 'next-auth' {
   interface Session {
     user: {
+      birthDate: string;
       createAt: string;
       email: string;
       filledPersonalInfo: boolean;
@@ -34,6 +35,7 @@ declare module 'next-auth' {
     access_token_expired?: number;
   }
   interface User {
+    birthDate: string;
     createAt: string;
     email: string;
     filledPersonalInfo: boolean;
