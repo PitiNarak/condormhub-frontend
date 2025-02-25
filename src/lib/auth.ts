@@ -133,7 +133,7 @@ export const nextAuthConfig = {
 
       if (
         token.access_token_expired &&
-        token.access_token_expired < Date.now()
+        token.access_token_expired * 1000 < Date.now()
       ) {
         try {
           const refreshed = await fetch(
