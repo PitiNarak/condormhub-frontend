@@ -11,6 +11,7 @@ import { jwtDecode } from 'jwt-decode';
 declare module 'next-auth' {
   interface Session {
     user: {
+      birthDate: string;
       createAt: string;
       email: string;
       filledPersonalInfo: boolean;
@@ -34,6 +35,7 @@ declare module 'next-auth' {
     access_token_expired?: number;
   }
   interface User {
+    birthDate: string;
     createAt: string;
     email: string;
     filledPersonalInfo: boolean;
@@ -133,7 +135,7 @@ export const nextAuthConfig = {
 
       if (
         token.access_token_expired &&
-        token.access_token_expired < Date.now()
+        token.access_token_expired * 1000 < Date.now()
       ) {
         try {
           const refreshed = await fetch(
