@@ -1,6 +1,5 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import React from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import {
@@ -23,6 +22,32 @@ import {
   SelectValue,
 } from '../ui/select';
 
+interface Session {
+  user: {
+    birthDate: string;
+    createAt: string;
+    email: string;
+    filledPersonalInfo: boolean;
+    firstname: string;
+    gender: string;
+    id: string;
+    isStudentVerified: boolean;
+    isVerified: boolean;
+    lastname: string;
+    lifestyle1: string;
+    lifestyle2: string;
+    lifestyle3: string;
+    nationalID: string;
+    role: string;
+    studentEvidence: string;
+    updateAt: string;
+    username: string;
+  };
+  access_token?: string;
+  refresh_token?: string;
+  access_token_expired?: number;
+}
+
 const formSchema = z.object({
   username: z
     .string()
@@ -33,23 +58,23 @@ const formSchema = z.object({
   lastname: z
     .string()
     .min(2, { message: 'Laat name must be at least 2 characters.' }),
-  // phone: z
-  //   .string()
-  //   .length(10, { message: 'Phone number must be 10 digits long' })
-  //   .regex(/^[0-9]+$/, { message: 'Phone number can only contain digits' }),
-  birthday: z.string().date('Birthday must be in YYYY-MM-DD format'),
+  phone: z
+    .string()
+    .length(10, { message: 'Phone number must be 10 digits long' })
+    .regex(/^[0-9]+$/, { message: 'Phone number can only contain digits' }),
   gender: z.string(),
 });
 
-const UpdateInformationForm = () => {
+const UpdateInformationForm = ({ session }: { session: Session }) => {
+  console.log(session);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: '',
       firstname: '',
       lastname: '',
-      birthday: '',
       gender: '',
+      phone: '',
     },
   });
 
@@ -113,7 +138,7 @@ const UpdateInformationForm = () => {
           />
 
           {/* Phone Field */}
-          {/* <FormField
+          <FormField
             control={form.control}
             name="phone"
             render={({ field }) => (
@@ -125,10 +150,10 @@ const UpdateInformationForm = () => {
                 <FormMessage />
               </FormItem>
             )}
-          /> */}
+          />
 
           {/* Birthday Field */}
-          <FormField
+          {/* <FormField
             control={form.control}
             name="birthday"
             render={({ field }) => (
@@ -143,7 +168,7 @@ const UpdateInformationForm = () => {
                 <FormMessage />
               </FormItem>
             )}
-          />
+          /> */}
 
           {/* gender */}
           <FormField

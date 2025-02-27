@@ -24,7 +24,7 @@ const page = async () => {
             <p>{session?.user.email}</p>
           </div>
         </div>
-        <UpdateInformationForm />
+        <UpdateInformationForm session={session} />
         <div className="flex flex-col gap-3 max-w-3xl w-full">
           <h1 className="text-2xl pt-3 font-semibold text-red-500">
             Delete account
