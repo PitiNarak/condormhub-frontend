@@ -14,7 +14,6 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Session } from 'next-auth';
 import { redirect } from 'next/navigation';
 
 const formSchema = z.object({
@@ -29,12 +28,12 @@ const formSchema = z.object({
   birthday: z.string().date('Birthday must be in YYYY-MM-DD format'),
 });
 
-const UpdateInformationForm = ({ session }: { session: Session }) => {
+const UpdateInformationForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: '',
-      name: session.user?.firstname,
+      // name: session.user.name,
       phone: '',
       birthday: '',
     },

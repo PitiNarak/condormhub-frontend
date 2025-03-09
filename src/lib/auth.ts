@@ -128,6 +128,7 @@ export const nextAuthConfig = {
       return token;
     },
     session: async ({ session, token }) => {
+      if (!token) return {} as typeof session;
       session.access_token = token.access_token;
       session.refresh_token = token.refresh_token;
       session.access_token_expired = token.access_token_expired;
