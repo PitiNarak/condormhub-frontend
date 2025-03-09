@@ -34,7 +34,7 @@ const UpdateInformationForm = ({ session }: { session: Session }) => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: '',
-      name: session.user.name,
+      name: session.user?.firstname,
       phone: '',
       birthday: '',
     },
