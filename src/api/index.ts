@@ -16,6 +16,7 @@ const middleware: Middleware = {
   },
 };
 
-client.use(middleware);
+// if call here it will loop if token expired
+// client.use(middleware);
 
 export default client;
