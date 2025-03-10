@@ -1,13 +1,15 @@
 'use client';
-import ReviewBox, { reviewI } from '@/components/profile/Review';
+import ReviewBox from '@/components/profile/Review';
 import { useParams } from 'next/navigation';
 import * as React from 'react';
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import { Separator } from '@/components/ui/separator';
-
-interface reviewI_ID extends reviewI {
-  reviewID: number;
-}
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
+import { Separator } from '../ui/separator';
 
 const mockData = JSON.stringify([
   {
@@ -48,33 +50,38 @@ const mockData = JSON.stringify([
   },
 ]);
 
-export default function LesseeReview() {
+export function LesseeReview() {
   const params = useParams<{ tag: string; item: string }>();
 
   //const data = fetch(get lessee history from ID)
   const reviews = JSON.parse(mockData);
+  const owner = 'Piti';
   console.log(params);
-
   return (
-    <div className="mt-[12px] flex justify-center mx-auto">
-      <div className="w-[80%]">
-        <p className="text-2xl font-bold">User&apos;s review</p>
-        <ScrollArea className="w-full whitespace-nowrap rounded-md border">
-          <div className="flex w-max space-x-4 p-4">
-            {reviews.map((data: reviewI_ID) => (
-              <div key={data.reviewID} className="flex">
-                <ReviewBox
-                  reviewerID={data.reviewerID}
-                  reviewDate={data.reviewDate}
-                  reviewMessage={data.reviewMessage}
-                />
-                <Separator orientation="vertical" />
+    <div className="mt-3">
+      <p className="text-xl font-bold text-center py-3">
+        {owner}&apos;s Reviews
+      </p>
+      <Carousel opts={{ align: 'start' }} className="w-[250px] md:w-[500px]">
+        <CarouselContent>
+          {Array.from({ length: 5 }).map((_, index) => (
+            <CarouselItem key={index} className="md:basis-1/2">
+              <div className="p-1">
+                <div key={reviews[index].reviewerID} className="flex">
+                  <ReviewBox
+                    reviewerID={reviews[index].reviewerID}
+                    reviewDate={reviews[index].reviewDate}
+                    reviewMessage={reviews[index].reviewMessage}
+                  />
+                  <Separator orientation="vertical" />
+                </div>
               </div>
-            ))}
-          </div>
-          <ScrollBar orientation="horizontal" />
-        </ScrollArea>
-      </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
+      </Carousel>
     </div>
   );
 }

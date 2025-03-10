@@ -1,4 +1,4 @@
-import LesseeReview from '@/components/profile/LesseeReviews';
+import { LesseeReview } from '@/components/profile/LesseeReviews';
 import ProfileHeader from '@/components/profile/ProfileHeader';
 export default function page() {
   return (
@@ -6,7 +6,7 @@ export default function page() {
       <div className="flex justify-center mx-auto">
         <ProfileHeader />
       </div>
-      <div>
+      <div className="flex justify-center mx-auto">
         <LesseeReview />
       </div>
     </div>

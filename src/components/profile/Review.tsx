@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { Card } from '../ui/card';
 
 export interface reviewI {
   reviewerID: string;
@@ -11,9 +12,11 @@ const ReviewBox = ({ reviewerID, reviewDate, reviewMessage }: reviewI) => {
   const reviewerName = 'Piti';
   const profileURL = '/mockProfile.png';
   return (
-    <div className="w-[250px] h-[220px] relative">
-      <p>{reviewMessage}</p>
-      <div className="flex absolute bottom-0 right-0 pr-[5px]">
+    <Card className="w-[250px] h-[170px] relative">
+      <div className="p-3">
+        <p>{reviewMessage}</p>
+      </div>
+      <div className="flex absolute bottom-0 right-0 p-2">
         <Image
           src={profileURL}
           alt="User profile"
@@ -25,10 +28,10 @@ const ReviewBox = ({ reviewerID, reviewDate, reviewMessage }: reviewI) => {
           <p>
             {reviewerName} &#40;{reviewerID}&#41;
           </p>
-          <p>{reviewDate}</p>
+          <p className="text-sm">{reviewDate}</p>
         </div>
       </div>
-    </div>
+    </Card>
   );
 };
 
