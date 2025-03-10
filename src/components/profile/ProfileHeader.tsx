@@ -1,6 +1,9 @@
 'use client';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
+import { Card } from '../ui/card';
+import { Star } from 'lucide-react';
+import { Separator } from '../ui/separator';
 
 export default function ProfileHeader() {
   const params = useParams<{ tag: string; item: string }>();
@@ -10,41 +13,61 @@ export default function ProfileHeader() {
   const profileURL = '/mockProfile.png';
   const firstName = 'Piti';
   const lastName = 'Narak';
-  const universityName = 'Chulalongkorn University';
   const role = 'Lessee';
   const ratingScore = 4.5;
+  const reviewsAmount = 100;
+  const totalRenting = 5;
   console.log(params);
 
   return (
     <div>
-      <div className="flex justify-center mx-auto">
-        <Image
-          src={profileURL}
-          alt="userProfile"
-          height={200}
-          width={200}
-          className="object-cover h-[150px] w-[150px] lg:h-[200px] lg:w-[200px] rounded-[50%]"
-        />
-      </div>
-      <div className="text-center">
-        <div className="flex justify-center m-auto items-center">
-          <p className="text-3xl font-bold">
-            {userName}
-            <span className="text-sm font-normal ml-2">
-              &#40;{ratingScore}&#41;
-            </span>
-          </p>
+      <Card className="flex w-[350px] h-[225px] rounded-3xl shadow-xl border-[1px]">
+        <div className="w-[225px] h-[225px] mt-3">
+          <div className="flex justify-center mx-auto">
+            <Image
+              src={profileURL}
+              alt="userProfile"
+              height={100}
+              width={100}
+              className="object-cover h-[100] w-[100]  rounded-[50%]"
+            />
+          </div>
+          <div className="flex justify-center mx-auto">
+            <div className="text-center">
+              <p className="text-lg font-bold mt-2">{userName}</p>
+              <p className="text-gray-500">
+                {firstName} {lastName}
+              </p>
+              <p className="justify-center mx-auto px-5 py-1 border rounded-2xl bg-gray-100 mt-1">
+                {role}
+              </p>
+            </div>
+          </div>
         </div>
-        <p className="text-gray-600 mb-2">
-          {firstName} {lastName}
-        </p>
-        <p className="text-gray-400 mb-2">{universityName}</p>
-        <div className="flex">
-          <p className="justify-center mx-auto px-5 py-1 border rounded-2xl bg-gray-100">
-            {role}
-          </p>
+        <div>
+          <div className="pt-4 pb-3">
+            <div className="flex">
+              <p className="text-xl font-bold mr-1">{ratingScore}</p>
+              <Star />
+            </div>
+            <p className="text-xs">Rating</p>
+          </div>
+          <Separator orientation="horizontal" />
+          <div className="py-3">
+            <div className="flex">
+              <p className="text-xl font-bold mr-1">{reviewsAmount}</p>
+            </div>
+            <p className="text-xs">Reviews</p>
+          </div>
+          <Separator orientation="horizontal" />
+          <div className="pt-3 pb-4">
+            <div className="flex">
+              <p className="text-xl font-bold mr-1">{totalRenting}</p>
+            </div>
+            <p className="text-xs">Rents</p>
+          </div>
         </div>
-      </div>
+      </Card>
     </div>
   );
 }
