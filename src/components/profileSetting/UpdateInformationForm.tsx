@@ -22,6 +22,9 @@ import {
   SelectValue,
 } from '../ui/select';
 import { components } from '@/types/api';
+import { UpdateUserInformation } from './action';
+import { useState } from 'react';
+import { Check } from 'lucide-react';
 
 interface Session {
   user?: components['schemas']['domain.User'];
@@ -39,30 +42,40 @@ const formSchema = z.object({
     .min(2, { message: 'First name must be at least 2 characters.' }),
   lastname: z
     .string()
-    .min(2, { message: 'Laat name must be at least 2 characters.' }),
-  phone: z
+    .min(2, { message: 'Last name must be at least 2 characters.' }),
+  phoneNumber: z
     .string()
     .length(10, { message: 'Phone number must be 10 digits long' })
     .regex(/^[0-9]+$/, { message: 'Phone number can only contain digits' }),
-  gender: z.string(),
+  gender: z.string().min(1, { message: 'Gender must be selected' }),
 });
 
 const UpdateInformationForm = ({ session }: { session: Session }) => {
-  console.log(session);
+  // console.log(session);
+  const [isUpdated, setIsUpdated] = useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: '',
-      firstname: '',
-      lastname: '',
-      gender: '',
-      phone: '',
+      username: session.user?.username || '',
+      firstname: session.user?.firstname || '',
+      lastname: session.user?.lastname || '',
+      gender: session.user?.gender || '',
+      phoneNumber: session.user?.phoneNumber || '',
     },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     //TODO when submit
     console.log(values);
+    if (session.access_token) {
+      const res = await UpdateUserInformation(session, values);
+      if (res?.error) {
+        console.log(res.error);
+      } else {
+        setIsUpdated(true);
+      }
+    }
   }
 
   return (
@@ -122,7 +135,7 @@ const UpdateInformationForm = ({ session }: { session: Session }) => {
           {/* Phone Field */}
           <FormField
             control={form.control}
-            name="phone"
+            name="phoneNumber"
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="font-semibold">Phone Number</FormLabel>
@@ -193,6 +206,12 @@ const UpdateInformationForm = ({ session }: { session: Session }) => {
             {/*redirect to profile page*/}
             Cancel
           </Button>
+          {isUpdated && (
+            <div className="flex text-green-500 gap-1">
+              <Check />
+              Updated
+            </div>
+          )}
         </div>
       </form>
     </Form>
