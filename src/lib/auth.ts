@@ -3,70 +3,58 @@ import {
   NextApiRequest,
   NextApiResponse,
 } from 'next';
-import { getServerSession, NextAuthOptions, User } from 'next-auth';
-import { DefaultJWT } from 'next-auth/jwt';
+import { getServerSession, NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import type { components } from '@/types/api';
+import client from '@/api';
 import { jwtDecode } from 'jwt-decode';
+
+type LoginResponseType =
+  components['schemas']['dto.TokenWithUserInformationResponseBody'];
 
 declare module 'next-auth' {
   interface Session {
-    user: {
-      birthDate: string;
-      createAt: string;
-      email: string;
-      filledPersonalInfo: boolean;
-      firstname: string;
-      gender: string;
-      id: string;
-      isStudentVerified: boolean;
-      isVerified: boolean;
-      lastname: string;
-      lifestyle1: string;
-      lifestyle2: string;
-      lifestyle3: string;
-      nationalID: string;
-      role: string;
-      studentEvidence: string;
-      updateAt: string;
-      username: string;
-    };
-    access_token?: string;
-    refresh_token?: string;
+    user?: components['schemas']['domain.User'];
+    access_token?: components['schemas']['dto.TokenWithUserInformationResponseBody']['accessToken'];
+    refresh_token?: components['schemas']['dto.TokenWithUserInformationResponseBody']['refreshToken'];
     access_token_expired?: number;
   }
-  interface User {
-    birthDate: string;
-    createAt: string;
-    email: string;
-    filledPersonalInfo: boolean;
-    firstname: string;
-    gender: string;
-    id: string;
-    isStudentVerified: boolean;
-    isVerified: boolean;
-    lastname: string;
-    lifestyle1: string;
-    lifestyle2: string;
-    lifestyle3: string;
-    nationalID: string;
-    role: string;
-    studentEvidence: string;
-    updateAt: string;
-    username: string;
-    access_token?: string;
-    refresh_token?: string;
+
+  interface User extends LoginResponseType {
+    id?: string;
+    error?: string;
     access_token_expired?: number;
   }
 }
 
 declare module 'next-auth/jwt' {
-  interface JWT extends DefaultJWT {
-    id: string;
-    access_token?: string;
-    refresh_token?: string;
+  interface JWT {
+    access_token?: components['schemas']['dto.TokenWithUserInformationResponseBody']['accessToken'];
+    refresh_token?: components['schemas']['dto.TokenWithUserInformationResponseBody']['refreshToken'];
     access_token_expired?: number;
-    user: User;
+    user?: components['schemas']['dto.TokenWithUserInformationResponseBody']['userInformation'];
   }
+}
+
+// Simulate an actual token refresh request
+async function refreshToken(refresh_token: string): Promise<{
+  error?: string;
+  accessToken?: string;
+  refreshToken?: string;
+}> {
+  const { data, error } = await client.POST('/auth/refresh', {
+    body: {
+      refreshToken: refresh_token,
+    },
+  });
+
+  if (error || !data.data) {
+    return {
+      error: 'refresh token error',
+    };
+  }
+
+  return data.data;
 }
 
 export const nextAuthConfig = {
@@ -82,90 +70,59 @@ export const nextAuthConfig = {
       },
       authorize: async (credentials) => {
         if (!credentials) return null;
-        try {
-          const response = await fetch(
-            `${process.env.BACKEND_URL}/auth/login`,
-            {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                email: credentials.email,
-                password: credentials.password,
-              }),
-            }
-          );
-          const d = await response.json();
-          const data = d.data;
-          const decode = jwtDecode(data.accessToken);
-          if (d.success) {
-            return {
-              access_token: data.accessToken,
-              refresh_token: data.refreshToken,
-              access_token_expired: decode.exp,
-              ...data.userInformation,
-            };
-          } else {
-            console.log(response.status);
-            throw new Error(d.message);
-          }
-        } catch (e) {
-          throw new Error(
-            e instanceof Error ? e.message : 'An unknown error occurred'
-          );
+        const res = await client.POST('/auth/login', {
+          body: {
+            email: credentials.email,
+            password: credentials.password,
+          },
+        });
+
+        if (res.error) {
+          return {
+            error: res.error.error,
+          };
         }
+
+        if (!res.data.data) {
+          return {
+            error: 'unknown error',
+          };
+        }
+
+        const decoded = jwtDecode(res.data.data.accessToken || '');
+        return { ...res.data.data, access_token_expired: decoded.exp };
       },
     }),
   ],
+
   callbacks: {
     jwt: async ({ token, user }) => {
       if (user) {
-        const {
-          access_token,
-          refresh_token,
-          access_token_expired,
-          ...profile
-        } = user;
-        token.user = profile;
-        token.access_token = access_token;
-        token.refresh_token = refresh_token;
-        token.access_token_expired = access_token_expired;
+        token.user = user.userInformation;
+        token.access_token = user.accessToken;
+        token.refresh_token = user.refreshToken;
+        token.access_token_expired = user.access_token_expired;
       }
 
+      // refresh before token is expire 5 mins
       if (
         token.access_token_expired &&
-        token.access_token_expired * 1000 < Date.now()
+        (token.access_token_expired - 5 * 60) * 1000 < Date.now()
       ) {
-        try {
-          const refreshed = await fetch(
-            `${process.env.BACKEND_URL}/auth/refresh`,
-            {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                refreshToken: token.refresh_token,
-              }),
-            }
-          );
-          const refresh = await refreshed.json();
-          const decode = jwtDecode(refresh.data.accessToken);
-          if (refresh.success) {
-            token.access_token = refresh.data.accessToken;
-            token.refresh_token = refresh.data.refreshToken;
-            token.access_token_expired = decode.exp;
-          } else {
-            console.log(token.refresh_token);
-            console.log(refresh.status);
-            throw new Error(refresh.message);
-          }
-        } catch (e) {
-          throw new Error(
-            e instanceof Error ? e.message : 'An unknown error occurred'
-          );
+        if (!token.refresh_token)
+          return {
+            error: 'refresh token not exits',
+          };
+        const refreshed = await refreshToken(token.refresh_token);
+        if (refreshed.error) {
+          return {
+            error: refreshed.error,
+          };
         }
+        token.access_token = refreshed.accessToken;
+        token.refresh_token = refreshed.refreshToken;
+        const decoded = jwtDecode(refreshed.accessToken || '');
+        token.access_token_expired = decoded.exp;
       }
 
       return token;

@@ -21,30 +21,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select';
+import { components } from '@/types/api';
 
 interface Session {
-  user: {
-    birthDate: string;
-    createAt: string;
-    email: string;
-    filledPersonalInfo: boolean;
-    firstname: string;
-    gender: string;
-    id: string;
-    isStudentVerified: boolean;
-    isVerified: boolean;
-    lastname: string;
-    lifestyle1: string;
-    lifestyle2: string;
-    lifestyle3: string;
-    nationalID: string;
-    role: string;
-    studentEvidence: string;
-    updateAt: string;
-    username: string;
-  };
-  access_token?: string;
-  refresh_token?: string;
+  user?: components['schemas']['domain.User'];
+  access_token?: components['schemas']['dto.TokenWithUserInformationResponseBody']['accessToken'];
+  refresh_token?: components['schemas']['dto.TokenWithUserInformationResponseBody']['refreshToken'];
   access_token_expired?: number;
 }
 

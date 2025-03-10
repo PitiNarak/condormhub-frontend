@@ -21,7 +21,7 @@ const page = async () => {
             <VerificationStatus />
           </div>
           <div className="flex items-center gap-10 w-full">
-            <p>{session?.user.email}</p>
+            <p>{session?.user?.email}</p>
           </div>
         </div>
         <UpdateInformationForm session={session} />
