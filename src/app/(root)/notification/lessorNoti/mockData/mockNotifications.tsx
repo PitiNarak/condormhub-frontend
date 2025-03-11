@@ -1,11 +1,19 @@
-import { notiProposal } from '@/components/layout/RequestDetail';
+import {
+  notiProposal,
+  CompletedLeaseNoti,
+} from '@/components/layout/RequestDetail';
 
-export const mockNotifications: notiProposal[] = [
+export const mockNotifications: (notiProposal | CompletedLeaseNoti)[] = [
   {
     requestId: '1',
     requestUser: 'User1',
     propName: 'Ideo1',
     proposal: "I'm homeless",
+  },
+  {
+    requestUser: 'User7',
+    propName: 'Ideo7',
+    date: '2025-03-11',
   },
   {
     requestId: '2',

@@ -16,6 +16,12 @@ export interface notiProposal {
   proposal: string;
 }
 
+export type CompletedLeaseNoti = {
+  requestUser: string;
+  propName: string;
+  date: string;
+};
+
 export function RequestDetail({
   requestId,
   requestUser,
