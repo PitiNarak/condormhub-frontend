@@ -22,9 +22,10 @@ import {
   SelectValue,
 } from '../ui/select';
 import { UpdateUserInformation } from './action';
-import { useEffect, useState } from 'react';
-import { Check } from 'lucide-react';
+import { useEffect } from 'react';
+import { CircleCheckBig } from 'lucide-react';
 import { useSession } from 'next-auth/react';
+import { useToast } from '@/hooks/use-toast';
 
 const formSchema = z.object({
   username: z
@@ -44,7 +45,7 @@ const formSchema = z.object({
 
 const UpdateInformationForm = () => {
   const { data: session, update } = useSession();
-  const [isUpdated, setIsUpdated] = useState(false);
+  const { toast } = useToast();
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     //TODO when submit
@@ -53,6 +54,12 @@ const UpdateInformationForm = () => {
       const res = await UpdateUserInformation(session.access_token, values);
       if (res?.error) {
         console.log(res.error);
+        toast({
+          variant: 'destructive',
+          title: 'Uh oh! Something went wrong.',
+          description:
+            'There was a problem with your request. Please, try again later',
+        });
       } else {
         update({
           user: {
@@ -64,7 +71,15 @@ const UpdateInformationForm = () => {
             phoneNumber: values.phoneNumber,
           },
         });
-        setIsUpdated(true);
+        console.log('success');
+        toast({
+          description: (
+            <div className="flex gap-5">
+              <CircleCheckBig className="text-green-500" />
+              <p className="text-base">Updated successfully</p>
+            </div>
+          ),
+        });
       }
     }
   }
@@ -235,12 +250,6 @@ const UpdateInformationForm = () => {
             {/*redirect to profile page*/}
             Cancel
           </Button>
-          {isUpdated && (
-            <div className="flex text-green-500 gap-1">
-              <Check />
-              Updated
-            </div>
-          )}
         </div>
       </form>
     </Form>
