@@ -11,15 +11,15 @@ import {
   DialogFooter,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { mockNotifications } from '@/app/(root)/notification/lessorNoti/mockData/mockNotifications';
+import { LessorMockNotifications } from '@/app/(root)/notification/lessorNoti/mockData/mockNotifications';
 
-export function NotificationScroll() {
+export function LessorNotificationScroll() {
   const [openDialog, setOpenDialog] = useState(false);
   const [currentAction, setCurrentAction] = useState<
     'accept' | 'decline' | 'markRead' | null
   >(null);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-  const [notifications, setNotifications] = useState(mockNotifications);
+  const [notifications, setNotifications] = useState(LessorMockNotifications);
 
   const handleConfirm = (
     action: 'accept' | 'decline' | 'markRead',
@@ -82,8 +82,8 @@ export function NotificationScroll() {
                   <CardTitle className="text-lg font-semibold">
                     Lease Completed
                   </CardTitle>
-                  <p className="text-sm ">User: {data.requestUser}</p>
                   <p className="text-sm">Property: {data.propName}</p>
+                  <p className="text-sm ">Lessor: {data.requestUser}</p>
                   <p className="text-sm mt-2 text-gray-600">
                     Completed on: {data.date}
                   </p>
