@@ -11,11 +11,18 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { DeleteAccount } from './action';
+import { redirect } from 'next/navigation';
 
-const DeleteAccountButton = () => {
+const DeleteAccountButton = ({ access_token }: { access_token: string }) => {
   async function onSubmit() {
-    //TODO: implement delete account
-    console.log('deleted');
+    const res = await DeleteAccount(access_token);
+    if (res?.error) {
+      console.log(res.error);
+    } else {
+      console.log('deleted');
+      redirect('/register');
+    }
   }
   return (
     <Dialog>
