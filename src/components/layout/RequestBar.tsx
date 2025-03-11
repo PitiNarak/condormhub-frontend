@@ -6,11 +6,11 @@ export interface notification {
 }
 
 export default function RequestBar({
-  requestId,
+  // requestId,
   requestUser,
   propName,
 }: notification) {
-  console.log(requestId);
+  // console.log(requestId);
   return (
     <div className="grid grid-cols-[1fr_1fr_2fr]">
       <div className="justify-center m-auto">

@@ -9,7 +9,7 @@ interface SelectedMenuProp {
 
 const SelectedMenu = ({ text, path }: SelectedMenuProp) => {
   const pathname = usePathname();
-  console.log(pathname);
+  // console.log(pathname);
   return (
     <div
       className={`flex-1 text-sm md:text-base xl:text-lg text-center font-bold ${path === pathname ? 'underline' : ''}`}

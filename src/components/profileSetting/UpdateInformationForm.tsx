@@ -1,6 +1,5 @@
 'use client';
 import { zodResolver } from '@hookform/resolvers/zod';
-import React from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import {
@@ -15,34 +14,107 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { redirect } from 'next/navigation';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../ui/select';
+import { UpdateUserInformation } from './action';
+import { useEffect } from 'react';
+import { CircleCheckBig } from 'lucide-react';
+import { useSession } from 'next-auth/react';
+import { useToast } from '@/hooks/use-toast';
 
 const formSchema = z.object({
   username: z
     .string()
     .min(2, { message: 'Username must be at least 2 characters.' }),
-  name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
-  phone: z
+  firstname: z
     .string()
-    .length(10, { message: 'Phone number must be 10 digits long' })
-    .regex(/^[0-9]+$/, { message: 'Phone number can only contain digits' }),
-  birthday: z.string().date('Birthday must be in YYYY-MM-DD format'),
+    .min(2, { message: 'First name must be at least 2 characters.' }),
+  lastname: z
+    .string()
+    .min(2, { message: 'Last name must be at least 2 characters.' }),
+  phoneNumber: z
+    .string()
+    .startsWith('0', { message: 'Phone number must start with 0' }),
+  gender: z.string().min(1, { message: 'Gender must be selected' }),
 });
 
 const UpdateInformationForm = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      username: '',
-      // name: session.user.name,
-      phone: '',
-      birthday: '',
-    },
-  });
+  const { data: session, update } = useSession();
+  const { toast } = useToast();
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     //TODO when submit
     console.log(values);
+    if (session?.access_token) {
+      const res = await UpdateUserInformation(session.access_token, values);
+      if (res?.error) {
+        console.log(res.error);
+        toast({
+          variant: 'destructive',
+          title: 'Uh oh! Something went wrong.',
+          description: res.error,
+        });
+      } else {
+        update({
+          user: {
+            ...session.user,
+            username: values.username,
+            firstname: values.firstname,
+            lastname: values.lastname,
+            gender: values.gender,
+            phoneNumber: values.phoneNumber,
+          },
+        });
+        console.log('success');
+        toast({
+          description: (
+            <div className="flex gap-5">
+              <CircleCheckBig className="text-green-500" />
+              <p className="text-base">Updated successfully</p>
+            </div>
+          ),
+        });
+      }
+    }
   }
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      username: session?.user?.username || '',
+      firstname: session?.user?.firstname || '',
+      lastname: session?.user?.lastname || '',
+      gender: session?.user?.gender || '',
+      phoneNumber: session?.user?.phoneNumber || '',
+    },
+  });
+
+  useEffect(() => {
+    if (session?.access_token) {
+      form.reset({
+        username: session.user?.username || '',
+        firstname: session.user?.firstname || '',
+        lastname: session.user?.lastname || '',
+        gender: session.user?.gender || '',
+        phoneNumber: session.user?.phoneNumber || '',
+      });
+    }
+  }, [session, form]);
+
+  const formatPhoneNumber = (value: string) => {
+    // Remove non-digits
+    const digits = value.replace(/\D/g, '');
+
+    // Format as xxx-xxx-xxxx
+    if (digits.length <= 3) return digits;
+    if (digits.length <= 6) return `${digits.slice(0, 3)}-${digits.slice(3)}`;
+    return `${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(6, 10)}`;
+  };
 
   return (
     <Form {...form}>
@@ -69,13 +141,27 @@ const UpdateInformationForm = () => {
               </FormItem>
             )}
           />
-          {/* Name Field */}
+          {/* First name Field */}
           <FormField
             control={form.control}
-            name="name"
+            name="firstname"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="font-semibold">Name</FormLabel>
+                <FormLabel className="font-semibold">First name</FormLabel>
+                <FormControl>
+                  <Input required {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {/* Last name Field */}
+          <FormField
+            control={form.control}
+            name="lastname"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-semibold">Last name</FormLabel>
                 <FormControl>
                   <Input required {...field} />
                 </FormControl>
@@ -87,12 +173,20 @@ const UpdateInformationForm = () => {
           {/* Phone Field */}
           <FormField
             control={form.control}
-            name="phone"
+            name="phoneNumber"
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="font-semibold">Phone Number</FormLabel>
                 <FormControl>
-                  <Input placeholder="e.g., 0123456789" required {...field} />
+                  <Input
+                    placeholder="e.g., 012-345-6789"
+                    required
+                    value={field.value}
+                    onChange={(e) => {
+                      const formatted = formatPhoneNumber(e.target.value);
+                      field.onChange(formatted);
+                    }}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -100,7 +194,7 @@ const UpdateInformationForm = () => {
           />
 
           {/* Birthday Field */}
-          <FormField
+          {/* <FormField
             control={form.control}
             name="birthday"
             render={({ field }) => (
@@ -112,6 +206,29 @@ const UpdateInformationForm = () => {
                 <FormDescription>
                   Format: &quot;YYYY-MM-DD&quot;
                 </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          /> */}
+
+          {/* gender */}
+          <FormField
+            control={form.control}
+            name="gender"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-semibold">Gender</FormLabel>
+                <Select onValueChange={field.onChange} value={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select your gender" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="Male">Male</SelectItem>
+                    <SelectItem value="Female">Female</SelectItem>
+                  </SelectContent>
+                </Select>
                 <FormMessage />
               </FormItem>
             )}

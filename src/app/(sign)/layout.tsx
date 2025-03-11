@@ -16,7 +16,7 @@ export default async function RootLayout({
 }>) {
   const session = await auth();
 
-  if (session) {
+  if (session?.access_token) {
     console.log(session);
     redirect('/home/lesseeView');
   }
