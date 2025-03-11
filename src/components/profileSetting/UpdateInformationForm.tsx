@@ -57,8 +57,7 @@ const UpdateInformationForm = () => {
         toast({
           variant: 'destructive',
           title: 'Uh oh! Something went wrong.',
-          description:
-            'There was a problem with your request. Please, try again later',
+          description: res.error,
         });
       } else {
         update({
