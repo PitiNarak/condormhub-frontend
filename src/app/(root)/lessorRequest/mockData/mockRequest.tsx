@@ -1,20 +1,11 @@
-import {
-  notiProposal,
-  CompletedLeaseNoti,
-} from '@/components/layout/RequestDetail';
+import { notiProposal } from '@/components/layout/RequestDetail';
 
-export const LessorMockNotifications: (notiProposal | CompletedLeaseNoti)[] = [
+export const MockRequests: notiProposal[] = [
   {
     requestId: '1',
     requestUser: 'User1',
     propName: 'Ideo1',
     proposal: "I'm homeless",
-  },
-  {
-    requestUser: 'User7',
-    propOwner: 'Piti',
-    propName: 'Ideo7',
-    date: '2025-03-11',
   },
   {
     requestId: '2',

@@ -1,6 +1,6 @@
 import { CompletedLeaseNoti } from '@/components/layout/RequestDetail';
 
-export const LesseeMockNotifications: CompletedLeaseNoti[] = [
+export const MockNotifications: CompletedLeaseNoti[] = [
   {
     requestUser: 'User7',
     propOwner: 'Piti',
