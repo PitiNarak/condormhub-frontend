@@ -1,0 +1,16 @@
+import { CompletedLeaseNoti } from '@/components/layout/RequestDetail';
+
+export const LesseeMockNotifications: CompletedLeaseNoti[] = [
+  {
+    requestUser: 'User7',
+    propOwner: 'Piti',
+    propName: 'Ideo7',
+    date: '2025-03-11',
+  },
+  {
+    requestUser: 'User7',
+    propOwner: 'Keen',
+    propName: 'Ideo10',
+    date: '2025-02-11',
+  },
+];
