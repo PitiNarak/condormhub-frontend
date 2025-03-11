@@ -3,7 +3,7 @@ import {
   CompletedLeaseNoti,
 } from '@/components/layout/RequestDetail';
 
-export const mockNotifications: (notiProposal | CompletedLeaseNoti)[] = [
+export const LessorMockNotifications: (notiProposal | CompletedLeaseNoti)[] = [
   {
     requestId: '1',
     requestUser: 'User1',
@@ -12,6 +12,7 @@ export const mockNotifications: (notiProposal | CompletedLeaseNoti)[] = [
   },
   {
     requestUser: 'User7',
+    propOwner: 'Piti',
     propName: 'Ideo7',
     date: '2025-03-11',
   },

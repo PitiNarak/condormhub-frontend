@@ -1,4 +1,4 @@
-import { NotificationScroll } from '@/app/(root)/notification/NotificationScroll';
+import { LessorNotificationScroll } from '@/app/(root)/notification/lessorNoti/lessorNotificationScroll';
 
 export default function Page() {
   return (
@@ -7,7 +7,7 @@ export default function Page() {
         <p>Notification</p>
       </div>
       <div className="pt-7">
-        <NotificationScroll />
+        <LessorNotificationScroll />
       </div>
     </div>
   );
