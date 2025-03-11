@@ -9,7 +9,7 @@ import DeleteAccountButton from '@/components/profileSetting/DeleteAccountButton
 const page = async () => {
   const session = await auth();
 
-  if (session) {
+  if (session?.access_token) {
     return (
       <div className="flex flex-col justify-center items-center p-10 gap-6">
         <div className="flex flex-col gap-3 max-w-3xl w-full">
@@ -36,7 +36,7 @@ const page = async () => {
             Once you delete your account, there is no going back. Please be
             certain.
           </p>
-          <DeleteAccountButton />
+          <DeleteAccountButton access_token={session.access_token} />
         </div>
       </div>
     );
