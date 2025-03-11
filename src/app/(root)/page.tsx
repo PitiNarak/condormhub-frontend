@@ -34,6 +34,7 @@ export default function Home() {
         text="Lessee Notification Page"
         path="/notification/lesseeNoti"
       />
+      <LinkBtn text="Lessor Property Requests" path="/lessorRequest" />
     </div>
   );
 }
