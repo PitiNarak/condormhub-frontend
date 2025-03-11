@@ -1,14 +1,6 @@
 'use server';
 
 import client from '@/api';
-import { components } from '@/types/api';
-
-interface Session {
-  user?: components['schemas']['domain.User'];
-  access_token?: components['schemas']['dto.TokenWithUserInformationResponseBody']['accessToken'];
-  refresh_token?: components['schemas']['dto.TokenWithUserInformationResponseBody']['refreshToken'];
-  access_token_expired?: number;
-}
 
 interface Value {
   username: string;
@@ -18,7 +10,10 @@ interface Value {
   phoneNumber: string;
 }
 
-export const UpdateUserInformation = async (session: Session, value: Value) => {
+export const UpdateUserInformation = async (
+  access_token: string,
+  value: Value
+) => {
   const res = await client.PATCH('/user', {
     body: {
       username: value.username,
@@ -28,7 +23,7 @@ export const UpdateUserInformation = async (session: Session, value: Value) => {
       phoneNumber: value.phoneNumber,
     },
     headers: {
-      Authorization: `Bearer ${session.access_token}`,
+      Authorization: `Bearer ${access_token}`,
     },
   });
 
@@ -37,4 +32,19 @@ export const UpdateUserInformation = async (session: Session, value: Value) => {
       error: res.error.error,
     };
   }
+};
+
+export const GetUserInformation = async (access_token: string) => {
+  const res = await client.GET('/user/me', {
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+    },
+  });
+
+  if (res.error) {
+    return {
+      error: res.error.error,
+    };
+  }
+  return res.data.data;
 };

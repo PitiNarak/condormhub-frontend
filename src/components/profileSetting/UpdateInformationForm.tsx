@@ -21,17 +21,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select';
-import { components } from '@/types/api';
-import { UpdateUserInformation } from './action';
-import { useState } from 'react';
+import { GetUserInformation, UpdateUserInformation } from './action';
+import { useEffect, useState } from 'react';
 import { Check } from 'lucide-react';
-
-interface Session {
-  user?: components['schemas']['domain.User'];
-  access_token?: components['schemas']['dto.TokenWithUserInformationResponseBody']['accessToken'];
-  refresh_token?: components['schemas']['dto.TokenWithUserInformationResponseBody']['refreshToken'];
-  access_token_expired?: number;
-}
+import { useSession } from 'next-auth/react';
+import { components } from '@/types/api';
 
 const formSchema = z.object({
   username: z
@@ -49,20 +43,81 @@ const formSchema = z.object({
   gender: z.string().min(1, { message: 'Gender must be selected' }),
 });
 
-const UpdateInformationForm = ({ session }: { session: Session }) => {
-  // console.log(session);
+const UpdateInformationForm = () => {
+  const { data: session } = useSession();
   const [isUpdated, setIsUpdated] = useState(false);
+  const [value, setValue] = useState<components['schemas']['domain.User']>();
+
+  useEffect(() => {
+    const fetch = async () => {
+      console.log();
+      if (session?.access_token) {
+        const data = await GetUserInformation(session?.access_token);
+        if (data && 'error' in data) {
+          console.log(data.error);
+        } else {
+          setValue(data);
+        }
+      }
+    };
+    fetch();
+  }, [session?.access_token]);
+
+  // const updateSession = async (values: z.infer<typeof formSchema>) => {
+
+  //   try{
+  //     await update({
+  //       user: {
+  //         ...session?.user,
+  //         username: "values.username",
+  //         firstname: values.firstname,
+  //         lastname: values.lastname,
+  //         gender: values.gender,
+  //         phoneNumber: values.phoneNumber,
+  //       }
+  //     })
+  //     console.log(values);
+  //   }
+  //   catch(error){
+  //     console.log(error);
+  //   }
+  // }
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    //TODO when submit
+    console.log(values);
+    if (session?.access_token) {
+      const res = await UpdateUserInformation(session.access_token, values);
+      if (res?.error) {
+        console.log(res.error);
+      } else {
+        setIsUpdated(true);
+      }
+    }
+  }
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: session.user?.username || '',
-      firstname: session.user?.firstname || '',
-      lastname: session.user?.lastname || '',
-      gender: session.user?.gender || '',
-      phoneNumber: session.user?.phoneNumber || '',
+      username: value?.username || '',
+      firstname: value?.firstname || '',
+      lastname: value?.lastname || '',
+      gender: value?.gender || '',
+      phoneNumber: value?.phoneNumber || '',
     },
   });
+
+  useEffect(() => {
+    if (value) {
+      form.reset({
+        username: value.username || '',
+        firstname: value.firstname || '',
+        lastname: value.lastname || '',
+        gender: value.gender || '',
+        phoneNumber: value.phoneNumber || '',
+      });
+    }
+  }, [value, form]);
 
   const formatPhoneNumber = (value: string) => {
     // Remove non-digits
@@ -73,20 +128,6 @@ const UpdateInformationForm = ({ session }: { session: Session }) => {
     if (digits.length <= 6) return `${digits.slice(0, 3)}-${digits.slice(3)}`;
     return `${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(6, 10)}`;
   };
-
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    //TODO when submit
-    console.log(values);
-    if (session.access_token) {
-      const res = await UpdateUserInformation(session, values);
-      if (res?.error) {
-        console.log(res.error);
-      } else {
-        console.log(res);
-        setIsUpdated(true);
-      }
-    }
-  }
 
   return (
     <Form {...form}>
@@ -190,10 +231,7 @@ const UpdateInformationForm = ({ session }: { session: Session }) => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="font-semibold">Gender</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+                <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select your gender" />
