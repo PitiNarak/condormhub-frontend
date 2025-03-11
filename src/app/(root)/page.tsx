@@ -26,6 +26,14 @@ export default function Home() {
       <LinkBtn text="LifeStyle Page" path="/lifestyle" />
       <LinkBtn text="Verification Page" path="/verification" />
       <LinkBtn text="Lessor Rent Income Page" path="/lessorIncome" />
+      <LinkBtn
+        text="Lessor Notification Page"
+        path="/notification/lessorNoti"
+      />
+      <LinkBtn
+        text="Lessee Notification Page"
+        path="/notification/lesseeNoti"
+      />
     </div>
   );
 }
