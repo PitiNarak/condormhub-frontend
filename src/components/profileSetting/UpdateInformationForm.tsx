@@ -44,7 +44,7 @@ const formSchema = z.object({
 });
 
 const UpdateInformationForm = () => {
-  const { data: session } = useSession();
+  const { data: session, update } = useSession();
   const [isUpdated, setIsUpdated] = useState(false);
   const [value, setValue] = useState<components['schemas']['domain.User']>();
 
@@ -91,6 +91,16 @@ const UpdateInformationForm = () => {
       if (res?.error) {
         console.log(res.error);
       } else {
+        update({
+          user: {
+            ...session.user,
+            username: values.username,
+            firstname: values.firstname,
+            lastname: values.lastname,
+            gender: values.gender,
+            phoneNumber: values.phoneNumber,
+          },
+        });
         setIsUpdated(true);
       }
     }
