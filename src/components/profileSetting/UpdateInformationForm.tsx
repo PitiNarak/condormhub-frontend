@@ -21,11 +21,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select';
-import { GetUserInformation, UpdateUserInformation } from './action';
+import { UpdateUserInformation } from './action';
 import { useEffect, useState } from 'react';
 import { Check } from 'lucide-react';
 import { useSession } from 'next-auth/react';
-import { components } from '@/types/api';
 
 const formSchema = z.object({
   username: z
@@ -46,42 +45,6 @@ const formSchema = z.object({
 const UpdateInformationForm = () => {
   const { data: session, update } = useSession();
   const [isUpdated, setIsUpdated] = useState(false);
-  const [value, setValue] = useState<components['schemas']['domain.User']>();
-
-  useEffect(() => {
-    const fetch = async () => {
-      console.log();
-      if (session?.access_token) {
-        const data = await GetUserInformation(session?.access_token);
-        if (data && 'error' in data) {
-          console.log(data.error);
-        } else {
-          setValue(data);
-        }
-      }
-    };
-    fetch();
-  }, [session?.access_token]);
-
-  // const updateSession = async (values: z.infer<typeof formSchema>) => {
-
-  //   try{
-  //     await update({
-  //       user: {
-  //         ...session?.user,
-  //         username: "values.username",
-  //         firstname: values.firstname,
-  //         lastname: values.lastname,
-  //         gender: values.gender,
-  //         phoneNumber: values.phoneNumber,
-  //       }
-  //     })
-  //     console.log(values);
-  //   }
-  //   catch(error){
-  //     console.log(error);
-  //   }
-  // }
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     //TODO when submit
@@ -109,25 +72,25 @@ const UpdateInformationForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: value?.username || '',
-      firstname: value?.firstname || '',
-      lastname: value?.lastname || '',
-      gender: value?.gender || '',
-      phoneNumber: value?.phoneNumber || '',
+      username: session?.user?.username || '',
+      firstname: session?.user?.firstname || '',
+      lastname: session?.user?.lastname || '',
+      gender: session?.user?.gender || '',
+      phoneNumber: session?.user?.phoneNumber || '',
     },
   });
 
   useEffect(() => {
-    if (value) {
+    if (session?.access_token) {
       form.reset({
-        username: value.username || '',
-        firstname: value.firstname || '',
-        lastname: value.lastname || '',
-        gender: value.gender || '',
-        phoneNumber: value.phoneNumber || '',
+        username: session.user?.username || '',
+        firstname: session.user?.firstname || '',
+        lastname: session.user?.lastname || '',
+        gender: session.user?.gender || '',
+        phoneNumber: session.user?.phoneNumber || '',
       });
     }
-  }, [value, form]);
+  }, [session, form]);
 
   const formatPhoneNumber = (value: string) => {
     // Remove non-digits

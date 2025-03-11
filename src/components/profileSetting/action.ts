@@ -34,17 +34,17 @@ export const UpdateUserInformation = async (
   }
 };
 
-export const GetUserInformation = async (access_token: string) => {
-  const res = await client.GET('/user/me', {
-    headers: {
-      Authorization: `Bearer ${access_token}`,
-    },
-  });
+// export const GetUserInformation = async (access_token: string) => {
+//   const res = await client.GET('/user/me', {
+//     headers: {
+//       Authorization: `Bearer ${access_token}`,
+//     },
+//   });
 
-  if (res.error) {
-    return {
-      error: res.error.error,
-    };
-  }
-  return res.data.data;
-};
+//   if (res.error) {
+//     return {
+//       error: res.error.error,
+//     };
+//   }
+//   return res.data.data;
+// };
