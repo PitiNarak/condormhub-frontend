@@ -40,7 +40,7 @@ export function LessorNotificationScroll() {
 
   return (
     <div className="w-full max-w-2xl mx-auto p-4">
-      <ScrollArea className="h-[510px] w-full">
+      <ScrollArea className="w-full">
         <div className="grid grid-cols-1 gap-5">
           {notifications.map((data, index) => (
             <div
