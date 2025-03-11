@@ -62,10 +62,16 @@ export function LesseeReview() {
       <p className="text-xl font-bold text-center py-3">
         {owner}&apos;s Reviews
       </p>
-      <Carousel opts={{ align: 'start' }} className="w-[250px] md:w-[500px]">
+      <Carousel
+        opts={{ align: 'start' }}
+        className="w-[250px] md:w-[600px] lg:w-[900px] xl:w-[1200px]"
+      >
         <CarouselContent>
           {Array.from({ length: 5 }).map((_, index) => (
-            <CarouselItem key={index} className="md:basis-1/2">
+            <CarouselItem
+              key={index}
+              className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+            >
               <div className="p-1">
                 <div key={reviews[index].reviewerID} className="flex">
                   <ReviewBox

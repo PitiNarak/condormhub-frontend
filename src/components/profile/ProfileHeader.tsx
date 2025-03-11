@@ -21,7 +21,7 @@ export default function ProfileHeader() {
 
   return (
     <div>
-      <Card className="flex w-[350px] h-[225px] rounded-3xl shadow-xl border-[1px]">
+      <Card className="flex w-[350px] h-[225px] rounded-3xl border-[1px]">
         <div className="w-[225px] h-[225px] mt-3">
           <div className="flex justify-center mx-auto">
             <Image

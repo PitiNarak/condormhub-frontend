@@ -12,7 +12,7 @@ const ReviewBox = ({ reviewerID, reviewDate, reviewMessage }: reviewI) => {
   const reviewerName = 'Piti';
   const profileURL = '/mockProfile.png';
   return (
-    <Card className="w-[250px] h-[170px] relative">
+    <Card className="w-[250px] h-[170px] md:w-[300px] md:h-[200px] relative">
       <div className="p-3">
         <p>{reviewMessage}</p>
       </div>
