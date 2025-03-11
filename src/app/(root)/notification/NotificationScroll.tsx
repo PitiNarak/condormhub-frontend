@@ -4,7 +4,6 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
-import { mockNotifications } from '@/app/(root)/notification/lessorNoti/mockData/mockNotifications';
 import { useState } from 'react';
 import {
   Dialog,
@@ -12,6 +11,7 @@ import {
   DialogFooter,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { mockNotifications } from '@/app/(root)/notification/lessorNoti/mockData/mockNotifications';
 
 export function NotificationScroll() {
   const [openDialog, setOpenDialog] = useState(false);
@@ -46,7 +46,7 @@ export function NotificationScroll() {
             <div
               key={index}
               className={`flex gap-4 p-4 border rounded-lg shadow-md items-start ${
-                'proposal' in data ? '' : 'bg-gray-100'
+                'proposal' in data ? 'bg-gray-50' : 'bg-green-50'
               }`}
             >
               <Image
@@ -90,6 +90,7 @@ export function NotificationScroll() {
                   <div className="flex justify-end gap-2 mt-2">
                     <Button
                       variant="outline"
+                      className="text-green-600 border-green-600 hover:bg-green-50"
                       onClick={() => handleConfirm('markRead', index)}
                     >
                       Mark as Read
