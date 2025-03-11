@@ -45,8 +45,7 @@ const formSchema = z.object({
     .min(2, { message: 'Last name must be at least 2 characters.' }),
   phoneNumber: z
     .string()
-    .length(10, { message: 'Phone number must be 10 digits long' })
-    .regex(/^[0-9]+$/, { message: 'Phone number can only contain digits' }),
+    .startsWith('0', { message: 'Phone number must start with 0' }),
   gender: z.string().min(1, { message: 'Gender must be selected' }),
 });
 
@@ -65,6 +64,16 @@ const UpdateInformationForm = ({ session }: { session: Session }) => {
     },
   });
 
+  const formatPhoneNumber = (value: string) => {
+    // Remove non-digits
+    const digits = value.replace(/\D/g, '');
+
+    // Format as xxx-xxx-xxxx
+    if (digits.length <= 3) return digits;
+    if (digits.length <= 6) return `${digits.slice(0, 3)}-${digits.slice(3)}`;
+    return `${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(6, 10)}`;
+  };
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     //TODO when submit
     console.log(values);
@@ -73,6 +82,7 @@ const UpdateInformationForm = ({ session }: { session: Session }) => {
       if (res?.error) {
         console.log(res.error);
       } else {
+        console.log(res);
         setIsUpdated(true);
       }
     }
@@ -140,7 +150,15 @@ const UpdateInformationForm = ({ session }: { session: Session }) => {
               <FormItem>
                 <FormLabel className="font-semibold">Phone Number</FormLabel>
                 <FormControl>
-                  <Input placeholder="e.g., 0123456789" required {...field} />
+                  <Input
+                    placeholder="e.g., 012-345-6789"
+                    required
+                    value={field.value}
+                    onChange={(e) => {
+                      const formatted = formatPhoneNumber(e.target.value);
+                      field.onChange(formatted);
+                    }}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

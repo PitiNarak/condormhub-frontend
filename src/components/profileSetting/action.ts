@@ -37,10 +37,4 @@ export const UpdateUserInformation = async (session: Session, value: Value) => {
       error: res.error.error,
     };
   }
-
-  if (!res.data.data) {
-    return {
-      error: 'unknown error',
-    };
-  }
 };
