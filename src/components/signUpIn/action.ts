@@ -19,7 +19,6 @@ export async function sendRegistration(value: user): Promise<{
       password: value.password,
     },
   });
-  console.log(data);
   if (error || !data.data) {
     return {
       message: error?.error,

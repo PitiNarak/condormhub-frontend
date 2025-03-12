@@ -51,7 +51,6 @@ export default function MyForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
     try {
       const result = await sendRegistration(values);
       setErr('');
