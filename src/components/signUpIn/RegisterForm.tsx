@@ -57,7 +57,7 @@ export default function MyForm() {
       setErr('');
       if (result && result.message !== 'user successfully registered') {
         //Tell user why
-        setErr(result.message);
+        setErr(result.message ? result.message : '');
       } else {
         //Redirect to email verification
         router.push('/');
