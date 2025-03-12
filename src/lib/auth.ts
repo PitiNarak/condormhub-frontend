@@ -78,15 +78,11 @@ export const nextAuthConfig = {
         });
 
         if (res.error) {
-          return {
-            error: res.error.error,
-          };
+          throw new Error(res.error.error);
         }
 
         if (!res.data.data) {
-          return {
-            error: 'unknown error',
-          };
+          throw new Error('An unknown error occurred.');
         }
 
         const decoded = jwtDecode(res.data.data.accessToken || '');

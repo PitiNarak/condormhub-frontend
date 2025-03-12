@@ -34,6 +34,11 @@ export const UpdateUserInformation = async (
   }
 };
 
+export const DeleteAccount = async (access_token: string) => {
+  console.log(access_token);
+  // const res = await client.DELETE('/user/', {})
+};
+
 // export const GetUserInformation = async (access_token: string) => {
 //   const res = await client.GET('/user/me', {
 //     headers: {

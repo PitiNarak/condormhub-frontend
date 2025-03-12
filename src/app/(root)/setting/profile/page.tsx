@@ -37,7 +37,7 @@ const page = async () => {
             Once you delete your account, there is no going back. Please be
             certain.
           </p>
-          <DeleteAccountButton />
+          <DeleteAccountButton access_token={session.access_token} />
         </div>
       </div>
     );
