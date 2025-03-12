@@ -40,11 +40,13 @@ export function LoginForm() {
       password: values.password,
       redirect: false,
     });
+
     if (result?.error) {
       console.log('Login failed:', result.error);
       setErrorMessage(result.error);
     } else {
-      router.push('/home/lesseeView'); // Redirect to a protected page
+      console.log('Sign-in result:', result);
+      router.push('/home/lesseeView');
     }
   }
 
