@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import '@/app/globals.css';
 import Navbar from '@/components/layout/Navbar';
+import { Toaster } from '@/components/ui/toaster';
 // import { auth } from '@/lib/auth';
 // import { redirect } from 'next/navigation';
 
@@ -24,6 +25,7 @@ export default async function RootLayout({
     <div>
       <Navbar />
       <div className="pt-24">{children}</div>
+      <Toaster />
     </div>
   );
 }

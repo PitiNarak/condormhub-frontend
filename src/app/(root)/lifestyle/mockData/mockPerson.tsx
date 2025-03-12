@@ -1,7 +1,7 @@
 import {
   allLifestyleTags,
   LifestyleTag,
-} from '@/app/lifestyle/allLifestyleTag';
+} from '@/app/(root)/lifestyle/allLifestyleTag';
 
 export type PersonData = {
   id: number;
@@ -12,7 +12,7 @@ export type PersonData = {
 export const mockPerson: PersonData = {
   id: 1,
   name: 'Keen',
-  // For example, preselect tags with id 1 ("Active") and id 5 ("Creative")
+  // For example, preselect tags with id 1 ("Active") and id 5 ("Football")
   lifestyleTags: [
     allLifestyleTags.find((tag) => tag.id === 1)!,
     allLifestyleTags.find((tag) => tag.id === 5)!,
