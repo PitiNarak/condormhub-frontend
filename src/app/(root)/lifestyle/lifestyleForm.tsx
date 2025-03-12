@@ -7,8 +7,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   LifestyleTag,
   allLifestyleTags,
-} from '@/app/lifestyle/allLifestyleTag';
-import { mockPerson, PersonData } from '@/app/lifestyle/mockData/mockPerson';
+} from '@/app/(root)/lifestyle/allLifestyleTag';
+import {
+  mockPerson,
+  PersonData,
+} from '@/app/(root)/lifestyle/mockData/mockPerson';
 
 export default function LifestyleForm() {
   const [person, setPerson] = useState<PersonData>(mockPerson);

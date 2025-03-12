@@ -1,5 +1,5 @@
-import LifestyleForm from '@/app/lifestyle/lifestyleForm';
-import LifestyleHeader from '@/app/lifestyle/lifestyleHeader';
+import LifestyleForm from '@/app/(root)/lifestyle/lifestyleForm';
+import LifestyleHeader from '@/app/(root)/lifestyle/lifestyleHeader';
 
 export default function LifestyleTagSelectorPage() {
   return (
