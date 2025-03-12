@@ -239,7 +239,12 @@ export interface paths {
      */
     get: {
       parameters: {
-        query?: never;
+        query?: {
+          /** @description Number of dorms to retrieve (default 10, max 50) */
+          limit?: number;
+          /** @description Page number to retrieve (default 1) */
+          page?: number;
+        };
         header?: never;
         path?: never;
         cookie?: never;
@@ -290,7 +295,7 @@ export interface paths {
       /** @description Dorm information */
       requestBody: {
         content: {
-          'application/json': components['schemas']['dto.DormRequestBody'];
+          'application/json': components['schemas']['dto.DormCreateRequestBody'];
         };
       };
       responses: {
@@ -314,6 +319,15 @@ export interface paths {
         };
         /** @description your request is unauthorized */
         401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description You do not have permission to create a dorm */
+        403: {
           headers: {
             [name: string]: unknown;
           };
@@ -427,13 +441,11 @@ export interface paths {
       requestBody?: never;
       responses: {
         /** @description Dorm successfully deleted */
-        200: {
+        204: {
           headers: {
             [name: string]: unknown;
           };
-          content: {
-            'application/json': components['schemas']['dto.SuccessResponse-domain_Dorm'];
-          };
+          content?: never;
         };
         /** @description Incorrect UUID format */
         400: {
@@ -446,6 +458,15 @@ export interface paths {
         };
         /** @description your request is unauthorized */
         401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description You do not have permission to delete this dorm */
+        403: {
           headers: {
             [name: string]: unknown;
           };
@@ -492,7 +513,7 @@ export interface paths {
       /** @description Updated Room Data */
       requestBody: {
         content: {
-          'application/json': components['schemas']['dto.DormRequestBody'];
+          'application/json': components['schemas']['dto.DormUpdateRequestBody'];
         };
       };
       responses: {
@@ -516,6 +537,15 @@ export interface paths {
         };
         /** @description your request is unauthorized */
         401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description unauthorized to update this dorm */
+        403: {
           headers: {
             [name: string]: unknown;
           };
@@ -558,11 +588,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        query: {
-          /** @description Number of history to be retirved */
-          limit: string;
-          /** @description Page to retrive */
-          page: string;
+        query?: {
+          /** @description Number of dorms to retrieve (default 10, max 50) */
+          limit?: number;
+          /** @description Page number to retrieve (default 1) */
+          page?: number;
         };
         header?: never;
         path: {
@@ -641,11 +671,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        query: {
-          /** @description Number of history to be retirved */
-          limit: string;
-          /** @description Page to retrive */
-          page: string;
+        query?: {
+          /** @description Number of dorms to retrieve (default 10, max 50) */
+          limit?: number;
+          /** @description Page number to retrieve (default 1) */
+          page?: number;
         };
         header?: never;
         path?: never;
@@ -1724,6 +1754,7 @@ export interface components {
       lessee?: components['schemas']['domain.User'];
       lessee_id?: string;
       orders?: components['schemas']['domain.Order'][];
+      price?: number;
       start?: string;
     };
     'domain.Lifestyle': string;
@@ -1768,10 +1799,16 @@ export interface components {
       updateAt?: string;
       username: string;
     };
+    'dto.Address': {
+      district?: string;
+      province?: string;
+      subdistrict?: string;
+      zipcode?: string;
+    };
     'dto.CreateTransactionResponseBody': {
       checkoutUrl?: string;
     };
-    'dto.DormRequestBody': {
+    'dto.DormCreateRequestBody': {
       address: {
         district: string;
         province: string;
@@ -1784,6 +1821,15 @@ export interface components {
       name: string;
       price: number;
       size: number;
+    };
+    'dto.DormUpdateRequestBody': {
+      address?: components['schemas']['dto.Address'];
+      bathrooms?: number;
+      bedrooms?: number;
+      description?: string;
+      name?: string;
+      price?: number;
+      size?: number;
     };
     'dto.ErrorResponse': {
       error?: string;
