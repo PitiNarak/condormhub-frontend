@@ -11,8 +11,6 @@ export default function ProfileHeader() {
   //const data = fetch(get user from ID)
   const userName = 'Piti';
   const profileURL = '/mockProfile.png';
-  const firstName = 'Piti';
-  const lastName = 'Narak';
   const role = 'Lessee';
   const ratingScore = 4.5;
   const reviewsAmount = 100;
@@ -21,7 +19,7 @@ export default function ProfileHeader() {
 
   return (
     <div>
-      <Card className="flex w-[350px] h-[225px] rounded-3xl border-[1px]">
+      <Card className="flex w-[350px] h-[225px] rounded-3xl border-[1px] shadow-lg">
         <div className="w-[225px] h-[225px] mt-3">
           <div className="flex justify-center mx-auto">
             <Image
@@ -35,9 +33,6 @@ export default function ProfileHeader() {
           <div className="flex justify-center mx-auto">
             <div className="text-center">
               <p className="text-lg font-bold mt-2">{userName}</p>
-              <p className="text-gray-500">
-                {firstName} {lastName}
-              </p>
               <p className="justify-center mx-auto px-5 py-1 border rounded-2xl bg-gray-100 mt-1">
                 {role}
               </p>
