@@ -38,6 +38,7 @@ const formSchema = z
   });
 
 export default function MyForm() {
+  const [isLoad, setLoad] = useState(false)
   const router = useRouter();
   const [err, setErr] = useState('');
   const form = useForm<z.infer<typeof formSchema>>({
@@ -51,6 +52,7 @@ export default function MyForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setLoad(true)
     try {
       const result = await sendRegistration(values);
       setErr('');
@@ -64,6 +66,7 @@ export default function MyForm() {
     } catch (e: unknown) {
       console.log(e);
     }
+    setLoad(false)
   }
 
   return (
@@ -157,7 +160,7 @@ export default function MyForm() {
           <p className="text-red-500 font-extralight text-sm">{err}</p>
         </div>
         <div>
-          <Button className="w-full mt-3" type="submit">
+          <Button className="w-full mt-3" disabled={isLoad} type="submit">
             Sign Up
           </Button>
         </div>
