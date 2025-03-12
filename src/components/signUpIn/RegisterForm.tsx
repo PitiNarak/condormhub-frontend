@@ -60,7 +60,7 @@ export default function MyForm() {
         setErr(result.message ? result.message : '');
       } else {
         //Redirect to email verification
-        router.push('/');
+        router.push('/emailVerification');
       }
     } catch (e: unknown) {
       console.log(e);
