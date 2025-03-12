@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import '@/app/globals.css';
 import Navbar from '@/components/layout/Navbar';
 import { Toaster } from '@/components/ui/toaster';
-// import { auth } from '@/lib/auth';
-// import { redirect } from 'next/navigation';
+import { auth } from '@/lib/auth';
+import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -15,12 +15,12 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const session = await auth();
+  const session = await auth();
 
-  // if (!session) {
-  //   redirect('/login');
-  // }
-  // console.log(session);
+  if (!session?.access_token) {
+    redirect('/login');
+  }
+  console.log(session);
   return (
     <div>
       <Navbar />
