@@ -30,7 +30,7 @@ export default function ProfileInfo() {
           </div>
         </CardHeader>
         <CardContent className="">
-          <div className=" grid gird-cols-1 md:grid-cols-2 gap-y-5">
+          <div className="grid gird-cols-1 md:grid-cols-2 gap-y-5">
             <TextInCard
               icon={<User />}
               header="Name"

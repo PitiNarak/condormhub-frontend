@@ -6,7 +6,7 @@ export interface textCardProp {
 
 function TextInCard({ icon, header, data }: textCardProp) {
   return (
-    <div className="flex justify-center mx-auto md:grid md:grid-cols-[1fr,2fr]">
+    <div className="flex justify-left md:grid md:grid-cols-[1fr,2fr]">
       <div className="flex">
         {icon}
         <p className="font-bold pl-1">{header} :</p>
