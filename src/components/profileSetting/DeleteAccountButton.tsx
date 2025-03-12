@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/dialog';
 import { DeleteAccount } from './action';
 import { redirect } from 'next/navigation';
+import { signOut } from 'next-auth/react';
 
 const DeleteAccountButton = ({ access_token }: { access_token: string }) => {
   async function onSubmit() {
@@ -20,8 +21,8 @@ const DeleteAccountButton = ({ access_token }: { access_token: string }) => {
     if (res?.error) {
       console.log(res.error);
     } else {
-      console.log('deleted');
-      redirect('/register');
+      await signOut();
+      redirect('/login');
     }
   }
   return (
@@ -34,12 +35,12 @@ const DeleteAccountButton = ({ access_token }: { access_token: string }) => {
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="w-min text-nowrap">Warning</DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-left">
             This action cannot be undone. Are you sure you want to permanently
             delete this account?
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter>
+        <DialogFooter className="flex-col md:gap-1 gap-2">
           <Button onClick={onSubmit} variant="destructive">
             Confirm
           </Button>
