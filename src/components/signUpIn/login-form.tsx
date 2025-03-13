@@ -18,7 +18,7 @@ import { useState } from 'react';
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Input must be in Email format' }),
-  password: z.string(),
+  password: z.string().min(1, { message: 'Password is required' }),
 });
 
 export function LoginForm() {
