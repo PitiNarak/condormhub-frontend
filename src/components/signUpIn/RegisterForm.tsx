@@ -38,6 +38,7 @@ const formSchema = z
   });
 
 export default function MyForm() {
+  const [isLoad, setLoad] = useState(false);
   const router = useRouter();
   const [err, setErr] = useState('');
   const form = useForm<z.infer<typeof formSchema>>({
@@ -51,20 +52,21 @@ export default function MyForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    setLoad(true);
     try {
       const result = await sendRegistration(values);
       setErr('');
       if (result && result.message !== 'user successfully registered') {
         //Tell user why
-        setErr(result.message);
+        setErr(result.message ? result.message : '');
       } else {
         //Redirect to email verification
-        router.push('/');
+        router.push('/emailVerification');
       }
     } catch (e: unknown) {
       console.log(e);
     }
+    setLoad(false);
   }
 
   return (
@@ -158,7 +160,7 @@ export default function MyForm() {
           <p className="text-red-500 font-extralight text-sm">{err}</p>
         </div>
         <div>
-          <Button className="w-full mt-3" type="submit">
+          <Button className="w-full mt-3" disabled={isLoad} type="submit">
             Sign Up
           </Button>
         </div>
