@@ -2,7 +2,7 @@ import { Property } from '../../types/property';
 
 const mockArray = [
   new Property(
-    1,
+    '1',
     '/image.jpeg',
     4.9,
     2,
@@ -16,7 +16,7 @@ const mockArray = [
     'This is condo opposite of Samyam Mitrtown'
   ),
   new Property(
-    2,
+    '2',
     '/image.jpeg',
     4.9,
     2,
@@ -30,7 +30,7 @@ const mockArray = [
     'This is condo opposite of Samyam Mitrtown'
   ),
   new Property(
-    3,
+    '3',
     '/image.jpeg',
     4.9,
     2,
@@ -44,7 +44,7 @@ const mockArray = [
     'This is condo opposite of Samyam Mitrtown'
   ),
   new Property(
-    4,
+    '4',
     '/image.jpeg',
     4.9,
     2,
@@ -58,7 +58,7 @@ const mockArray = [
     'This is condo opposite of Samyam Mitrtown'
   ),
   new Property(
-    5,
+    '5',
     '/image.jpeg',
     4.9,
     2,
@@ -72,7 +72,7 @@ const mockArray = [
     'This is condo opposite of Samyam Mitrtown'
   ),
   new Property(
-    6,
+    '6',
     '/image.jpeg',
     4.9,
     2,
@@ -86,7 +86,7 @@ const mockArray = [
     'This is condo opposite of Samyam Mitrtown'
   ),
   new Property(
-    7,
+    '7',
     '/image.jpeg',
     4.9,
     2,
@@ -100,7 +100,7 @@ const mockArray = [
     'This is condo opposite of Samyam Mitrtown'
   ),
   new Property(
-    8,
+    '8',
     '/image.jpeg',
     4.9,
     2,
@@ -114,7 +114,7 @@ const mockArray = [
     'This is condo opposite of Samyam Mitrtown'
   ),
   new Property(
-    9,
+    '9',
     '/image.jpeg',
     4.9,
     2,
@@ -128,7 +128,7 @@ const mockArray = [
     'This is condo opposite of Samyam Mitrtown'
   ),
   new Property(
-    11,
+    '11',
     '/image.jpeg',
     4.9,
     2,
@@ -142,7 +142,7 @@ const mockArray = [
     'This is condo opposite of Samyam Mitrtown'
   ),
   new Property(
-    10,
+    '10',
     '/image.jpeg',
     4.9,
     2,
@@ -156,7 +156,7 @@ const mockArray = [
     'This is condo opposite of Samyam Mitrtown'
   ),
   new Property(
-    12,
+    '12',
     '/image.jpeg',
     4.9,
     2,
@@ -170,7 +170,7 @@ const mockArray = [
     'This is condo opposite of Samyam Mitrtown'
   ),
   new Property(
-    13,
+    '13',
     '/image.jpeg',
     4.9,
     2,
@@ -184,7 +184,7 @@ const mockArray = [
     'This is condo opposite of Samyam Mitrtown'
   ),
   new Property(
-    14,
+    '14',
     '/image.jpeg',
     4.9,
     2,

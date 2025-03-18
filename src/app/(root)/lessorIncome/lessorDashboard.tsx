@@ -13,7 +13,8 @@ export default function LessorDashboard() {
   const user = 'PitiOwner';
 
   const leasedProperties = properties.filter(
-    (property) => property.id >= 1 && property.id <= 7 && property.owner == user
+    (property) =>
+      property.id >= '1' && property.id <= '7' && property.owner == user
   );
 
   // Mocking Lessee Name of properties ID = 1-7

@@ -1,5 +1,5 @@
 export class Property {
-  id = 0;
+  id = '';
   image = '';
   rating = 0;
   bedroom = 0;
@@ -12,7 +12,7 @@ export class Property {
   size = 0;
   description = '';
   constructor(
-    id: number,
+    id: string,
     image: string,
     rating: number,
     bedroom: number,
@@ -41,7 +41,7 @@ export class Property {
 }
 
 export interface PropertyI {
-  id: number;
+  id: string;
   image: string;
   rating: number;
   bedroom: number;
@@ -64,4 +64,48 @@ export interface MiniPropertyI {
   province: string;
   district: string;
   price: number;
+}
+
+interface address {
+  district: string;
+  privince: string;
+  subdistrict: string;
+  zipcode: string;
+}
+interface owner {
+  // id: string;
+  // username: string;
+  birthDate: string;
+  createAt: string;
+  email: string;
+  filledPersonalInfo: boolean;
+  firstname: string;
+  gender: string;
+  id: string;
+  isStudentVerified: boolean;
+  isVerified: boolean;
+  lastname: string;
+  lifestyles: string[];
+  nationalID: string;
+  phoneNumber: string;
+  role: string;
+  studentEvidence: string;
+  updateAt: string;
+  username: string;
+}
+
+export interface propertyBackend {
+  address: address;
+  bathrooms: number;
+  bedroom: number;
+  createAt: string;
+  description: string;
+  id: string;
+  name: string;
+  owner: owner;
+  price: number;
+  rating: number;
+  size: number;
+  ownerId: string;
+  updateAt: string;
 }
