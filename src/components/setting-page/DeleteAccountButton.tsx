@@ -13,7 +13,7 @@ import {
 import { redirect } from 'next/navigation';
 import { signOut } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
-import { DeleteAccount } from '@/action/setting/action';
+import { DeleteAccount } from '@/actions/setting/action';
 
 const DeleteAccountButton = ({ access_token }: { access_token: string }) => {
   async function onSubmit() {

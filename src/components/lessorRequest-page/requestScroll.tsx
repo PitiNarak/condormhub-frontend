@@ -11,7 +11,7 @@ import {
   DialogFooter,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { MockRequests } from '@/app/(root)/lessorRequest/mockData/mockRequest';
+import { MockRequests } from '@/mocks/mockRequests';
 
 export function RequestScroll() {
   const [openDialog, setOpenDialog] = useState(false);

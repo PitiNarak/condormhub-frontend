@@ -1,7 +1,4 @@
-import {
-  allLifestyleTags,
-  LifestyleTag,
-} from '@/app/(root)/lifestyle/allLifestyleTag';
+import { allLifestyleTags, LifestyleTag } from '@/types/allLifestyle';
 
 export type PersonData = {
   id: number;

@@ -1,4 +1,4 @@
-import { RequestScroll } from '@/app/(root)/lessorRequest/RequestScroll';
+import { RequestScroll } from '@/components/lessorRequest-page/requestScroll';
 
 export default function Page() {
   return (

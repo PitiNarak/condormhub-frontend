@@ -1,4 +1,4 @@
-import { LesseeNotificationScroll } from '@/app/(root)/notification/lesseeNoti/lesseeNotificationScroll';
+import { LesseeNotificationScroll } from '@/components/notification-page/lesseeNotificationScroll';
 
 export default function Page() {
   return (

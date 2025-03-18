@@ -4,14 +4,8 @@ import React, { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import {
-  LifestyleTag,
-  allLifestyleTags,
-} from '@/app/(root)/lifestyle/allLifestyleTag';
-import {
-  mockPerson,
-  PersonData,
-} from '@/app/(root)/lifestyle/mockData/mockPerson';
+import { LifestyleTag, allLifestyleTags } from '@/types/allLifestyle';
+import { mockPerson, PersonData } from '@/mocks/mockLifestyle';
 
 export default function LifestyleForm() {
   const [person, setPerson] = useState<PersonData>(mockPerson);

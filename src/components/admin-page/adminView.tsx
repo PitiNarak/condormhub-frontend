@@ -21,7 +21,7 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import Image from 'next/image';
-import { Student, studentData } from '@/app/admin/mockData/testTable';
+import { Student, studentData } from '@/mocks/mockAdmin';
 
 export default function AdminView() {
   const [students, setStudents] = useState<Student[]>(studentData);

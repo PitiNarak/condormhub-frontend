@@ -1,7 +1,7 @@
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { CardTitle } from '@/components/ui/card';
 import Image from 'next/image';
-import { MockNotifications } from '@/app/(root)/notification/mockNotifications';
+import { MockNotifications } from '@/mocks/mockNotifications';
 
 export function LessorNotificationScroll() {
   return (
