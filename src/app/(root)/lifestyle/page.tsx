@@ -1,3 +1,4 @@
+import { AuthProvider } from '@/components/auth/authProvider';
 import LifestyleForm from '@/components/lifestyle-page/lifestyleForm';
 
 export default function LifestyleTagSelectorPage() {
@@ -9,7 +10,9 @@ export default function LifestyleTagSelectorPage() {
           Please choose your lifestyle from this collection
         </p>
       </div>
-      <LifestyleForm />
+      <AuthProvider>
+        <LifestyleForm />
+      </AuthProvider>
     </div>
   );
 }

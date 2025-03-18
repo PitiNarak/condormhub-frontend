@@ -1,17 +1,60 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { LifestyleTag, allLifestyleTags } from '@/types/allLifestyle';
-import { mockPerson, PersonData } from '@/mocks/mockLifestyle';
+import { useSession } from 'next-auth/react';
+import { Loader2, CircleCheckBig } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+import { UpdateLifestyleTags, GetUserData } from '@/actions/lifestyle/action';
 
 export default function LifestyleForm() {
-  const [person, setPerson] = useState<PersonData>(mockPerson);
-  const [selectedTags, setSelectedTags] = useState<LifestyleTag[]>(
-    person.lifestyleTags
-  );
+  const { data: session, update } = useSession();
+  const { toast } = useToast();
+
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [selectedTags, setSelectedTags] = useState<LifestyleTag[]>([]);
+  const [initialTags, setInitialTags] = useState<LifestyleTag[]>([]);
+
+  // Fetch user data
+  useEffect(() => {
+    const fetchUserLifestyles = async () => {
+      if (!session?.access_token) return;
+
+      setLoading(true);
+      try {
+        const userData = await GetUserData(session.access_token);
+        console.log('Fetched userData:', userData);
+        if (userData) {
+          // Map backend lifestyle strings to our tag objects
+          const userLifestyles =
+            (userData as { data: { lifestyles?: string[] } }).data
+              ?.lifestyles || [];
+          const matchedTags = allLifestyleTags.filter((tag) =>
+            userLifestyles.includes(tag.name)
+          );
+          console.log('Fetched userData:', matchedTags);
+
+          setSelectedTags(matchedTags);
+          setInitialTags(matchedTags);
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        toast({
+          variant: 'destructive',
+          title: 'Uh oh! Something went wrong.',
+          description: 'Failed to load your lifestyle tags',
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserLifestyles();
+  }, [session, toast]);
 
   const addTag = (tag: LifestyleTag) => {
     if (!selectedTags.some((t) => t.id === tag.id)) {
@@ -35,18 +78,76 @@ export default function LifestyleForm() {
     {} as Record<string, LifestyleTag[]>
   );
 
-  // Handle Save: update the person’s lifestyle tags and log the updated person
-  const handleSave = () => {
-    const updatedPerson = { ...person, lifestyleTags: selectedTags };
-    setPerson(updatedPerson);
-    console.log('Saved Person:', updatedPerson);
-    console.log('Selected Tags:', selectedTags);
+  // Handle Save: update the user's lifestyle tags
+  const handleSave = async () => {
+    if (!session?.access_token) {
+      toast({
+        variant: 'destructive',
+        title: 'Authentication Error',
+        description: 'You must be logged in to save lifestyle tags',
+      });
+      return;
+    }
+
+    setSaving(true);
+    try {
+      // Convert tag objects to strings for the API
+      const lifestyleNames = selectedTags.map((tag) => tag.name);
+
+      const result = await UpdateLifestyleTags(
+        session.access_token,
+        lifestyleNames
+      );
+
+      if (result) {
+        setInitialTags(selectedTags);
+
+        // Update the session with new lifestyles if session update is available
+        if (update && session.user) {
+          update({
+            user: {
+              ...session.user,
+              lifestyles: lifestyleNames,
+            },
+          });
+        }
+
+        toast({
+          description: (
+            <div className="flex gap-5">
+              <CircleCheckBig className="text-green-500" />
+              <p className="text-base">Lifestyle Tags updated successfully</p>
+            </div>
+          ),
+        });
+      }
+    } catch (error) {
+      console.error('Error saving lifestyle tags:', error);
+      toast({
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
+        description:
+          error instanceof Error
+            ? error.message
+            : 'Failed to save your lifestyle tags',
+      });
+    } finally {
+      setSaving(false);
+    }
   };
 
   const handleCancel = () => {
-    setSelectedTags(person.lifestyleTags);
-    // router.push('/')
+    setSelectedTags(initialTags);
   };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
+        <span className="ml-2 text-lg">Loading your lifestyle tags</span>
+      </div>
+    );
+  }
 
   return (
     <div className="p-1 max-w-4xl mx-auto rounded-lg">
@@ -108,13 +209,27 @@ export default function LifestyleForm() {
       {/* Save and Cancel Buttons */}
       <div className="flex justify-center gap-4">
         <Button
-          className="px-6 py-2 bg-red-500 hover:bg-red-600"
+          type="button"
+          className="w-44 bg-red-500 hover:bg-red-600"
           onClick={handleCancel}
+          disabled={saving}
         >
           Cancel
         </Button>
-        <Button className="px-6 py-2" onClick={handleSave}>
-          Save
+        <Button
+          type="button"
+          className="w-44"
+          onClick={handleSave}
+          disabled={saving}
+        >
+          {saving ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Saving...
+            </>
+          ) : (
+            'Save Changes'
+          )}
         </Button>
       </div>
     </div>
