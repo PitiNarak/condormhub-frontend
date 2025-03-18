@@ -20,12 +20,12 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '../ui/select';
-import { UpdateUserInformation } from './action';
+} from '@/components/ui/select';
 import { useEffect } from 'react';
 import { CircleCheckBig } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { useToast } from '@/hooks/use-toast';
+import { UpdateUserInformation } from '@/action/setting/action';
 
 const formSchema = z.object({
   username: z
