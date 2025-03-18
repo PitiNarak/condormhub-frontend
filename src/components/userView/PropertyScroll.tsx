@@ -1,6 +1,7 @@
 import { PropertyDetail } from '@/components/userView/PropertyDetail';
 import { mockData } from '../example/mockdata';
 import { PropertyI } from '@/types/property';
+import { RequestBtn } from '@/components/userView/RequestBtn';
 
 export function PropertyScroll() {
   const propertyData = JSON.parse(mockData);
@@ -25,6 +26,7 @@ export function PropertyScroll() {
               owner={data.owner}
               size={data.size}
               description={data.description}
+              actionBtn={<RequestBtn />}
             />
           </div>
         ))}

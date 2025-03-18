@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import { PropertyDetail } from '@/components/userView/PropertyDetail';
 import { mockData } from '@/components/example/mockdata';
