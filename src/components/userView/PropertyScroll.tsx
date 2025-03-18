@@ -3,6 +3,7 @@ import { fetchProperty } from '@/actions/fetchProperty';
 import type { components } from '@/types/api';
 import { mockData } from '../example/mockdata';
 import PaginationControl from '@/components/userView/PaginationControl';
+import { redirect } from 'next/navigation';
 
 export async function PropertyScroll({
   searchParams,
@@ -10,12 +11,16 @@ export async function PropertyScroll({
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const sp = await searchParams;
+  const lesseePagePath = '/home/lesseeView?page=1';
   const page = Number(sp.page ?? '1');
+
   // console.log(page)
   const data = await fetchProperty(page);
 
   const propertyData = !data ? JSON.parse(mockData) : data;
-  console.log(propertyData.length);
+  if (propertyData.length == 0 || page < 1 || Number.isNaN(page)) {
+    redirect(lesseePagePath);
+  }
   return (
     <div className="shadow-md border border-gray-100 pt-14 pb-12">
       <p className="block text-center text-lg w-[150px] mb-8 ml-2 rounded-2xl border border-gray-400">
