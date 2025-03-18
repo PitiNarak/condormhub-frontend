@@ -1,5 +1,5 @@
-import LessorDashboard from '@/app/(root)/lessorIncome/lessorDashboard';
-import LessorDashHeader from '@/app/(root)/lessorIncome/lessorDashHeader';
+import LessorDashboard from '@/components/lessorIncome-page/lessorDashboard';
+import LessorDashHeader from '@/components/lessorIncome-page/lessorDashHeader';
 
 export default function LessorIncome() {
   return (
