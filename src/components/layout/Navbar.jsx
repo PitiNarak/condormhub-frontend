@@ -19,7 +19,7 @@ const Header = () => {
       </div>
       <div className="sm:flex-[1] md:flex-[2] xl:flex-[3]"></div>
       <div className="flex-[3] flex text-center">
-        <SelectedMenu text="Setting" path="/setting/profile" />
+        <SelectedMenu text="Setting" path="/setting" />
         <SelectedMenu text="Profile" path="/profile/myProfile" />
         <div className="flex-1 justify-center m-auto flex">
           <NotiBtn />
