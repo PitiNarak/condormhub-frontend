@@ -1,4 +1,4 @@
-import ResetPasswordForm from '@/components/signUpIn/ResetPasswordForm';
+import ResetPasswordForm from '@/components/login-page/ResetPasswordForm';
 import {
   Card,
   CardContent,

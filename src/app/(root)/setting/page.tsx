@@ -1,9 +1,9 @@
 import { auth } from '@/lib/auth';
-import UpdateInformationForm from '@/components/profileSetting/UpdateInformationForm';
+import UpdateInformationForm from '@/components/setting-page/UpdateInformationForm';
 import { redirect } from 'next/navigation';
 import Divider from '@/components/layout/Divider';
-import VerificationStatus from '@/components/profileSetting/VerificationStatus';
-import DeleteAccountButton from '@/components/profileSetting/DeleteAccountButton';
+import VerificationStatus from '@/components/setting-page/VerificationStatus';
+import DeleteAccountButton from '@/components/setting-page/DeleteAccountButton';
 import { AuthProvider } from '@/components/auth/authProvider';
 
 const page = async () => {
