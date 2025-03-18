@@ -1,30 +1,36 @@
 import { PropertyDetail } from '@/components/userView/PropertyDetail';
+import { fetchProperty } from '@/actions/fetchProperty';
+import type { components } from '@/types/api';
 import { mockData } from '../example/mockdata';
-import { PropertyI } from '@/types/property';
 
-export function PropertyScroll() {
-  const propertyData = JSON.parse(mockData);
+export async function PropertyScroll() {
+  const data = await fetchProperty(1);
+  console.log(data);
+
+  const propertyData = !data ? JSON.parse(mockData) : data;
   return (
     <div className="shadow-md border border-gray-100 pt-14 pb-12">
       <p className="block text-center text-lg w-[150px] mb-8 ml-2 rounded-2xl border border-gray-400">
         No Filters
       </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mx-5">
-        {propertyData.map((data: PropertyI) => (
+        {propertyData.map((data: components['schemas']['domain.Dorm']) => (
           <div key={String(data.id)} className="text-sm">
             <PropertyDetail
-              id={data.id}
-              image={data.image}
-              rating={data.rating}
-              bedroom={data.bedroom}
-              bathroom={data.bathroom}
-              province={data.province}
-              district={data.district}
+              id={data.id ? data.id : ''}
+              image={
+                'https://publics.condormhub.xyz/dorms/c9951243-2d38-4a48-aa5b-0fc680eb078a-d73fa3d7-3f3f-46cc-9a3c-d5afebdc2286.webp'
+              }
+              rating={data.rating ? data.rating : 0}
+              bedroom={data.bedrooms}
+              bathroom={data.bathrooms}
+              province={data.address.province}
+              district={data.address.district}
               price={data.price}
-              propertyName={data.propertyName}
-              owner={data.owner}
+              propertyName={data.name}
+              owner={data.owner ? data.owner.username : ''}
               size={data.size}
-              description={data.description}
+              description={data.description ? data.description : ''}
             />
           </div>
         ))}

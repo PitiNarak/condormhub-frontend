@@ -2,12 +2,7 @@
 
 import client from '@/api';
 
-export async function fetchProperty(
-  page: number,
-  limit = 12
-): Promise<{
-  message?: string;
-} | void> {
+export async function fetchProperty(page: number, limit = 12) {
   const { data, error } = await client.GET('/dorms', {
     params: {
       query: { limit: limit, page: page },
@@ -18,4 +13,5 @@ export async function fetchProperty(
       message: error?.error,
     };
   }
+  return data.data;
 }
