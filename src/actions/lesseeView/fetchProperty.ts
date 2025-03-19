@@ -8,6 +8,7 @@ export async function fetchProperty(page: number, limit = 12) {
       query: { limit: limit, page: page },
     },
   });
+  // return {message: "backend crash :V"}
   if (error || !data.data) {
     return {
       message: error?.error,
