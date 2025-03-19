@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils';
-import RegisterForm from '@/components/signUpIn/RegisterForm';
+import RegisterForm from '@/components/register-page/RegisterForm';
 import {
   Card,
   CardContent,

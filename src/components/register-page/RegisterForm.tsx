@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Button } from '@/components/ui/button';
 import { Mail, Lock, User } from 'lucide-react';
-import { sendRegistration } from '@/components/signUpIn/action';
+import { sendRegistration } from '@/actions/register/action';
 import { useState } from 'react';
 
 import {
@@ -17,7 +17,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import InputWithIcon from '@/components/signUpIn/InputWithIconProp';
+import InputWithIcon from '@/components/inputWithIcon/InputWithIcon';
 import { useRouter } from 'next/navigation';
 
 const formSchema = z
