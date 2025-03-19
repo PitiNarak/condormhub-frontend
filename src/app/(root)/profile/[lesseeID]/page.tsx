@@ -1,6 +1,6 @@
 import { LesseeReview } from '@/components/profileLesseeID-page/lesseeReviews';
-import ProfileHeader from '@/components/profileLesseeID-page/profileHeader';
-import ProfileInfo from '@/components/profileLesseeID-page/profileInfo';
+import { ProfileHeader } from '@/components/profileLesseeID-page/profileHeader';
+import { ProfileInfo } from '@/components/profileLesseeID-page/profileInfo';
 export default function page() {
   return (
     <div className="">

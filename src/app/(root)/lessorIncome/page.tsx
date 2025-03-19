@@ -1,4 +1,4 @@
-import LessorDashboard from '@/components/lessorIncome-page/lessorDashboard';
+import { LessorDashboard } from '@/components/lessorIncome-page/lessorDashboard';
 
 export default function Page() {
   return (

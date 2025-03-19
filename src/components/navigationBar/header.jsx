@@ -1,7 +1,7 @@
-import LanguageSw from '@/components/navigationBar/languageSw';
+import { LanguageSw } from '@/components/navigationBar/languageSw';
 import Link from 'next/link';
 
-const Header = () => {
+export const Header = () => {
   return (
     <div className="flex shadow-md text-center items-center h-20">
       <div className="flex-1">
@@ -15,5 +15,3 @@ const Header = () => {
     </div>
   );
 };
-
-export default Header;

@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils';
-import RegisterForm from '@/components/register-page/registerForm';
+import { MyForm } from '@/components/register-page/registerForm';
 import {
   Card,
   CardContent,
@@ -22,7 +22,7 @@ export function RegisterBox({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <RegisterForm />
+          <MyForm />
           <div className="mt-4 text-center text-sm">
             You already have an account?{' '}
             <Link href="/login" className="underline underline-offset-4">

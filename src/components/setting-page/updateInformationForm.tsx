@@ -43,7 +43,7 @@ const formSchema = z.object({
   gender: z.string().min(1, { message: 'Gender must be selected' }),
 });
 
-const UpdateInformationForm = () => {
+export const UpdateInformationForm = () => {
   const { data: session, update } = useSession();
   const { toast } = useToast();
 
@@ -254,5 +254,3 @@ const UpdateInformationForm = () => {
     </Form>
   );
 };
-
-export default UpdateInformationForm;

@@ -8,10 +8,10 @@ import {
 } from 'lucide-react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 
-import TextInCard from '@/components/profileLesseeID-page/textInCard';
+import { TextInCard } from '@/components/profileLesseeID-page/textInCard';
 import { Badge } from '@/components/ui/badge';
 
-export default function ProfileInfo() {
+export function ProfileInfo() {
   const birthDate = '29 Febuary 2024';
   const createAt = '30 Febuary 2024';
   const email = 'WinnieDaPoo1@gmail.com';
