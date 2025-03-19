@@ -1,5 +1,5 @@
 import { AuthProvider } from '@/components/auth/authProvider';
-import LifestyleForm from '@/components/lifestyle-page/lifestyleForm';
+import { LifestyleForm } from '@/components/lifestyle-page/lifestyleForm';
 
 export default function LifestyleTagSelectorPage() {
   return (

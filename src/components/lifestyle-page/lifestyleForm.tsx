@@ -10,7 +10,7 @@ import { Loader2, CircleCheckBig } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { UpdateLifestyleTags, GetUserData } from '@/actions/lifestyle/action';
 
-export default function LifestyleForm() {
+export function LifestyleForm() {
   const { data: session, update } = useSession();
   const { toast } = useToast();
 
