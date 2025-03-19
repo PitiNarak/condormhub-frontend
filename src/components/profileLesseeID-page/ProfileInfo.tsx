@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 
-import TextInCard from '@/components/profile/TextInCard';
+import TextInCard from '@/components/profileLesseeID-page/TextInCard';
 import { Badge } from '@/components/ui/badge';
 
 export default function ProfileInfo() {
