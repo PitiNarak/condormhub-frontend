@@ -1,4 +1,4 @@
-import { RegisterBox } from '@/components/signUpIn/RegisterBox';
+import { RegisterBox } from '@/components/register-page/registerBox';
 
 export default function Page() {
   return (
