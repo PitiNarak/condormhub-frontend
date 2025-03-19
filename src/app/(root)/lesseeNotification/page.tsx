@@ -1,13 +1,13 @@
-import { RequestScroll } from '@/components/lessorRequest-page/requestScroll';
+import { LesseeNotificationScroll } from '@/components/notification-page/lesseeNotificationScroll';
 
 export default function Page() {
   return (
     <div className="">
       <div className="text-center text-3xl font-bold">
-        <p>Property Requests</p>
+        <p>Notification</p>
       </div>
       <div className="pt-7">
-        <RequestScroll />
+        <LesseeNotificationScroll />
       </div>
     </div>
   );
