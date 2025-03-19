@@ -9,7 +9,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import { Separator } from '../ui/separator';
+import { Separator } from '@/components/ui/separator';
 
 const mockData = JSON.stringify([
   {

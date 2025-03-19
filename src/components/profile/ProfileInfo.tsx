@@ -6,10 +6,10 @@ import {
   University,
   User,
 } from 'lucide-react';
-import { Card, CardContent, CardHeader } from '../ui/card';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 
 import TextInCard from '@/components/profile/TextInCard';
-import { Badge } from '../ui/badge';
+import { Badge } from '@/components/ui/badge';
 
 export default function ProfileInfo() {
   const birthDate = '29 Febuary 2024';
