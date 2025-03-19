@@ -28,6 +28,7 @@ export default function LifestyleForm() {
       try {
         const userData = await GetUserData(session.access_token);
         console.log('Fetched userData:', userData);
+
         if (userData) {
           // Map backend lifestyle strings to our tag objects
           const userLifestyles =
