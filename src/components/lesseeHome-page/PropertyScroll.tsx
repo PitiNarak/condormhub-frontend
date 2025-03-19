@@ -1,5 +1,5 @@
 import { PropertyDetail } from '@/components/lesseeHome-page/PropertyDetail';
-import { mockData } from '../example/mockdata';
+import { mockData } from '../../mocks/mockProperty';
 import { PropertyI } from '@/types/property';
 
 export function PropertyScroll() {
