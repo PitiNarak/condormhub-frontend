@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { notiProposal, RequestDetail } from '@/components/layout/RequestDetail';
+import {
+  notiProposal,
+  RequestDetail,
+} from '@/components/navigationBar/NotificationRequestDetail';
 
 const mockData = JSON.stringify([
   {

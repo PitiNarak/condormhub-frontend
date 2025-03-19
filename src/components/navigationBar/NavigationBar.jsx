@@ -1,8 +1,8 @@
-import LanguageSw from '@/components/layout/LanguageSw';
+import LanguageSw from '@/components/navigationBar/LanguageSw';
 import Link from 'next/link';
 import { Search } from 'lucide-react';
-import SelectedMenu from '@/components/layout/SelectedMenu';
-import { NotiBtn } from '@/components/layout/NotiBtn';
+import SelectedMenu from '@/components/navigationBar/SelectedMenu';
+import { NotiBtn } from '@/components/navigationBar/NotificationButton';
 
 const Header = () => {
   return (

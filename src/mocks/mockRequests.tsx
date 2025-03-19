@@ -1,4 +1,4 @@
-import { notiProposal } from '@/components/layout/RequestDetail';
+import { notiProposal } from '@/components/navigationBar/NotificationRequestDetail';
 
 export const MockRequests: notiProposal[] = [
   {

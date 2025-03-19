@@ -1,4 +1,4 @@
-import { CompletedLeaseNoti } from '@/components/layout/RequestDetail';
+import { CompletedLeaseNoti } from '@/components/navigationBar/NotificationRequestDetail';
 
 export const MockNotifications: CompletedLeaseNoti[] = [
   {
