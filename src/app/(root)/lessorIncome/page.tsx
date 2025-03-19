@@ -1,10 +1,11 @@
 import LessorDashboard from '@/components/lessorIncome-page/lessorDashboard';
-import LessorDashHeader from '@/components/lessorIncome-page/lessorDashHeader';
 
-export default function LessorIncome() {
+export default function Page() {
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col items-center py-10 px-4">
-      <LessorDashHeader />
+      <p className="text-center text-4xl font-bold text-gray-800">
+        Rent Income Dashboard
+      </p>
       <LessorDashboard />
     </div>
   );

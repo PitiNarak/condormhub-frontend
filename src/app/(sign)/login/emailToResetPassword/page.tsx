@@ -1,4 +1,4 @@
-import { SendResetEmail } from '@/components/login-page/EmailFormToResetPassword';
+import { SendResetEmail } from '@/components/login-page/emailFormToResetPassword';
 import {
   Card,
   CardContent,
