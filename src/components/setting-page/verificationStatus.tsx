@@ -1,6 +1,6 @@
 import { Check, X } from 'lucide-react';
 
-const VerificationStatus = ({ verified }: { verified: boolean }) => {
+export const VerificationStatus = ({ verified }: { verified: boolean }) => {
   return (
     <div>
       {verified ? (
