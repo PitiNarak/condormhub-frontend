@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import Image from 'next/image';
 import { Star } from 'lucide-react';
-import { displayPrice } from '@/function/displayPrice';
 import Link from 'next/link';
 
 interface PropertyCardI {
@@ -51,7 +50,7 @@ export default function PropertyCard({
                 <p>
                   {bedroom} Bed {bathroom} Bath
                 </p>
-                <p>{displayPrice(price)} Baht</p>
+                <p>{price.toLocaleString("th-TH")} Baht</p>
               </div>
               <div className="flex-1 relative">
                 <div className="absolute top-0 right-0 flex ">
