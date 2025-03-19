@@ -6,14 +6,15 @@ import { redirect } from 'next/navigation';
 import { mockData } from '@/mocks/mockProperty';
 import PropertyCard from '@/components/lesseeHome-page/propertyCard';
 
-export async function PropertyScroll({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
-  const sp = await searchParams;
+interface PropertyScrollProp {
+  searchParams: {
+    [key: string]: string | string[] | undefined;
+  };
+}
+
+export async function PropertyScroll({ searchParams }: PropertyScrollProp) {
   const lesseePagePath = '/home/lesseeView?page=1';
-  const page = Number(sp.page ?? '1');
+  const page = Number(searchParams ? searchParams.page : '1');
 
   // console.log(page)
   const data = await fetchProperty(page);
