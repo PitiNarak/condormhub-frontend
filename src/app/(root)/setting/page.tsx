@@ -19,7 +19,7 @@ const page = async () => {
         <div className="flex flex-col min-w-96 gap-y-1 w-full max-w-3xl">
           <div className="flex gap-3">
             <h2 className="font-semibold">Email</h2>
-            <VerificationStatus />
+            <VerificationStatus verified={session.user?.isVerified || false} />
           </div>
           <div className="flex items-center gap-10 w-full">
             <p>{session?.user?.email}</p>
