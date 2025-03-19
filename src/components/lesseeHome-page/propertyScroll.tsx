@@ -2,8 +2,9 @@ import { fetchProperty } from '@/actions/lesseeView/fetchProperty';
 import type { components } from '@/types/api';
 import PaginationControl from '@/components/lesseeHome-page/paginationControl';
 import { redirect } from 'next/navigation';
-import { PropertyDetail } from '@/components/lesseeHome-page/propertyDetail';
+
 import { mockData } from '@/mocks/mockProperty';
+import PropertyCard from '@/components/lesseeHome-page/propertyCard';
 
 export async function PropertyScroll({
   searchParams,
@@ -31,7 +32,7 @@ export async function PropertyScroll({
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mx-5">
         {propertyData.map((data: components['schemas']['domain.Dorm']) => (
           <div key={String(data.id)} className="text-sm">
-            <PropertyDetail
+            <PropertyCard
               id={data.id ? data.id : ''}
               image={
                 'https://publics.condormhub.xyz/dorms/c9951243-2d38-4a48-aa5b-0fc680eb078a-d73fa3d7-3f3f-46cc-9a3c-d5afebdc2286.webp'
@@ -43,9 +44,6 @@ export async function PropertyScroll({
               district={data.address.district}
               price={data.price}
               propertyName={data.name}
-              owner={data.owner ? data.owner.username : ''}
-              size={data.size}
-              description={data.description ? data.description : ''}
             />
           </div>
         ))}
