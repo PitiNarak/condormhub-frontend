@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/dialog';
 import PropertyCard from '@/components/lesseeHome-page/PropertyCard';
 import { PropertyI } from '@/types/property';
-import { displayPrice } from '@/function/display';
+import { displayPrice } from '@/function/displayPrice';
 import { RequestBtn } from '@/components/lesseeHome-page/RequestBtn';
 
 export function PropertyDetail({
