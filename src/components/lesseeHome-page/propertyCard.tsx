@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { Star } from 'lucide-react';
 import Link from 'next/link';
 
-interface PropertyCardI {
+interface PropertyCardProp {
   id: string;
   image: string;
   rating: number;
@@ -26,7 +26,7 @@ export default function PropertyCard({
   province,
   district,
   price,
-}: PropertyCardI) {
+}: PropertyCardProp) {
   return (
     <Link href={'/dorm/' + id}>
       <Card className="w-full shadow-none border-none">
