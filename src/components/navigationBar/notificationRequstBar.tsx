@@ -5,7 +5,7 @@ export interface notification {
   propName: string;
 }
 
-export default function RequestBar({
+export function RequestBar({
   // requestId,
   requestUser,
   propName,

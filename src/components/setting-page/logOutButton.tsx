@@ -4,7 +4,7 @@ import { signOut } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/router';
 
-const LogoutButton: React.FC = () => {
+export const LogoutButton: React.FC = () => {
   const router = useRouter();
 
   function onSubmit() {
@@ -18,5 +18,3 @@ const LogoutButton: React.FC = () => {
     </Button>
   );
 };
-
-export default LogoutButton;

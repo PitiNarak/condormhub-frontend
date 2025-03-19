@@ -7,7 +7,7 @@ interface InputWithIconProp {
   fields: React.HtmlHTMLAttributes<HTMLInputElement>;
 }
 
-const InputWithIcon = ({
+export const InputWithIcon = ({
   icon,
   placeholder,
   type,
@@ -29,5 +29,3 @@ const InputWithIcon = ({
     </div>
   );
 };
-
-export default InputWithIcon;

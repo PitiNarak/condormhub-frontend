@@ -7,7 +7,7 @@ interface SelectedMenuProp {
   path: string;
 }
 
-const SelectedMenu = ({ text, path }: SelectedMenuProp) => {
+export const SelectedMenu = ({ text, path }: SelectedMenuProp) => {
   const pathname = usePathname();
   // console.log(pathname);
   return (
@@ -18,5 +18,3 @@ const SelectedMenu = ({ text, path }: SelectedMenuProp) => {
     </div>
   );
 };
-
-export default SelectedMenu;

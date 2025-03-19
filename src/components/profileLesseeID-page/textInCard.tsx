@@ -4,7 +4,7 @@ export interface textCardProp {
   data: string;
 }
 
-function TextInCard({ icon, header, data }: textCardProp) {
+export function TextInCard({ icon, header, data }: textCardProp) {
   return (
     <div className="grid grid-cols-[120px,1fr] md:grid-cols-[1fr,2fr]">
       <div className="flex align-middle">
@@ -15,4 +15,3 @@ function TextInCard({ icon, header, data }: textCardProp) {
     </div>
   );
 }
-export default TextInCard;

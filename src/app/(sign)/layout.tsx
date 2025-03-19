@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import '@/app/globals.css';
-import Header from '@/components/navigationBar/header';
+import { Header } from '@/components/navigationBar/header';
 import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 
