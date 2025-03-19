@@ -1,10 +1,10 @@
-import LanguageSw from '@/components/navigationBar/languageSw';
+import { LanguageSw } from '@/components/navigationBar/languageSw';
 import Link from 'next/link';
 import { Search } from 'lucide-react';
-import SelectedMenu from '@/components/navigationBar/selectedMenu';
+import { SelectedMenu } from '@/components/navigationBar/selectedMenu';
 import { NotiBtn } from '@/components/navigationBar/notificationButton';
 
-const Header = () => {
+export const NavBar = () => {
   return (
     <div className="flex shadow-md items-center h-20 fixed top-0 w-full bg-white z-[50]">
       <div className="text-center flex-row px-[2%]">
@@ -32,5 +32,3 @@ const Header = () => {
     </div>
   );
 };
-
-export default Header;
