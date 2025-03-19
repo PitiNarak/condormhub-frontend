@@ -50,7 +50,7 @@ export default function PropertyCard({
                 <p>
                   {bedroom} Bed {bathroom} Bath
                 </p>
-                <p>{price.toLocaleString("th-TH")} Baht</p>
+                <p>{price.toLocaleString('th-TH')} Baht</p>
               </div>
               <div className="flex-1 relative">
                 <div className="absolute top-0 right-0 flex ">
