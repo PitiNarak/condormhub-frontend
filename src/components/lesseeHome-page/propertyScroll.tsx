@@ -1,6 +1,6 @@
 import { fetchProperty } from '@/actions/fetchProperty';
 import type { components } from '@/types/api';
-import PaginationControl from '@/components/lesseeHome-page/PaginationControl';
+import PaginationControl from '@/components/lesseeHome-page/paginationControl';
 import { redirect } from 'next/navigation';
 import { PropertyDetail } from '@/components/lesseeHome-page/propertyDetail';
 import { mockData } from '@/mocks/mockProperty';
