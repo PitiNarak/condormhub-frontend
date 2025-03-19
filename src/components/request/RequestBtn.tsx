@@ -8,7 +8,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { RequestForm } from '@/components/userView/RequestForm';
+import { RequestForm } from '@/components/request/RequestForm';
 
 export function RequestBtn() {
   return (
