@@ -15,7 +15,11 @@ import { signOut } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
 import { DeleteAccount } from '@/actions/setting/action';
 
-const DeleteAccountButton = ({ access_token }: { access_token: string }) => {
+export const DeleteAccountButton = ({
+  access_token,
+}: {
+  access_token: string;
+}) => {
   async function onSubmit() {
     const res = await DeleteAccount(access_token);
     if (res?.error) {
@@ -52,5 +56,3 @@ const DeleteAccountButton = ({ access_token }: { access_token: string }) => {
     </Dialog>
   );
 };
-
-export default DeleteAccountButton;

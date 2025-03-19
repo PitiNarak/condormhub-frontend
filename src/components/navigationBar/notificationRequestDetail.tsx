@@ -6,7 +6,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import RequestBar from '@/components/navigationBar/notificationRequstBar';
+import { RequestBar } from '@/components/navigationBar/notificationRequstBar';
 import { Button } from '@/components/ui/button';
 
 export interface notiProposal {

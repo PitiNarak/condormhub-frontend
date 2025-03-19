@@ -5,7 +5,7 @@ import { Star } from 'lucide-react';
 import { MiniPropertyI } from '@/types/property';
 import { displayPrice } from '@/function/displayPrice';
 
-export default function PropertyCard({
+export function PropertyCard({
   image,
   rating,
   bedroom,

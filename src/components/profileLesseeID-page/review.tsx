@@ -7,7 +7,11 @@ export interface reviewI {
   reviewMessage: string;
 }
 
-const ReviewBox = ({ reviewerID, reviewDate, reviewMessage }: reviewI) => {
+export const ReviewBox = ({
+  reviewerID,
+  reviewDate,
+  reviewMessage,
+}: reviewI) => {
   //Fetch lessor data from reviewerID to get the lessor name and profile image
   const reviewerName = 'Piti';
   const profileURL = '/mockProfile.png';
@@ -34,5 +38,3 @@ const ReviewBox = ({ reviewerID, reviewDate, reviewMessage }: reviewI) => {
     </Card>
   );
 };
-
-export default ReviewBox;

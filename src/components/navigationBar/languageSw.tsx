@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-export default function LanguageSw() {
+export function LanguageSw() {
   const [language, setLanguage] = React.useState('English');
 
   return (

@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/card';
 import { Star } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 
-export default function ProfileHeader() {
+export function ProfileHeader() {
   const params = useParams<{ tag: string; item: string }>();
 
   //const data = fetch(get user from ID)
