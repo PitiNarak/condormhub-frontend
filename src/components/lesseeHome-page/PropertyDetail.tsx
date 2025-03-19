@@ -10,7 +10,7 @@ import {
 import PropertyCard from '@/components/lesseeHome-page/PropertyCard';
 import { PropertyI } from '@/types/property';
 import { displayPrice } from '@/function/display';
-import { RequestBtn } from '@/components/request/RequestBtn';
+import { RequestBtn } from '@/components/lesseeHome-page/RequestBtn';
 
 export function PropertyDetail({
   image,
