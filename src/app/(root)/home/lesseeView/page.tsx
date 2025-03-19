@@ -1,4 +1,4 @@
-import { PropertyScroll } from '@/components/userView/PropertyScroll';
+import { PropertyScroll } from '@/components/lesseeHome-page/PropertyScroll';
 
 export default async function Page() {
   return (

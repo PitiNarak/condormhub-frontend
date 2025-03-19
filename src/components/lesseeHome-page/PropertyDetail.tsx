@@ -7,10 +7,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import PropertyCard from '@/components/userView/PropertyCard';
+import PropertyCard from '@/components/lesseeHome-page/PropertyCard';
 import { PropertyI } from '@/types/property';
 import { displayPrice } from '@/function/display';
-import { RequestBtn } from '@/components/userView/RequestBtn';
+import { RequestBtn } from '@/components/request/RequestBtn';
 
 export function PropertyDetail({
   image,

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { PropertyDetail } from '@/components/userView/PropertyDetail';
+import { PropertyDetail } from '@/components/lesseeHome-page/PropertyDetail';
 import { mockData } from '@/components/example/mockdata';
 import { PropertyI } from '@/types/property';
 
