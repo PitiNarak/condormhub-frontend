@@ -3,7 +3,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   notiProposal,
   RequestDetail,
-} from '@/components/navigationBar/NotificationRequestDetail';
+} from '@/components/navigationBar/notificationRequestDetail';
 
 const mockData = JSON.stringify([
   {

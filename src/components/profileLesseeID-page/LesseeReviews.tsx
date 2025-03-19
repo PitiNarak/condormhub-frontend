@@ -1,5 +1,5 @@
 'use client';
-import ReviewBox from '@/components/profileLesseeID-page/Review';
+import ReviewBox from '@/components/profileLesseeID-page/review';
 import { useParams } from 'next/navigation';
 import * as React from 'react';
 import {

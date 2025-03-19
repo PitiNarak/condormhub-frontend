@@ -14,7 +14,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import InputWithIcon from '@/components/inputWithIcon/InputWithIcon';
+import InputWithIcon from '@/components/inputWithIcon/inputWithIcon';
 import { useState } from 'react';
 
 const formSchema = z

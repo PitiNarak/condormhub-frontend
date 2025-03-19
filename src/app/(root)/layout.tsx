@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import '@/app/globals.css';
-import Navbar from '@/components/navigationBar/NavigationBar';
+import Navbar from '@/components/navigationBar/navigationBar';
 import { Toaster } from '@/components/ui/toaster';
 import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';

@@ -1,4 +1,4 @@
-import { PropertyDetail } from '@/components/lesseeHome-page/PropertyDetail';
+import { PropertyDetail } from '@/components/lesseeHome-page/propertyDetail';
 import { mockData } from '../../mocks/mockProperty';
 import { PropertyI } from '@/types/property';
 
