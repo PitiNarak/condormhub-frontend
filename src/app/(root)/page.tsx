@@ -29,6 +29,10 @@ export default function Home() {
       <LinkBtn text="Lessor Notification Page" path="lessorNotification" />
       <LinkBtn text="Lessee Notification Page" path="/lesseeNotification" />
       <LinkBtn text="Lessor Property Requests" path="/lessorRequest" />
+      <LinkBtn
+        text="Dorm page mock"
+        path="/dorm/406ed1dc-ca35-4dd0-b329-0436af7e35cb"
+      />
     </div>
   );
 }

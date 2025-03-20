@@ -10,7 +10,10 @@ import {
 import { PropertyCard } from '@/components/lesseeHome-page/propertyCard';
 import { PropertyI } from '@/types/property';
 import { displayPrice } from '@/function/displayPrice';
-import { RequestBtn } from '@/components/lesseeHome-page/requestBtn';
+
+interface PropertyDetailProps extends PropertyI {
+  actionBtn?: React.ReactNode;
+}
 
 export function PropertyDetail({
   image,
@@ -24,7 +27,8 @@ export function PropertyDetail({
   owner,
   size,
   description,
-}: PropertyI) {
+  actionBtn,
+}: PropertyDetailProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -39,10 +43,10 @@ export function PropertyDetail({
           price={price}
         />
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:w-[600px]">
         <DialogHeader>
           <DialogTitle className="text-left">{propertyName}</DialogTitle>
-          <DialogDescription className="text-left">
+          <DialogDescription className="text-left w-96">
             <p>Bedroom : {bedroom}</p>
             <p>Bathroom : {bathroom}</p>
             <p>
@@ -57,9 +61,7 @@ export function PropertyDetail({
         <div>
           <p>Price : {displayPrice(price)}</p>
         </div>
-        <DialogFooter>
-          <RequestBtn />
-        </DialogFooter>
+        <DialogFooter>{actionBtn}</DialogFooter>
       </DialogContent>
     </Dialog>
   );
