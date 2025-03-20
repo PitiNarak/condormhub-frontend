@@ -1,6 +1,6 @@
 import { AuthProvider } from '@/components/auth/authProvider';
 import { LifestyleForm } from '@/components/lifestyle-page/lifestyleForm';
-import Divider from '@/components/layout/Divider';
+import { Divider } from '@/components/navigationBar/divider';
 
 export default function LifestyleTagSelectorPage() {
   return (
