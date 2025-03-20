@@ -1,11 +1,11 @@
 'use client';
 
 import React from 'react';
-import { PropertyDetail } from '@/components/userView/PropertyDetail';
-import { mockData } from '@/components/example/mockdata';
+import { PropertyDetail } from '@/components/lesseeHome-page/propertyDetail';
+import { mockData } from '@/mocks/mockProperty';
 import { PropertyI } from '@/types/property';
 
-export default function LessorDashboard() {
+export function LessorDashboard() {
   // Parse the mock data
   const properties: PropertyI[] = JSON.parse(mockData);
 
