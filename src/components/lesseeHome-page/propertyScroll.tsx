@@ -13,9 +13,12 @@ interface PropertyScrollProps {
 export async function PropertyScroll({ page }: PropertyScrollProps) {
   const lesseePagePath = '/home/lesseeView?page=1';
   const pageNum = Number(page ? page : '1');
-  const data = await fetchProperty(pageNum);
+  const response = await fetchProperty(pageNum);
 
-  const propertyData = 'message' in data ? JSON.parse(mockData) : data;
+  const propertyData =
+    'message' in response ? JSON.parse(mockData) : response.data;
+  const paginationElement = response.pagination;
+  console.log(paginationElement);
   if (propertyData.length == 0 || pageNum < 1 || Number.isNaN(pageNum)) {
     redirect(lesseePagePath);
   }
@@ -43,7 +46,8 @@ export async function PropertyScroll({ page }: PropertyScrollProps) {
           </div>
         ))}
       </div>
-      <PaginationControl numberCurrent={propertyData.length} />
+      <PaginationControl lastPage={Number(paginationElement?.last_page)} />
+      {/* <PaginationControl lastPage={7} /> */}
     </div>
   );
 }
