@@ -18,9 +18,11 @@ interface PaginationControlProps {
 const PaginationControl = ({ lastPage }: PaginationControlProps) => {
   const lesseePagePath = '/home/lesseeView?page=';
   const searchParams = useSearchParams();
+  //base pagination numbers array
   const numbers = [...Array(5).keys()].slice(0, Math.min(5, lastPage));
 
   const page = Number(searchParams.get('page') ?? '1');
+  //offset logic for pagination numbers
   const offset =
     lastPage > 6
       ? page + 2 > lastPage

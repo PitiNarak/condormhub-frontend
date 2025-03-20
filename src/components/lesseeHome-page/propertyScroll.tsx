@@ -18,10 +18,12 @@ export async function PropertyScroll({ page }: PropertyScrollProps) {
   const propertyData =
     'message' in response ? JSON.parse(mockData) : response.data;
   const paginationElement = response.pagination;
-  console.log(paginationElement);
+
+  //Range checker if not valid go to first page
   if (propertyData.length == 0 || pageNum < 1 || Number.isNaN(pageNum)) {
     redirect(lesseePagePath);
   }
+
   return (
     <div className="shadow-md border border-gray-100 pt-14 pb-12">
       <p className="block text-center text-lg w-[150px] mb-8 ml-2 rounded-2xl border border-gray-400">
