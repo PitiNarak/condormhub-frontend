@@ -16,7 +16,7 @@ const page = async () => {
           <h1 className="text-3xl pt-3 font-semibold">Profile Settings</h1>
           <Divider className="max-w-3xl w-full" />
         </div>
-        <div className="flex flex-col min-w-96 gap-y-1 w-full max-w-3xl">
+        <div className="flex flex-col sm:min-w-96 gap-y-1 w-full max-w-3xl">
           <div className="flex gap-3">
             <h2 className="font-semibold">Email</h2>
             <VerificationStatus verified={session.user?.isVerified || false} />
