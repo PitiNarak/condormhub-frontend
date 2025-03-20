@@ -1,10 +1,10 @@
 import { fetchProperty } from '@/actions/lesseeView/fetchProperty';
 import type { components } from '@/types/api';
-import PaginationControl from '@/components/lesseeHome-page/paginationControl';
+import { PaginationControl } from '@/components/lesseeHome-page/paginationControl';
 import { redirect } from 'next/navigation';
 
 import { mockData } from '@/mocks/mockProperty';
-import PropertyCard from '@/components/lesseeHome-page/propertyCard';
+import { PropertyCard } from '@/components/lesseeHome-page/propertyCard';
 
 interface PropertyScrollProps {
   page: string | string[] | undefined;

@@ -16,7 +16,7 @@ interface PropertyCardProps {
   propertyName: string;
 }
 
-export default function PropertyCard({
+export function PropertyCard({
   id,
   image,
   rating,

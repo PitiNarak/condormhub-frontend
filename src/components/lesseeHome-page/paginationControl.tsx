@@ -14,7 +14,7 @@ interface PaginationControlProps {
   lastPage: number;
 }
 
-const PaginationControl = ({ lastPage }: PaginationControlProps) => {
+export function PaginationControl({ lastPage }: PaginationControlProps) {
   const lesseePagePath = '/home/lesseeView?page=';
   const searchParams = useSearchParams();
   //base pagination numbers array
@@ -55,5 +55,4 @@ const PaginationControl = ({ lastPage }: PaginationControlProps) => {
       </PaginationContent>
     </Pagination>
   );
-};
-export default PaginationControl;
+}

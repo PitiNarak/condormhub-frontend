@@ -1,11 +1,11 @@
 'use client';
 
 import React from 'react';
-import PropertyCard from '@/components/lesseeHome-page/propertyCard';
+import { PropertyCard } from '@/components/lesseeHome-page/propertyCard';
 import { mockData } from '@/mocks/mockProperty';
 import { components } from '@/types/api';
 
-export default function LessorDashboard() {
+export function LessorDashboard() {
   // Parse the mock data
   const properties: components['schemas']['dto.DormResponseBody'][] =
     JSON.parse(mockData);
