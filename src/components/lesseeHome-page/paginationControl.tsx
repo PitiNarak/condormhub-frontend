@@ -14,7 +14,6 @@ interface PaginationControlProps {
   lastPage: number;
 }
 
-//const PaginationControl: React.FC<PaginationControlProps> = ({ numberCurrent }) => {
 const PaginationControl = ({ lastPage }: PaginationControlProps) => {
   const lesseePagePath = '/home/lesseeView?page=';
   const searchParams = useSearchParams();
