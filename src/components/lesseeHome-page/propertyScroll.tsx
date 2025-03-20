@@ -6,23 +6,21 @@ import { redirect } from 'next/navigation';
 import { mockData } from '@/mocks/mockProperty';
 import PropertyCard from '@/components/lesseeHome-page/propertyCard';
 
-interface PropertyScrollProp {
-  searchParams: {
-    [key: string]: string | string[] | undefined;
-  };
+interface PropertyScrollProps {
+  page: string | string[] | undefined;
 }
 
-export async function PropertyScroll({ searchParams }: PropertyScrollProp) {
+export async function PropertyScroll({ page }: PropertyScrollProps) {
   const lesseePagePath = '/home/lesseeView?page=1';
-  const page = Number(searchParams ? searchParams.page : '1');
-
+  const pageNum = Number(page ? page : '1');
+  // console.log(pageNum)
   // console.log(page)
-  const data = await fetchProperty(page);
-  console.log(data);
+  const data = await fetchProperty(pageNum);
+  // console.log(data);
 
   //This need to be fix if backend crash
   const propertyData = 'message' in data ? JSON.parse(mockData) : data;
-  if (propertyData.length == 0 || page < 1 || Number.isNaN(page)) {
+  if (propertyData.length == 0 || pageNum < 1 || Number.isNaN(pageNum)) {
     redirect(lesseePagePath);
   }
   return (

@@ -12,7 +12,7 @@ export default async function Page({
         <p>Properties</p>
       </div>
       <div className="pt-7">
-        <PropertyScroll searchParams={sp} />
+        <PropertyScroll page={sp.page} />
       </div>
     </div>
   );
