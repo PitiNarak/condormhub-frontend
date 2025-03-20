@@ -13,12 +13,8 @@ interface PropertyScrollProps {
 export async function PropertyScroll({ page }: PropertyScrollProps) {
   const lesseePagePath = '/home/lesseeView?page=1';
   const pageNum = Number(page ? page : '1');
-  // console.log(pageNum)
-  // console.log(page)
   const data = await fetchProperty(pageNum);
-  // console.log(data);
 
-  //This need to be fix if backend crash
   const propertyData = 'message' in data ? JSON.parse(mockData) : data;
   if (propertyData.length == 0 || pageNum < 1 || Number.isNaN(pageNum)) {
     redirect(lesseePagePath);
