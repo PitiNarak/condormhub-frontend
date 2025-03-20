@@ -35,7 +35,11 @@ export async function PropertyScroll({ page }: PropertyScrollProps) {
             <div key={String(data.id)} className="text-sm">
               <PropertyCard
                 id={data.id ?? ''}
-                image={'https://placehold.co/600x400'}
+                image={
+                  data.imagesUrl
+                    ? (data.imagesUrl[0] ?? 'https://placehold.co/300x200')
+                    : 'https://placehold.co/300x200'
+                }
                 rating={data.rating ?? 0}
                 bedroom={data.bedrooms ?? 0}
                 bathroom={data.bathrooms ?? 0}

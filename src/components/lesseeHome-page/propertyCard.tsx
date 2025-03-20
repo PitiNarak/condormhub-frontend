@@ -32,13 +32,12 @@ export default function PropertyCard({
       <Card className="w-full shadow-none border-none">
         <CardContent className="pb-3 px-0">
           <div className="">
-            <div className="justify-center mx-auto w-full h-full mb-2 relative">
+            <div className="justify-center mx-auto w-[330px] h-[220px] mb-2 relative">
               <Image
                 src={image}
                 alt="Description of image"
-                width={500}
-                height={300}
-                className="object-cover rounded-md"
+                fill={true}
+                className="rounded-md"
               />
             </div>
             <div className="flex">
