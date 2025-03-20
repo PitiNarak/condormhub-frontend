@@ -29,8 +29,6 @@ const PaginationControl = ({ lastPage }: PaginationControlProps) => {
         : Math.max(1, page - 2)
       : 1;
 
-  console.log(numbers);
-
   return (
     <Pagination>
       <PaginationContent>
