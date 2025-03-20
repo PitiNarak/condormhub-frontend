@@ -2,11 +2,10 @@ import { getDormByID } from '@/action/dorm/getDormByID';
 import { ImageCarousel } from '@/components/dorm-page/imageCarousel';
 import { RequestBtn } from '@/components/lesseeHome-page/requestBtn';
 import React from 'react';
-//a2219d93-9840-4101-a451-c3c38674ef5c
+
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;
   const res = await getDormByID(id);
-  console.log(res);
   if (res && !('error' in res)) {
     return (
       <div className="pt-5 flex flex-col items-center gap-4 pb-5">
