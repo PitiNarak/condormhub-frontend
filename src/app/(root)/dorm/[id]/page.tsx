@@ -1,4 +1,5 @@
 import { getDormByID } from '@/action/dorm/getDormByID';
+import { ImageCarousel } from '@/components/dorm-page/imageCarousel';
 import { RequestBtn } from '@/components/lesseeHome-page/requestBtn';
 import Image from 'next/image';
 import React from 'react';
@@ -11,6 +12,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
     return (
       <div className="pt-5 flex flex-col items-center gap-4 pb-5">
         <h1 className="text-center text-5xl font-bold">{res.name}</h1>
+        <ImageCarousel />
         <Image
           src="https://media.discordapp.net/attachments/1232213254302863396/1351847049859174443/th.png?ex=67dbdd2c&is=67da8bac&hm=8f6ff77fbe6dfa4f2214cf234f264c99c0d58c811797397a6c64d149c4502fec&=&format=webp&quality=lossless&width=960&height=960"
           alt="placeHolder"
