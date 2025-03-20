@@ -5,14 +5,14 @@ export default async function Page({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const sp = await searchParams;
+  const { page } = await searchParams;
   return (
     <div className="">
       <div className="text-center text-3xl font-bold">
         <p>Properties</p>
       </div>
       <div className="pt-7">
-        <PropertyScroll page={sp.page} />
+        <PropertyScroll page={page} />
       </div>
     </div>
   );
