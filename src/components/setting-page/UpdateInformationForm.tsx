@@ -22,7 +22,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { useEffect, useState } from 'react';
-import { Plus, Check, CircleCheckBig, X } from 'lucide-react';
+import { Check, CircleCheckBig, X, CirclePlus } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { useToast } from '@/hooks/use-toast';
 import { UpdateUserInformation } from '@/actions/setting/action';
@@ -267,11 +267,10 @@ const UpdateInformationForm = () => {
                   <Popover open={open} onOpenChange={setOpen}>
                     <PopoverTrigger asChild>
                       <Button
-                        variant="outline"
-                        size="icon"
-                        className="h-5 w-5 p-1 flex items-center justify-center"
+                        variant="ghost"
+                        className="text-gray-700 hover:text-black"
                       >
-                        <Plus className="h-3 w-3" />
+                        <CirclePlus /> add more
                       </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-full p-0">
@@ -304,15 +303,15 @@ const UpdateInformationForm = () => {
 
                 {/* Selected Tags Display */}
                 <FormControl>
-                  <div className="flex flex-wrap gap-2 mt-2">
+                  <div className="border border-input rounded-md p-2 flex flex-wrap gap-2 bg-white focus-within:ring-2 focus-within:ring-ring">
                     {selectedTags.map((tag) => (
                       <Badge
                         key={tag.id}
-                        className="px-3 py-1 rounded-lg bg-white text-black border border-gray flex items-center gap-1 hover:bg-gray-100 transition"
+                        className="px-3 py-1 rounded-lg bg-blue-100 text-blue-500 flex items-center gap-1 hover:bg-blue-200 transition"
                       >
                         {tag.name}
                         <X
-                          className="h-3 w-3 cursor-pointer text-black"
+                          className="h-3 w-3 cursor-pointer text-blue-500"
                           onClick={() => removeTag(tag)}
                         />
                       </Badge>
