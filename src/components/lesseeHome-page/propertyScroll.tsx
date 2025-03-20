@@ -30,26 +30,25 @@ export async function PropertyScroll({ page }: PropertyScrollProps) {
         No Filters
       </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mx-5">
-        {propertyData.map((data: components['schemas']['domain.Dorm']) => (
-          <div key={String(data.id)} className="text-sm">
-            <PropertyCard
-              id={data.id ? data.id : ''}
-              image={
-                'https://publics.condormhub.xyz/dorms/c9951243-2d38-4a48-aa5b-0fc680eb078a-d73fa3d7-3f3f-46cc-9a3c-d5afebdc2286.webp'
-              }
-              rating={data.rating ? data.rating : 0}
-              bedroom={data.bedrooms}
-              bathroom={data.bathrooms}
-              province={data.address.province}
-              district={data.address.district}
-              price={data.price}
-              propertyName={data.name}
-            />
-          </div>
-        ))}
+        {propertyData.map(
+          (data: components['schemas']['dto.DormResponseBody']) => (
+            <div key={String(data.id)} className="text-sm">
+              <PropertyCard
+                id={data.id ?? ''}
+                image={'https://placehold.co/600x400'}
+                rating={data.rating ?? 0}
+                bedroom={data.bedrooms ?? 0}
+                bathroom={data.bathrooms ?? 0}
+                province={data.address ? (data.address.province ?? '') : ''}
+                district={data.address ? (data.address.district ?? '') : ''}
+                price={data.price ?? 0}
+                propertyName={data.name ?? ''}
+              />
+            </div>
+          )
+        )}
       </div>
       <PaginationControl lastPage={Number(paginationElement?.last_page)} />
-      {/* <PaginationControl lastPage={7} /> */}
     </div>
   );
 }

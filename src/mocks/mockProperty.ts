@@ -1,6 +1,6 @@
 import { components } from '@/types/api';
 
-const a: components['schemas']['domain.Dorm'] = {
+const a: components['schemas']['dto.DormResponseBody'] = {
   address: {
     district: 'district',
     province: 'province',
@@ -15,7 +15,6 @@ const a: components['schemas']['domain.Dorm'] = {
   name: 'name',
   owner: {
     birthDate: 'birthdate',
-    createAt: 'createAt',
     email: 'email',
     filledPersonalInfo: true,
     firstname: 'firstname',
@@ -25,21 +24,18 @@ const a: components['schemas']['domain.Dorm'] = {
     isVerified: true,
     lastname: 'lastname',
     lifestyles: ['Active'],
-    nationalID: 'nationanlID',
     phoneNumber: 'phoneNumber',
     role: 'ADMIN',
     studentEvidence: 'studentEvidence',
-    updateAt: 'updateAt',
     username: 'userName',
   },
-  ownerId: 'ownerID',
   price: 9999,
   rating: 5,
   size: 0,
   updateAt: 'updateAt',
 };
 
-const b: components['schemas']['domain.Dorm'] = {
+const b: components['schemas']['dto.DormResponseBody'] = {
   address: {
     district: 'district',
     province: 'province',
@@ -54,7 +50,6 @@ const b: components['schemas']['domain.Dorm'] = {
   name: 'name',
   owner: {
     birthDate: 'birthdate',
-    createAt: 'createAt',
     email: 'email',
     filledPersonalInfo: true,
     firstname: 'firstname',
@@ -64,14 +59,11 @@ const b: components['schemas']['domain.Dorm'] = {
     isVerified: true,
     lastname: 'lastname',
     lifestyles: ['Active'],
-    nationalID: 'nationanlID',
     phoneNumber: 'phoneNumber',
     role: 'ADMIN',
     studentEvidence: 'studentEvidence',
-    updateAt: 'updateAt',
     username: 'userName',
   },
-  ownerId: 'PitiOwner',
   price: 9999,
   rating: 5,
   size: 0,

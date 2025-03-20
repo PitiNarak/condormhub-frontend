@@ -234,12 +234,26 @@ export interface paths {
       cookie?: never;
     };
     /**
-     * Get all dorms
-     * @description Retrieve a list of all dorms
+     * Get all dorms by a search string
+     * @description Retrieve a list of all dorms filtered by a search query. If no query is provided, all dorms are returned.
      */
     get: {
       parameters: {
         query?: {
+          /** @description Search query */
+          search?: string;
+          /** @description Filter min price */
+          minPrice?: number;
+          /** @description Filter max price */
+          maxPrice?: number;
+          /** @description Filter district price */
+          district?: string;
+          /** @description Filter subdistrict price */
+          subdistrict?: string;
+          /** @description Filter province price */
+          province?: string;
+          /** @description Filter zipcode price */
+          zipcode?: string;
           /** @description Number of dorms to retrieve (default 10, max 50) */
           limit?: number;
           /** @description Page number to retrieve (default 1) */
@@ -257,7 +271,7 @@ export interface paths {
             [name: string]: unknown;
           };
           content: {
-            'application/json': components['schemas']['dto.PaginationResponse-domain_Dorm'];
+            'application/json': components['schemas']['dto.PaginationResponse-dto_DormResponseBody'];
           };
         };
         /** @description your request is unauthorized */
@@ -305,7 +319,7 @@ export interface paths {
             [name: string]: unknown;
           };
           content: {
-            'application/json': components['schemas']['dto.SuccessResponse-domain_Dorm'];
+            'application/json': components['schemas']['dto.SuccessResponse-dto_DormResponseBody'];
           };
         };
         /** @description Your request is invalid */
@@ -352,6 +366,80 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/dorms/owner/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get dorms by owner ID
+     * @description Retrieve all dorms of a specific owner ID
+     */
+    get: {
+      parameters: {
+        query?: {
+          /** @description Number of dorms to retrieve (default 10, max 50) */
+          limit?: number;
+          /** @description Page number to retrieve (default 1) */
+          page?: number;
+        };
+        header?: never;
+        path: {
+          /** @description OwnerID */
+          id: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description All dorms retrieved successfully */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.PaginationResponse-dto_DormResponseBody'];
+          };
+        };
+        /** @description Incorrect UUID format */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description your request is unauthorized */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Failed to retrieve dorms */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/dorms/{id}': {
     parameters: {
       query?: never;
@@ -381,7 +469,7 @@ export interface paths {
             [name: string]: unknown;
           };
           content: {
-            'application/json': components['schemas']['dto.SuccessResponse-domain_Dorm'];
+            'application/json': components['schemas']['dto.SuccessResponse-dto_DormResponseBody'];
           };
         };
         /** @description Incorrect UUID format */
@@ -523,7 +611,7 @@ export interface paths {
             [name: string]: unknown;
           };
           content: {
-            'application/json': components['schemas']['dto.SuccessResponse-domain_Dorm'];
+            'application/json': components['schemas']['dto.SuccessResponse-dto_DormResponseBody'];
           };
         };
         /** @description Invalid Request */
@@ -575,6 +663,98 @@ export interface paths {
     };
     trace?: never;
   };
+  '/dorms/{id}/images': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Upload an image for a dorm
+     * @description Upload an image for a specific dorm by its ID, by attaching the image as a value for the key field name "image", as a multipart form-data
+     */
+    post: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description DormID */
+          id: string;
+        };
+        cookie?: never;
+      };
+      /** @description DormImage */
+      requestBody: {
+        content: {
+          'multipart/form-data': Record<string, never>;
+        };
+      };
+      responses: {
+        /** @description Successful image upload */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.SuccessResponse-dto_DormImageUploadResponseBody'];
+          };
+        };
+        /** @description Invalid Request */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description your request is unauthorized */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description unauthorized to upload image to dorm */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Dorm not found */
+        404: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Server failed to upload dorm image */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/history/bydorm/{id}': {
     parameters: {
       query?: never;
@@ -609,7 +789,7 @@ export interface paths {
             [name: string]: unknown;
           };
           content: {
-            'application/json': components['schemas']['dto.PaginationResponse-domain_LeasingHistory'];
+            'application/json': components['schemas']['dto.PaginationResponse-dto_LeasingHistory'];
           };
         };
         /** @description Incorrect UUID format or limit parameter is incorrect or page parameter is incorrect or page exceeded */
@@ -689,7 +869,7 @@ export interface paths {
             [name: string]: unknown;
           };
           content: {
-            'application/json': components['schemas']['dto.PaginationResponse-domain_LeasingHistory'];
+            'application/json': components['schemas']['dto.PaginationResponse-dto_LeasingHistory'];
           };
         };
         /** @description Incorrect UUID format or limit parameter is incorrect or page parameter is incorrect or page exceeded */
@@ -760,7 +940,7 @@ export interface paths {
             [name: string]: unknown;
           };
           content: {
-            'application/json': components['schemas']['dto.SuccessResponse-domain_LeasingHistory'];
+            'application/json': components['schemas']['dto.SuccessResponse-dto_LeasingHistory'];
           };
         };
         /** @description Incorrect UUID format */
@@ -1020,21 +1200,17 @@ export interface paths {
      */
     get: {
       parameters: {
-        query: {
+        query?: {
           /** @description Number of history to be retrieved */
-          limit: string;
+          limit?: number;
           /** @description Page to retrieved */
-          page: string;
+          page?: number;
         };
         header?: never;
         path?: never;
         cookie?: never;
       };
-      requestBody?: {
-        content: {
-          'application/json': Record<string, never>;
-        };
-      };
+      requestBody?: never;
       responses: {
         /** @description Unpaid orders retrieved successfully */
         200: {
@@ -1104,11 +1280,11 @@ export interface paths {
      */
     get: {
       parameters: {
-        query: {
+        query?: {
           /** @description Number of history to be retrieved */
-          limit: string;
+          limit?: number;
           /** @description Page to retrieved */
-          page: string;
+          page?: number;
         };
         header?: never;
         path: {
@@ -1117,11 +1293,7 @@ export interface paths {
         };
         cookie?: never;
       };
-      requestBody?: {
-        content: {
-          'application/json': Record<string, never>;
-        };
-      };
+      requestBody?: never;
       responses: {
         /** @description Order retrieved successfully */
         200: {
@@ -1199,11 +1371,7 @@ export interface paths {
         };
         cookie?: never;
       };
-      requestBody?: {
-        content: {
-          'application/json': Record<string, never>;
-        };
-      };
+      requestBody?: never;
       responses: {
         /** @description Order retrieved successfully */
         200: {
@@ -1254,6 +1422,338 @@ export interface paths {
     };
     put?: never;
     post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ownership/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get ownership proof by Dorm ID
+     * @description Retrieve ownership proof for a specific dorm
+     */
+    get: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description DormID */
+          id: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description Ownership proof retrieved successfully */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.SuccessResponse-dto_OwnershipProofResponseBody'];
+          };
+        };
+        /** @description Incorrect UUID format */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Ownership file not found */
+        404: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Internal server error */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    /**
+     * Delete ownership proof
+     * @description Delete an ownership proof file
+     */
+    delete: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description DormID */
+          id: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description Ownership proof successfully deleted */
+        204: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content?: never;
+        };
+        /** @description Incorrect UUID format */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Ownership file not found */
+        404: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Failed to delete Ownership file */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ownership/{id}/approve': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Approve ownership proof
+     * @description Approve a submitted ownership proof for a dorm
+     */
+    post: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description DormID */
+          id: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description Ownership proof approved */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.SuccessResponse-dto_OwnershipProofResponseBody'];
+          };
+        };
+        /** @description Incorrect UUID format */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Ownership file not found */
+        404: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Internal server error */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ownership/{id}/reject': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Reject ownership proof
+     * @description Reject a submitted ownership proof for a dorm
+     */
+    post: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description DormID */
+          id: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description Ownership proof rejected */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.SuccessResponse-dto_OwnershipProofResponseBody'];
+          };
+        };
+        /** @description Incorrect UUID format */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Ownership file not found */
+        404: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Internal server error */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/ownership/{id}/upload': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Upload new ownership proof
+     * @description Upload a new file as ownership proof for a dorm
+     */
+    post: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description DormID */
+          id: string;
+        };
+        cookie?: never;
+      };
+      /** @description file */
+      requestBody: {
+        content: {
+          'multipart/form-data': Record<string, never>;
+        };
+      };
+      responses: {
+        /** @description Ownership proof created */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.SuccessResponse-dto_OwnershipProofResponseBody'];
+          };
+        };
+        /** @description Incorrect UUID format */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Ownershop proof not found */
+        404: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Server failed to upload file */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
     delete?: never;
     options?: never;
     head?: never;
@@ -1377,7 +1877,7 @@ export interface paths {
             [name: string]: unknown;
           };
           content: {
-            'application/json': components['schemas']['dto.SuccessResponse-domain_User'];
+            'application/json': components['schemas']['dto.SuccessResponse-dto_UserResponse'];
           };
         };
         /** @description your request is invalid */
@@ -1496,7 +1996,7 @@ export interface paths {
             [name: string]: unknown;
           };
           content: {
-            'application/json': components['schemas']['dto.SuccessResponse-domain_User'];
+            'application/json': components['schemas']['dto.SuccessResponse-dto_UserResponse'];
           };
         };
         /** @description your request is unauthorized */
@@ -1720,85 +2220,70 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/user/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * GetUserByID
+     * @description Get User By ID
+     */
+    get: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description user id */
+          id: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description get user information successfully */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.SuccessResponse-dto_UserResponse'];
+          };
+        };
+        /** @description your request is unauthorized */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description system cannot get user information */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
 }
 export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
-    'domain.Address': {
-      district: string;
-      province: string;
-      subdistrict: string;
-      zipcode: string;
-    };
-    'domain.CheckoutStatus': string;
-    'domain.Dorm': {
-      address: components['schemas']['domain.Address'];
-      bathrooms: number;
-      bedrooms: number;
-      createAt?: string;
-      description?: string;
-      id?: string;
-      name: string;
-      owner?: components['schemas']['domain.User'];
-      ownerId: string;
-      price: number;
-      rating?: number;
-      size: number;
-      updateAt?: string;
-    };
-    'domain.LeasingHistory': {
-      dorm?: components['schemas']['domain.Dorm'];
-      dorm_id?: string;
-      end?: string;
-      id?: string;
-      lessee?: components['schemas']['domain.User'];
-      lessee_id?: string;
-      orders?: components['schemas']['domain.Order'][];
-      price?: number;
-      start?: string;
-    };
-    'domain.Lifestyle': string;
-    'domain.Order': {
-      createAt?: string;
-      id?: string;
-      leasingHistory?: components['schemas']['domain.LeasingHistory'];
-      leasingHistoryID?: string;
-      paidTransaction?: components['schemas']['domain.Transaction'];
-      paidTransactionID?: string;
-      price?: number;
-      transactions?: components['schemas']['domain.Transaction'][];
-      type?: components['schemas']['domain.OrderType'];
-      updateAt?: string;
-    };
-    'domain.OrderType': string;
-    'domain.Role': string;
-    'domain.Transaction': {
-      createAt?: string;
-      id?: string;
-      price?: number;
-      status?: components['schemas']['domain.CheckoutStatus'];
-      updateAt?: string;
-    };
-    'domain.User': {
-      birthDate?: string;
-      createAt?: string;
-      email: string;
-      filledPersonalInfo?: boolean;
-      firstname?: string;
-      gender?: string;
-      id?: string;
-      isStudentVerified?: boolean;
-      isVerified?: boolean;
-      lastname?: string;
-      lifestyles?: components['schemas']['domain.Lifestyle'][];
-      nationalID?: string;
-      phoneNumber?: string;
-      role?: components['schemas']['domain.Role'];
-      /** @description studentEvidence */
-      studentEvidence?: string;
-      updateAt?: string;
-      username: string;
-    };
     'dto.Address': {
       district?: string;
       province?: string;
@@ -1822,6 +2307,24 @@ export interface components {
       price: number;
       size: number;
     };
+    'dto.DormImageUploadResponseBody': {
+      url?: string;
+    };
+    'dto.DormResponseBody': {
+      address?: components['schemas']['dto.Address'];
+      bathrooms?: number;
+      bedrooms?: number;
+      createAt?: string;
+      description?: string;
+      id?: string;
+      imagesUrl?: string[];
+      name?: string;
+      owner?: components['schemas']['dto.UserResponse'];
+      price?: number;
+      rating?: number;
+      size?: number;
+      updateAt?: string;
+    };
     'dto.DormUpdateRequestBody': {
       address?: components['schemas']['dto.Address'];
       bathrooms?: number;
@@ -1834,6 +2337,15 @@ export interface components {
     'dto.ErrorResponse': {
       error?: string;
     };
+    'dto.LeasingHistory': {
+      dorm?: components['schemas']['dto.DormResponseBody'];
+      end?: string;
+      id?: string;
+      lessee?: components['schemas']['dto.UserResponse'];
+      orders?: components['schemas']['dto.OrderResponseBody'][];
+      price?: number;
+      start?: string;
+    };
     'dto.LoginRequestBody': {
       email: string;
       password: string;
@@ -1843,22 +2355,29 @@ export interface components {
     };
     'dto.OrderResponseBody': {
       id?: string;
-      paidTransaction?: components['schemas']['domain.Transaction'];
+      paidTransaction?: components['schemas']['dto.TransactionResponse'];
       price?: number;
       type?: string;
     };
+    'dto.OwnershipProofResponseBody': {
+      adminId?: string;
+      dormId?: string;
+      status?: components['schemas']['dto.OwnershipProofStatus'];
+      url?: string;
+    };
+    'dto.OwnershipProofStatus': string;
     'dto.Pagination': {
       current_page?: number;
       last_page?: number;
       limit?: number;
       total?: number;
     };
-    'dto.PaginationResponse-domain_Dorm': {
-      data?: components['schemas']['domain.Dorm'][];
+    'dto.PaginationResponse-dto_DormResponseBody': {
+      data?: components['schemas']['dto.DormResponseBody'][];
       pagination?: components['schemas']['dto.Pagination'];
     };
-    'dto.PaginationResponse-domain_LeasingHistory': {
-      data?: components['schemas']['domain.LeasingHistory'][];
+    'dto.PaginationResponse-dto_LeasingHistory': {
+      data?: components['schemas']['dto.LeasingHistory'][];
       pagination?: components['schemas']['dto.Pagination'];
     };
     'dto.PaginationResponse-dto_OrderResponseBody': {
@@ -1880,26 +2399,32 @@ export interface components {
       password: string;
       token: string;
     };
-    'dto.SuccessResponse-domain_Dorm': {
-      data?: components['schemas']['domain.Dorm'];
-    };
-    'dto.SuccessResponse-domain_LeasingHistory': {
-      data?: components['schemas']['domain.LeasingHistory'];
-    };
-    'dto.SuccessResponse-domain_User': {
-      data?: components['schemas']['domain.User'];
-    };
     'dto.SuccessResponse-dto_CreateTransactionResponseBody': {
       data?: components['schemas']['dto.CreateTransactionResponseBody'];
     };
+    'dto.SuccessResponse-dto_DormImageUploadResponseBody': {
+      data?: components['schemas']['dto.DormImageUploadResponseBody'];
+    };
+    'dto.SuccessResponse-dto_DormResponseBody': {
+      data?: components['schemas']['dto.DormResponseBody'];
+    };
+    'dto.SuccessResponse-dto_LeasingHistory': {
+      data?: components['schemas']['dto.LeasingHistory'];
+    };
     'dto.SuccessResponse-dto_OrderResponseBody': {
       data?: components['schemas']['dto.OrderResponseBody'];
+    };
+    'dto.SuccessResponse-dto_OwnershipProofResponseBody': {
+      data?: components['schemas']['dto.OwnershipProofResponseBody'];
     };
     'dto.SuccessResponse-dto_TokenResponseBody': {
       data?: components['schemas']['dto.TokenResponseBody'];
     };
     'dto.SuccessResponse-dto_TokenWithUserInformationResponseBody': {
       data?: components['schemas']['dto.TokenWithUserInformationResponseBody'];
+    };
+    'dto.SuccessResponse-dto_UserResponse': {
+      data?: components['schemas']['dto.UserResponse'];
     };
     'dto.TokenResponseBody': {
       accessToken?: string;
@@ -1908,20 +2433,43 @@ export interface components {
     'dto.TokenWithUserInformationResponseBody': {
       accessToken?: string;
       refreshToken?: string;
-      userInformation?: components['schemas']['domain.User'];
+      userInformation?: components['schemas']['dto.UserResponse'];
     };
     'dto.TransactionRequestBody': {
       orderID?: string;
+    };
+    'dto.TransactionResponse': {
+      createAt?: string;
+      id?: string;
+      price?: number;
+      status?: string;
+      updateAt?: string;
     };
     'dto.UserInformationRequestBody': {
       birthDate?: string;
       firstname?: string;
       gender?: string;
       lastname?: string;
-      lifestyles?: components['schemas']['domain.Lifestyle'][];
+      lifestyles?: string[];
       nationalID?: string;
       password?: string;
       phoneNumber?: string;
+      studentEvidence?: string;
+      username?: string;
+    };
+    'dto.UserResponse': {
+      birthDate?: string;
+      email?: string;
+      filledPersonalInfo?: boolean;
+      firstname?: string;
+      gender?: string;
+      id?: string;
+      isStudentVerified?: boolean;
+      isVerified?: boolean;
+      lastname?: string;
+      lifestyles?: string[];
+      phoneNumber?: string;
+      role?: string;
       studentEvidence?: string;
       username?: string;
     };
