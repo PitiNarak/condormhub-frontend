@@ -14,7 +14,7 @@ type LoginResponseType =
 
 declare module 'next-auth' {
   interface Session {
-    user?: components['schemas']['domain.User'];
+    user?: components['schemas']['dto.TokenWithUserInformationResponseBody']['userInformation'];
     access_token?: components['schemas']['dto.TokenWithUserInformationResponseBody']['accessToken'];
     refresh_token?: components['schemas']['dto.TokenWithUserInformationResponseBody']['refreshToken'];
     access_token_expired?: number;

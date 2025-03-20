@@ -31,7 +31,7 @@ export default function Home() {
       <LinkBtn text="Lessor Property Requests" path="/lessorRequest" />
       <LinkBtn
         text="Dorm page mock"
-        path="/dorm/a2219d93-9840-4101-a451-c3c38674ef5c"
+        path="/dorm/406ed1dc-ca35-4dd0-b329-0436af7e35cb"
       />
     </div>
   );

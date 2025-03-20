@@ -8,9 +8,10 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
+import Image from 'next/image';
 import React from 'react';
 
-export const ImageCarousel = () => {
+export const ImageCarousel = ({ images }: { images: Array<string> }) => {
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
   const [count, setCount] = React.useState(0);
@@ -30,13 +31,19 @@ export const ImageCarousel = () => {
 
   return (
     <div className="mx-auto">
-      <Carousel setApi={setApi} className="w-[400px] h-[400px] border-4">
+      <Carousel setApi={setApi} className="w-[400px] h-[400px]">
         <CarouselContent>
-          {Array.from({ length: 5 }).map((_, index) => (
+          {images.map((_, index) => (
             <CarouselItem key={index}>
               <Card>
-                <CardContent className="flex aspect-square items-center justify-center p-6">
-                  <span className="text-4xl font-semibold">{index + 1}</span>
+                <CardContent className="flex aspect-square items-center justify-center p-0">
+                  <Image
+                    src={images[index]}
+                    alt="dorm image"
+                    width={400}
+                    height={400}
+                    className="rounded-xl"
+                  />
                 </CardContent>
               </Card>
             </CarouselItem>
@@ -46,7 +53,7 @@ export const ImageCarousel = () => {
         <CarouselNext />
       </Carousel>
       <div className="py-2 text-center text-sm text-muted-foreground">
-        Slide {current} of {count}
+        Image {current} of {count}
       </div>
     </div>
   );
