@@ -11,7 +11,10 @@ export function EmailVerifyCard({ isLoading, error }: Props) {
   return (
     <Card className="mx-auto max-w-screen-sm min-h-64">
       <CardHeader>
-        <CardTitle className="text-center text-4xl">
+        <CardTitle className="md:hidden text-center text-4xl">
+          Verify Email
+        </CardTitle>
+        <CardTitle className="hidden md:block text-center text-4xl">
           Verifying Your Email
         </CardTitle>
       </CardHeader>
