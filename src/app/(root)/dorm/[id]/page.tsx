@@ -20,7 +20,11 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
         <div className="flex justify-between lg:w-[1000px] mt-10 sm:w-[90%] w-[1000px]">
           <div className="w-[80%] text-left flex-col flex gap-4 pr-8">
-            <EditDormButton dormOwnerID={res.owner?.id} session={session} />
+            <EditDormButton
+              dormOwnerID={res.owner?.id}
+              session={session}
+              dormID={res.id}
+            />
             <p className="text-xl">
               {res.address?.subdistrict}, {res.address?.district},{' '}
               {res.address?.province}, {res.address?.zipcode}
