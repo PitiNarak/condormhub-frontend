@@ -8,10 +8,10 @@ export const verifyEmail = async (token: string) => {
   });
 
   if (error) {
-    throw {
+    return {
       error: error.error,
     };
   }
 
-  return data.data;
+  return data;
 };

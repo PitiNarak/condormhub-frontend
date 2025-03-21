@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { CircleCheckBig } from 'lucide-react';
+import { CircleCheckBig, CircleX } from 'lucide-react';
 import { OrbitProgress } from 'react-loading-indicators';
 
 interface Props {
@@ -16,7 +16,7 @@ export function EmailVerifyCard({ isLoading, error }: Props) {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col gap-4 items-center justify-center">
           {isLoading ? (
             <OrbitProgress
               color="#000000"
@@ -25,7 +25,10 @@ export function EmailVerifyCard({ isLoading, error }: Props) {
               textColor=""
             />
           ) : error ? (
-            <div>{error}</div>
+            <>
+              <CircleX size={72} color="red" />
+              <span className="text-lg text-red-600 font-bold">{error}</span>
+            </>
           ) : (
             <>
               <CircleCheckBig size={72} color="green" />
