@@ -2,15 +2,13 @@
 
 import { signOut } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
-import { useRouter } from 'next/router';
+import { redirect } from 'next/navigation';
 
 export const LogoutButton: React.FC = () => {
-  const router = useRouter();
-
   function onSubmit() {
     signOut();
-    router.push('/home');
-    console.log('loged out');
+    console.log('logged out');
+    redirect('/login');
   }
   return (
     <Button onClick={onSubmit} variant="destructive">

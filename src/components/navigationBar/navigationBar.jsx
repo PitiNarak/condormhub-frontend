@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Search } from 'lucide-react';
 import { SelectedMenu } from '@/components/navigationBar/selectedMenu';
 import { NotiBtn } from '@/components/navigationBar/notificationButton';
+import { LogoutButton } from '../setting-page/logOutButton';
 
 export const NavBar = () => {
   return (
@@ -28,6 +29,7 @@ export const NavBar = () => {
         <div className="flex-1 justify-center m-auto flex">
           <Search />
         </div>
+        <LogoutButton />
       </div>
     </div>
   );
