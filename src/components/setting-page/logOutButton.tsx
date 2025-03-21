@@ -7,12 +7,7 @@ import { redirect } from 'next/navigation';
 export const LogoutButton: React.FC = () => {
   function onSubmit() {
     signOut();
-    console.log('logged out');
     redirect('/login');
   }
-  return (
-    <Button onClick={onSubmit} variant="destructive">
-      Logout
-    </Button>
-  );
+  return <Button onClick={onSubmit}>Logout</Button>;
 };
