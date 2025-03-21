@@ -1,7 +1,6 @@
-'use client';
 import { Check, X } from 'lucide-react';
-const VerificationStatus = () => {
-  const verified = false;
+
+export const VerificationStatus = ({ verified }: { verified: boolean }) => {
   return (
     <div>
       {verified ? (
@@ -18,5 +17,3 @@ const VerificationStatus = () => {
     </div>
   );
 };
-
-export default VerificationStatus;

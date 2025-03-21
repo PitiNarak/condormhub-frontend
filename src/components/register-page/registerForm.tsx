@@ -17,7 +17,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import InputWithIcon from '@/components/inputWithIcon/inputWithIcon';
+import { InputWithIcon } from '@/components/inputWithIcon/inputWithIcon';
 import { useRouter } from 'next/navigation';
 
 const formSchema = z
@@ -37,7 +37,7 @@ const formSchema = z
     }
   });
 
-export default function MyForm() {
+export function MyForm() {
   const [isLoad, setLoad] = useState(false);
   const router = useRouter();
   const [err, setErr] = useState('');

@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import { PropertyCard } from '@/components/lesseeHome-page/propertyCard';
 import { mockData } from '@/mocks/mockProperty';

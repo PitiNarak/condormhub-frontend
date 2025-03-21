@@ -26,7 +26,7 @@ const formSchema = z.object({
   email: z.string().email({ message: 'Input must be in Email format' }),
 });
 
-const ChangeEmailDialog = () => {
+export const ChangeEmailDialog = () => {
   const [open, setOpen] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -98,5 +98,3 @@ const ChangeEmailDialog = () => {
     </Dialog>
   );
 };
-
-export default ChangeEmailDialog;

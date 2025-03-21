@@ -21,11 +21,26 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useEffect } from 'react';
-import { CircleCheckBig } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Check, CircleCheckBig, X, CirclePlus } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { useToast } from '@/hooks/use-toast';
 import { UpdateUserInformation } from '@/actions/setting/action';
+import { allLifestyleTags, LifestyleTag } from '@/types/allLifestyle';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/command';
+import { Badge } from '@/components/ui/badge';
 
 const formSchema = z.object({
   username: z
@@ -41,19 +56,36 @@ const formSchema = z.object({
     .string()
     .startsWith('0', { message: 'Phone number must start with 0' }),
   gender: z.string().min(1, { message: 'Gender must be selected' }),
+  lifestyles: z.array(z.string()).optional(),
 });
 
-const UpdateInformationForm = () => {
+export const UpdateInformationForm = () => {
   const { data: session, update } = useSession();
   const { toast } = useToast();
+  const [selectedTags, setSelectedTags] = useState<LifestyleTag[]>([]);
+  const [open, setOpen] = useState(false); // For combo box popover
+
+  // Add or remove a tag
+  const toggleTag = (tag: LifestyleTag) => {
+    if (selectedTags.some((t) => t.id === tag.id)) {
+      setSelectedTags(selectedTags.filter((t) => t.id !== tag.id));
+    } else {
+      setSelectedTags([...selectedTags, tag]);
+    }
+  };
+
+  // Remove a tag from badges
+  const removeTag = (tag: LifestyleTag) => {
+    setSelectedTags(selectedTags.filter((t) => t.id !== tag.id));
+  };
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    //TODO when submit
-    console.log(values);
     if (session?.access_token) {
-      const res = await UpdateUserInformation(session.access_token, values);
+      const res = await UpdateUserInformation(session.access_token, {
+        ...values,
+        lifestyles: selectedTags.map((tag) => tag.name),
+      });
       if (res?.error) {
-        console.log(res.error);
         toast({
           variant: 'destructive',
           title: 'Uh oh! Something went wrong.',
@@ -68,9 +100,9 @@ const UpdateInformationForm = () => {
             lastname: values.lastname,
             gender: values.gender,
             phoneNumber: values.phoneNumber,
+            lifestyles: selectedTags.map((tag) => tag.name),
           },
         });
-        console.log('success');
         toast({
           description: (
             <div className="flex gap-5">
@@ -91,6 +123,7 @@ const UpdateInformationForm = () => {
       lastname: session?.user?.lastname || '',
       gender: session?.user?.gender || '',
       phoneNumber: session?.user?.phoneNumber || '',
+      lifestyles: session?.user?.lifestyles || [],
     },
   });
 
@@ -102,7 +135,13 @@ const UpdateInformationForm = () => {
         lastname: session.user?.lastname || '',
         gender: session.user?.gender || '',
         phoneNumber: session.user?.phoneNumber || '',
+        lifestyles: session.user?.lifestyles || [],
       });
+      const userLifestyles = session.user?.lifestyles || [];
+      const matchedTags = allLifestyleTags.filter((tag) =>
+        userLifestyles.includes(tag.name)
+      );
+      setSelectedTags(matchedTags);
     }
   }, [session, form]);
 
@@ -193,25 +232,7 @@ const UpdateInformationForm = () => {
             )}
           />
 
-          {/* Birthday Field */}
-          {/* <FormField
-            control={form.control}
-            name="birthday"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="font-semibold">Birthday</FormLabel>
-                <FormControl>
-                  <Input required {...field} />
-                </FormControl>
-                <FormDescription>
-                  Format: &quot;YYYY-MM-DD&quot;
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          /> */}
-
-          {/* gender */}
+          {/* Gender Field */}
           <FormField
             control={form.control}
             name="gender"
@@ -234,7 +255,75 @@ const UpdateInformationForm = () => {
             )}
           />
 
-          {/* Submit Button and Back Button*/}
+          {/* Lifestyle Tags Field */}
+          <FormField
+            control={form.control}
+            name="lifestyles"
+            render={() => (
+              <FormItem>
+                {/* Lifestyle label and Add (+) button */}
+                <div className="flex items-center gap-2">
+                  <FormLabel className="font-semibold">Lifestyle</FormLabel>
+                  <Popover open={open} onOpenChange={setOpen}>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        className="text-gray-700 hover:text-black"
+                      >
+                        <CirclePlus /> add more
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-full p-0">
+                      <Command>
+                        <CommandInput placeholder="Search lifestyles" />
+                        <CommandList>
+                          <CommandEmpty>No lifestyles found.</CommandEmpty>
+                          <CommandGroup>
+                            {allLifestyleTags
+                              .filter(
+                                (tag) =>
+                                  !selectedTags.some((t) => t.id === tag.id)
+                              ) // Exclude selected tags
+                              .map((tag) => (
+                                <CommandItem
+                                  key={tag.id}
+                                  value={tag.name}
+                                  onSelect={() => toggleTag(tag)}
+                                >
+                                  <Check className="mr-2 h-4 w-4 opacity-0 group-hover:opacity-100" />
+                                  {tag.name}
+                                </CommandItem>
+                              ))}
+                          </CommandGroup>
+                        </CommandList>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
+                </div>
+
+                {/* Selected Tags Display */}
+                <FormControl>
+                  <div className="flex flex-wrap gap-2 p-2 min-h-9 w-full rounded-md border border-input bg-transparent text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm">
+                    {selectedTags.map((tag) => (
+                      <Badge
+                        key={tag.id}
+                        className="px-3 py-1 rounded-lg bg-blue-100 text-blue-500 flex items-center gap-1 hover:bg-blue-200 transition"
+                      >
+                        {tag.name}
+                        <X
+                          className="h-3 w-3 cursor-pointer text-blue-500"
+                          onClick={() => removeTag(tag)}
+                        />
+                      </Badge>
+                    ))}
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Submit Button and Back Button */}
         </div>
         <div className="flex gap-4">
           <Button type="submit" className="w-44">
@@ -245,8 +334,6 @@ const UpdateInformationForm = () => {
             className="w-44 bg-red-500"
             onClick={() => redirect('/profile')}
           >
-            {' '}
-            {/*redirect to profile page*/}
             Cancel
           </Button>
         </div>
@@ -254,5 +341,3 @@ const UpdateInformationForm = () => {
     </Form>
   );
 };
-
-export default UpdateInformationForm;
