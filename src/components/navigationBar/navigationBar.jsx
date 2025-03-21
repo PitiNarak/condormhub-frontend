@@ -7,7 +7,7 @@ import { LogoutButton } from '../setting-page/logOutButton';
 
 export const NavBar = () => {
   return (
-    <div className="flex shadow-md items-center h-20 fixed top-0 w-full bg-white z-[50]">
+    <div className="flex shadow-md items-center h-20 fixed top-0 w-full bg-white z-[50] pr-5">
       <div className="text-center flex-row px-[2%]">
         <div className="flex-1">
           <Link href="/">
