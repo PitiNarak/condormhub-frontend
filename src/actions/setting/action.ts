@@ -8,6 +8,7 @@ interface Value {
   lastname: string;
   gender: string;
   phoneNumber: string;
+  lifestyles?: string[];
 }
 
 export const UpdateUserInformation = async (
@@ -21,6 +22,7 @@ export const UpdateUserInformation = async (
       lastname: value.lastname,
       gender: value.gender,
       phoneNumber: value.phoneNumber,
+      lifestyles: value.lifestyles,
     },
     headers: {
       Authorization: `Bearer ${access_token}`,
