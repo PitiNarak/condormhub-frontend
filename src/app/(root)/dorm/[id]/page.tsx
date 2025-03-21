@@ -1,11 +1,15 @@
 import { getDormByID } from '@/action/dorm/getDormByID';
+import { EditDormButton } from '@/components/dorm-page/editDormButton';
 import { ImageCarousel } from '@/components/dorm-page/imageCarousel';
 import { RequestBtn } from '@/components/lesseeHome-page/requestBtn';
+import { auth } from '@/lib/auth';
 import React from 'react';
 
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;
   const res = await getDormByID(id);
+  const session = await auth();
+
   if (res && !('error' in res)) {
     return (
       <div className="pt-5 flex flex-col items-center gap-4 pb-5">
@@ -16,6 +20,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
         <div className="flex justify-between lg:w-[1000px] mt-10 sm:w-[90%] w-[1000px]">
           <div className="w-[80%] text-left flex-col flex gap-4 pr-8">
+            <EditDormButton dormOwnerID={res.owner?.id} session={session} />
             <p className="text-xl">
               {res.address?.subdistrict}, {res.address?.district},{' '}
               {res.address?.province}, {res.address?.zipcode}
