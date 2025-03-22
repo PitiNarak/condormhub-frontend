@@ -30,8 +30,7 @@ const formSchema = z.object({
   zipcode: z
     .string()
     .min(1, 'Zip code is required')
-    .regex(/^\d{5}$/, 'Must be number')
-    .length(5, 'must contain 5 digits'),
+    .regex(/^\d{5}$/, 'Must be a 5-digit number'),
   bedroom: z.coerce
     .number({
       invalid_type_error: 'Must be a number',
