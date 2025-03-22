@@ -13,22 +13,16 @@ export function SearchBox({ className }: SearchBoxProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Default price values
-  const DEFAULT_MIN_PRICE = 0;
-  const DEFAULT_MAX_PRICE = 100000;
-
   // Initialize states with URL params if they exist, with proper sanitization
   const [search, setSearch] = useState(
     searchParams.get('search')?.trim() || ''
   );
-  const [minPrice, setMinPrice] = useState(() => {
-    const value = searchParams.get('minPrice');
-    return value && !isNaN(parseInt(value)) ? value : String(DEFAULT_MIN_PRICE);
-  });
-  const [maxPrice, setMaxPrice] = useState(() => {
-    const value = searchParams.get('maxPrice');
-    return value && !isNaN(parseInt(value)) ? value : String(DEFAULT_MAX_PRICE);
-  });
+  const [minPrice, setMinPrice] = useState(
+    searchParams.get('minPrice')?.trim() || ''
+  );
+  const [maxPrice, setMaxPrice] = useState(
+    searchParams.get('maxPrice')?.trim() || ''
+  );
   const [province, setProvince] = useState(
     searchParams.get('province')?.trim() || ''
   );
@@ -55,19 +49,23 @@ export function SearchBox({ className }: SearchBoxProps) {
 
   // Validate price range
   const validatePriceRange = (min: string, max: string) => {
-    const minVal = parseInt(min);
-    const maxVal = parseInt(max);
     const newErrors: Record<string, string> = {};
 
-    if (isNaN(minVal)) {
-      newErrors.minPrice = 'Min price must be a number';
+    // Check if only one of min or max is provided
+    if ((min && !max) || (!min && max)) {
+      newErrors.priceRange = 'Please provide both min and max price';
     }
 
-    if (isNaN(maxVal)) {
+    // Check if min and max are valid numbers
+    if (min && isNaN(parseInt(min))) {
+      newErrors.minPrice = 'Min price must be a number';
+    }
+    if (max && isNaN(parseInt(max))) {
       newErrors.maxPrice = 'Max price must be a number';
     }
 
-    if (!isNaN(minVal) && !isNaN(maxVal) && minVal >= maxVal) {
+    // Check if min is less than max
+    if (min && max && parseInt(min) >= parseInt(max)) {
       newErrors.priceRange = 'Min price must be less than max price';
     }
 
@@ -133,14 +131,10 @@ export function SearchBox({ className }: SearchBoxProps) {
     // Add search parameters if they have values
     if (search) params.set('search', search);
 
-    // Parse price values to integers
-    const minVal = minPrice ? parseInt(minPrice) : DEFAULT_MIN_PRICE;
-    const maxVal = maxPrice ? parseInt(maxPrice) : DEFAULT_MAX_PRICE;
-
-    // Only set minPrice and maxPrice if they differ from defaults
-    if (minVal !== DEFAULT_MIN_PRICE || maxVal !== DEFAULT_MAX_PRICE) {
-      params.set('minPrice', minVal.toString());
-      params.set('maxPrice', maxVal.toString());
+    // Only set minPrice and maxPrice if both are provided
+    if (minPrice && maxPrice) {
+      params.set('minPrice', minPrice);
+      params.set('maxPrice', maxPrice);
     }
 
     if (province) params.set('province', province);
@@ -167,14 +161,10 @@ export function SearchBox({ className }: SearchBoxProps) {
     // Add search parameters if they have values
     if (search) params.set('search', search);
 
-    // Parse price values to integers
-    const minVal = tempMinPrice ? parseInt(tempMinPrice) : DEFAULT_MIN_PRICE;
-    const maxVal = tempMaxPrice ? parseInt(tempMaxPrice) : DEFAULT_MAX_PRICE;
-
-    // Only set minPrice and maxPrice if they differ from defaults
-    if (minVal !== DEFAULT_MIN_PRICE || maxVal !== DEFAULT_MAX_PRICE) {
-      params.set('minPrice', minVal.toString());
-      params.set('maxPrice', maxVal.toString());
+    // Only set minPrice and maxPrice if both are provided
+    if (tempMinPrice && tempMaxPrice) {
+      params.set('minPrice', tempMinPrice);
+      params.set('maxPrice', tempMaxPrice);
     }
 
     if (tempProvince) params.set('province', tempProvince);
@@ -211,8 +201,8 @@ export function SearchBox({ className }: SearchBoxProps) {
 
   // Clear all filters within filter panel
   const clearFilters = () => {
-    setTempMinPrice(String(DEFAULT_MIN_PRICE));
-    setTempMaxPrice(String(DEFAULT_MAX_PRICE));
+    setTempMinPrice('');
+    setTempMaxPrice('');
     setTempProvince('');
     setTempDistrict('');
     setTempSubdistrict('');
@@ -231,11 +221,8 @@ export function SearchBox({ className }: SearchBoxProps) {
   ) {
     let count = 0;
 
-    // Count min and max price as one filter set if either is non-default
-    if (
-      (min && min !== String(DEFAULT_MIN_PRICE)) ||
-      (max && max !== String(DEFAULT_MAX_PRICE))
-    ) {
+    // Count min and max price as one filter set if both are provided
+    if (min && max) {
       count++;
     }
 
