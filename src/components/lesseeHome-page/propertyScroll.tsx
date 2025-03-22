@@ -8,32 +8,47 @@ import { PropertyCard } from '@/components/lesseeHome-page/propertyCard';
 import { SearchBox } from '@/components/lesseeHome-page/searchBox';
 
 interface PropertyScrollProps {
-  page: string | string[] | undefined;
-  searchParams?: {
-    search?: string;
-    minPrice?: string;
-    maxPrice?: string;
-    district?: string;
-    subdistrict?: string;
-    province?: string;
-    zipcode?: string;
-  };
+  page?: number;
+  limit?: number;
+  search?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  district?: string;
+  subdistrict?: string;
+  province?: string;
+  zipcode?: string;
 }
 
 export async function PropertyScroll({
-  page,
-  searchParams,
+  page = 1,
+  limit = 12,
+  search,
+  minPrice,
+  maxPrice,
+  district,
+  subdistrict,
+  province,
+  zipcode,
 }: PropertyScrollProps) {
   const lesseePagePath = '/home/lesseeView?page=1';
-  const pageNum = Number(page ? page : '1');
-  const response = await fetchProperty(pageNum, 12, searchParams);
+  const response = await fetchProperty(
+    page,
+    limit,
+    search,
+    minPrice,
+    maxPrice,
+    district,
+    subdistrict,
+    province,
+    zipcode
+  );
 
   const propertyData =
     'message' in response ? JSON.parse(mockData) : response.data;
   const paginationElement = response.pagination;
 
   //Range checker if not valid go to first page
-  if (propertyData.length < 0 || pageNum < 1 || Number.isNaN(pageNum)) {
+  if (propertyData.length < 0 || page < 1 || Number.isNaN(page)) {
     redirect(lesseePagePath);
   }
 
