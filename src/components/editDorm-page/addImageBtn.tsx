@@ -54,7 +54,6 @@ export const AddImageBtn = ({
       const res = await uploadImage(value.image[0], dormId, access_token);
       window.location.reload();
       if (res) {
-        console.error('Upload failed:', res);
         setError(res);
       } else {
         setUploadedImage(null);

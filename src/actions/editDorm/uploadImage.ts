@@ -10,17 +10,13 @@ export async function uploadImage(
   formData.append('image', file);
 
   try {
-    const response = await fetch(
-      `${process.env.BACKEND_URL}/dorms/${dormId}/images`,
-      {
-        method: 'POST',
-        body: formData,
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-        },
-      }
-    );
-    console.log(response);
+    await fetch(`${process.env.BACKEND_URL}/dorms/${dormId}/images`, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
   } catch (error) {
     if (error instanceof Response) {
       const errorMessage = await error.json();
