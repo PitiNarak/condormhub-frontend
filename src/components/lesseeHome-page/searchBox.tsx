@@ -310,7 +310,7 @@ export function SearchBox({ className }: SearchBoxProps) {
                   <button
                     type="button"
                     onClick={clearFilters}
-                    className="text-red-600 px-3 py-2 rounded-lg font-medium flex items-center"
+                    className="px-3 py-2 rounded-lg font-medium flex items-center"
                   >
                     <X className="h-5 w-5 mr-1" />
                     Clear All
