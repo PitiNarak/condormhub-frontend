@@ -248,13 +248,13 @@ export function SearchBox({ className }: SearchBoxProps) {
                 value={search}
                 onChange={(e) => handleTextChange(setSearch, e.target.value)}
                 placeholder="Search properties..."
-                className="w-full px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:border-blue-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none"
               />
               {search && (
                 <button
                   type="button"
                   onClick={() => setSearch('')}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400"
                 >
                   <CircleX className="h-5 w-5" />
                 </button>
@@ -262,7 +262,7 @@ export function SearchBox({ className }: SearchBoxProps) {
             </div>
             <button
               type="submit"
-              className="bg-blue-600 text-white px-4 py-2 rounded-r-lg hover:bg-blue-700 transition-colors duration-200 flex items-center justify-center font-medium"
+              className="px-4 py-2 rounded-r-lg transition-colors duration-200 flex items-center justify-center font-medium bg-primary text-white"
             >
               <Search className="h-4 w-4 mr-1" />
               Search
@@ -273,11 +273,11 @@ export function SearchBox({ className }: SearchBoxProps) {
         <div className="flex items-center gap-2 shrink-0">
           <Dialog.Root open={isFilterOpen} onOpenChange={setIsFilterOpen}>
             <Dialog.Trigger asChild>
-              <button className="flex items-center bg-white border border-gray-300 hover:bg-gray-50 px-4 py-2 rounded-lg transition-all duration-200 shadow-sm">
+              <button className="flex items-center bg-white border border-gray-300 px-4 py-2 rounded-lg transition-all duration-200 shadow-sm">
                 <Filter className="h-4 w-4 mr-2 text-gray-600" />
                 <span className="font-medium">Filters</span>
                 {activeFilters > 0 && (
-                  <span className="ml-2 bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
+                  <span className="ml-2 bg-gray-800 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
                     {activeFilters}
                   </span>
                 )}
@@ -293,7 +293,7 @@ export function SearchBox({ className }: SearchBoxProps) {
                     Filters
                   </h3>
                   <Dialog.Close asChild>
-                    <button className="rounded-full p-1 hover:bg-gray-100 focus:outline-none">
+                    <button className="rounded-full p-1 hover:bg-gray-100">
                       <X className="h-5 w-5 text-gray-500" />
                     </button>
                   </Dialog.Close>
@@ -316,7 +316,7 @@ export function SearchBox({ className }: SearchBoxProps) {
                           onChange={(e) => {
                             handlePriceChange(setTempMinPrice, e.target.value);
                           }}
-                          className={`w-full pl-7 pr-3 py-2 border ${tempErrors.minPrice || tempErrors.priceRange ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:border-blue-500`}
+                          className={`w-full pl-7 pr-3 py-2 border ${tempErrors.minPrice || tempErrors.priceRange ? 'border-error' : 'border-gray-300'} rounded-lg focus:outline-none`}
                           aria-invalid={
                             !!tempErrors.minPrice || !!tempErrors.priceRange
                           }
@@ -334,7 +334,7 @@ export function SearchBox({ className }: SearchBoxProps) {
                           onChange={(e) => {
                             handlePriceChange(setTempMaxPrice, e.target.value);
                           }}
-                          className={`w-full pl-7 pr-3 py-2 border ${tempErrors.maxPrice || tempErrors.priceRange ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:border-blue-500`}
+                          className={`w-full pl-7 pr-3 py-2 border ${tempErrors.maxPrice || tempErrors.priceRange ? 'border-error' : 'border-gray-300'} rounded-lg focus:outline-none`}
                           aria-invalid={
                             !!tempErrors.maxPrice || !!tempErrors.priceRange
                           }
@@ -342,17 +342,17 @@ export function SearchBox({ className }: SearchBoxProps) {
                       </div>
                     </div>
                     {tempErrors.priceRange && (
-                      <p className="text-sm text-red-600 mt-1">
+                      <p className="text-sm text-error mt-1">
                         {tempErrors.priceRange}
                       </p>
                     )}
                     {tempErrors.minPrice && !tempErrors.priceRange && (
-                      <p className="text-sm text-red-600 mt-1">
+                      <p className="text-sm text-error mt-1">
                         {tempErrors.minPrice}
                       </p>
                     )}
                     {tempErrors.maxPrice && !tempErrors.priceRange && (
-                      <p className="text-sm text-red-600 mt-1">
+                      <p className="text-sm text-error mt-1">
                         {tempErrors.maxPrice}
                       </p>
                     )}
@@ -369,7 +369,7 @@ export function SearchBox({ className }: SearchBoxProps) {
                       onChange={(e) =>
                         handleTextChange(setTempProvince, e.target.value)
                       }
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none"
                     />
                   </div>
 
@@ -384,7 +384,7 @@ export function SearchBox({ className }: SearchBoxProps) {
                       onChange={(e) =>
                         handleTextChange(setTempDistrict, e.target.value)
                       }
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none"
                     />
                   </div>
 
@@ -399,7 +399,7 @@ export function SearchBox({ className }: SearchBoxProps) {
                       onChange={(e) =>
                         handleTextChange(setTempSubdistrict, e.target.value)
                       }
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none"
                     />
                   </div>
 
@@ -414,7 +414,7 @@ export function SearchBox({ className }: SearchBoxProps) {
                       onChange={(e) => {
                         handleTextChange(setTempZipcode, e.target.value);
                       }}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none"
                     />
                   </div>
                 </div>
@@ -423,16 +423,15 @@ export function SearchBox({ className }: SearchBoxProps) {
                   <button
                     type="button"
                     onClick={clearFilters}
-                    className="text-red-600 hover:text-red-800 px-3 py-2 rounded-lg hover:bg-red-50 transition-all duration-200 font-medium flex items-center"
+                    className="text-error px-3 py-2 rounded-lg font-medium flex items-center"
                   >
                     <X className="h-5 w-5 mr-1" />
                     Clear All
                   </button>
-
                   <button
                     type="button"
                     onClick={applyFilters}
-                    className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium"
+                    className="bg-primary text-white px-6 py-2 rounded-lg font-medium"
                   >
                     Apply Filters
                   </button>
