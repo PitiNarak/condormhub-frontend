@@ -8,12 +8,24 @@ import { PropertyCard } from '@/components/lesseeHome-page/propertyCard';
 
 interface PropertyScrollProps {
   page: string | string[] | undefined;
+  searchParams?: {
+    search?: string;
+    minPrice?: string;
+    maxPrice?: string;
+    district?: string;
+    subdistrict?: string;
+    province?: string;
+    zipcode?: string;
+  };
 }
 
-export async function PropertyScroll({ page }: PropertyScrollProps) {
+export async function PropertyScroll({
+  page,
+  searchParams,
+}: PropertyScrollProps) {
   const lesseePagePath = '/home/lesseeView?page=1';
   const pageNum = Number(page ? page : '1');
-  const response = await fetchProperty(pageNum);
+  const response = await fetchProperty(pageNum, 12, searchParams);
 
   const propertyData =
     'message' in response ? JSON.parse(mockData) : response.data;
