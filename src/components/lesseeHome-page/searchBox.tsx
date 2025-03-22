@@ -15,7 +15,7 @@ export function SearchBox({ className }: SearchBoxProps) {
 
   // Default price values
   const DEFAULT_MIN_PRICE = 0;
-  const DEFAULT_MAX_PRICE = 1000000;
+  const DEFAULT_MAX_PRICE = 100000;
 
   // Initialize states with URL params if they exist, with proper sanitization
   const [search, setSearch] = useState(
@@ -172,8 +172,10 @@ export function SearchBox({ className }: SearchBoxProps) {
     const maxVal = tempMaxPrice ? parseInt(tempMaxPrice) : DEFAULT_MAX_PRICE;
 
     // Only set minPrice and maxPrice if they differ from defaults
-    if (minVal !== DEFAULT_MIN_PRICE) params.set('minPrice', minVal.toString());
-    if (maxVal !== DEFAULT_MAX_PRICE) params.set('maxPrice', maxVal.toString());
+    if (minVal !== DEFAULT_MIN_PRICE || maxVal !== DEFAULT_MAX_PRICE) {
+      params.set('minPrice', minVal.toString());
+      params.set('maxPrice', maxVal.toString());
+    }
 
     if (tempProvince) params.set('province', tempProvince);
     if (tempDistrict) params.set('district', tempDistrict);
