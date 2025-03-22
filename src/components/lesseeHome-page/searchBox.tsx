@@ -76,8 +76,9 @@ export function SearchBox({ className }: SearchBoxProps) {
   // Initialize temp states when filter opens
   useEffect(() => {
     if (isFilterOpen) {
-      setTempMinPrice(minPrice);
-      setTempMaxPrice(maxPrice);
+      // Set default values for minPrice and maxPrice if they are empty
+      setTempMinPrice(minPrice || '0');
+      setTempMaxPrice(maxPrice || '10000');
       setTempProvince(province);
       setTempDistrict(district);
       setTempSubdistrict(subdistrict);
@@ -201,8 +202,8 @@ export function SearchBox({ className }: SearchBoxProps) {
 
   // Clear all filters within filter panel
   const clearFilters = () => {
-    setTempMinPrice('');
-    setTempMaxPrice('');
+    setTempMinPrice('0'); // Reset to default
+    setTempMaxPrice('10000'); // Reset to default
     setTempProvince('');
     setTempDistrict('');
     setTempSubdistrict('');
