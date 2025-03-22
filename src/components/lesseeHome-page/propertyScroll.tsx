@@ -32,7 +32,7 @@ export async function PropertyScroll({
   const paginationElement = response.pagination;
 
   //Range checker if not valid go to first page
-  if (propertyData.length == 0 || pageNum < 1 || Number.isNaN(pageNum)) {
+  if (propertyData.length < 0 || pageNum < 1 || Number.isNaN(pageNum)) {
     redirect(lesseePagePath);
   }
 
@@ -41,30 +41,39 @@ export async function PropertyScroll({
       <p className="block text-center text-lg w-[150px] mb-8 ml-2 rounded-2xl border border-gray-400">
         No Filters
       </p>
-      <div className="flex flex-wrap justify-center gap-3 mx-5">
-        {propertyData.map(
-          (data: components['schemas']['dto.DormResponseBody']) => (
-            <div key={String(data.id)} className="text-sm">
-              <PropertyCard
-                id={data.id ?? ''}
-                image={
-                  data.imagesUrl
-                    ? (data.imagesUrl[0] ?? 'https://placehold.co/300x200')
-                    : 'https://placehold.co/300x200'
-                }
-                rating={data.rating ?? 0}
-                bedroom={data.bedrooms ?? 0}
-                bathroom={data.bathrooms ?? 0}
-                province={data.address ? (data.address.province ?? '') : ''}
-                district={data.address ? (data.address.district ?? '') : ''}
-                price={data.price ?? 0}
-                propertyName={data.name ?? ''}
-              />
-            </div>
-          )
-        )}
-      </div>
-      <PaginationControl lastPage={Number(paginationElement?.last_page)} />
+
+      {propertyData.length === 0 ? (
+        <p className="text-center text-lg text-gray-500">
+          Sorry, no properties found.
+        </p>
+      ) : (
+        <>
+          <div className="flex flex-wrap justify-center gap-3 mx-5">
+            {propertyData.map(
+              (data: components['schemas']['dto.DormResponseBody']) => (
+                <div key={String(data.id)} className="text-sm">
+                  <PropertyCard
+                    id={data.id ?? ''}
+                    image={
+                      data.imagesUrl
+                        ? (data.imagesUrl[0] ?? 'https://placehold.co/300x200')
+                        : 'https://placehold.co/300x200'
+                    }
+                    rating={data.rating ?? 0}
+                    bedroom={data.bedrooms ?? 0}
+                    bathroom={data.bathrooms ?? 0}
+                    province={data.address ? (data.address.province ?? '') : ''}
+                    district={data.address ? (data.address.district ?? '') : ''}
+                    price={data.price ?? 0}
+                    propertyName={data.name ?? ''}
+                  />
+                </div>
+              )
+            )}
+          </div>
+          <PaginationControl lastPage={Number(paginationElement?.last_page)} />
+        </>
+      )}
     </div>
   );
 }
