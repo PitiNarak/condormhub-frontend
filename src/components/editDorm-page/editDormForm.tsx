@@ -66,10 +66,10 @@ export const EditDormForm = ({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      subdistrict: dormInfo.address?.subdistrict,
-      district: dormInfo.address?.district,
-      province: dormInfo.address?.province,
-      zipcode: dormInfo.address?.zipcode,
+      subdistrict: dormInfo.address?.subdistrict || undefined,
+      district: dormInfo.address?.district || undefined,
+      province: dormInfo.address?.province || undefined,
+      zipcode: dormInfo.address?.zipcode || undefined,
       bedroom: dormInfo.bedrooms || undefined,
       bathroom: dormInfo.bathrooms || undefined,
       size: dormInfo.size || undefined,
@@ -80,10 +80,10 @@ export const EditDormForm = ({
 
   useEffect(() => {
     form.reset({
-      subdistrict: dormInfo.address?.subdistrict,
-      district: dormInfo.address?.district,
-      province: dormInfo.address?.province,
-      zipcode: dormInfo.address?.zipcode,
+      subdistrict: dormInfo.address?.subdistrict || undefined,
+      district: dormInfo.address?.district || undefined,
+      province: dormInfo.address?.province || undefined,
+      zipcode: dormInfo.address?.zipcode || undefined,
       bedroom: dormInfo.bedrooms || undefined,
       bathroom: dormInfo.bathrooms || undefined,
       size: dormInfo.size || undefined,
