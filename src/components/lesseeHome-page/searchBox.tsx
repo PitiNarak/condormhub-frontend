@@ -77,8 +77,8 @@ export function SearchBox({ className }: SearchBoxProps) {
   useEffect(() => {
     if (isFilterOpen) {
       // Set default values for minPrice and maxPrice if they are empty
-      setTempMinPrice(minPrice || '0');
-      setTempMaxPrice(maxPrice || '10000');
+      setTempMinPrice(minPrice);
+      setTempMaxPrice(maxPrice);
       setTempProvince(province);
       setTempDistrict(district);
       setTempSubdistrict(subdistrict);
@@ -149,6 +149,7 @@ export function SearchBox({ className }: SearchBoxProps) {
 
   // Apply filters from the filter panel
   const applyFilters = () => {
+    // Validate price range before proceeding
     if (!validatePriceRange(tempMinPrice, tempMaxPrice)) {
       return; // Don't proceed if validation fails
     }
@@ -314,7 +315,6 @@ export function SearchBox({ className }: SearchBoxProps) {
                           value={tempMinPrice}
                           onChange={(e) => {
                             handlePriceChange(setTempMinPrice, e.target.value);
-                            validatePriceRange(e.target.value, tempMaxPrice);
                           }}
                           className={`w-full pl-7 pr-3 py-2 border ${tempErrors.minPrice || tempErrors.priceRange ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:border-blue-500`}
                           aria-invalid={
@@ -333,7 +333,6 @@ export function SearchBox({ className }: SearchBoxProps) {
                           value={tempMaxPrice}
                           onChange={(e) => {
                             handlePriceChange(setTempMaxPrice, e.target.value);
-                            validatePriceRange(tempMinPrice, e.target.value);
                           }}
                           className={`w-full pl-7 pr-3 py-2 border ${tempErrors.maxPrice || tempErrors.priceRange ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:outline-none focus:border-blue-500`}
                           aria-invalid={
