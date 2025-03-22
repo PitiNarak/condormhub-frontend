@@ -19,7 +19,7 @@ export const EditDormButton = ({
     ) {
       return (
         <Link
-          href={`/dorm/edit/${dormID}`}
+          href={`/dorm/${dormID}/edit`}
           className={buttonVariants({ variant: 'default', className: 'w-min' })}
         >
           Edit
