@@ -178,6 +178,9 @@ export function SearchBox({ className }: SearchBoxProps) {
     if (subdistrict) params.set('subdistrict', tempSubdistrict);
     if (zipcode) params.set('zipcode', tempZipcode);
 
+    // Navigate to the new URL
+    router.push(`/home/lesseeView?${params.toString()}`);
+
     // Apply temp states to actual states
     setMinPrice(tempMinPrice);
     setMaxPrice(tempMaxPrice);
@@ -200,9 +203,6 @@ export function SearchBox({ className }: SearchBoxProps) {
         tempZipcode
       )
     );
-
-    // Navigate to the new URL
-    router.push(`/home/lesseeView?${params.toString()}`);
   };
 
   // Clear all filters within filter panel
