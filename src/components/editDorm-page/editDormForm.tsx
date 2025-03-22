@@ -24,23 +24,27 @@ const formSchema = z.object({
   //   address: z
   //     .string()
   //     .min(2, { message: 'Username must be at least 2 characters.' }),
-  bedroom: z.coerce.number({
-    required_error: 'Number of bedrooms is required',
-    invalid_type_error: 'Must be a number',
-  }),
-  bathroom: z.coerce.number({
-    required_error: 'Number of bathrooms is required',
-    invalid_type_error: 'Must be a number',
-  }),
-  size: z.coerce.number({
-    required_error: 'Size is required',
-    invalid_type_error: 'Must be a number',
-  }),
-  price: z.coerce.number({
-    required_error: 'Price per month is required',
-    invalid_type_error: 'Must be a number',
-  }),
-  description: z.string(),
+  bedroom: z.coerce
+    .number({
+      invalid_type_error: 'Must be a number',
+    })
+    .min(1, 'Number of bedrooms is required'),
+  bathroom: z.coerce
+    .number({
+      invalid_type_error: 'Must be a number',
+    })
+    .min(1, 'Number of bathrooms is required'),
+  size: z.coerce
+    .number({
+      invalid_type_error: 'Must be a number',
+    })
+    .min(1, 'Size is required'),
+  price: z.coerce
+    .number({
+      invalid_type_error: 'Must be a number',
+    })
+    .min(1, 'Price per month is required'),
+  description: z.string().min(1, 'Description is required'),
 });
 
 type dormInfoType = components['schemas']['dto.DormResponseBody'];
