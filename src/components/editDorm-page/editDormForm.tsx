@@ -1,5 +1,5 @@
 'use client';
-import { UpdateDorm } from '@/actions/editDorm/updateDorm';
+import { updateDorm } from '@/actions/editDorm/updateDorm';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -75,7 +75,7 @@ export const EditDormForm = ({
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
-    const res = await UpdateDorm(values, dormInfo.id, access_token);
+    const res = await updateDorm(values, dormInfo.id, access_token);
     if (res?.error) {
       toast({
         variant: 'destructive',

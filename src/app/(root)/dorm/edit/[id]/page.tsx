@@ -23,7 +23,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
             {res.imagesUrl && res.imagesUrl.length > 0 && (
               <ImageCarousel images={res.imagesUrl} />
             )}
-            <AddImageBtn />
+            <AddImageBtn dormId={id} access_token={session.access_token} />
 
             <div className="flex justify-between lg:w-[1000px] mt-10 sm:w-[90%] w-[1000px]">
               <div className="w-full text-left flex-col flex gap-4 pr-8">

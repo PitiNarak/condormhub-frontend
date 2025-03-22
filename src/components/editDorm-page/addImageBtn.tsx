@@ -1,4 +1,5 @@
 'use client';
+import { uploadImage } from '@/actions/editDorm/uploadImage';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -33,21 +34,32 @@ const formSchema = z.object({
     ),
 });
 
-export const AddImageBtn = () => {
+export const AddImageBtn = ({
+  dormId,
+  access_token,
+}: {
+  dormId: string;
+  access_token: string;
+}) => {
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
-  //   const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
 
-  async function onSubmit() {
+  async function onSubmit(value: z.infer<typeof formSchema>) {
     if (uploadedImage) {
-      setUploadedImage(null);
-      console.log('1');
-      setOpen(false);
-      form.reset();
+      const res = await uploadImage(value.image, dormId, access_token);
+      if (res) {
+        console.error('Upload failed:', res);
+        setError(res);
+      } else {
+        setUploadedImage(null);
+        setOpen(false);
+        form.reset();
+      }
     }
   }
 
@@ -116,7 +128,7 @@ export const AddImageBtn = () => {
                 />
               </DialogDescription>
             </DialogHeader>
-            {/* {error && <p className="text-red-500">{error}</p>} */}
+            {error && <p className="text-red-500">{error}</p>}
             <DialogFooter className="flex-col md:gap-1 gap-2">
               <Button type="submit">Confirm</Button>
               <DialogClose asChild>

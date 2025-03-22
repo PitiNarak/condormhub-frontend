@@ -9,7 +9,7 @@ interface Values {
   price: number;
   description: string;
 }
-export const UpdateDorm = async (
+export const updateDorm = async (
   values: Values,
   dormID: string | undefined,
   access_token: string
