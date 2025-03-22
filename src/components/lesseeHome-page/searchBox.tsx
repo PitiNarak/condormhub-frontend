@@ -174,9 +174,9 @@ export function SearchBox({ className }: SearchBoxProps) {
     if (maxVal !== DEFAULT_MAX_PRICE) params.set('maxPrice', maxVal.toString());
 
     if (tempProvince) params.set('province', tempProvince);
-    if (district) params.set('district', tempDistrict);
-    if (subdistrict) params.set('subdistrict', tempSubdistrict);
-    if (zipcode) params.set('zipcode', tempZipcode);
+    if (tempDistrict) params.set('district', tempDistrict);
+    if (tempSubdistrict) params.set('subdistrict', tempSubdistrict);
+    if (tempZipcode) params.set('zipcode', tempZipcode);
 
     // Navigate to the new URL
     router.push(`/home/lesseeView?${params.toString()}`);
