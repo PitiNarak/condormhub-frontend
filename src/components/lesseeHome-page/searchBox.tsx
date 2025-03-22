@@ -202,8 +202,8 @@ export function SearchBox({ className }: SearchBoxProps) {
 
   // Clear all filters within filter panel
   const clearFilters = () => {
-    setTempMinPrice('0'); // Reset to default
-    setTempMaxPrice('10000'); // Reset to default
+    setTempMinPrice('');
+    setTempMaxPrice('');
     setTempProvince('');
     setTempDistrict('');
     setTempSubdistrict('');
