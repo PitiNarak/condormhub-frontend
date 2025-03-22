@@ -3,7 +3,7 @@ import { PropertyScroll } from '@/components/lesseeHome-page/propertyScroll';
 export default async function Page({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const {
     page,
@@ -14,7 +14,7 @@ export default async function Page({
     subdistrict,
     province,
     zipcode,
-  } = searchParams;
+  } = await searchParams;
 
   // Helper function to convert string | string[] | undefined to string
   const toString = (value: string | string[] | undefined): string => {
