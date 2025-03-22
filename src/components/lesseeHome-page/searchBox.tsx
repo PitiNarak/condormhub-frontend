@@ -98,7 +98,7 @@ export function SearchBox({ className }: SearchBoxProps) {
 
   // Sanitize text input
   const sanitizeText = (text: string): string => {
-    return text.trim().replace(/[<>&"']/g, '');
+    return text.replace(/[<>&"']/g, '');
   };
 
   // Handle text input changes with sanitization
@@ -419,11 +419,7 @@ export function SearchBox({ className }: SearchBoxProps) {
                       placeholder="Enter zipcode"
                       value={tempZipcode}
                       onChange={(e) => {
-                        // Only allow numeric zipcodes
-                        const val = e.target.value;
-                        if (val === '' || /^\d+$/.test(val)) {
-                          handleTextChange(setTempZipcode, val);
-                        }
+                        handleTextChange(setTempZipcode, e.target.value);
                       }}
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                     />
