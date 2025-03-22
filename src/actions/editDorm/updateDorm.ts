@@ -8,6 +8,10 @@ interface Values {
   size: number;
   price: number;
   description: string;
+  subdistrict: string;
+  district: string;
+  province: string;
+  zipcode: string;
 }
 export const updateDorm = async (
   values: Values,
@@ -20,6 +24,12 @@ export const updateDorm = async (
         path: { id: dormID },
       },
       body: {
+        address: {
+          subdistrict: values.subdistrict,
+          district: values.district,
+          province: values.province,
+          zipcode: values.zipcode,
+        },
         bathrooms: values.bathroom,
         bedrooms: values.bedroom,
         size: values.size,

@@ -19,11 +19,19 @@ import { redirect } from 'next/navigation';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { CreateInput } from 'thai-address-autocomplete-react';
+
+const InputThaiAddress = CreateInput();
 
 const formSchema = z.object({
-  //   address: z
-  //     .string()
-  //     .min(2, { message: 'Username must be at least 2 characters.' }),
+  subdistrict: z.string().min(1, 'Subdistrict is required'),
+  district: z.string().min(1, 'District is required'),
+  province: z.string().min(1, 'Province is required'),
+  zipcode: z
+    .string()
+    .min(1, 'Zip code is required')
+    .regex(/^\d{5}$/, 'Must be number')
+    .length(5, 'must contain 5 digits'),
   bedroom: z.coerce
     .number({
       invalid_type_error: 'Must be a number',
@@ -59,6 +67,10 @@ export const EditDormForm = ({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      subdistrict: dormInfo.address?.subdistrict,
+      district: dormInfo.address?.district,
+      province: dormInfo.address?.province,
+      zipcode: dormInfo.address?.zipcode,
       bedroom: dormInfo.bedrooms || undefined,
       bathroom: dormInfo.bathrooms || undefined,
       size: dormInfo.size || undefined,
@@ -69,6 +81,10 @@ export const EditDormForm = ({
 
   useEffect(() => {
     form.reset({
+      subdistrict: dormInfo.address?.subdistrict,
+      district: dormInfo.address?.district,
+      province: dormInfo.address?.province,
+      zipcode: dormInfo.address?.zipcode,
       bedroom: dormInfo.bedrooms || undefined,
       bathroom: dormInfo.bathrooms || undefined,
       size: dormInfo.size || undefined,
@@ -104,6 +120,107 @@ export const EditDormForm = ({
         noValidate
         className="w-full flex flex-col gap-10"
       >
+        <div className="flex flex-col gap-4">
+          <FormField
+            control={form.control}
+            name="subdistrict"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-bold text-sm">Subdistrict</FormLabel>
+                <FormControl>
+                  <InputThaiAddress.District
+                    value={field.value}
+                    onChange={(value) => {
+                      field.onChange(value);
+                    }}
+                    onSelect={(address) => {
+                      form.setValue('subdistrict', address.district);
+                      form.setValue('district', address.amphoe);
+                      form.setValue('province', address.province);
+                      form.setValue('zipcode', address.zipcode);
+                    }}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="district"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-bold text-sm">District</FormLabel>
+                <FormControl>
+                  <InputThaiAddress.Amphoe
+                    value={field.value}
+                    onChange={(value) => {
+                      field.onChange(value);
+                    }}
+                    onSelect={(address) => {
+                      form.setValue('subdistrict', address.district);
+                      form.setValue('district', address.amphoe);
+                      form.setValue('province', address.province);
+                      form.setValue('zipcode', address.zipcode);
+                    }}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="province"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-bold text-sm">Province</FormLabel>
+                <FormControl>
+                  <InputThaiAddress.Province
+                    value={field.value}
+                    onChange={(value) => {
+                      field.onChange(value);
+                    }}
+                    onSelect={(address) => {
+                      form.setValue('subdistrict', address.district);
+                      form.setValue('district', address.amphoe);
+                      form.setValue('province', address.province);
+                      form.setValue('zipcode', address.zipcode);
+                    }}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="zipcode"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-bold text-sm">Zip Code</FormLabel>
+                <FormControl>
+                  <InputThaiAddress.Zipcode
+                    value={field.value}
+                    onChange={(value) => {
+                      field.onChange(value);
+                    }}
+                    onSelect={(address) => {
+                      form.setValue('subdistrict', address.district);
+                      form.setValue('district', address.amphoe);
+                      form.setValue('province', address.province);
+                      form.setValue('zipcode', address.zipcode);
+                    }}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
         <div className="flex gap-5">
           <FormField
             control={form.control}
