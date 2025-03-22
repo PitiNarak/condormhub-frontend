@@ -1,5 +1,6 @@
 import { getDormByID } from '@/actions/dorm/getDormByID';
 import { ImageCarousel } from '@/components/dorm-page/imageCarousel';
+import { AddImageBtn } from '@/components/editDorm-page/addImageBtn';
 import { EditDormForm } from '@/components/editDorm-page/editDormForm';
 import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';
@@ -22,6 +23,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
             {res.imagesUrl && res.imagesUrl.length > 0 && (
               <ImageCarousel images={res.imagesUrl} />
             )}
+            <AddImageBtn />
 
             <div className="flex justify-between lg:w-[1000px] mt-10 sm:w-[90%] w-[1000px]">
               <div className="w-full text-left flex-col flex gap-4 pr-8">
