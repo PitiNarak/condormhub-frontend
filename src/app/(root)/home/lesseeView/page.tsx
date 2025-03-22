@@ -3,7 +3,7 @@ import { PropertyScroll } from '@/components/lesseeHome-page/propertyScroll';
 export default async function Page({
   searchParams,
 }: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const {
     page,
@@ -14,16 +14,27 @@ export default async function Page({
     subdistrict,
     province,
     zipcode,
-  } = await searchParams;
+  } = searchParams;
 
-  const toString = (value: string | string[] | undefined) => {
-    return Array.isArray(value) ? value[0] : value;
+  // Helper function to convert string | string[] | undefined to string
+  const toString = (value: string | string[] | undefined): string => {
+    return Array.isArray(value) ? value[0] : value || '';
   };
 
+  // Helper function to convert string | string[] | undefined to number
+  const toNumber = (
+    value: string | string[] | undefined
+  ): number | undefined => {
+    const strValue = toString(value);
+    return strValue ? parseInt(strValue, 10) : undefined;
+  };
+
+  // Prepare filters for PropertyScroll
   const filters = {
+    page: toNumber(page),
     search: toString(search),
-    minPrice: toString(minPrice),
-    maxPrice: toString(maxPrice),
+    minPrice: toNumber(minPrice),
+    maxPrice: toNumber(maxPrice),
     district: toString(district),
     subdistrict: toString(subdistrict),
     province: toString(province),
@@ -36,7 +47,7 @@ export default async function Page({
         <p>Properties</p>
       </div>
       <div className="pt-7">
-        <PropertyScroll page={page} searchParams={filters} />
+        <PropertyScroll {...filters} />
       </div>
     </div>
   );
