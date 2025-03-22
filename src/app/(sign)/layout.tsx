@@ -21,7 +21,7 @@ export default async function RootLayout({
     redirect('/home/lesseeView');
   }
   return (
-    <div className="flex flex-col h-screen">
+    <div className="">
       <Header />
       {children}
     </div>
