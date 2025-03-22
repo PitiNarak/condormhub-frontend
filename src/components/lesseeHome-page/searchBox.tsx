@@ -176,8 +176,9 @@ export function SearchBox({ className }: SearchBoxProps) {
     const minVal = tempMinPrice ? parseInt(tempMinPrice) : DEFAULT_MIN_PRICE;
     const maxVal = tempMaxPrice ? parseInt(tempMaxPrice) : DEFAULT_MAX_PRICE;
 
-    params.set('minPrice', minVal.toString());
-    params.set('maxPrice', maxVal.toString());
+    // Only set minPrice and maxPrice if they differ from defaults
+    if (minVal !== DEFAULT_MIN_PRICE) params.set('minPrice', minVal.toString());
+    if (maxVal !== DEFAULT_MAX_PRICE) params.set('maxPrice', maxVal.toString());
 
     if (tempProvince) params.set('province', tempProvince);
     if (district) params.set('district', tempDistrict);
