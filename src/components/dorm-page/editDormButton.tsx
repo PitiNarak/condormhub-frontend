@@ -14,8 +14,8 @@ export const EditDormButton = ({
 }) => {
   if (session?.access_token) {
     if (
-      (session.user?.role === 'LESSOR' || session.user?.role === 'ADMIN') &&
-      session.user.id === dormOwnerID
+      (session.user?.role === 'LESSOR' && session.user?.id === dormOwnerID) ||
+      session.user?.role === 'ADMIN'
     ) {
       return (
         <Link
