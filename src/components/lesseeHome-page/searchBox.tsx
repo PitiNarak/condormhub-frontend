@@ -342,17 +342,17 @@ export function SearchBox({ className }: SearchBoxProps) {
                       </div>
                     </div>
                     {tempErrors.priceRange && (
-                      <p className="text-sm text-error mt-1">
+                      <p className="text-sm text-error text-red-600 mt-1">
                         {tempErrors.priceRange}
                       </p>
                     )}
                     {tempErrors.minPrice && !tempErrors.priceRange && (
-                      <p className="text-sm text-error mt-1">
+                      <p className="text-sm text-error text-red-600 mt-1">
                         {tempErrors.minPrice}
                       </p>
                     )}
                     {tempErrors.maxPrice && !tempErrors.priceRange && (
-                      <p className="text-sm text-error mt-1">
+                      <p className="text-sm text-error text-red-600 mt-1">
                         {tempErrors.maxPrice}
                       </p>
                     )}
