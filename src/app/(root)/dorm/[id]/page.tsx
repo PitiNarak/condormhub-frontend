@@ -1,4 +1,4 @@
-import { getDormByID } from '@/action/dorm/getDormByID';
+import { getDormByID } from '@/actions/dorm/getDormByID';
 import { EditDormButton } from '@/components/dorm-page/editDormButton';
 import { ImageCarousel } from '@/components/dorm-page/imageCarousel';
 import { RequestBtn } from '@/components/lesseeHome-page/requestBtn';
@@ -47,7 +47,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
             </div>
           </div>
           <div className="w-[20%] h-min text-center border-2 rounded-lg p-5 flex flex-col gap-6">
-            <div className="">
+            <div>
               <h2 className="font-bold text-2xl">Price</h2>
               <p className="text-xl">฿{res.price?.toLocaleString()}</p>
             </div>
