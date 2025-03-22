@@ -156,14 +156,6 @@ export function SearchBox({ className }: SearchBoxProps) {
       return; // Don't proceed if validation fails
     }
 
-    // Apply temp states to actual states
-    setMinPrice(tempMinPrice);
-    setMaxPrice(tempMaxPrice);
-    setProvince(tempProvince);
-    setDistrict(tempDistrict);
-    setSubdistrict(tempSubdistrict);
-    setZipcode(tempZipcode);
-
     // Create new URLSearchParams
     const params = new URLSearchParams();
 
@@ -185,6 +177,14 @@ export function SearchBox({ className }: SearchBoxProps) {
     if (district) params.set('district', tempDistrict);
     if (subdistrict) params.set('subdistrict', tempSubdistrict);
     if (zipcode) params.set('zipcode', tempZipcode);
+
+    // Apply temp states to actual states
+    setMinPrice(tempMinPrice);
+    setMaxPrice(tempMaxPrice);
+    setProvince(tempProvince);
+    setDistrict(tempDistrict);
+    setSubdistrict(tempSubdistrict);
+    setZipcode(tempZipcode);
 
     // Close filter panel
     setIsFilterOpen(false);
