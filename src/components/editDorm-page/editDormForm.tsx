@@ -1,4 +1,5 @@
 'use client';
+import { UpdateDorm } from '@/actions/editDorm/updateDorm';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -10,8 +11,10 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { toast } from '@/hooks/use-toast';
 import { components } from '@/types/api';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { CircleCheckBig } from 'lucide-react';
 import { redirect } from 'next/navigation';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -42,7 +45,13 @@ const formSchema = z.object({
 
 type dormInfoType = components['schemas']['dto.DormResponseBody'];
 
-export const EditDormForm = ({ dormInfo }: { dormInfo: dormInfoType }) => {
+export const EditDormForm = ({
+  dormInfo,
+  access_token,
+}: {
+  dormInfo: dormInfoType;
+  access_token: string;
+}) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -66,6 +75,23 @@ export const EditDormForm = ({ dormInfo }: { dormInfo: dormInfoType }) => {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
+    const res = await UpdateDorm(values, dormInfo.id, access_token);
+    if (res?.error) {
+      toast({
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
+        description: res.error,
+      });
+    } else {
+      toast({
+        description: (
+          <div className="flex gap-5">
+            <CircleCheckBig className="text-green-500" />
+            <p className="text-base">Updated successfully</p>
+          </div>
+        ),
+      });
+    }
   }
   return (
     <Form {...form}>

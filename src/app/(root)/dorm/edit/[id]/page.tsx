@@ -25,7 +25,10 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
             <div className="flex justify-between lg:w-[1000px] mt-10 sm:w-[90%] w-[1000px]">
               <div className="w-full text-left flex-col flex gap-4 pr-8">
-                <EditDormForm dormInfo={res} />
+                <EditDormForm
+                  dormInfo={res}
+                  access_token={session.access_token}
+                />
               </div>
             </div>
           </div>
