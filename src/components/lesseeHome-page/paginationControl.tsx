@@ -22,7 +22,7 @@ export function PaginationControl({ lastPage }: PaginationControlProps) {
   const createPageLink = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set('page', page.toString());
-    return `/home/lesseeView?${params.toString()}`;
+    return `/?${params.toString()}`;
   };
 
   // Base pagination numbers array
