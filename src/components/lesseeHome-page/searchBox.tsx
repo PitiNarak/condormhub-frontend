@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import * as Dialog from '@radix-ui/react-dialog';
 import { X, Search, Filter, CircleX } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 export function SearchBox() {
   const router = useRouter();
@@ -140,37 +142,36 @@ export function SearchBox() {
         <div className="relative flex-1 w-full p-4">
           <form onSubmit={handleSubmit} className="flex shadow-sm">
             <div className="relative flex-1">
-              <input
+              <Input
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search properties..."
-                className="w-full px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none"
+                className="rounded-r-none"
               />
               {search && (
-                <button
+                <Button
                   type="button"
                   onClick={() => setSearch('')}
                   className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400"
+                  variant="ghost"
+                  size="icon"
                 >
                   <CircleX className="h-5 w-5" />
-                </button>
+                </Button>
               )}
             </div>
-            <button
-              type="submit"
-              className="px-4 py-2 rounded-r-lg transition-colors duration-200 flex items-center justify-center font-medium bg-primary text-white"
-            >
+            <Button type="submit" className="rounded-l-none">
               <Search className="h-4 w-4 mr-1" />
               Search
-            </button>
+            </Button>
           </form>
         </div>
 
         <div className="flex items-center gap-2 shrink-0">
           <Dialog.Root open={isFilterOpen} onOpenChange={setIsFilterOpen}>
             <Dialog.Trigger asChild>
-              <button className="flex items-center bg-white border border-gray-300 px-4 py-2 rounded-lg transition-all duration-200 shadow-sm">
+              <Button variant="outline" className="flex items-center">
                 <Filter className="h-4 w-4 mr-2 text-gray-600" />
                 <span className="font-medium">Filters</span>
                 {activeFilters > 0 && (
@@ -178,7 +179,7 @@ export function SearchBox() {
                     {activeFilters}
                   </span>
                 )}
-              </button>
+              </Button>
             </Dialog.Trigger>
 
             <Dialog.Portal>
@@ -190,9 +191,13 @@ export function SearchBox() {
                     Filters
                   </h3>
                   <Dialog.Close asChild>
-                    <button className="rounded-full p-1 hover:bg-gray-100">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="rounded-full p-1 hover:bg-gray-100"
+                    >
                       <X className="h-5 w-5 text-gray-500" />
-                    </button>
+                    </Button>
                   </Dialog.Close>
                 </div>
 
@@ -206,7 +211,7 @@ export function SearchBox() {
                         <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
                           ฿
                         </span>
-                        <input
+                        <Input
                           type="number"
                           placeholder="Min"
                           value={minPrice ?? ''}
@@ -229,7 +234,7 @@ export function SearchBox() {
                         <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
                           ฿
                         </span>
-                        <input
+                        <Input
                           type="number"
                           placeholder="Max"
                           value={maxPrice ?? ''}
@@ -269,12 +274,12 @@ export function SearchBox() {
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Province
                     </label>
-                    <input
+                    <Input
                       type="text"
                       placeholder="Enter province"
                       value={province}
                       onChange={(e) => setProvince(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none"
+                      className="w-full"
                     />
                   </div>
 
@@ -282,12 +287,12 @@ export function SearchBox() {
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       District
                     </label>
-                    <input
+                    <Input
                       type="text"
                       placeholder="Enter district"
                       value={district}
                       onChange={(e) => setDistrict(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none"
+                      className="w-full"
                     />
                   </div>
 
@@ -295,12 +300,12 @@ export function SearchBox() {
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Subdistrict
                     </label>
-                    <input
+                    <Input
                       type="text"
                       placeholder="Enter subdistrict"
                       value={subdistrict}
                       onChange={(e) => setSubdistrict(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none"
+                      className="w-full"
                     />
                   </div>
 
@@ -308,32 +313,33 @@ export function SearchBox() {
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Zipcode
                     </label>
-                    <input
+                    <Input
                       type="text"
                       placeholder="Enter zipcode"
                       value={zipcode}
                       onChange={(e) => setZipcode(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none"
+                      className="w-full"
                     />
                   </div>
                 </div>
 
                 <div className="flex justify-between mt-8">
-                  <button
+                  <Button
                     type="button"
                     onClick={clearFilters}
+                    variant="ghost"
                     className="px-3 py-2 rounded-lg font-medium flex items-center"
                   >
                     <X className="h-5 w-5 mr-1" />
                     Clear All
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     type="button"
                     onClick={applyFilters}
                     className="bg-primary text-white px-6 py-2 rounded-lg font-medium"
                   >
                     Apply Filters
-                  </button>
+                  </Button>
                 </div>
               </Dialog.Content>
             </Dialog.Portal>
