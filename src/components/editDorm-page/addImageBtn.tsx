@@ -52,7 +52,6 @@ export const AddImageBtn = ({
   async function onSubmit(value: z.infer<typeof formSchema>) {
     if (uploadedImage) {
       const res = await uploadImage(value.image[0], dormId, access_token);
-      window.location.reload();
       if (res) {
         setError(res);
       } else {

@@ -4,11 +4,21 @@ import { AddImageBtn } from '@/components/editDorm-page/addImageBtn';
 import { EditDormForm } from '@/components/editDorm-page/editDormForm';
 import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';
+import { unstable_cache as cache } from 'next/cache';
 import React from 'react';
+
+const getDorm = cache(
+  async (id) => {
+    const res = await getDormByID(id);
+    return res;
+  },
+  ['dorm-details'],
+  { tags: ['dorm-details'] }
+);
 
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
-  const res = await getDormByID(id);
+  const res = await getDorm(id);
   const session = await auth();
 
   if (res && !('error' in res)) {

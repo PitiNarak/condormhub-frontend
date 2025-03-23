@@ -1,5 +1,7 @@
 'use server';
 
+import { revalidateTag } from 'next/cache';
+
 export async function uploadImage(
   file: File,
   dormId: string,
@@ -17,6 +19,7 @@ export async function uploadImage(
         Authorization: `Bearer ${access_token}`,
       },
     });
+    revalidateTag('dorm-details');
   } catch (error) {
     if (error instanceof Response) {
       const errorMessage = await error.json();
