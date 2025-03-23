@@ -1,11 +1,11 @@
 import { fetchProperty } from '@/actions/lesseeView/fetchProperty';
 import type { components } from '@/types/api';
-import { PaginationControl } from '@/components/lesseeHome-page/paginationControl';
+import { PaginationControl } from '@/components/home-page/paginationControl';
 import { redirect } from 'next/navigation';
 
 import { mockData } from '@/mocks/mockProperty';
-import { PropertyCard } from '@/components/lesseeHome-page/propertyCard';
-import { SearchBox } from '@/components/lesseeHome-page/searchBox';
+import { PropertyCard } from '@/components/home-page/propertyCard';
+import { SearchBox } from '@/components/home-page/searchBox';
 
 interface PropertyScrollProps {
   page?: number;
