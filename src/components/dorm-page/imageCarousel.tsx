@@ -29,6 +29,10 @@ export const ImageCarousel = ({ images }: { images: Array<string> }) => {
     });
   }, [api]);
 
+  React.useEffect(() => {
+    setCount(images.length);
+  }, [images]);
+
   return (
     <div className="mx-auto">
       <Carousel setApi={setApi} className="w-[400px] h-[400px]">
@@ -40,9 +44,9 @@ export const ImageCarousel = ({ images }: { images: Array<string> }) => {
                   <Image
                     src={images[index]}
                     alt="dorm image"
-                    width={400}
                     height={400}
-                    className="rounded-xl"
+                    width={400}
+                    className="rounded-xl h-[400px] object-cover"
                   />
                 </CardContent>
               </Card>

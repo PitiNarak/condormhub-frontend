@@ -58,6 +58,10 @@ async function refreshToken(refresh_token: string): Promise<{
 }
 
 export const nextAuthConfig = {
+  pages: {
+    signIn: '/login',
+    error: '/login',
+  },
   providers: [
     CredentialsProvider({
       credentials: {

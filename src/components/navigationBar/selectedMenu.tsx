@@ -11,10 +11,11 @@ export const SelectedMenu = ({ text, path }: SelectedMenuProp) => {
   const pathname = usePathname();
   // console.log(pathname);
   return (
-    <div
-      className={`flex-1 text-sm md:text-base xl:text-lg text-center font-bold ${path === pathname ? 'underline' : ''}`}
-    >
-      <Link href={path}>{text}</Link>
+    <div className={`${path === pathname ? 'underline' : ''}`}>
+      <Link href={path}>
+        {text.charAt(0).toUpperCase()}
+        {text.slice(1).toLowerCase()}
+      </Link>
     </div>
   );
 };
