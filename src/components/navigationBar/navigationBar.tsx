@@ -3,7 +3,7 @@ import { Logo } from './logo';
 import * as motion from 'motion/react-client';
 import React from 'react';
 import { auth } from '@/lib/auth';
-import { LogoutButton } from '@/components/setting-page/logOutButton';
+import { UserDropdown } from '@/components/navigationBar/userDropdown';
 
 export async function Navbar() {
   const session = await auth();
@@ -32,7 +32,10 @@ export async function Navbar() {
                 <SelectedMenu text="Login" path="/login" />
               </>
             ) : (
-              <LogoutButton />
+              <UserDropdown
+                name={session.user?.firstname + ' ' + session.user?.lastname}
+              />
+              // <LogoutButton />
             )}
           </div>
         </div>

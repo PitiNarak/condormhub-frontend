@@ -1,7 +1,6 @@
 'use client';
 
 import { signOut } from 'next-auth/react';
-import { Button } from '@/components/ui/button';
 import { redirect } from 'next/navigation';
 
 export const LogoutButton: React.FC = () => {
@@ -9,5 +8,9 @@ export const LogoutButton: React.FC = () => {
     signOut();
     redirect('/login');
   }
-  return <Button onClick={onSubmit}>Logout</Button>;
+  return (
+    <span onClick={onSubmit} className="w-full">
+      Logout
+    </span>
+  );
 };
