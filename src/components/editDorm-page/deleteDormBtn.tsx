@@ -20,7 +20,7 @@ export const DeleteDormBtn = ({ dormId }: { dormId: string }) => {
     if (res?.error) {
       console.log(res.error);
     } else {
-      redirect('/home/lesseeView');
+      redirect('/');
     }
   }
   return (
