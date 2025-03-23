@@ -153,11 +153,11 @@ export function SearchBox() {
                 <Button
                   type="button"
                   onClick={() => setSearch('')}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 rounded-full"
                   variant="ghost"
                   size="icon"
                 >
-                  <CircleX className="h-5 w-5" />
+                  <CircleX className="h-4 w-4" />
                 </Button>
               )}
             </div>
