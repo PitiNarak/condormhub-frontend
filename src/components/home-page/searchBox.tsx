@@ -104,7 +104,7 @@ export function SearchBox() {
     if (zipcode) params.set('zipcode', sanitizeText(zipcode));
 
     // Navigate to the new URL
-    router.push(`/home/lesseeView?${params.toString()}`);
+    router.push(`/?${params.toString()}`);
   };
 
   // Apply filters from the filter panel

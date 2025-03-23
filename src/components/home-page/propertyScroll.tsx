@@ -30,7 +30,7 @@ export async function PropertyScroll({
   province,
   zipcode,
 }: PropertyScrollProps) {
-  const lesseePagePath = '/home/lesseeView?page=1';
+  const lesseePagePath = '/?page=1';
   const response = await fetchProperty(
     page,
     limit,

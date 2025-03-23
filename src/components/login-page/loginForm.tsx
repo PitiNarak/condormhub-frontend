@@ -46,7 +46,7 @@ export function LoginForm() {
       setErrorMessage(result.error);
     } else {
       console.log('Sign-in result:', result);
-      router.push('/home/lesseeView');
+      router.push('/');
     }
   }
 
