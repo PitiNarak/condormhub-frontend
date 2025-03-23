@@ -51,6 +51,10 @@ export const AddImageBtn = ({
 
   async function onSubmit(value: z.infer<typeof formSchema>) {
     if (uploadedImage) {
+      if (value.image[0].size > 20 * 1024 * 1024) {
+        setError('File exceeds 20MB limit');
+        return;
+      }
       const res = await uploadImage(value.image[0], dormId, access_token);
       if (res) {
         setError(res);
