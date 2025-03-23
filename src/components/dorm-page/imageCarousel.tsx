@@ -29,6 +29,10 @@ export const ImageCarousel = ({ images }: { images: Array<string> }) => {
     });
   }, [api]);
 
+  React.useEffect(() => {
+    setCount(images.length);
+  }, [images]);
+
   return (
     <div className="mx-auto">
       <Carousel setApi={setApi} className="w-[400px] h-[400px]">
