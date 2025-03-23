@@ -1,5 +1,5 @@
-import VerificationHeader from '@/app/verification/verificationHeader';
-import VerificationForm from '@/app/verification/verificationForm';
+import VerificationHeader from '@/components/verifyStudent-page/verificationHeader';
+import VerificationForm from '@/components/verifyStudent-page/verificationForm';
 
 export default function VerificationPage() {
   return (

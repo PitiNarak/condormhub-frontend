@@ -19,7 +19,7 @@ import { useRouter } from 'next/navigation';
 import {
   verificationData,
   VerificationRecord,
-} from '@/app/verification/mockData/testTable';
+} from '@/mocks/mockStudentVerification';
 import {
   Dialog,
   DialogTrigger,

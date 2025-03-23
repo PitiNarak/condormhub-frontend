@@ -23,7 +23,7 @@ export default function Home() {
       <LinkBtn text="Register Page" path="/register" />
       <LinkBtn text="Lessee Page" path="/home/lesseeView" />
       <LinkBtn text="Admin Page" path="/admin" />
-      <LinkBtn text="Verification Page" path="/verification" />
+      <LinkBtn text="Student Verification Page" path="/studentVerification" />
       <LinkBtn text="Lessor Rent Income Page" path="/lessorIncome" />
       <LinkBtn text="Lessor Notification Page" path="lessorNotification" />
       <LinkBtn text="Lessee Notification Page" path="/lesseeNotification" />
