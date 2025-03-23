@@ -5,43 +5,35 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import * as Dialog from '@radix-ui/react-dialog';
 import { X, Search, Filter, CircleX } from 'lucide-react';
 
-interface SearchBoxProps {
-  className?: string;
-}
-
-export function SearchBox({ className }: SearchBoxProps) {
+export function SearchBox() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   // Initialize states with URL params if they exist
-  const [search, setSearch] = useState(
-    searchParams.get('search')?.trim() || ''
+  const [search, setSearch] = useState(searchParams.get('search') || '');
+  const [minPrice, setMinPrice] = useState<number | undefined>(
+    searchParams.get('minPrice')
+      ? Number(searchParams.get('minPrice'))
+      : undefined
   );
-  const [minPrice, setMinPrice] = useState(
-    searchParams.get('minPrice')?.trim() || ''
+  const [maxPrice, setMaxPrice] = useState<number | undefined>(
+    searchParams.get('maxPrice')
+      ? Number(searchParams.get('maxPrice'))
+      : undefined
   );
-  const [maxPrice, setMaxPrice] = useState(
-    searchParams.get('maxPrice')?.trim() || ''
-  );
-  const [province, setProvince] = useState(
-    searchParams.get('province')?.trim() || ''
-  );
-  const [district, setDistrict] = useState(
-    searchParams.get('district')?.trim() || ''
-  );
+  const [province, setProvince] = useState(searchParams.get('province') || '');
+  const [district, setDistrict] = useState(searchParams.get('district') || '');
   const [subdistrict, setSubdistrict] = useState(
-    searchParams.get('subdistrict')?.trim() || ''
+    searchParams.get('subdistrict') || ''
   );
-  const [zipcode, setZipcode] = useState(
-    searchParams.get('zipcode')?.trim() || ''
-  );
+  const [zipcode, setZipcode] = useState(searchParams.get('zipcode') || '');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   // Count active filters
   const countActiveFilters = () => {
     let count = 0;
-    if (minPrice && maxPrice) count++;
+    if (minPrice !== undefined && maxPrice !== undefined) count++;
     if (province) count++;
     if (district) count++;
     if (subdistrict) count++;
@@ -52,21 +44,27 @@ export function SearchBox({ className }: SearchBoxProps) {
   const [activeFilters, setActiveFilters] = useState(countActiveFilters());
 
   // Validate price range
-  const validatePriceRange = (min: string, max: string) => {
+  const validatePriceRange = (
+    min: number | undefined,
+    max: number | undefined
+  ) => {
     const newErrors: Record<string, string> = {};
 
-    if ((min && !max) || (!min && max)) {
+    if (
+      (min !== undefined && max === undefined) ||
+      (min === undefined && max !== undefined)
+    ) {
       newErrors.priceRange = 'Please provide both min and max price';
     }
 
-    if (min && isNaN(parseInt(min))) {
+    if (min !== undefined && isNaN(min)) {
       newErrors.minPrice = 'Min price must be a number';
     }
-    if (max && isNaN(parseInt(max))) {
+    if (max !== undefined && isNaN(max)) {
       newErrors.maxPrice = 'Max price must be a number';
     }
 
-    if (min && max && parseInt(min) >= parseInt(max)) {
+    if (min !== undefined && max !== undefined && min >= max) {
       newErrors.priceRange = 'Min price must be less than max price';
     }
 
@@ -94,9 +92,9 @@ export function SearchBox({ className }: SearchBoxProps) {
 
     // Add search parameters if they have values
     if (search) params.set('search', sanitizeText(search));
-    if (minPrice && maxPrice) {
-      params.set('minPrice', minPrice);
-      params.set('maxPrice', maxPrice);
+    if (minPrice !== undefined && maxPrice !== undefined) {
+      params.set('minPrice', minPrice.toString());
+      params.set('maxPrice', maxPrice.toString());
     }
     if (province) params.set('province', sanitizeText(province));
     if (district) params.set('district', sanitizeText(district));
@@ -126,8 +124,8 @@ export function SearchBox({ className }: SearchBoxProps) {
 
   // Clear all filters
   const clearFilters = () => {
-    setMinPrice('');
-    setMaxPrice('');
+    setMinPrice(undefined);
+    setMaxPrice(undefined);
     setProvince('');
     setDistrict('');
     setSubdistrict('');
@@ -136,7 +134,7 @@ export function SearchBox({ className }: SearchBoxProps) {
   };
 
   return (
-    <div className={`${className} w-full max-w-4xl mx-auto`}>
+    <div className="w-full max-w-4xl mx-auto">
       <div className="flex flex-col sm:flex-row items-center gap-3 mb-4">
         {/* Search box Container */}
         <div className="relative flex-1 w-full p-4">
@@ -185,7 +183,7 @@ export function SearchBox({ className }: SearchBoxProps) {
 
             <Dialog.Portal>
               <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-25" />
-              <Dialog.Content className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg p-6 w-11/12 max-w-3xl max-h-[85vh] overflow-y-auto">
+              <Dialog.Content className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-lg p-6 w-11/12 max-w-4xl max-h-[90vh] overflow-y-auto">
                 <Dialog.DialogTitle></Dialog.DialogTitle>
                 <div className="flex justify-between items-center mb-4">
                   <h3 className="text-lg font-semibold text-gray-800">
@@ -209,10 +207,17 @@ export function SearchBox({ className }: SearchBoxProps) {
                           ฿
                         </span>
                         <input
-                          type="text"
+                          type="number"
                           placeholder="Min"
-                          value={minPrice}
-                          onChange={(e) => setMinPrice(e.target.value)}
+                          value={minPrice ?? ''}
+                          onChange={(e) => {
+                            const value = e.target.value
+                              ? Number(e.target.value)
+                              : undefined;
+                            if (value === undefined || value >= 0) {
+                              setMinPrice(value);
+                            }
+                          }}
                           className={`w-full pl-7 pr-3 py-2 rounded-lg focus:outline-none border border-gray-300`}
                           aria-invalid={
                             !!errors.minPrice || !!errors.priceRange
@@ -225,10 +230,17 @@ export function SearchBox({ className }: SearchBoxProps) {
                           ฿
                         </span>
                         <input
-                          type="text"
+                          type="number"
                           placeholder="Max"
-                          value={maxPrice}
-                          onChange={(e) => setMaxPrice(e.target.value)}
+                          value={maxPrice ?? ''}
+                          onChange={(e) => {
+                            const value = e.target.value
+                              ? Number(e.target.value)
+                              : undefined;
+                            if (value === undefined || value >= 0) {
+                              setMaxPrice(value);
+                            }
+                          }}
                           className={`w-full pl-7 pr-3 py-2 rounded-lg focus:outline-none border border-gray-300`}
                           aria-invalid={
                             !!errors.maxPrice || !!errors.priceRange
