@@ -53,17 +53,16 @@ const formSchema = z.object({
     .startsWith('0', { message: 'Phone number must start with 0' }),
   gender: z.string().min(1, { message: 'Gender must be selected' }),
   lifestyles: z.array(z.string()).optional(),
-  year: z.string(),
-  month: z.string(),
-  day: z.string(),
+  birthDate: z.string().date(),
   nationalID: z
     .string()
     .length(13, { message: 'National ID should be 13 digits' })
     .regex(new RegExp(/^[0-9]*/), { message: 'National ID should be number' }),
+  role: z.string().min(1, { message: 'Role must be selected' }),
 });
 
 export const UpdateInformationForm = () => {
-  const { data: session } = useSession();
+  const { data: session, update } = useSession();
   const { toast } = useToast();
   const [selectedTags, setSelectedTags] = useState<LifestyleTag[]>([]);
   const [open, setOpen] = useState(false); // For combo box popover
@@ -95,6 +94,20 @@ export const UpdateInformationForm = () => {
           description: res.message,
         });
       }
+    } else {
+      update({
+        user: {
+          ...session?.user,
+          firstname: values.firstname,
+          lastname: values.lastname,
+          gender: values.gender,
+          phoneNumber: values.phoneNumber,
+          lifestyles: selectedTags.map((tag) => tag.name),
+          birthDate: values.birthDate,
+          nationalID: values.nationalID,
+          role: values.role,
+        },
+      });
     }
   }
 
@@ -107,9 +120,8 @@ export const UpdateInformationForm = () => {
       phoneNumber: '',
       nationalID: '',
       lifestyles: [],
-      year: undefined,
-      month: undefined,
-      day: undefined,
+      birthDate: '',
+      role: '',
     },
   });
 
@@ -221,52 +233,43 @@ export const UpdateInformationForm = () => {
             )}
           />
 
+          {/* Role Field */}
+          <FormField
+            control={form.control}
+            name="role"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-semibold">Role</FormLabel>
+                <Select onValueChange={field.onChange} value={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select your role" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="Lessee">Lessee</SelectItem>
+                    <SelectItem value="Lessor">Lessor</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           {/* Birthday */}
-          <div>
-            <FormLabel className="font-semibold">Birthdate</FormLabel>
-            <div className="mt-[6px] grid grid-cols-[80px_10px_50px_10px_50px] gap-5">
-              <FormField
-                control={form.control}
-                name="year"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input required placeholder={'YYYY'} {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <p className="text-3xl">/</p>
-              {/* Month Field use shadcn birthday*/}
-              <FormField
-                control={form.control}
-                name="month"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input required placeholder={'MM'} {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <p className="text-3xl">/</p>
-              {/* Day Field use shadcn birthday*/}
-              <FormField
-                control={form.control}
-                name="day"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input required placeholder={'DD'} {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-          </div>
+          <FormField
+            control={form.control}
+            name="birthDate"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="font-semibold">Birthdate</FormLabel>
+                <FormControl>
+                  <Input required placeholder={'YYYY-MM-DD'} {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
           {/* Lifestyle Tags Field */}
           <FormField
