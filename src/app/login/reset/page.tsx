@@ -13,7 +13,7 @@ import { redirect } from 'next/navigation';
 export default async function EmailToResetPasswordPage() {
   const session = await auth();
   if (session) {
-    redirect('/home');
+    redirect('/');
   } else {
     return (
       <div className="flex w-full items-center justify-center">

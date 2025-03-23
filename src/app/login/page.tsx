@@ -6,9 +6,16 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { auth } from '@/lib/auth';
 import { cn } from '@/lib/utils';
+import { redirect } from 'next/navigation';
 
-export default function Page() {
+export default async function Page() {
+  const session = await auth();
+  if (session) {
+    redirect('/');
+  }
+
   return (
     <div className="flex w-full items-center justify-center">
       <div className="w-full max-w-sm pt-14 mx-4">
