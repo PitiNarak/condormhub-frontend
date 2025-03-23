@@ -6,6 +6,8 @@ import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import { unstable_cache as cache } from 'next/cache';
 import React from 'react';
+import { Divider } from '@/components/navigationBar/divider';
+import { DeleteDormBtn } from '@/components/editDorm-page/deleteDormBtn';
 
 const getDorm = cache(
   async (id) => {
@@ -42,6 +44,17 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
                   access_token={session.access_token}
                 />
               </div>
+            </div>
+            <div className="flex flex-col gap-3 lg:w-[1000px] mt-10 sm:w-[90%] w-[1000px]">
+              <h1 className="text-2xl pt-3 font-semibold text-red-500">
+                Delete dorm
+              </h1>
+              <Divider className="w-full" />
+              <p>
+                Once you delete your dorm, there is no going back. Please be
+                certain.
+              </p>
+              <DeleteDormBtn dormId={id} />
             </div>
           </div>
         );
