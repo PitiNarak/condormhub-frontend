@@ -1,5 +1,5 @@
 import React from 'react';
-import { PropertyCard } from '@/components/lesseeHome-page/propertyCard';
+import { PropertyCard } from '@/components/home-page/propertyCard';
 import { mockData } from '@/mocks/mockProperty';
 import { components } from '@/types/api';
 

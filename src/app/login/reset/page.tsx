@@ -11,14 +11,13 @@ import { cn } from '@/lib/utils';
 import { redirect } from 'next/navigation';
 
 export default async function EmailToResetPasswordPage() {
-  const session = await auth(); //-------------------------------------------------
+  const session = await auth();
   if (session) {
-    redirect('/home');
+    redirect('/');
   } else {
-    //----------------------------------------------------------------------
     return (
-      <div className="flex w-full items-center justify-center h-[100vh]">
-        <div className="w-full max-w-sm">
+      <div className="flex w-full items-center justify-center">
+        <div className="w-full max-w-sm pt-14 mx-4">
           <div className={cn('flex flex-col gap-6')}>
             <Card>
               <CardHeader>

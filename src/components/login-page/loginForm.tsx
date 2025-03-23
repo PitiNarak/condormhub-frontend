@@ -13,8 +13,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Input must be in Email format' }),
@@ -22,9 +21,8 @@ const formSchema = z.object({
 });
 
 export function LoginForm() {
-  const [errorMessage, setErrorMessage] = useState('');
-
-  const router = useRouter();
+  const params = useSearchParams();
+  const errorMessage = params.get('error') || '';
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -35,19 +33,15 @@ export function LoginForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const result = await signIn('credentials', {
-      email: values.email,
-      password: values.password,
-      redirect: false,
-    });
-
-    if (result?.error) {
-      console.log('Login failed:', result.error);
-      setErrorMessage(result.error);
-    } else {
-      console.log('Sign-in result:', result);
-      router.push('/home/lesseeView');
-    }
+    signIn(
+      'credentials',
+      {
+        email: values.email,
+        password: values.password,
+        redirect: true,
+      },
+      { callbackUrl: '/' }
+    );
   }
 
   return (
@@ -81,7 +75,7 @@ export function LoginForm() {
                 <div className="flex items-center">
                   <FormLabel>Password</FormLabel>
                   <a
-                    href="login/emailToResetPassword"
+                    href="login/reset"
                     className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
                   >
                     Forgot your password?

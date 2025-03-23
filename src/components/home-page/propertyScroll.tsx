@@ -1,11 +1,11 @@
 import { fetchProperty } from '@/actions/lesseeView/fetchProperty';
 import type { components } from '@/types/api';
-import { PaginationControl } from '@/components/lesseeHome-page/paginationControl';
+import { PaginationControl } from '@/components/home-page/paginationControl';
 import { redirect } from 'next/navigation';
 
 import { mockData } from '@/mocks/mockProperty';
-import { PropertyCard } from '@/components/lesseeHome-page/propertyCard';
-import { SearchBox } from '@/components/lesseeHome-page/searchBox';
+import { PropertyCard } from '@/components/home-page/propertyCard';
+import { SearchBox } from '@/components/home-page/searchBox';
 
 interface PropertyScrollProps {
   page?: number;
@@ -30,7 +30,7 @@ export async function PropertyScroll({
   province,
   zipcode,
 }: PropertyScrollProps) {
-  const lesseePagePath = '/home/lesseeView?page=1';
+  const lesseePagePath = '/?page=1';
   const response = await fetchProperty(
     page,
     limit,
@@ -53,10 +53,7 @@ export async function PropertyScroll({
   }
 
   return (
-    <div className="shadow-md border border-gray-100 pt-14 pb-12 overflow-hidden">
-      {/* <p className="block text-center text-lg w-[150px] mb-8 ml-2 rounded-2xl border border-gray-400">
-        No Filters
-      </p> */}
+    <div className="mb-10">
       <SearchBox />
 
       {propertyData.length === 0 ? (
