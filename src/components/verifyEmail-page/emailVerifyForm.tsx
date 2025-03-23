@@ -21,6 +21,6 @@ export function EmailVerifyForm() {
       }
       setIsLoading(false);
     });
-  }, []);
+  }, [token]);
   return <EmailVerifyCard isLoading={isLoading} error={errorMsg} />;
 }

@@ -104,7 +104,7 @@ export function SearchBox() {
     if (zipcode) params.set('zipcode', sanitizeText(zipcode));
 
     // Navigate to the new URL
-    router.push(`/home/lesseeView?${params.toString()}`);
+    router.push(`/?${params.toString()}`);
   };
 
   // Apply filters from the filter panel
@@ -136,10 +136,10 @@ export function SearchBox() {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
-      <div className="flex flex-col sm:flex-row items-center gap-3 mb-4">
+    <div className="mx-auto px-16 md:px-32">
+      <div className="flex items-center gap-1 mb-4">
         {/* Search box Container */}
-        <div className="relative flex-1 w-full p-4">
+        <div className="relative flex-1 w-full p-1">
           <form onSubmit={handleSubmit} className="flex shadow-sm">
             <div className="relative flex-1">
               <Input
@@ -163,7 +163,7 @@ export function SearchBox() {
             </div>
             <Button type="submit" className="rounded-l-none">
               <Search className="h-4 w-4 mr-1" />
-              Search
+              <span className="hidden md:block">Search</span>
             </Button>
           </form>
         </div>
@@ -172,8 +172,8 @@ export function SearchBox() {
           <Dialog.Root open={isFilterOpen} onOpenChange={setIsFilterOpen}>
             <Dialog.Trigger asChild>
               <Button variant="outline" className="flex items-center">
-                <Filter className="h-4 w-4 mr-2 text-gray-600" />
-                <span className="font-medium">Filters</span>
+                <Filter className="h-4 w-4 text-gray-600" />
+                <span className="hidden md:block">Filters</span>
                 {activeFilters > 0 && (
                   <span className="ml-2 bg-gray-800 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
                     {activeFilters}
