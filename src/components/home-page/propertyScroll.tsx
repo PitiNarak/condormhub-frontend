@@ -53,10 +53,7 @@ export async function PropertyScroll({
   }
 
   return (
-    <div className="shadow-md border border-gray-100 pt-14 pb-12 overflow-hidden">
-      {/* <p className="block text-center text-lg w-[150px] mb-8 ml-2 rounded-2xl border border-gray-400">
-        No Filters
-      </p> */}
+    <div className="mb-10">
       <SearchBox />
 
       {propertyData.length === 0 ? (
@@ -65,7 +62,7 @@ export async function PropertyScroll({
         </p>
       ) : (
         <>
-          <div className="flex flex-wrap justify-center gap-3 mx-5 py-10">
+          <div className="flex flex-wrap justify-center gap-3 mx-5 mb-10 mt-5">
             {propertyData.map(
               (data: components['schemas']['dto.DormResponseBody']) => (
                 <div key={String(data.id)} className="text-sm">
