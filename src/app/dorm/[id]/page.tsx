@@ -1,7 +1,7 @@
 import { getDormByID } from '@/actions/dorm/getDormByID';
 import { EditDormButton } from '@/components/dorm-page/editDormButton';
 import { ImageCarousel } from '@/components/dorm-page/imageCarousel';
-import { RequestBtn } from '@/components/lesseeHome-page/requestBtn';
+import { RequestBtn } from '@/components/home-page/requestBtn';
 import { auth } from '@/lib/auth';
 import React from 'react';
 
