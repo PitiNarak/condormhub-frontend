@@ -1,14 +1,16 @@
 'use server';
 
 import client from '@/api';
+import { auth } from '@/lib/auth';
 
-export const deleteDorm = async (dormId: string, access_token: string) => {
+export const deleteDorm = async (dormId: string) => {
+  const session = await auth();
   const res = await client.DELETE('/dorms/{id}', {
     params: {
       path: { id: dormId },
     },
     headers: {
-      Authorization: `Bearer ${access_token}`,
+      Authorization: `Bearer ${session?.access_token}`,
     },
   });
   if (res.error) {

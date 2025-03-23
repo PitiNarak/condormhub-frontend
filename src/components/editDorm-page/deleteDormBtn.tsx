@@ -14,15 +14,9 @@ import {
 } from '@/components/ui/dialog';
 import { redirect } from 'next/navigation';
 
-export const DeleteDormBtn = ({
-  dormId,
-  access_token,
-}: {
-  dormId: string;
-  access_token: string;
-}) => {
+export const DeleteDormBtn = ({ dormId }: { dormId: string }) => {
   async function onSubmit() {
-    const res = await deleteDorm(dormId, access_token);
+    const res = await deleteDorm(dormId);
     if (res?.error) {
       console.log(res.error);
     } else {

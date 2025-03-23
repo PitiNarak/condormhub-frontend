@@ -54,7 +54,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
                 Once you delete your dorm, there is no going back. Please be
                 certain.
               </p>
-              <DeleteDormBtn access_token={session.access_token} dormId={id} />
+              <DeleteDormBtn dormId={id} />
             </div>
           </div>
         );
