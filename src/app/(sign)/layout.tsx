@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import '@/app/globals.css';
-import { Header } from '@/components/navigationBar/header';
 import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 
@@ -20,10 +19,5 @@ export default async function RootLayout({
     console.log(session);
     redirect('/home/lesseeView');
   }
-  return (
-    <div className="flex flex-col h-screen">
-      <Header />
-      {children}
-    </div>
-  );
+  return <div className="flex flex-col h-screen">{children}</div>;
 }
