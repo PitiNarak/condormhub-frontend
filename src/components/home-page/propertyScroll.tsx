@@ -61,8 +61,8 @@ export async function PropertyScroll({
           Sorry, no properties found.
         </p>
       ) : (
-        <>
-          <div className="flex flex-wrap justify-center gap-3 mx-5 mb-10 mt-5">
+        <div className="flex flex-col items-center">
+          <div className="flex flex-wrap gap-3 mx-5 py-10 max-w-[1360px]">
             {propertyData.map(
               (data: components['schemas']['dto.DormResponseBody']) => (
                 <div key={String(data.id)} className="text-sm">
@@ -86,7 +86,7 @@ export async function PropertyScroll({
             )}
           </div>
           <PaginationControl lastPage={Number(paginationElement?.last_page)} />
-        </>
+        </div>
       )}
     </div>
   );
