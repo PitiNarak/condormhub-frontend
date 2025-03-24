@@ -2,7 +2,9 @@ import { getDormByID } from '@/actions/dorm/getDormByID';
 import { EditDormButton } from '@/components/dorm-page/editDormButton';
 import { ImageCarousel } from '@/components/dorm-page/imageCarousel';
 import { RequestBtn } from '@/components/dorm-page/requestBtn';
+import { Button } from '@/components/ui/button';
 import { auth } from '@/lib/auth';
+import Link from 'next/link';
 import React from 'react';
 
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
@@ -51,8 +53,11 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
               <h2 className="font-bold text-2xl">Price</h2>
               <p className="text-xl">฿{res.price?.toLocaleString()}</p>
             </div>
-            {(session?.user?.role === 'LESSEE' || !session?.access_token) && (
-              <RequestBtn dormId={id} />
+            {session?.user?.role === 'LESSEE' && <RequestBtn dormId={id} />}
+            {!session?.access_token && (
+              <Link href={'/login'}>
+                <Button>Request</Button>
+              </Link>
             )}
           </div>
         </div>
