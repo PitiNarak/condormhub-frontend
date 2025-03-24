@@ -145,24 +145,19 @@ export const VerificationForm = ({
       </Form>
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent>
+        <DialogContent className="max-w-[95vw] max-h-[95vh] w-[90vw] h-[90vh] p-4 flex items-center justify-center">
           <DialogHeader>
             <DialogTitle></DialogTitle>
           </DialogHeader>
-          <div className="relative w-full h-full flex items-center justify-center">
+          <div className="relative w-full h-full">
             {uploadedImage && (
               <Image
                 src={uploadedImage}
                 alt="Full Image"
-                layout="intrinsic"
-                width={800}
-                height={600}
+                layout="fill"
+                objectFit="contain"
               />
             )}
-            <button
-              className="absolute top-4 right-4 text-gray-600 hover:text-gray-900"
-              onClick={() => setIsDialogOpen(false)}
-            ></button>
           </div>
         </DialogContent>
       </Dialog>
