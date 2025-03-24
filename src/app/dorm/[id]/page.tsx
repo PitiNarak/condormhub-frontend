@@ -51,7 +51,9 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
               <h2 className="font-bold text-2xl">Price</h2>
               <p className="text-xl">฿{res.price?.toLocaleString()}</p>
             </div>
-            <RequestBtn dormId={id} />
+            {(session?.user?.role === 'LESSEE' || !session?.access_token) && (
+              <RequestBtn dormId={id} />
+            )}
           </div>
         </div>
       </div>
