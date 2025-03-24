@@ -1,6 +1,6 @@
 'use client';
 
-import { uploadStudentImage } from '@/actions/studentVerification/uploadStudentImage';
+import { uploadStudentImage } from '@/actions/verifyStudent/uploadStudentImage';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -17,6 +17,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useToast } from '@/hooks/use-toast';
+import { CircleCheckBig } from 'lucide-react';
 
 const formSchema = z.object({
   image: z
@@ -54,7 +55,14 @@ export const VerificationForm = ({
     } else {
       setUploadedImage(null);
       form.reset();
-      toast({ title: 'Success', description: 'Upload successful!' });
+      toast({
+        description: (
+          <div className="flex gap-5">
+            <CircleCheckBig className="text-green-500" />
+            <p className="text-base">Image uploaded successfully</p>
+          </div>
+        ),
+      });
       router.push('/');
     }
   }
@@ -71,23 +79,25 @@ export const VerificationForm = ({
   }
 
   return (
-    <div className="flex flex-col gap-4 items-center">
+    <div className="flex flex-col gap-6 items-center">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           noValidate
           className="w-full flex flex-col gap-4"
         >
-          {uploadedImage ? (
-            <Image
-              src={uploadedImage}
-              alt="Uploaded Image"
-              width={400}
-              height={400}
-            />
-          ) : (
-            <p>No image uploaded yet.</p>
-          )}
+          <div className="relative w-[450px] h-[300px] border border-gray-300 rounded-lg flex items-center justify-center overflow-hidden">
+            {uploadedImage ? (
+              <Image
+                src={uploadedImage}
+                alt="Uploaded Image"
+                layout="fill"
+                objectFit="cover"
+              />
+            ) : (
+              <p>No image uploaded yet.</p>
+            )}
+          </div>
 
           <FormField
             control={form.control}
@@ -108,7 +118,19 @@ export const VerificationForm = ({
 
           {error && <p className="text-red-500">{error}</p>}
 
-          <Button type="submit">Submit</Button>
+          <div className="flex gap-4 justify-center">
+            <Button
+              className="p-4"
+              type="button"
+              variant="outline"
+              onClick={() => router.push('/')}
+            >
+              Skip
+            </Button>
+            <Button className="p-4" type="submit">
+              Submit
+            </Button>
+          </div>
         </form>
       </Form>
     </div>
