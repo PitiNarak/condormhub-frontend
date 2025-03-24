@@ -1,6 +1,6 @@
 'use server';
 
-export const getStudentEvidence = async (id: string, access_token: string) => {
+export const getStudentImage = async (id: string, access_token: string) => {
   try {
     const response = await fetch(
       `${process.env.BACKEND_URL}/user/${id}/studentEvidence`,
