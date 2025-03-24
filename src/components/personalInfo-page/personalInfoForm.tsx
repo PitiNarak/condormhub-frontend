@@ -56,7 +56,6 @@ const formSchema = z.object({
   birthDate: z.string().date(),
   nationalID: z
     .string()
-    .length(13, { message: 'National ID should be 13 digits' })
     .regex(new RegExp(/^[0-9]*/), { message: 'National ID should be number' }),
   role: z.string().min(1, { message: 'Role must be selected' }),
 });
