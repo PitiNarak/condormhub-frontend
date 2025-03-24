@@ -9,6 +9,14 @@ export default async function Page() {
   if (session?.access_token) {
     return (
       <div className="flex flex-col justify-center items-center p-10 gap-6">
+        <div>
+          <p className="text-center text-4xl font-bold">
+            Welcome {session.user?.username}
+          </p>
+          <p className="text-center text-gray-500">
+            Please fill your personal information
+          </p>
+        </div>
         <AuthProvider>
           <UpdateInformationForm />
         </AuthProvider>
