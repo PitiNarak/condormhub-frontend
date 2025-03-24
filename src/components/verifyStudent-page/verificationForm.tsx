@@ -18,6 +18,12 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useToast } from '@/hooks/use-toast';
 import { CircleCheckBig } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 
 const formSchema = z.object({
   image: z
@@ -35,6 +41,7 @@ export const VerificationForm = ({
 }) => {
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
 
@@ -86,7 +93,10 @@ export const VerificationForm = ({
           noValidate
           className="w-full flex flex-col gap-4"
         >
-          <div className="relative w-[450px] h-[300px] border border-gray-300 rounded-lg flex items-center justify-center overflow-hidden">
+          <div
+            className="relative w-[450px] h-[300px] border border-gray-300 rounded-lg flex items-center justify-center overflow-hidden cursor-pointer"
+            onClick={() => uploadedImage && setIsDialogOpen(true)}
+          >
             {uploadedImage ? (
               <Image
                 src={uploadedImage}
@@ -133,6 +143,29 @@ export const VerificationForm = ({
           </div>
         </form>
       </Form>
+
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle></DialogTitle>
+          </DialogHeader>
+          <div className="relative w-full h-full flex items-center justify-center">
+            {uploadedImage && (
+              <Image
+                src={uploadedImage}
+                alt="Full Image"
+                layout="intrinsic"
+                width={800}
+                height={600}
+              />
+            )}
+            <button
+              className="absolute top-4 right-4 text-gray-600 hover:text-gray-900"
+              onClick={() => setIsDialogOpen(false)}
+            ></button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
