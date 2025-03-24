@@ -93,21 +93,21 @@ export const UpdateInformationForm = () => {
           title: 'Uh oh! Something went wrong.',
           description: res.message,
         });
+      } else {
+        update({
+          user: {
+            ...session?.user,
+            firstname: values.firstname,
+            lastname: values.lastname,
+            gender: values.gender,
+            phoneNumber: values.phoneNumber,
+            lifestyles: selectedTags.map((tag) => tag.name),
+            birthDate: values.birthDate,
+            nationalID: values.nationalID,
+            role: values.role,
+          },
+        });
       }
-    } else {
-      update({
-        user: {
-          ...session?.user,
-          firstname: values.firstname,
-          lastname: values.lastname,
-          gender: values.gender,
-          phoneNumber: values.phoneNumber,
-          lifestyles: selectedTags.map((tag) => tag.name),
-          birthDate: values.birthDate,
-          nationalID: values.nationalID,
-          role: values.role,
-        },
-      });
     }
   }
 
@@ -133,6 +133,30 @@ export const UpdateInformationForm = () => {
     if (digits.length <= 3) return digits;
     if (digits.length <= 6) return `${digits.slice(0, 3)}-${digits.slice(3)}`;
     return `${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(6, 10)}`;
+  };
+
+  const formatNationalID = (value: string) => {
+    // Remove non-digits
+    const digits = value.replace(/\D/g, '');
+
+    // Format as x-xxxx-xxxxx-xx-x
+    if (digits.length <= 1) return digits;
+    if (digits.length <= 5) return `${digits.slice(0, 1)}-${digits.slice(1)}`;
+    if (digits.length <= 10)
+      return `${digits.slice(0, 1)}-${digits.slice(1, 5)}-${digits.slice(5)}`;
+    if (digits.length <= 12)
+      return `${digits.slice(0, 1)}-${digits.slice(1, 5)}-${digits.slice(5, 10)}-${digits.slice(10)}`;
+    return `${digits.slice(0, 1)}-${digits.slice(1, 5)}-${digits.slice(5, 10)}-${digits.slice(10, 12)}-${digits.slice(12, 13)}`;
+  };
+
+  const formatDate = (value: string) => {
+    // Remove non-digits
+    const digits = value.replace(/\D/g, '');
+
+    // Format as xxxx-xx-xx
+    if (digits.length <= 4) return digits;
+    if (digits.length <= 6) return `${digits.slice(0, 4)}-${digits.slice(4)}`;
+    return `${digits.slice(0, 4)}-${digits.slice(4, 6)}-${digits.slice(6, 8)}`;
   };
 
   return (
@@ -179,7 +203,15 @@ export const UpdateInformationForm = () => {
               <FormItem>
                 <FormLabel className="font-semibold">National ID</FormLabel>
                 <FormControl>
-                  <Input required {...field} />
+                  <Input
+                    required
+                    {...field}
+                    placeholder="e.g. 1-1234-12345-12-1"
+                    onChange={(e) => {
+                      const formatted = formatNationalID(e.target.value);
+                      field.onChange(formatted);
+                    }}
+                  />
                 </FormControl>
                 <FormDescription>Your thai national ID</FormDescription>
                 <FormMessage />
@@ -264,83 +296,89 @@ export const UpdateInformationForm = () => {
               <FormItem>
                 <FormLabel className="font-semibold">Birthdate</FormLabel>
                 <FormControl>
-                  <Input required placeholder={'YYYY-MM-DD'} {...field} />
+                  <Input
+                    required
+                    placeholder={'YYYY-MM-DD'}
+                    {...field}
+                    onChange={(e) => {
+                      const formatted = formatDate(e.target.value);
+                      field.onChange(formatted);
+                    }}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-
-          {/* Lifestyle Tags Field */}
-          <FormField
-            control={form.control}
-            name="lifestyles"
-            render={() => (
-              <FormItem>
-                {/* Lifestyle label and Add (+) button */}
-                <div className="flex items-center gap-2">
-                  <FormLabel className="font-semibold">Lifestyle</FormLabel>
-                  <Popover open={open} onOpenChange={setOpen}>
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant="ghost"
-                        className="text-gray-700 hover:text-black"
-                      >
-                        <CirclePlus /> add more
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-full p-0">
-                      <Command>
-                        <CommandInput placeholder="Search lifestyles" />
-                        <CommandList>
-                          <CommandEmpty>No lifestyles found.</CommandEmpty>
-                          <CommandGroup>
-                            {allLifestyleTags
-                              .filter(
-                                (tag) =>
-                                  !selectedTags.some((t) => t.id === tag.id)
-                              ) // Exclude selected tags
-                              .map((tag) => (
-                                <CommandItem
-                                  key={tag.id}
-                                  value={tag.name}
-                                  onSelect={() => toggleTag(tag)}
-                                >
-                                  <Check className="mr-2 h-4 w-4 opacity-0 group-hover:opacity-100" />
-                                  {tag.name}
-                                </CommandItem>
-                              ))}
-                          </CommandGroup>
-                        </CommandList>
-                      </Command>
-                    </PopoverContent>
-                  </Popover>
-                </div>
-
-                {/* Selected Tags Display */}
-                <FormControl>
-                  <div className="flex flex-wrap gap-2 p-2 min-h-9 w-full rounded-md border border-input bg-transparent text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm">
-                    {selectedTags.map((tag) => (
-                      <Badge
-                        key={tag.id}
-                        className="px-3 py-1 rounded-lg bg-blue-100 text-blue-500 flex items-center gap-1 hover:bg-blue-200 transition"
-                      >
-                        {tag.name}
-                        <X
-                          className="h-3 w-3 cursor-pointer text-blue-500"
-                          onClick={() => removeTag(tag)}
-                        />
-                      </Badge>
-                    ))}
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* Submit Button and Back Button */}
         </div>
+        {/* Lifestyle Tags Field */}
+        <FormField
+          control={form.control}
+          name="lifestyles"
+          render={() => (
+            <FormItem>
+              {/* Lifestyle label and Add (+) button */}
+              <div className="flex items-center gap-2">
+                <FormLabel className="font-semibold">Lifestyle</FormLabel>
+                <Popover open={open} onOpenChange={setOpen}>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      className="text-gray-700 hover:text-black"
+                    >
+                      <CirclePlus /> add more
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-full p-0">
+                    <Command>
+                      <CommandInput placeholder="Search lifestyles" />
+                      <CommandList>
+                        <CommandEmpty>No lifestyles found.</CommandEmpty>
+                        <CommandGroup>
+                          {allLifestyleTags
+                            .filter(
+                              (tag) =>
+                                !selectedTags.some((t) => t.id === tag.id)
+                            ) // Exclude selected tags
+                            .map((tag) => (
+                              <CommandItem
+                                key={tag.id}
+                                value={tag.name}
+                                onSelect={() => toggleTag(tag)}
+                              >
+                                <Check className="mr-2 h-4 w-4 opacity-0 group-hover:opacity-100" />
+                                {tag.name}
+                              </CommandItem>
+                            ))}
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
+              </div>
+              {/* Selected Tags Display */}
+              <FormControl>
+                <div className="flex flex-wrap gap-2 p-2 min-h-9 w-full rounded-md border border-input bg-transparent text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm">
+                  {selectedTags.map((tag) => (
+                    <Badge
+                      key={tag.id}
+                      className="px-3 py-1 rounded-lg bg-blue-100 text-blue-500 flex items-center gap-1 hover:bg-blue-200 transition"
+                    >
+                      {tag.name}
+                      <X
+                        className="h-3 w-3 cursor-pointer text-blue-500"
+                        onClick={() => removeTag(tag)}
+                      />
+                    </Badge>
+                  ))}
+                </div>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        {/* Save Button */}
         <div className="flex gap-4">
           <Button type="submit" className="w-44">
             Save
