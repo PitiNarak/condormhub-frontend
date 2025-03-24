@@ -1,11 +1,24 @@
-import VerificationHeader from '@/components/verifyStudent-page/verificationHeader';
-import VerificationForm from '@/components/verifyStudent-page/verificationForm';
+import { auth } from '@/lib/auth';
+import { redirect } from 'next/navigation';
+import { VerificationForm } from '@/components/verifyStudent-page/verificationForm';
 
-export default function VerificationPage() {
+export default async function VerificationPage() {
+  const session = await auth();
+
+  if (!session?.access_token) {
+    redirect('/login');
+  }
+
+  const access_token = session.access_token;
+
   return (
-    <div className="bg-gray-100 min-h-screen flex flex-col items-center py-10 px-4">
-      <VerificationHeader />
-      <VerificationForm />
+    <div className="flex flex-col justify-center items-center p-10 gap-6">
+      <div className="flex flex-col gap-3 max-w-3xl w-full">
+        <h1 className="text-3xl pt-3 font-semibold text-center">
+          Student Verification
+        </h1>
+      </div>
+      <VerificationForm access_token={access_token} />
     </div>
   );
 }
