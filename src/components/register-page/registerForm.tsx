@@ -18,8 +18,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { InputWithIcon } from '@/components/inputWithIcon/inputWithIcon';
-import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 
 const formSchema = z
   .object({
@@ -40,7 +39,6 @@ const formSchema = z
 
 export function MyForm() {
   const [isLoad, setLoad] = useState(false);
-  const router = useRouter();
   const [err, setErr] = useState('');
   const { update } = useSession();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -63,14 +61,11 @@ export function MyForm() {
     } else {
       //Redirect to email verification
       console.log(result);
-      update({
-        access_token: result.accessToken,
-        refresh_token: result.refreshToken,
-        user: {
-          ...result.userInformation,
-        },
+      signIn('credentials', {
+        email: values.email,
+        password: values.password,
       });
-      router.push('/emailVerification');
+      update(result);
     }
     setLoad(false);
   }
