@@ -366,6 +366,95 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/dorms/images/{url}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    /**
+     * Delete a dorm image by its url
+     * @description Deletes a dorm image using its percent encoded url from bucket storage. Encode URL using the encodeURIComponent() function.
+     */
+    delete: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description Percent encoded URL */
+          url: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: {
+        content: {
+          'application/json': Record<string, never>;
+        };
+      };
+      responses: {
+        /** @description Image deleted successfully */
+        204: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content?: never;
+        };
+        /** @description Your request is invalid */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description your request is unauthorized */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description You do not have permission to delete this dorm image */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Image not found */
+        404: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Failed to delete image */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/dorms/owner/{id}': {
     parameters: {
       query?: never;
@@ -2064,7 +2153,12 @@ export interface paths {
         };
         cookie?: never;
       };
-      requestBody?: never;
+      /** @description request information */
+      requestBody: {
+        content: {
+          'application/json': components['schemas']['dto.LeasingRequestCreateRequestBody'];
+        };
+      };
       responses: {
         /** @description Dorm successfully created */
         201: {
@@ -2224,7 +2318,7 @@ export interface paths {
             'application/json': components['schemas']['dto.ErrorResponse'];
           };
         };
-        /** @description your request is unauthorized or only lessor can approve a request */
+        /** @description your request is unauthorized or lessee cannot approve a request */
         401: {
           headers: {
             [name: string]: unknown;
@@ -2300,7 +2394,7 @@ export interface paths {
             'application/json': components['schemas']['dto.ErrorResponse'];
           };
         };
-        /** @description your request is unauthorized */
+        /** @description your request is unauthorized or lessor cannot cancel a request */
         401: {
           headers: {
             [name: string]: unknown;
@@ -2376,7 +2470,7 @@ export interface paths {
             'application/json': components['schemas']['dto.ErrorResponse'];
           };
         };
-        /** @description your request is unauthorized or only lessor can reject a request */
+        /** @description your request is unauthorized or lessee cannot reject a request */
         401: {
           headers: {
             [name: string]: unknown;
@@ -3293,8 +3387,12 @@ export interface components {
       end?: string;
       id?: string;
       lessee?: components['schemas']['dto.UserResponse'];
+      message?: string;
       start?: string;
       status?: components['schemas']['dto.Status'];
+    };
+    'dto.LeasingRequestCreateRequestBody': {
+      message?: string;
     };
     'dto.LoginRequestBody': {
       email: string;

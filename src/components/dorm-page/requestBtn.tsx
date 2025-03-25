@@ -26,7 +26,7 @@ import { CircleCheckBig } from 'lucide-react';
 import { useState } from 'react';
 
 const FormSchema = z.object({
-  proposal: z.string().max(150, {
+  message: z.string().max(150, {
     message: 'The proposal must not exceeds 150 characters',
   }),
 });
@@ -38,13 +38,13 @@ export function RequestBtn({ dormId }: { dormId: string }) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      proposal: '',
+      message: '',
     },
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     console.log(data);
-    const res = await sendRequest(dormId);
+    const res = await sendRequest(dormId, data.message);
     if (res && 'error' in res) {
       toast({
         variant: 'destructive',
@@ -93,7 +93,7 @@ export function RequestBtn({ dormId }: { dormId: string }) {
             >
               <FormField
                 control={form.control}
-                name="proposal"
+                name="message"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Proposal :</FormLabel>

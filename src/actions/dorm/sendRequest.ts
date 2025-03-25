@@ -2,11 +2,14 @@
 import client from '@/api';
 import { auth } from '@/lib/auth';
 
-export const sendRequest = async (dormId: string) => {
+export const sendRequest = async (dormId: string, message: string) => {
   const session = await auth();
   const res = await client.POST('/request/{id}', {
     params: {
       path: { id: dormId },
+    },
+    body: {
+      message: message,
     },
     headers: {
       Authorization: `Bearer ${session?.access_token}`,
