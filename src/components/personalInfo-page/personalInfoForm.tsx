@@ -60,7 +60,7 @@ const formSchema = z.object({
   role: z.string().min(1, { message: 'Role must be selected' }),
 });
 
-export const UpdateInformationForm = () => {
+export const PersonalInfoForm = () => {
   const { data: session, update } = useSession();
   const { toast } = useToast();
   const [selectedTags, setSelectedTags] = useState<LifestyleTag[]>([]);
