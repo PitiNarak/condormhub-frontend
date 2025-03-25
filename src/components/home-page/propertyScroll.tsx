@@ -65,7 +65,7 @@ export async function PropertyScroll({
           <div className="flex flex-wrap gap-3 mx-5 py-10 max-w-[1360px]">
             {propertyData.map(
               (data: components['schemas']['dto.DormResponseBody']) => (
-                <div key={String(data.id)} className="text-sm">
+                <div key={String(data.id)} className="text-sm grow">
                   <PropertyCard
                     id={data.id ?? ''}
                     image={

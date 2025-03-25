@@ -40,7 +40,7 @@ export function PropertyCard({
                 className="rounded-md"
               />
             </div>
-            <div className="flex">
+            <div className="flex w-[330px] mx-auto">
               <div className="pl-2">
                 <p className="font-bold text-lg">{propertyName}</p>
                 <p className="font-bold">
