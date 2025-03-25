@@ -63,14 +63,14 @@ export function MyForm() {
       } else {
         //Redirect to email verification
         signIn(
-              'credentials',
-              {
-                email: values.email,
-                password: values.password,
-                redirect: true,
-              },
-              { callbackUrl: '/' }
-            );
+          'credentials',
+          {
+            email: values.email,
+            password: values.password,
+            redirect: true,
+          },
+          { callbackUrl: '/' }
+        );
         router.push('/emailVerification');
       }
     } catch (e: unknown) {
