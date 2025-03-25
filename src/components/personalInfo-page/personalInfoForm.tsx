@@ -40,6 +40,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { sendPersonalInfo } from '@/actions/personalInfo/sendPersonalInfo';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
   firstname: z
@@ -63,6 +64,7 @@ const formSchema = z.object({
 export const PersonalInfoForm = () => {
   const { data: session, update } = useSession();
   const { toast } = useToast();
+  const router = useRouter();
   const [selectedTags, setSelectedTags] = useState<LifestyleTag[]>([]);
   const [open, setOpen] = useState(false); // For combo box popover
 
@@ -106,6 +108,7 @@ export const PersonalInfoForm = () => {
             role: values.role,
           },
         });
+        router.push('/');
       }
     }
   }
