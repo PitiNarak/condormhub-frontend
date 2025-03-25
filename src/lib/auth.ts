@@ -97,9 +97,15 @@ export const nextAuthConfig = {
 
   callbacks: {
     jwt: async ({ token, user, trigger, session }) => {
+      console.log('hi');
       if (trigger === 'update' && session?.user) {
         // Note, that `session` can be any arbitrary object, remember to validate it!
-        token.user = session.user;
+        token.user = session.user ?? session.userInformation;
+        token.access_token = session.accessToken ?? token.access_token;
+        token.refresh_token = session.refreshToken ?? token.access_token;
+        token.access_token_expired = jwtDecode(
+          session.accessToken ?? token.access_token
+        ).exp;
       }
       if (user) {
         token.user = user.userInformation;
