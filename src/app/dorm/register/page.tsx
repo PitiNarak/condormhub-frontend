@@ -2,7 +2,6 @@ import React from 'react';
 import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import { Divider } from '@/components/navigationBar/divider';
-import { ImageBox } from '@/components/registerDorm-page/dormImage';
 import { DormRegisterBox } from '@/components/registerDorm-page/dormRegisterBox';
 
 export default async function Page() {
