@@ -132,7 +132,7 @@ export const VerificationForm = ({
 
             {error && <p className="text-red-500 text-center">{error}</p>}
 
-            <div className="flex justify-center space-x-4">
+            <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
               <Button
                 type="button"
                 size="lg"
