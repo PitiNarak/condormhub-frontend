@@ -86,63 +86,67 @@ export const VerificationForm = ({
   }
 
   return (
-    <div className="flex flex-col gap-6 items-center">
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          noValidate
-          className="w-full flex flex-col gap-4"
-        >
-          <div
-            className="relative w-[450px] h-[300px] border border-gray-300 rounded-lg flex items-center justify-center overflow-hidden cursor-pointer"
-            onClick={() => uploadedImage && setIsDialogOpen(true)}
+    <div className="w-full flex justify-center items-center">
+      <div className="w-full max-w-md p-6">
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            noValidate
+            className="space-y-4"
           >
-            {uploadedImage ? (
-              <Image
-                src={uploadedImage}
-                alt="Uploaded Image"
-                layout="fill"
-                objectFit="cover"
-              />
-            ) : (
-              <p>No image uploaded yet.</p>
-            )}
-          </div>
-
-          <FormField
-            control={form.control}
-            name="image"
-            render={() => (
-              <FormItem>
-                <FormControl>
-                  <Input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileChange}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {error && <p className="text-red-500">{error}</p>}
-
-          <div className="flex gap-4 justify-center">
-            <Button
-              className="p-4"
-              type="button"
-              variant="outline"
-              onClick={() => router.push('/')}
+            <div
+              className="cursor-pointer w-full h-64 relative"
+              onClick={() => uploadedImage && setIsDialogOpen(true)}
             >
-              Skip
-            </Button>
-            <Button className="p-4" type="submit">
-              Submit
-            </Button>
-          </div>
-        </form>
-      </Form>
+              {uploadedImage ? (
+                <Image
+                  src={uploadedImage}
+                  alt="Uploaded Image"
+                  fill
+                  className="object-cover rounded-lg"
+                />
+              ) : (
+                <div className="w-full h-64 bg-white border border-gray-300 rounded-lg flex items-center justify-center">
+                  No image uploaded yet.
+                </div>
+              )}
+            </div>
+
+            <FormField
+              control={form.control}
+              name="image"
+              render={() => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileChange}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {error && <p className="text-red-500 text-center">{error}</p>}
+
+            <div className="flex justify-center space-x-4">
+              <Button
+                type="button"
+                size="lg"
+                variant="outline"
+                onClick={() => router.push('/')}
+              >
+                Skip
+              </Button>
+              <Button size="lg" type="submit" disabled={!uploadedImage}>
+                Submit
+              </Button>
+            </div>
+          </form>
+        </Form>
+      </div>
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent className="max-w-[95vw] max-h-[95vh] w-[90vw] h-[90vh] p-4 flex items-center justify-center">
