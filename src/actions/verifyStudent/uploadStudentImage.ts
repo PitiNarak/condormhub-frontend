@@ -23,6 +23,7 @@ export async function uploadStudentImage(file: File, access_token: string) {
 
     if (response.ok) {
       revalidateTag('student-evidence');
+      console.log('Image Uploaded: ', result.data.url);
       return result.data; // { expired: 'string', url: 'string' }
     } else {
       return { error: result.error || 'An unknown error occurred.' };

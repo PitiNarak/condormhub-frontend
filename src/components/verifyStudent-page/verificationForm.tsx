@@ -42,6 +42,7 @@ export const VerificationForm = ({
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
 
@@ -90,7 +91,7 @@ export const VerificationForm = ({
       <div className="w-full max-w-md p-6">
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(onSubmit)}
+            onSubmit={form.handleSubmit(() => setIsConfirmDialogOpen(true))}
             noValidate
             className="space-y-4"
           >
@@ -162,6 +163,34 @@ export const VerificationForm = ({
                 objectFit="contain"
               />
             )}
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={isConfirmDialogOpen} onOpenChange={setIsConfirmDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Confirmation</DialogTitle>
+          </DialogHeader>
+          <p>
+            Are you sure you want to send this verification image? You
+            won&apos;t be able to change it once submitted.
+          </p>
+          <div className="flex justify-end gap-4 mt-4">
+            <Button
+              variant="outline"
+              onClick={() => setIsConfirmDialogOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={() => {
+                setIsConfirmDialogOpen(false);
+                onSubmit(form.getValues());
+              }}
+            >
+              Confirm
+            </Button>
           </div>
         </DialogContent>
       </Dialog>
