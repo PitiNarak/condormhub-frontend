@@ -62,6 +62,7 @@ export function MyForm() {
       setErr(result.message ? result.message : '');
     } else {
       //Redirect to email verification
+      console.log(result);
       update({
         access_token: result.accessToken,
         refresh_token: result.refreshToken,
@@ -70,8 +71,8 @@ export function MyForm() {
         },
       });
       router.push('/emailVerification');
-      setLoad(false);
     }
+    setLoad(false);
   }
 
   return (
