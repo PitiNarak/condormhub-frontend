@@ -19,7 +19,7 @@ import {
 } from '@/components/ui/form';
 import { InputWithIcon } from '@/components/inputWithIcon/inputWithIcon';
 import { useRouter } from 'next/navigation';
-import { signIn } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 
 const formSchema = z
   .object({
@@ -42,6 +42,7 @@ export function MyForm() {
   const [isLoad, setLoad] = useState(false);
   const router = useRouter();
   const [err, setErr] = useState('');
+  const { update } = useSession();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -54,29 +55,23 @@ export function MyForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoad(true);
-    try {
-      const result = await sendRegistration(values);
-      setErr('');
-      if (result && result.message !== 'user successfully registered') {
-        //Tell user why
-        setErr(result.message ? result.message : '');
-      } else {
-        //Redirect to email verification
-        signIn(
-          'credentials',
-          {
-            email: values.email,
-            password: values.password,
-            redirect: true,
-          },
-          { callbackUrl: '/' }
-        );
-        router.push('/emailVerification');
-      }
-    } catch (e: unknown) {
-      console.log(e);
+    const result = await sendRegistration(values);
+    setErr('');
+    if ('message' in result) {
+      //Tell user why
+      setErr(result.message ? result.message : '');
+    } else {
+      //Redirect to email verification
+      update({
+        access_token: result.accessToken,
+        refresh_token: result.refreshToken,
+        user: {
+          ...result.userInformation,
+        },
+      });
+      router.push('/emailVerification');
+      setLoad(false);
     }
-    setLoad(false);
   }
 
   return (
