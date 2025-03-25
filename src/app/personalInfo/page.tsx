@@ -1,4 +1,3 @@
-import { AuthProvider } from '@/components/auth/authProvider';
 import { UpdateInformationForm } from '@/components/personalInfo-page/personalInfoForm';
 import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';
@@ -17,9 +16,7 @@ export default async function Page() {
             Please fill your personal information
           </p>
         </div>
-        <AuthProvider>
-          <UpdateInformationForm />
-        </AuthProvider>
+        <UpdateInformationForm />
       </div>
     );
   } else {
