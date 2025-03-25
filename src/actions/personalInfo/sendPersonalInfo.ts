@@ -8,6 +8,8 @@ export async function sendPersonalInfo(
   formData: components['schemas']['dto.UserInformationRequestBody']
 ) {
   const date: Date = new Date(formData.birthDate ?? '2000-01-01');
+  const nID: string = formData['nationalID'] ?? '';
+  formData['nationalID'] = nID.replaceAll('-', '');
   formData['birthDate'] = date.toISOString();
   console.log(formData);
   const { data, error } = await client.PATCH('/user', {
