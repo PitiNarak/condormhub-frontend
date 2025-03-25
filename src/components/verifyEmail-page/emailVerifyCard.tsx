@@ -1,5 +1,7 @@
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { CircleCheckBig, CircleX } from 'lucide-react';
+import Link from 'next/link';
 import { OrbitProgress } from 'react-loading-indicators';
 
 interface Props {
@@ -36,6 +38,11 @@ export function EmailVerifyCard({ isLoading, error }: Props) {
             <>
               <CircleCheckBig size={72} color="green" />
               <span className="text-lg text-green-700 font-bold">Success</span>
+              <div className="flex mx-auto justify-center">
+                <Link href="/personalInfo">
+                  <Button>Next</Button>
+                </Link>
+              </div>
             </>
           )}
         </div>
