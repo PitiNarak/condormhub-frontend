@@ -19,6 +19,7 @@ import {
 } from '@/components/ui/form';
 import { InputWithIcon } from '@/components/inputWithIcon/inputWithIcon';
 import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 
 const formSchema = z
   .object({
@@ -61,6 +62,15 @@ export function MyForm() {
         setErr(result.message ? result.message : '');
       } else {
         //Redirect to email verification
+        signIn(
+              'credentials',
+              {
+                email: values.email,
+                password: values.password,
+                redirect: true,
+              },
+              { callbackUrl: '/' }
+            );
         router.push('/emailVerification');
       }
     } catch (e: unknown) {
