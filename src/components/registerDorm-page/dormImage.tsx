@@ -1,11 +1,15 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import { ImageCarousel } from '@/components/dorm-page/imageCarousel';
 
-export const ImageBox = () => {
-  const [images, setImages] = useState<string[]>([]);
+interface ImageBoxProps {
+  images: string[];
+  setImages: React.Dispatch<React.SetStateAction<string[]>>;
+}
+
+export const ImageBox: React.FC<ImageBoxProps> = ({ images, setImages }) => {
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (!files) return;
