@@ -1,5 +1,5 @@
 import { getDormByID } from '@/actions/dorm/getDormByID';
-import { getRequestsByDormId } from '@/actions/dorm/getRequests';
+import { getRequestsByDormId } from '@/actions/dorm/getRequestsByDormId';
 import { EditDormButton } from '@/components/dorm-page/editDormButton';
 import { ImageCarousel } from '@/components/dorm-page/imageCarousel';
 import { RequestBtn } from '@/components/dorm-page/requestBtn';
