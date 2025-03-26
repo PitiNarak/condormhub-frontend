@@ -52,7 +52,6 @@ export function RequestBtn({ dormId }: { dormId: string }) {
         description: res.error,
       });
     } else {
-      console.log(res);
       toast({
         description: (
           <div className="flex gap-5">

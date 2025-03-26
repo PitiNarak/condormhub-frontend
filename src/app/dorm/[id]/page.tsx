@@ -1,16 +1,60 @@
 import { getDormByID } from '@/actions/dorm/getDormByID';
+import { getRequests } from '@/actions/dorm/getRequests';
 import { EditDormButton } from '@/components/dorm-page/editDormButton';
 import { ImageCarousel } from '@/components/dorm-page/imageCarousel';
 import { RequestBtn } from '@/components/dorm-page/requestBtn';
 import { Button } from '@/components/ui/button';
 import { auth } from '@/lib/auth';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import React from 'react';
 
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;
   const res = await getDormByID(id);
   const session = await auth();
+  let isRequested = false;
+  let index = 0;
+  let page = 1;
+
+  const allRequest = await getRequests(page);
+
+  if (allRequest && 'error' in allRequest) {
+    redirect('/');
+  } else if (
+    allRequest.data &&
+    allRequest.pagination?.limit &&
+    allRequest.pagination.total &&
+    allRequest.pagination.limit < allRequest.pagination.total
+  ) {
+    const totalPages = Math.ceil(
+      allRequest.pagination.total / allRequest.pagination.limit
+    );
+    while (page < totalPages) {
+      page++;
+      const nextPage = await getRequests(page);
+      if (nextPage && !('error' in nextPage) && nextPage.data) {
+        allRequest.data = [...allRequest.data, ...nextPage.data];
+      }
+    }
+  }
+
+  if (allRequest.data) {
+    while (!isRequested) {
+      console.log(allRequest.data[index].id);
+      if (
+        allRequest.data[index].dorm?.id === id &&
+        allRequest.data[index].status === 'PENDING'
+      ) {
+        isRequested = true;
+        break;
+      } else if (index + 1 === allRequest.data.length) {
+        break;
+      } else {
+        index++;
+      }
+    }
+  }
 
   if (res && !('error' in res)) {
     return (
@@ -53,7 +97,12 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
               <h2 className="font-bold text-2xl">Price</h2>
               <p className="text-xl">฿{res.price?.toLocaleString()}</p>
             </div>
-            {session?.user?.role === 'LESSEE' && <RequestBtn dormId={id} />}
+            {session?.user?.role === 'LESSEE' && !isRequested ? (
+              <RequestBtn dormId={id} />
+            ) : (
+              session?.user?.role === 'LESSEE' &&
+              isRequested && <Button disabled>Requested</Button>
+            )}
             {!session?.access_token && (
               <Link href={'/login'}>
                 <Button>Request</Button>
