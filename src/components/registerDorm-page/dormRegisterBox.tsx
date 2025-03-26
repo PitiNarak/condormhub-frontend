@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form';
 import { DormRegisterForm } from '@/components/registerDorm-page/dormRegisterForm';
 import { sendDormRegistration } from '@/actions/dorm/createDorm';
 import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
 
 const formSchema = z.object({
   name: z.string().min(5).max(100),
@@ -84,12 +85,12 @@ export const DormRegisterBox: React.FC<Session> = ({ access_token }) => {
           onSubmit={form.handleSubmit(onSubmit)}
           className="max-w-4xl mx-auto pt-0 "
         >
-          <button
+          <Button
             type="submit"
-            className="max-w-base w-full flex justify-center bg-black text-white px-4 py-2 rounded-lg cursor-pointer hover:bg-gray-800 transition"
+            className="max-w-base w-full flex justify-center"
           >
             <span className="text-lg font-semibold">Submit</span>
-          </button>
+          </Button>
         </form>
       </div>
     </div>
