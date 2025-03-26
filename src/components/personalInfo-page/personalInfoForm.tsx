@@ -95,6 +95,7 @@ export const PersonalInfoForm = () => {
           description: res.message,
         });
       } else {
+        const date = new Date(values.birthDate);
         update({
           user: {
             ...session?.user,
@@ -103,7 +104,7 @@ export const PersonalInfoForm = () => {
             gender: values.gender,
             phoneNumber: values.phoneNumber,
             lifestyles: selectedTags.map((tag) => tag.name),
-            birthDate: values.birthDate,
+            birthDate: date.toISOString(),
             nationalID: values.nationalID,
             role: values.role,
           },
