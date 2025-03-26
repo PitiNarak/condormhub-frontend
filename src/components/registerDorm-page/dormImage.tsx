@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
+import { Image } from 'lucide-react';
 import { ImageCarousel } from '@/components/dorm-page/imageCarousel';
 
 interface ImageBoxProps {
@@ -20,18 +20,10 @@ export const ImageBox: React.FC<ImageBoxProps> = ({ images, setImages }) => {
     setImages((prev) => [...prev, ...uploadedImages]);
   };
   return (
-    <div className="flex flex-col justify-center items-center p-5 gap-3.5">
+    <div className="flex flex-col justify-center items-center p-3 gap-3.5">
       {images.length === 0 ? (
-        <div>
-          <div>
-            <Image
-              src={'/college-dormitory.png'}
-              alt="dorm image"
-              height={800}
-              width={800}
-              className="max-w-7xl w-full pl-2"
-            />
-          </div>
+        <div className="flex justify-center items-center h-80 w-80 border-4 border-gray-700 rounded-xl p-6 shadow-lg bg-gradient-to-r from-gray-100 to-gray-0 mb-2">
+          <Image />
         </div>
       ) : (
         <ImageCarousel images={images} />
