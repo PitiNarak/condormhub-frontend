@@ -11,14 +11,12 @@ export async function sendPersonalInfo(
   const nID: string = formData['nationalID'] ?? '';
   formData['nationalID'] = nID.replaceAll('-', '');
   formData['birthDate'] = date.toISOString();
-  console.log(formData);
   const { data, error } = await client.PATCH('/user', {
     body: formData,
     headers: {
       Authorization: `Bearer ${access_token}`,
     },
   });
-  console.log(data);
   if (error || !data.data) {
     return {
       message: error?.error,
