@@ -10,6 +10,7 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "types:gen:api": "eval $(grep '^BACKEND_URL' .env) && openapi-typescript $BACKEND_URL/swagger/doc.json -o src/types/api.d.ts",
+    "gen:api": "powershell -Command \"$env:BACKEND_URL = (Get-Content .env | Where-Object { $_ -like 'BACKEND_URL=*' }).Split('=')[1].Trim(); npx openapi-typescript \\\"$env:BACKEND_URL/swagger/doc.json\\\" -o src/types/api.d.ts\"",
     "types:gen:env": "npx gen-env-types .env -o src/types/env.d.ts -e .",
     "prepare": "npx husky"
   },
