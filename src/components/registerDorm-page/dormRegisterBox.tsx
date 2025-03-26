@@ -48,18 +48,6 @@ export const DormRegisterBox: React.FC<Session> = ({ access_token }) => {
   const [images, setImages] = useState<string[]>([]);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: '',
-      price: 1000,
-      size: 1,
-      description: '',
-      bedrooms: 1,
-      bathrooms: 1,
-      district: '',
-      province: '',
-      subdistrict: '',
-      zipcode: '',
-    },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
