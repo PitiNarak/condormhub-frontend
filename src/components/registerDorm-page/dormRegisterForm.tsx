@@ -57,7 +57,7 @@ export const DormRegisterForm: React.FC<FormProb> = ({ form }) => {
     <div>
       <Form {...form}>
         <form onSubmit={() => {}} className="max-w-4xl mx-auto pt-0 space-y-2">
-          <h2 className="text-xl font-semibold pt-2">Dormitory information</h2>
+          <h2 className="text-xl font-semibold pt-2">Information</h2>
           <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
             <FormField
               control={form.control}
@@ -154,7 +154,7 @@ export const DormRegisterForm: React.FC<FormProb> = ({ form }) => {
               )}
             />
           </div>
-          <h2 className="text-xl font-semibold pt-2">Dormitory address</h2>
+          <h2 className="text-xl font-semibold pt-2">Address</h2>
           <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
             <FormField
               control={form.control}
@@ -258,7 +258,7 @@ export const DormRegisterForm: React.FC<FormProb> = ({ form }) => {
               )}
             />
           </div>
-          <h2 className="text-xl font-semibold pt-2">Dormitory description</h2>
+          <h2 className="text-xl font-semibold pt-2">Description</h2>
           <div>
             <FormField
               control={form.control}
