@@ -52,7 +52,6 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
     if (allRequest.data) {
       while (!isRequested) {
-        console.log(allRequest.data[index].id);
         if (
           allRequest.data[index].dorm?.id === id &&
           allRequest.data[index].status === 'PENDING'
