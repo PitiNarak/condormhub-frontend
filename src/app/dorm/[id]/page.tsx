@@ -24,44 +24,46 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const res = await getDorm(id);
   const session = await auth();
   let isRequested = false;
-  let index = 0;
-  let page = 1;
+  if (session?.access_token) {
+    let index = 0;
+    let page = 1;
 
-  const allRequest = await getRequests(page);
+    const allRequest = await getRequests(page);
 
-  if (allRequest && 'error' in allRequest) {
-    redirect('/');
-  } else if (
-    allRequest.data &&
-    allRequest.pagination?.limit &&
-    allRequest.pagination.total &&
-    allRequest.pagination.limit < allRequest.pagination.total
-  ) {
-    const totalPages = Math.ceil(
-      allRequest.pagination.total / allRequest.pagination.limit
-    );
-    while (page < totalPages) {
-      page++;
-      const nextPage = await getRequests(page);
-      if (nextPage && !('error' in nextPage) && nextPage.data) {
-        allRequest.data = [...allRequest.data, ...nextPage.data];
+    if (allRequest && 'error' in allRequest) {
+      redirect('/');
+    } else if (
+      allRequest.data &&
+      allRequest.pagination?.limit &&
+      allRequest.pagination.total &&
+      allRequest.pagination.limit < allRequest.pagination.total
+    ) {
+      const totalPages = Math.ceil(
+        allRequest.pagination.total / allRequest.pagination.limit
+      );
+      while (page < totalPages) {
+        page++;
+        const nextPage = await getRequests(page);
+        if (nextPage && !('error' in nextPage) && nextPage.data) {
+          allRequest.data = [...allRequest.data, ...nextPage.data];
+        }
       }
     }
-  }
 
-  if (allRequest.data) {
-    while (!isRequested) {
-      console.log(allRequest.data[index].id);
-      if (
-        allRequest.data[index].dorm?.id === id &&
-        allRequest.data[index].status === 'PENDING'
-      ) {
-        isRequested = true;
-        break;
-      } else if (index + 1 === allRequest.data.length) {
-        break;
-      } else {
-        index++;
+    if (allRequest.data) {
+      while (!isRequested) {
+        console.log(allRequest.data[index].id);
+        if (
+          allRequest.data[index].dorm?.id === id &&
+          allRequest.data[index].status === 'PENDING'
+        ) {
+          isRequested = true;
+          break;
+        } else if (index + 1 === allRequest.data.length) {
+          break;
+        } else {
+          index++;
+        }
       }
     }
   }
