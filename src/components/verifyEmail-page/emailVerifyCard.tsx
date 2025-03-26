@@ -39,7 +39,7 @@ export function EmailVerifyCard({ isLoading, error }: Props) {
               <CircleCheckBig size={72} color="green" />
               <span className="text-lg text-green-700 font-bold">Success</span>
               <div className="flex mx-auto justify-center">
-                <Link href="/personalInfo">
+                <Link href="/">
                   <Button>Next</Button>
                 </Link>
               </div>
