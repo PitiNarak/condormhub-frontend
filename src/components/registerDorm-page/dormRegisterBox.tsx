@@ -8,6 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { DormRegisterForm } from '@/components/registerDorm-page/dormRegisterForm';
 import { sendDormRegistration } from '@/actions/dorm/createDorm';
+import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
   name: z.string().min(5).max(100),
@@ -27,6 +28,7 @@ interface Session {
 }
 
 export const DormRegisterBox: React.FC<Session> = ({ access_token }) => {
+  const router = useRouter();
   const [images, setImages] = useState<string[]>([]);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -50,7 +52,7 @@ export const DormRegisterBox: React.FC<Session> = ({ access_token }) => {
       console.log(form);
       const res = await sendDormRegistration(values, access_token);
       if (!res || !('data' in res) || !res.data) {
-        console.error('Error in sendDormRegistration:');
+        console.error('Cannot create dorm');
         return;
       }
       if (res.data.id) {
@@ -58,16 +60,11 @@ export const DormRegisterBox: React.FC<Session> = ({ access_token }) => {
           const response = await fetch(imageUrl);
           const blob = await response.blob();
           const file = new File([blob], 'image.jpg', { type: blob.type });
-          const res2 = await uploadImage(file, res.data.id, access_token);
-          if (res2) {
-            console.log('Image uploaded successfully');
-          } else {
-            console.error('Error uploading image');
-            return;
-          }
+          await uploadImage(file, res.data.id, access_token);
         }
+        router.push('/dorm/' + res.data.id);
       } else {
-        console.error('res.data.id is undefined');
+        console.error('internal error');
       }
     } catch (e: unknown) {
       console.log(e);
