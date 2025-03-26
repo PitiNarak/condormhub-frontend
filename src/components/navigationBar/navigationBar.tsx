@@ -26,7 +26,7 @@ export async function Navbar() {
           </div>
           <div className="flex gap-4 justify-center items-center">
             <SelectedMenu text="home" path="/" />
-            {!session ? (
+            {!session?.access_token ? (
               <>
                 <SelectedMenu text="Register" path="/register" />
                 <SelectedMenu text="Login" path="/login" />
