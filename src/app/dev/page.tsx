@@ -25,7 +25,7 @@ const page = async () => {
           text="Email verification Page"
           path="/emailVerification"
         />
-        <SelectedMenu text="Lessor request" path="/lessorRequest" />
+        <SelectedMenu text="Leasing request" path="/leasingRequest" />
         <SelectedMenu text="Profile" path="/profile/1234" />
       </div>
       <div className="flex-col flex gap-3">
