@@ -2,7 +2,7 @@
 
 import client from '@/api';
 
-interface Values {
+interface dorms {
   name: string;
   bedrooms: number;
   bathrooms: number;
@@ -15,24 +15,21 @@ interface Values {
   zipcode: string;
 }
 
-export async function sendDormRegistration(
-  value: Values,
-  access_token: string
-) {
+export async function sendDormRegistration(dorms: dorms, access_token: string) {
   const { data, error } = await client.POST('/dorms', {
     body: {
       address: {
-        subdistrict: value.subdistrict,
-        district: value.district,
-        province: value.province,
-        zipcode: value.zipcode,
+        subdistrict: dorms.subdistrict,
+        district: dorms.district,
+        province: dorms.province,
+        zipcode: dorms.zipcode,
       },
-      bathrooms: value.bathrooms,
-      bedrooms: value.bedrooms,
-      size: value.size,
-      description: value.description,
-      price: value.price,
-      name: value.name,
+      bathrooms: dorms.bathrooms,
+      bedrooms: dorms.bedrooms,
+      size: dorms.size,
+      description: dorms.description,
+      price: dorms.price,
+      name: dorms.name,
     },
     headers: {
       Authorization: `Bearer ${access_token}`,
