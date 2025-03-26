@@ -3,7 +3,8 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
-import { MapPinHouse, Hotel } from 'lucide-react';
+import { Hotel } from 'lucide-react';
+import { CreateInput } from 'thai-address-autocomplete-react';
 import {
   Form,
   FormControl,
@@ -13,6 +14,8 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { InputWithIcon } from '@/components/inputWithIcon/inputWithIcon';
+
+const InputThaiAddress = CreateInput();
 
 const formSchema = z.object({
   name: z.string().min(5).max(100),
@@ -155,16 +158,49 @@ export const DormRegisterForm: React.FC<FormProb> = ({ form }) => {
           <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
             <FormField
               control={form.control}
+              name="subdistrict"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="font-bold text-sm">
+                    Subdistrict
+                  </FormLabel>
+                  <FormControl>
+                    <InputThaiAddress.Province
+                      value={field.value}
+                      onChange={(value) => {
+                        field.onChange(value);
+                      }}
+                      onSelect={(address) => {
+                        form.setValue('subdistrict', address.district);
+                        form.setValue('district', address.amphoe);
+                        form.setValue('province', address.province);
+                        form.setValue('zipcode', address.zipcode);
+                      }}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
               name="district"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>District</FormLabel>
+                  <FormLabel className="font-bold text-sm">District</FormLabel>
                   <FormControl>
-                    <InputWithIcon
-                      placeholder="District name"
-                      type="text"
-                      icon={<MapPinHouse />}
-                      fields={field}
+                    <InputThaiAddress.Amphoe
+                      value={field.value}
+                      onChange={(value) => {
+                        field.onChange(value);
+                      }}
+                      onSelect={(address) => {
+                        form.setValue('subdistrict', address.district);
+                        form.setValue('district', address.amphoe);
+                        form.setValue('province', address.province);
+                        form.setValue('zipcode', address.zipcode);
+                      }}
                     />
                   </FormControl>
                   <FormMessage />
@@ -177,32 +213,19 @@ export const DormRegisterForm: React.FC<FormProb> = ({ form }) => {
               name="province"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Province</FormLabel>
+                  <FormLabel className="font-bold text-sm">Province</FormLabel>
                   <FormControl>
-                    <InputWithIcon
-                      placeholder="Province name"
-                      type="text"
-                      icon={<MapPinHouse />}
-                      fields={field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="subdistrict"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Subdistrict</FormLabel>
-                  <FormControl>
-                    <InputWithIcon
-                      placeholder="Subdistrict name"
-                      type="text"
-                      icon={<MapPinHouse />}
-                      fields={field}
+                    <InputThaiAddress.Province
+                      value={field.value}
+                      onChange={(value) => {
+                        field.onChange(value);
+                      }}
+                      onSelect={(address) => {
+                        form.setValue('subdistrict', address.district);
+                        form.setValue('district', address.amphoe);
+                        form.setValue('province', address.province);
+                        form.setValue('zipcode', address.zipcode);
+                      }}
                     />
                   </FormControl>
                   <FormMessage />
@@ -215,13 +238,19 @@ export const DormRegisterForm: React.FC<FormProb> = ({ form }) => {
               name="zipcode"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Zipcode</FormLabel>
+                  <FormLabel className="font-bold text-sm">Zip Code</FormLabel>
                   <FormControl>
-                    <InputWithIcon
-                      placeholder="Zipcode"
-                      type="text"
-                      icon={<MapPinHouse />}
-                      fields={field}
+                    <InputThaiAddress.Zipcode
+                      value={field.value}
+                      onChange={(value) => {
+                        field.onChange(value);
+                      }}
+                      onSelect={(address) => {
+                        form.setValue('subdistrict', address.district);
+                        form.setValue('district', address.amphoe);
+                        form.setValue('province', address.province);
+                        form.setValue('zipcode', address.zipcode);
+                      }}
                     />
                   </FormControl>
                   <FormMessage />
