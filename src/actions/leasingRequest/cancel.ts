@@ -3,7 +3,7 @@
 import client from '@/api';
 import { auth } from '@/lib/auth';
 
-export async function approve(id: string) {
+export async function cancel(id: string) {
   try {
     const session = await auth();
     const access_token = session?.access_token;
