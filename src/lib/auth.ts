@@ -64,6 +64,7 @@ export const nextAuthConfig = {
   },
   providers: [
     CredentialsProvider({
+      id: 'login',
       credentials: {
         email: {
           label: 'Email',
@@ -93,11 +94,57 @@ export const nextAuthConfig = {
         return { ...res.data.data, access_token_expired: decoded.exp };
       },
     }),
+
+    CredentialsProvider({
+      id: 'signup',
+      credentials: {
+        email: {
+          label: 'Email',
+          type: 'email',
+          placeholder: 'example@condormhub.xyz',
+        },
+        password: { label: 'Password', type: 'password' },
+        username: { label: 'Username', type: 'username' },
+      },
+      authorize: async (credentials) => {
+        if (!credentials) return null;
+        const res = await client.POST('/auth/register', {
+          body: {
+            email: credentials.email,
+            username: credentials.username,
+            password: credentials.password,
+          },
+        });
+
+        if (res.error) {
+          throw new Error(res.error.error);
+        }
+
+        if (!res.data.data) {
+          throw new Error('An unknown error occurred.');
+        }
+
+        const decoded = jwtDecode(res.data.data.accessToken || '');
+        return { ...res.data.data, access_token_expired: decoded.exp };
+      },
+    }),
+
+    //   CredentialsProvider({
+    //     id: 'verify',
+    //     credentials: {
+    //       user: { label: 'User', type: 'user' },
+    //       access_token: { label: 'Access_token', type: 'access_token' },
+    //       refresh_token: { lable: 'Refresh_token', type: 'refresh_token' },
+    //     },
+    //     authorize: (credentials) => {
+    //       const decoded = jwtDecode(credentials?.access_token || '');
+    //       return { ...credentials, access_token_expired: decoded.exp };
+    //     },
+    //   }),
   ],
 
   callbacks: {
     jwt: async ({ token, user, trigger, session }) => {
-      console.log('hi');
       if (trigger === 'update' && session?.user) {
         // Note, that `session` can be any arbitrary object, remember to validate it!
         token.user = session.user ?? session.userInformation;
