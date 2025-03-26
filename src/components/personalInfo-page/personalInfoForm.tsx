@@ -84,7 +84,7 @@ export const PersonalInfoForm = () => {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     if (session?.access_token) {
-      const res = await sendPersonalInfo(session.access_token, {
+      const res = await sendPersonalInfo({
         ...values,
         lifestyles: selectedTags.map((tag) => tag.name),
       });
