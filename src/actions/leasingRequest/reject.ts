@@ -2,6 +2,7 @@
 
 import client from '@/api';
 import { auth } from '@/lib/auth';
+import { revalidatePath } from 'next/cache';
 
 export async function reject(id: string) {
   try {
@@ -21,6 +22,8 @@ export async function reject(id: string) {
     if (error) {
       throw new Error(error.error);
     }
+
+    revalidatePath(`/leasingRequest`);
 
     return { data };
   } catch (e: unknown) {

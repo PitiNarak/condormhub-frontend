@@ -3,7 +3,7 @@
 import React from 'react'; // Explicitly import React
 import Image from 'next/image';
 import { formatDistance, subDays } from 'date-fns';
-import { CircleCheckBig } from 'lucide-react';
+import { CircleCheck, CircleCheckBig, Clock, XCircle } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { CardTitle } from '@/components/ui/card';
@@ -84,11 +84,34 @@ const LeasingRequestCard: React.FC<LeasingRequestCardProps> = ({
       />
 
       <div className="flex-1">
-        <div className="text-sm text-gray-500 mb-1">
-          {formatDistance(subDays(new Date(), 3), new Date(createAt), {
-            addSuffix: true,
-          })}
-        </div>
+        {status === 'PENDING' ? (
+          <div
+            className={`flex items-center text-xs font-medium px-2 py-1 rounded-full text-yellow-600 bg-yellow-50 border-yellow-200`}
+          >
+            <Clock className="w-4 h-4 mr-2 text-yellow-600" /> PENDING{' '}
+            {formatDistance(subDays(new Date(), 3), new Date(createAt), {
+              addSuffix: true,
+            })}
+          </div>
+        ) : status === 'ACCEPT' ? (
+          <div
+            className={`flex items-center text-xs font-medium px-2 py-1 rounded-full text-green-600 bg-green-50 border-green-200`}
+          >
+            <CircleCheck className="w-4 h-4 mr-2 text-green-600" /> APPROVED{' '}
+            {formatDistance(subDays(new Date(), 3), new Date(createAt), {
+              addSuffix: true,
+            })}
+          </div>
+        ) : (
+          <div
+            className={`flex items-center text-xs font-medium px-2 py-1 rounded-full text-red-600 bg-red-50 border-red-200`}
+          >
+            <XCircle className="w-4 h-4 mr-2 text-red-600" /> REJECTED{' '}
+            {formatDistance(subDays(new Date(), 3), new Date(createAt), {
+              addSuffix: true,
+            })}
+          </div>
+        )}
 
         <CardTitle className="text-lg font-semibold">{dormName}</CardTitle>
 
