@@ -17,7 +17,7 @@ import { InputWithIcon } from '@/components/inputWithIcon/inputWithIcon';
 const FormSchema = z.object({
   name: z.string().min(5).max(100),
   price: z.number().min(1000),
-  size: z.number().min(1).max(50),
+  size: z.number().min(1),
   description: z.string().min(10).max(500),
   bedrooms: z.number().min(1),
   bathrooms: z.number().min(1),
@@ -87,7 +87,7 @@ export const DormRegisterForm: React.FC<FormProb> = ({ form }) => {
                   <FormControl>
                     <InputWithIcon
                       placeholder="Size of dormitory"
-                      type="text"
+                      type="number"
                       icon={<Hotel />}
                       fields={field}
                     />

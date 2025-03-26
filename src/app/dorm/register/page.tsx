@@ -14,7 +14,7 @@ export default async function Page() {
             Dormitory registration
           </h1>
           <Divider className="max-w-6xl w-full" />
-          <DormRegisterBox />
+          <DormRegisterBox access_token={session.access_token} />
         </div>
       </div>
     );
