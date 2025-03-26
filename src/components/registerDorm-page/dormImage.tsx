@@ -20,15 +20,15 @@ export const ImageBox: React.FC<ImageBoxProps> = ({ images, setImages }) => {
     setImages((prev) => [...prev, ...uploadedImages]);
   };
   return (
-    <div className="flex flex-col justify-center items-center p-5 gap-4">
+    <div className="flex flex-col justify-center items-center p-5 gap-3.5">
       {images.length === 0 ? (
         <div>
           <div>
             <Image
               src={'/college-dormitory.png'}
               alt="dorm image"
-              height={700}
-              width={700}
+              height={800}
+              width={800}
               className="max-w-7xl w-full pl-2"
             />
           </div>
