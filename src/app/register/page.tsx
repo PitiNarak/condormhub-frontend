@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 
 export default async function Page() {
   const session = await auth();
-  if (session) {
+  if (session?.access_token) {
     redirect('/');
   }
 

@@ -4,6 +4,7 @@ import * as motion from 'motion/react-client';
 import React from 'react';
 import { auth } from '@/lib/auth';
 import { UserDropdown } from '@/components/navigationBar/userDropdown';
+import { NotiBtn } from '@/components/navigationBar/notificationButton';
 
 export async function Navbar() {
   const session = await auth();
@@ -25,16 +26,26 @@ export async function Navbar() {
             <Logo />
           </div>
           <div className="flex gap-4 justify-center items-center">
+            <SelectedMenu text="dev" path="/dev" />
             <SelectedMenu text="home" path="/" />
-            {!session ? (
+            {!session?.access_token ? (
               <>
                 <SelectedMenu text="Register" path="/register" />
                 <SelectedMenu text="Login" path="/login" />
               </>
             ) : (
-              <UserDropdown
-                name={session.user?.firstname + ' ' + session.user?.lastname}
-              />
+              <>
+                {/* {session.user?.role === 'LESSOR' && (
+                  <SelectedMenu icon={<Bell />} path="/lessorNotification" />
+                )}
+                {session.user?.role === 'LESSEE' && (
+                  <SelectedMenu icon={<Bell />} path="/lesseeNotification" />
+                )} */}
+                <NotiBtn />
+                <UserDropdown
+                  name={session.user?.firstname + ' ' + session.user?.lastname}
+                />
+              </>
               // <LogoutButton />
             )}
           </div>

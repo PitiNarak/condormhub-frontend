@@ -5,7 +5,7 @@ import {
   RequestDetail,
 } from '@/components/navigationBar/notificationRequestDetail';
 
-const mockData = JSON.stringify([
+const mockData = [
   {
     requestId: '1',
     requestUser: 'User1',
@@ -36,9 +36,9 @@ const mockData = JSON.stringify([
     propName: 'Ideo5',
     proposal: 'I want to open a restaurant',
   },
-]);
+];
 
-import { Bell } from 'lucide-react';
+import { Bell, ExternalLink } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -46,9 +46,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import Link from 'next/link';
+import { auth } from '@/lib/auth';
 
-export function NotiBtn() {
-  const allNoti = JSON.parse(mockData);
+export async function NotiBtn() {
+  const allNoti = mockData;
+  const session = await auth();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -56,10 +59,19 @@ export function NotiBtn() {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-[220px] md:w-[300px] h-[200px]">
         <DropdownMenuLabel>
-          Notification
-          <span className="ml-1 text-gray-400 font-thin text-xs">
-            &#40;Click to read&#41;
-          </span>
+          <div className="flex flex-row items-center justify-between">
+            Notification
+            {session?.user?.role === 'LESSOR' && (
+              <Link href="/lesseeNotification">
+                <ExternalLink />
+              </Link>
+            )}
+            {session?.user?.role === 'LESSEE' && (
+              <Link href="/lessorNotification">
+                <ExternalLink />
+              </Link>
+            )}
+          </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <ScrollArea className="h-[150px]">
