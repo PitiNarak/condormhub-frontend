@@ -12,11 +12,27 @@ import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
   name: z.string().min(5).max(100),
-  price: z.number().min(1000),
-  size: z.number().min(1),
+  price: z.coerce
+    .number({
+      invalid_type_error: 'Must be a number',
+    })
+    .min(1000),
+  size: z.coerce
+    .number({
+      invalid_type_error: 'Must be a number',
+    })
+    .min(1),
   description: z.string().min(10).max(500),
-  bedrooms: z.number().min(1),
-  bathrooms: z.number().min(1),
+  bedrooms: z.coerce
+    .number({
+      invalid_type_error: 'Must be a number',
+    })
+    .min(1),
+  bathrooms: z.coerce
+    .number({
+      invalid_type_error: 'Must be a number',
+    })
+    .min(1),
   district: z.string().min(1).max(50),
   province: z.string().min(1).max(50),
   subdistrict: z.string().min(1).max(50),
@@ -48,8 +64,6 @@ export const DormRegisterBox: React.FC<Session> = ({ access_token }) => {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      console.log(images);
-      console.log(form);
       const res = await sendDormRegistration(values, access_token);
       if (!res || !('data' in res) || !res.data) {
         console.error('Cannot create dorm');

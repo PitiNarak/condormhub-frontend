@@ -14,23 +14,39 @@ import {
 } from '@/components/ui/form';
 import { InputWithIcon } from '@/components/inputWithIcon/inputWithIcon';
 
-const FormSchema = z.object({
+const formSchema = z.object({
   name: z.string().min(5).max(100),
-  price: z.number().min(1000),
-  size: z.number().min(1),
+  price: z.coerce
+    .number({
+      invalid_type_error: 'Must be a number',
+    })
+    .min(1000),
+  size: z.coerce
+    .number({
+      invalid_type_error: 'Must be a number',
+    })
+    .min(1),
   description: z.string().min(10).max(500),
-  bedrooms: z.number().min(1),
-  bathrooms: z.number().min(1),
+  bedrooms: z.coerce
+    .number({
+      invalid_type_error: 'Must be a number',
+    })
+    .min(1),
+  bathrooms: z.coerce
+    .number({
+      invalid_type_error: 'Must be a number',
+    })
+    .min(1),
   district: z.string().min(1).max(50),
   province: z.string().min(1).max(50),
   subdistrict: z.string().min(1).max(50),
   zipcode: z.string().length(5),
 });
 
-void FormSchema;
+void formSchema;
 
 interface FormProb {
-  form: ReturnType<typeof useForm<z.infer<typeof FormSchema>>>;
+  form: ReturnType<typeof useForm<z.infer<typeof formSchema>>>;
 }
 
 export const DormRegisterForm: React.FC<FormProb> = ({ form }) => {
