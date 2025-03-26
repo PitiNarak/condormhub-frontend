@@ -8,10 +8,20 @@ import { auth } from '@/lib/auth';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import React from 'react';
+import { unstable_cache as cache } from 'next/cache';
+
+const getDorm = cache(
+  async (id) => {
+    const res = await getDormByID(id);
+    return res;
+  },
+  ['dorm-details'],
+  { tags: ['dorm-details'] }
+);
 
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;
-  const res = await getDormByID(id);
+  const res = await getDorm(id);
   const session = await auth();
   let isRequested = false;
   let index = 0;
