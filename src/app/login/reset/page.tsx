@@ -12,7 +12,7 @@ import { redirect } from 'next/navigation';
 
 export default async function EmailToResetPasswordPage() {
   const session = await auth();
-  if (session) {
+  if (session?.access_token) {
     redirect('/');
   } else {
     return (
