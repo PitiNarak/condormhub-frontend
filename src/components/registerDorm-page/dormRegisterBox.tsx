@@ -64,7 +64,7 @@ export const DormRegisterBox: React.FC<Session> = ({ access_token }) => {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      const res = await sendDormRegistration(values, access_token);
+      const res = await sendDormRegistration(values);
       if (!res || !('data' in res) || !res.data) {
         console.error('Cannot create dorm');
         return;

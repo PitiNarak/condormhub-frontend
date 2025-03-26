@@ -1,6 +1,7 @@
 'use server';
 
 import client from '@/api';
+import { auth } from '@/lib/auth';
 
 interface dorms {
   name: string;
@@ -15,7 +16,8 @@ interface dorms {
   zipcode: string;
 }
 
-export async function sendDormRegistration(dorms: dorms, access_token: string) {
+export async function sendDormRegistration(dorms: dorms) {
+  const session = await auth();
   const { data, error } = await client.POST('/dorms', {
     body: {
       address: {
@@ -32,7 +34,7 @@ export async function sendDormRegistration(dorms: dorms, access_token: string) {
       name: dorms.name,
     },
     headers: {
-      Authorization: `Bearer ${access_token}`,
+      Authorization: `Bearer ${session?.access_token}`,
     },
   });
   if (error || !data.data) {
