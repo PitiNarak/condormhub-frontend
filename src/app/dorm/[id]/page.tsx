@@ -52,13 +52,13 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
     if (allRequest.data) {
       while (!isRequested) {
-        if (
+        if (index === allRequest.data.length) {
+          break;
+        } else if (
           allRequest.data[index].dorm?.id === id &&
           allRequest.data[index].status === 'PENDING'
         ) {
           isRequested = true;
-          break;
-        } else if (index + 1 === allRequest.data.length) {
           break;
         } else {
           index++;
