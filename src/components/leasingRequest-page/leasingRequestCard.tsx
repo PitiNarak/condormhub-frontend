@@ -33,12 +33,12 @@ const LeasingRequestCard: React.FC<LeasingRequestCardProps> = ({
 }) => {
   const { toast } = useToast();
 
-  const showSuccessToast = () => {
+  const showSuccessToast = (type: 'Accepted' | 'Rejected') => {
     toast({
       description: (
         <div className="flex gap-5">
           <CircleCheckBig className="text-green-500" />
-          <p className="text-base">Requested successfully</p>
+          <p className="text-base">{type} successfully</p>
         </div>
       ),
     });
@@ -57,7 +57,7 @@ const LeasingRequestCard: React.FC<LeasingRequestCardProps> = ({
     if ('error' in action) {
       showErrorToast(action.error ?? '');
     } else {
-      showSuccessToast();
+      showSuccessToast('Accepted');
     }
   };
 
@@ -66,7 +66,7 @@ const LeasingRequestCard: React.FC<LeasingRequestCardProps> = ({
     if ('error' in action) {
       showErrorToast(action.error ?? '');
     } else {
-      showSuccessToast();
+      showSuccessToast('Rejected');
     }
   };
 
