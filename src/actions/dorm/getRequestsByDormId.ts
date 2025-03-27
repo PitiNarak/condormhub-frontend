@@ -1,13 +1,12 @@
 import client from '@/api';
 import { auth } from '@/lib/auth';
 
-export const getRequests = async (page: number) => {
+export const getRequestsByDormId = async (dormId: string) => {
   const session = await auth();
-  const res = await client.GET('/request/me', {
+  const res = await client.GET('/request/bydorm/{id}', {
     params: {
-      query: {
-        limit: 50,
-        page: page,
+      path: {
+        id: dormId,
       },
     },
     headers: {
