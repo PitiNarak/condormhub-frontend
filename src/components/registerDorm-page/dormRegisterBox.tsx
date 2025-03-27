@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useSession } from 'next-auth/react';
 import { uploadImage } from '@/actions/editDorm/uploadImage';
 import { ImageBox } from '@/components/registerDorm-page/dormImage';
 import * as z from 'zod';
@@ -40,11 +41,8 @@ const formSchema = z.object({
   zipcode: z.string().length(5),
 });
 
-interface Session {
-  access_token: string;
-}
-
-export const DormRegisterBox: React.FC<Session> = ({ access_token }) => {
+export default function DormRegisterBox() {
+  const { data: session } = useSession();
   const router = useRouter();
   const [images, setImages] = useState<string[]>([]);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -63,7 +61,9 @@ export const DormRegisterBox: React.FC<Session> = ({ access_token }) => {
           const response = await fetch(imageUrl);
           const blob = await response.blob();
           const file = new File([blob], 'image.jpg', { type: blob.type });
-          await uploadImage(file, res.data.id, access_token);
+          if (session?.access_token) {
+            await uploadImage(file, res.data.id, session?.access_token);
+          }
         }
         router.push('/dorm/' + res.data.id);
       } else {
@@ -95,4 +95,4 @@ export const DormRegisterBox: React.FC<Session> = ({ access_token }) => {
       </div>
     </div>
   );
-};
+}

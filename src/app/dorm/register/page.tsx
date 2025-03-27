@@ -2,7 +2,7 @@ import React from 'react';
 import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import { Divider } from '@/components/navigationBar/divider';
-import { DormRegisterBox } from '@/components/registerDorm-page/dormRegisterBox';
+import DormRegisterBox from '@/components/registerDorm-page/dormRegisterBox';
 
 export default async function Page() {
   const session = await auth();
@@ -14,7 +14,7 @@ export default async function Page() {
             Dormitory registration
           </h1>
           <Divider className="max-w-6xl w-full" />
-          <DormRegisterBox access_token={session.access_token} />
+          <DormRegisterBox />
         </div>
       </div>
     );

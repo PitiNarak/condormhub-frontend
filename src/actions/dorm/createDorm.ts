@@ -3,7 +3,7 @@
 import client from '@/api';
 import { auth } from '@/lib/auth';
 
-interface dorms {
+interface Dorms {
   name: string;
   bedrooms: number;
   bathrooms: number;
@@ -16,7 +16,7 @@ interface dorms {
   zipcode: string;
 }
 
-export async function sendDormRegistration(dorms: dorms) {
+export async function sendDormRegistration(dorms: Dorms) {
   const session = await auth();
   const { data, error } = await client.POST('/dorms', {
     body: {
