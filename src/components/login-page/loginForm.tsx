@@ -34,7 +34,7 @@ export function LoginForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     signIn(
-      'credentials',
+      'login',
       {
         email: values.email,
         password: values.password,
