@@ -2472,6 +2472,68 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/receipt': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Retrieve receipts by user ID
+     * @description Get all receipts associated with a specific user
+     */
+    get: {
+      parameters: {
+        query?: {
+          /** @description Number of receipts to retrieve (default 10, max 50) */
+          limit?: number;
+          /** @description Page number to retrieve (default 1) */
+          page?: number;
+        };
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description Receipts retrieved successfully */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.PaginationResponse-dto_ReceiptResponseBody'];
+          };
+        };
+        /** @description Invalid query parameters */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Failed to retrieve receipts */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/request/bydorm/{id}': {
     parameters: {
       query?: never;
@@ -4020,7 +4082,17 @@ export interface components {
       data?: components['schemas']['dto.OrderResponseBody'][];
       pagination?: components['schemas']['dto.Pagination'];
     };
+    'dto.PaginationResponse-dto_ReceiptResponseBody': {
+      data?: components['schemas']['dto.ReceiptResponseBody'][];
+      pagination?: components['schemas']['dto.Pagination'];
+    };
     'dto.ProfilePictureUploadResponseBody': {
+      url?: string;
+    };
+    'dto.ReceiptResponseBody': {
+      owner?: components['schemas']['dto.UserResponse'];
+      receiptId?: string;
+      transaction?: components['schemas']['dto.TransactionResponse'];
       url?: string;
     };
     'dto.RefreshTokenRequestBody': {
