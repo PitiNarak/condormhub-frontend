@@ -1,8 +1,9 @@
 import React from 'react';
-import { auth } from '@/lib/auth';
+
 import { redirect } from 'next/navigation';
 import { Divider } from '@/components/navigationBar/divider';
 import DormRegisterBox from '@/components/registerDorm-page/dormRegisterBox';
+import { auth } from '@/lib/auth';
 
 export default async function Page() {
   const session = await auth();
