@@ -61,8 +61,8 @@ export async function PropertyScroll({
           Sorry, no properties found.
         </p>
       ) : (
-        <div className="flex flex-col items-center">
-          <div className="flex flex-wrap gap-3 mx-5 py-10 max-w-[1360px]">
+        <div className="px-[5px] xl:px-[20px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mx-5">
             {propertyData.map(
               (data: components['schemas']['dto.DormResponseBody']) => (
                 <div key={String(data.id)} className="text-sm">

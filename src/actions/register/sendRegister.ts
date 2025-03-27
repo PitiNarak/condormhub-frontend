@@ -9,9 +9,7 @@ export interface user {
   confirmPassword: string;
 }
 
-export async function sendRegistration(value: user): Promise<{
-  message?: string;
-} | void> {
+export async function sendRegistration(value: user) {
   const { data, error } = await client.POST('/auth/register', {
     body: {
       email: value.email,
@@ -24,4 +22,5 @@ export async function sendRegistration(value: user): Promise<{
       message: error?.error,
     };
   }
+  return data.data;
 }

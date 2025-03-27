@@ -31,31 +31,29 @@ export function PropertyCard({
     <Link href={'/dorm/' + id}>
       <Card className="w-full shadow-none border-none">
         <CardContent className="pb-3 px-0">
-          <div className="">
-            <div className="justify-center mx-auto w-[330px] h-[220px] mb-2 relative">
-              <Image
-                src={image}
-                alt="Description of image"
-                fill={true}
-                className="rounded-md"
-              />
+          <div className="justify-center mx-auto w-[100%] md:w-[100%] lg:w-[100%] aspect-[3/2] mb-2 relative">
+            <Image
+              src={image}
+              alt="Description of image"
+              fill={true}
+              className="rounded-md object-cover"
+            />
+          </div>
+          <div className="flex">
+            <div className="pl-2">
+              <p className="font-bold text-lg">{propertyName}</p>
+              <p className="font-bold">
+                {district}, {province}
+              </p>
+              <p>
+                {bedroom} Bed {bathroom} Bath
+              </p>
+              <p>{price.toLocaleString('th-TH')} Baht</p>
             </div>
-            <div className="flex">
-              <div className="pl-2">
-                <p className="font-bold text-lg">{propertyName}</p>
-                <p className="font-bold">
-                  {district}, {province}
-                </p>
-                <p>
-                  {bedroom} Bed {bathroom} Bath
-                </p>
-                <p>{price.toLocaleString('th-TH')} Baht</p>
-              </div>
-              <div className="flex-1 relative">
-                <div className="absolute top-0 right-0 flex ">
-                  <p className="content-center">{rating}&nbsp;</p>
-                  <Star size={18} />
-                </div>
+            <div className="flex-1 relative">
+              <div className="absolute top-0 right-0 flex ">
+                <p className="content-center">{rating}&nbsp;</p>
+                <Star size={18} />
               </div>
             </div>
           </div>

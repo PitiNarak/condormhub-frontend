@@ -1,5 +1,5 @@
 import { getDormByID } from '@/actions/dorm/getDormByID';
-import { getRequests } from '@/actions/dorm/getRequests';
+import { getRequestsByDormId } from '@/actions/dorm/getRequestsByDormId';
 import { EditDormButton } from '@/components/dorm-page/editDormButton';
 import { ImageCarousel } from '@/components/dorm-page/imageCarousel';
 import { RequestBtn } from '@/components/dorm-page/requestBtn';
@@ -25,44 +25,18 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const session = await auth();
   let isRequested = false;
   if (session?.access_token) {
-    let index = 0;
-    let page = 1;
-
-    const allRequest = await getRequests(page);
+    const allRequest = await getRequestsByDormId(id);
 
     if (allRequest && 'error' in allRequest) {
       redirect('/');
-    } else if (
-      allRequest.data &&
-      allRequest.pagination?.limit &&
-      allRequest.pagination.total &&
-      allRequest.pagination.limit < allRequest.pagination.total
-    ) {
-      const totalPages = Math.ceil(
-        allRequest.pagination.total / allRequest.pagination.limit
-      );
-      while (page < totalPages) {
-        page++;
-        const nextPage = await getRequests(page);
-        if (nextPage && !('error' in nextPage) && nextPage.data) {
-          allRequest.data = [...allRequest.data, ...nextPage.data];
-        }
-      }
-    }
-
-    if (allRequest.data) {
-      while (!isRequested) {
-        if (
-          allRequest.data[index].dorm?.id === id &&
-          allRequest.data[index].status === 'PENDING'
-        ) {
-          isRequested = true;
-          break;
-        } else if (index + 1 === allRequest.data.length) {
-          break;
-        } else {
-          index++;
-        }
+    } else if (allRequest.data && allRequest.data.length > 1) {
+      if (
+        !(
+          allRequest.data[0].status === 'CANCELED' ||
+          allRequest.data[0].status === 'REJECT'
+        )
+      ) {
+        isRequested = true;
       }
     }
   }

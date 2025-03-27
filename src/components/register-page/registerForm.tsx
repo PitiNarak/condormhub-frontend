@@ -5,7 +5,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Button } from '@/components/ui/button';
 import { Mail, Lock, User } from 'lucide-react';
-import { sendRegistration } from '@/actions/register/sendRegister';
 import { useState } from 'react';
 
 import {
@@ -18,7 +17,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { InputWithIcon } from '@/components/inputWithIcon/inputWithIcon';
-import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 
 const formSchema = z
   .object({
@@ -39,8 +38,6 @@ const formSchema = z
 
 export function MyForm() {
   const [isLoad, setLoad] = useState(false);
-  const router = useRouter();
-  const [err, setErr] = useState('');
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -53,19 +50,16 @@ export function MyForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoad(true);
-    try {
-      const result = await sendRegistration(values);
-      setErr('');
-      if (result && result.message !== 'user successfully registered') {
-        //Tell user why
-        setErr(result.message ? result.message : '');
-      } else {
-        //Redirect to email verification
-        router.push('/emailVerification');
-      }
-    } catch (e: unknown) {
-      console.log(e);
-    }
+    signIn(
+      'signup',
+      {
+        email: values.email,
+        password: values.password,
+        username: values.username,
+        redirect: true,
+      },
+      { callbackUrl: '/emailVerification' }
+    );
     setLoad(false);
   }
 
@@ -157,7 +151,7 @@ export function MyForm() {
           )}
         />
         <div>
-          <p className="text-red-500 font-extralight text-sm">{err}</p>
+          <p></p>
         </div>
         <div>
           <Button className="w-full mt-3" disabled={isLoad} type="submit">

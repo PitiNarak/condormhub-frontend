@@ -34,6 +34,9 @@ export async function UserDropdown({ name, avatarUrl }: Props) {
           <Link href="/setting">Profile</Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
+          <Link href="/dorm/register">Domitory</Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
           <LogoutButton />
         </DropdownMenuItem>
       </DropdownMenuContent>
