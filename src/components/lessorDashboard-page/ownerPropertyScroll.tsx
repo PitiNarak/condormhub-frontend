@@ -1,5 +1,3 @@
-'use server';
-
 import type { components } from '@/types/api';
 import { redirect } from 'next/navigation';
 import { mockData } from '@/mocks/mockProperty';
