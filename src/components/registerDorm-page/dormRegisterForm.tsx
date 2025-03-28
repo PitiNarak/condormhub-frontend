@@ -4,7 +4,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { Input } from '@/components/ui/input';
-import { Hotel } from 'lucide-react';
+import { Hotel, MapPin } from 'lucide-react';
 import { CreateInput } from 'thai-address-autocomplete-react';
 import {
   Form,
@@ -14,7 +14,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { InputWithIcon } from '@/components/inputWithIcon/inputWithIcon';
 
 const InputThaiAddress = CreateInput();
 
@@ -58,7 +57,12 @@ export const DormRegisterForm: React.FC<FormProb> = ({ form }) => {
     <div>
       <Form {...form}>
         <form onSubmit={() => {}} className="max-w-4xl mx-auto pt-0 space-y-2">
-          <h2 className="text-xl font-semibold pt-2">Information</h2>
+          <div className="relative">
+            <div className="absolute h-2 w-2 text-muted-foreground">
+              <Hotel />
+            </div>
+            <span className="text-xl font-semibold pt-2 pl-7">Information</span>
+          </div>
           <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
             <FormField
               control={form.control}
@@ -68,7 +72,7 @@ export const DormRegisterForm: React.FC<FormProb> = ({ form }) => {
                   <FormLabel>Name</FormLabel>
                   <FormControl>
                     <Input
-                      type={'number'}
+                      type={'text'}
                       placeholder={'Name of your dormitory'}
                       className="w-full rounded-lg bg-background"
                       {...field}
@@ -157,7 +161,12 @@ export const DormRegisterForm: React.FC<FormProb> = ({ form }) => {
               )}
             />
           </div>
-          <h2 className="text-xl font-semibold pt-2">Address</h2>
+          <div className="relative pt-2">
+            <div className="absolute h-2 w-2 text-muted-foreground">
+              <MapPin />
+            </div>
+            <span className="text-xl font-semibold pt-2 pl-7">Address</span>
+          </div>
           <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
             <FormField
               control={form.control}
