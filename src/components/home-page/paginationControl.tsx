@@ -12,9 +12,13 @@ import {
 
 interface PaginationControlProps {
   lastPage: number;
+  basePath: string;
 }
 
-export function PaginationControl({ lastPage }: PaginationControlProps) {
+export function PaginationControl({
+  lastPage,
+  basePath,
+}: PaginationControlProps) {
   const searchParams = useSearchParams();
   const currentPage = Number(searchParams.get('page')) || 1;
 
@@ -22,7 +26,7 @@ export function PaginationControl({ lastPage }: PaginationControlProps) {
   const createPageLink = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set('page', page.toString());
-    return `/?${params.toString()}`;
+    return `${basePath}?${params.toString()}`;
   };
 
   // Base pagination numbers array

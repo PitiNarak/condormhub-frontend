@@ -85,7 +85,10 @@ export async function PropertyScroll({
               )
             )}
           </div>
-          <PaginationControl lastPage={Number(paginationElement?.last_page)} />
+          <PaginationControl
+            lastPage={Number(paginationElement?.last_page)}
+            basePath="/"
+          />
         </div>
       )}
     </div>
