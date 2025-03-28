@@ -3,7 +3,7 @@
 import client from '@/api';
 
 export async function fetchOwnerProperty(
-  OwnerID: string,
+  ownerId: string,
   page: number = 1,
   limit: number = 12
 ) {
