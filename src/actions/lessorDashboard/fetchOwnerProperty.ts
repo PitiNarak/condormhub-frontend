@@ -7,7 +7,7 @@ export async function fetchOwnerProperty(
   page: number = 1,
   limit: number = 12
 ) {
-  if (!OwnerID) {
+  if (!ownerId) {
     return {
       message: 'Owner ID is required.',
       pagination: {
@@ -23,7 +23,7 @@ export async function fetchOwnerProperty(
     // Make API call to fetch properties by owner ID
     const { data, error } = await client.GET('/dorms/owner/{id}', {
       params: {
-        path: { id: OwnerID },
+        path: { id: ownerId },
         query: { page, limit },
       },
     });
