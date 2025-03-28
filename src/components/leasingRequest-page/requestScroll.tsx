@@ -2,7 +2,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { getMyLeasingRequest } from '@/actions/leasingRequest/getMe';
 import { LeasingRequestCard } from '@/components/leasingRequest-page/leasingRequestCard';
 
-export async function RequestScroll() {
+export async function RequestScroll({ isLessor }: { isLessor: boolean }) {
   const leasingRequest = await getMyLeasingRequest();
   return (
     <div className="w-full max-w-2xl mx-auto p-4">
@@ -23,6 +23,7 @@ export async function RequestScroll() {
                   createAt={d.start ?? ''}
                   status={d.status ?? 'UNKNOWN'}
                   message={d.message ?? 'MESSAGE'}
+                  isLessor={isLessor}
                 />
               ))
             : leasingRequest.data?.data && leasingRequest.data.data.length < 1

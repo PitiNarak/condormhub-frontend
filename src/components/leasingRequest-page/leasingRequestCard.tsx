@@ -20,6 +20,7 @@ interface LeasingRequestCardProps {
   createAt: string;
   status: string;
   message: string;
+  isLessor: boolean;
 }
 
 const LeasingRequestCard: React.FC<LeasingRequestCardProps> = ({
@@ -30,6 +31,7 @@ const LeasingRequestCard: React.FC<LeasingRequestCardProps> = ({
   createAt,
   status,
   message,
+  isLessor,
 }) => {
   const { toast } = useToast();
 
@@ -120,7 +122,7 @@ const LeasingRequestCard: React.FC<LeasingRequestCardProps> = ({
         <p className="text-sm">{message}</p>
       </div>
 
-      {status === 'PENDING' && (
+      {status === 'PENDING' && isLessor && (
         <div className="flex flex-col gap-2 items-end w-20">
           <Button variant="outline" className="w-full" onClick={handleAccept}>
             Accept
