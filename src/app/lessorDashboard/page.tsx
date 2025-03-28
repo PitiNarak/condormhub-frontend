@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation';
 export default async function Page({
   searchParams,
 }: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  searchParams: Promise<{ page: string }>;
 }) {
   const { page } = await searchParams;
 
@@ -17,16 +17,7 @@ export default async function Page({
     redirect('/'); // Redirect if not a LESSOR
   }
 
-  // Helper function to convert string | string[] | undefined to a number with a fallback value
-  const toNumber = (
-    value: string | string[] | undefined,
-    defaultValue: number
-  ): number => {
-    const strValue = Array.isArray(value) ? value[0] : value;
-    return strValue ? parseInt(strValue, 10) || defaultValue : defaultValue;
-  };
-
-  const pageNum = toNumber(page, 1);
+  const pageNum = parseInt(page, 10) || 1;
 
   return (
     <div>
