@@ -226,6 +226,419 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/contract': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Retrieve contracts by user ID
+     * @description Get all contracts associated with a specific user
+     */
+    get: {
+      parameters: {
+        query?: {
+          /** @description Number of contracts to retrieve (default 10, max 50) */
+          limit?: number;
+          /** @description Page number to retrieve (default 1) */
+          page?: number;
+        };
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description Contracts retrieved successfully */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.PaginationResponse-dto_ContractResponseBody'];
+          };
+        };
+        /** @description Invalid query parameters */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Failed to retrieve contracts */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    put?: never;
+    /**
+     * Create a new contract
+     * @description Create a contract between a lessor and lessee for a dorm
+     */
+    post: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      /** @description Contract details */
+      requestBody: {
+        content: {
+          'application/json': components['schemas']['dto.ContractRequestBody'];
+        };
+      };
+      responses: {
+        /** @description Contract created successfully */
+        201: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.SuccessResponse-dto_ContractResponseBody'];
+          };
+        };
+        /** @description Invalid request body */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Failed to create contract */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/contract/{contractId}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Retrieve a contract by contract ID
+     * @description Get details of a specific contract
+     */
+    get: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description Contract ID */
+          contractId: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description Contract retrieved successfully */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.SuccessResponse-dto_ContractResponseBody'];
+          };
+        };
+        /** @description Invalid contract ID format */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Failed to retrieve contract */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    /**
+     * Delete a contract
+     * @description Permanently delete a contract by ID
+     */
+    delete: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description Contract ID */
+          contractId: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description Contract deleted successfully */
+        204: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content?: never;
+        };
+        /** @description Invalid contract ID format */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Failed to delete contract */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/contract/{contractId}/cancel': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /**
+     * Cancel an existing contract
+     * @description Cancel a contract if it is not signed
+     */
+    patch: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description Contract ID */
+          contractId: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description Contract cancelled successfully */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.SuccessResponse-dto_ContractResponseBody'];
+          };
+        };
+        /** @description Invalid contract ID format or contract cannot be cancelled */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Unauthorized */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Failed to cancel contract */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    trace?: never;
+  };
+  '/contract/{contractId}/sign': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /**
+     * Sign an existing contract
+     * @description Sign a contract by providing contract ID
+     */
+    patch: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description Contract ID */
+          contractId: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description Contract signed successfully */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.SuccessResponse-dto_ContractResponseBody'];
+          };
+        };
+        /** @description Invalid contract ID format */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Unauthorized */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Failed to sign contract */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    trace?: never;
+  };
+  '/contract/{dormId}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Retrieve contracts by dorm ID
+     * @description Get all contracts associated with a specific dorm
+     */
+    get: {
+      parameters: {
+        query?: {
+          /** @description Number of contracts to retrieve (default 10, max 50) */
+          limit?: number;
+          /** @description Page number to retrieve (default 1) */
+          page?: number;
+        };
+        header?: never;
+        path: {
+          /** @description Dorm ID */
+          dormId: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description Contracts retrieved successfully */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.PaginationResponse-dto_ContractResponseBody'];
+          };
+        };
+        /** @description Invalid dorm ID format or query parameters */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Failed to retrieve contracts */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/dorms': {
     parameters: {
       query?: never;
@@ -361,6 +774,95 @@ export interface paths {
       };
     };
     delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/dorms/images/{url}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    /**
+     * Delete a dorm image by its url
+     * @description Deletes a dorm image using its percent encoded url from bucket storage. Encode URL using the encodeURIComponent() function.
+     */
+    delete: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description Percent encoded URL */
+          url: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: {
+        content: {
+          'application/json': Record<string, never>;
+        };
+      };
+      responses: {
+        /** @description Image deleted successfully */
+        204: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content?: never;
+        };
+        /** @description Your request is invalid */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description your request is unauthorized */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description You do not have permission to delete this dorm image */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Image not found */
+        404: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Failed to delete image */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
     options?: never;
     head?: never;
     patch?: never;
@@ -1970,6 +2472,151 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/receipt': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Retrieve receipts by user ID
+     * @description Get all receipts associated with a specific user
+     */
+    get: {
+      parameters: {
+        query?: {
+          /** @description Number of receipts to retrieve (default 10, max 50) */
+          limit?: number;
+          /** @description Page number to retrieve (default 1) */
+          page?: number;
+        };
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description Receipts retrieved successfully */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.PaginationResponse-dto_ReceiptResponseBody'];
+          };
+        };
+        /** @description Invalid query parameters */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Failed to retrieve receipts */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/request/bydorm/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get all leasing request by dormid
+     * @description Retrieve a list of all leasing request by dormid
+     */
+    get: {
+      parameters: {
+        query?: {
+          /** @description Number of leasing request to retrieve (default 10, max 50) */
+          limit?: number;
+          /** @description Page number to retrieve (default 1) */
+          page?: number;
+        };
+        header?: never;
+        path: {
+          /** @description DormID */
+          id: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description Retrieve request successfully */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.PaginationResponse-dto_LeasingRequest'];
+          };
+        };
+        /** @description Incorrect UUID format or limit parameter is incorrect or page parameter is incorrect or page exceeded */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description your request is unauthorized */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description leasing request not found */
+        404: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Can not parse UUID */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/request/me': {
     parameters: {
       query?: never;
@@ -2064,7 +2711,12 @@ export interface paths {
         };
         cookie?: never;
       };
-      requestBody?: never;
+      /** @description request information */
+      requestBody: {
+        content: {
+          'application/json': components['schemas']['dto.LeasingRequestCreateRequestBody'];
+        };
+      };
       responses: {
         /** @description Dorm successfully created */
         201: {
@@ -2224,7 +2876,7 @@ export interface paths {
             'application/json': components['schemas']['dto.ErrorResponse'];
           };
         };
-        /** @description your request is unauthorized or only lessor can approve a request */
+        /** @description your request is unauthorized or lessee cannot approve a request */
         401: {
           headers: {
             [name: string]: unknown;
@@ -2300,7 +2952,7 @@ export interface paths {
             'application/json': components['schemas']['dto.ErrorResponse'];
           };
         };
-        /** @description your request is unauthorized */
+        /** @description your request is unauthorized or lessor cannot cancel a request */
         401: {
           headers: {
             [name: string]: unknown;
@@ -2376,7 +3028,7 @@ export interface paths {
             'application/json': components['schemas']['dto.ErrorResponse'];
           };
         };
-        /** @description your request is unauthorized or only lessor can reject a request */
+        /** @description your request is unauthorized or lessee cannot reject a request */
         401: {
           headers: {
             [name: string]: unknown;
@@ -2615,6 +3267,77 @@ export interface paths {
     options?: never;
     head?: never;
     patch?: never;
+    trace?: never;
+  };
+  '/user/firstfill': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /**
+     * Fill user information first time
+     * @description Fill user information first time
+     */
+    patch: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      /** @description user information */
+      requestBody: {
+        content: {
+          'application/json': components['schemas']['dto.UserFirstFillRequestBody'];
+        };
+      };
+      responses: {
+        /** @description user successfully updated account information */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.SuccessResponse-dto_UserResponse'];
+          };
+        };
+        /** @description your request is invalid */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description your request is unauthorized */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description system cannot update your account information */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
     trace?: never;
   };
   '/user/me': {
@@ -3230,6 +3953,19 @@ export interface components {
       subdistrict?: string;
       zipcode?: string;
     };
+    'dto.ContractRequestBody': {
+      dormId?: string;
+      lesseeId?: string;
+    };
+    'dto.ContractResponseBody': {
+      contractStatus?: string;
+      dorm?: components['schemas']['dto.DormResponseBody'];
+      id?: string;
+      lessee?: components['schemas']['dto.UserResponse'];
+      lesseeStatus?: string;
+      lessorStatus?: components['schemas']['dto.ContractStatus'];
+    };
+    'dto.ContractStatus': string;
     'dto.CreateTransactionResponseBody': {
       checkoutUrl?: string;
     };
@@ -3293,8 +4029,12 @@ export interface components {
       end?: string;
       id?: string;
       lessee?: components['schemas']['dto.UserResponse'];
+      message?: string;
       start?: string;
       status?: components['schemas']['dto.Status'];
+    };
+    'dto.LeasingRequestCreateRequestBody': {
+      message?: string;
     };
     'dto.LoginRequestBody': {
       email: string;
@@ -3322,6 +4062,10 @@ export interface components {
       limit?: number;
       total?: number;
     };
+    'dto.PaginationResponse-dto_ContractResponseBody': {
+      data?: components['schemas']['dto.ContractResponseBody'][];
+      pagination?: components['schemas']['dto.Pagination'];
+    };
     'dto.PaginationResponse-dto_DormResponseBody': {
       data?: components['schemas']['dto.DormResponseBody'][];
       pagination?: components['schemas']['dto.Pagination'];
@@ -3338,7 +4082,17 @@ export interface components {
       data?: components['schemas']['dto.OrderResponseBody'][];
       pagination?: components['schemas']['dto.Pagination'];
     };
+    'dto.PaginationResponse-dto_ReceiptResponseBody': {
+      data?: components['schemas']['dto.ReceiptResponseBody'][];
+      pagination?: components['schemas']['dto.Pagination'];
+    };
     'dto.ProfilePictureUploadResponseBody': {
+      url?: string;
+    };
+    'dto.ReceiptResponseBody': {
+      owner?: components['schemas']['dto.UserResponse'];
+      receiptId?: string;
+      transaction?: components['schemas']['dto.TransactionResponse'];
       url?: string;
     };
     'dto.RefreshTokenRequestBody': {
@@ -3369,10 +4123,14 @@ export interface components {
       message?: string;
       rate?: number;
     };
+    'dto.Role': string;
     'dto.Status': string;
     'dto.StudentEvidenceUploadResponseBody': {
       expired?: string;
       url?: string;
+    };
+    'dto.SuccessResponse-dto_ContractResponseBody': {
+      data?: components['schemas']['dto.ContractResponseBody'];
     };
     'dto.SuccessResponse-dto_CreateTransactionResponseBody': {
       data?: components['schemas']['dto.CreateTransactionResponseBody'];
@@ -3431,6 +4189,16 @@ export interface components {
       price?: number;
       status?: string;
       updateAt?: string;
+    };
+    'dto.UserFirstFillRequestBody': {
+      birthDate?: string;
+      firstname?: string;
+      gender?: string;
+      lastname?: string;
+      lifestyles?: string[];
+      nationalID?: string;
+      phoneNumber?: string;
+      role?: components['schemas']['dto.Role'];
     };
     'dto.UserInformationRequestBody': {
       birthDate?: string;

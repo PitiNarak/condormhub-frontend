@@ -26,8 +26,9 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   if (res && !('error' in res)) {
     if (session?.access_token) {
       if (
-        (session.user?.role === 'LESSOR' || session.user?.role === 'ADMIN') &&
-        session.user.id === res.owner?.id
+        (session.user?.role === 'LESSOR' &&
+          session.user.id === res.owner?.id) ||
+        session.user?.role === 'ADMIN'
       ) {
         return (
           <div className="pt-5 flex flex-col items-center gap-4 pb-5">

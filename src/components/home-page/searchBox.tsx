@@ -152,7 +152,16 @@ export function SearchBox() {
               {search && (
                 <Button
                   type="button"
-                  onClick={() => setSearch('')}
+                  onClick={() => {
+                    setSearch('');
+                    const params = new URLSearchParams(searchParams.toString());
+
+                    // Reset search query only
+                    params.delete('search');
+                    params.set('page', '1');
+
+                    router.push(`/?${params.toString()}`);
+                  }}
                   className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 rounded-full"
                   variant="ghost"
                   size="icon"

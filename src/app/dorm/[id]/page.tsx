@@ -1,16 +1,45 @@
 import { getDormByID } from '@/actions/dorm/getDormByID';
+import { getRequestsByDormId } from '@/actions/dorm/getRequestsByDormId';
 import { EditDormButton } from '@/components/dorm-page/editDormButton';
 import { ImageCarousel } from '@/components/dorm-page/imageCarousel';
 import { RequestBtn } from '@/components/dorm-page/requestBtn';
 import { Button } from '@/components/ui/button';
 import { auth } from '@/lib/auth';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import React from 'react';
+import { unstable_cache as cache } from 'next/cache';
+
+const getDorm = cache(
+  async (id) => {
+    const res = await getDormByID(id);
+    return res;
+  },
+  ['dorm-details'],
+  { tags: ['dorm-details'] }
+);
 
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;
-  const res = await getDormByID(id);
+  const res = await getDorm(id);
   const session = await auth();
+  let isRequested = false;
+  if (session?.access_token) {
+    const allRequest = await getRequestsByDormId(id);
+
+    if (allRequest && 'error' in allRequest) {
+      redirect('/');
+    } else if (allRequest.data && allRequest.data.length > 1) {
+      if (
+        !(
+          allRequest.data[0].status === 'CANCELED' ||
+          allRequest.data[0].status === 'REJECT'
+        )
+      ) {
+        isRequested = true;
+      }
+    }
+  }
 
   if (res && !('error' in res)) {
     return (
@@ -53,7 +82,12 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
               <h2 className="font-bold text-2xl">Price</h2>
               <p className="text-xl">฿{res.price?.toLocaleString()}</p>
             </div>
-            {session?.user?.role === 'LESSEE' && <RequestBtn dormId={id} />}
+            {session?.user?.role === 'LESSEE' && !isRequested ? (
+              <RequestBtn dormId={id} />
+            ) : (
+              session?.user?.role === 'LESSEE' &&
+              isRequested && <Button disabled>Requested</Button>
+            )}
             {!session?.access_token && (
               <Link href={'/login'}>
                 <Button>Request</Button>

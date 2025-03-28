@@ -4,7 +4,6 @@ import { redirect } from 'next/navigation';
 import { Divider } from '@/components/navigationBar/divider';
 import { VerificationStatus } from '@/components/setting-page/verificationStatus';
 import { DeleteAccountButton } from '@/components/setting-page/deleteAccountButton';
-import { AuthProvider } from '@/components/auth/authProvider';
 
 const page = async () => {
   const session = await auth();
@@ -25,9 +24,7 @@ const page = async () => {
             <p>{session?.user?.email}</p>
           </div>
         </div>
-        <AuthProvider>
-          <UpdateInformationForm />
-        </AuthProvider>
+        <UpdateInformationForm />
         <div className="flex flex-col gap-3 max-w-3xl w-full">
           <h1 className="text-2xl pt-3 font-semibold text-red-500">
             Delete account
