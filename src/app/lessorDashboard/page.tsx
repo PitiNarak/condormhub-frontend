@@ -12,7 +12,7 @@ export default async function Page({
   // Authenticate and check role
   const session = await auth();
 
-  if (!session || session.user?.role !== 'LESSOR') {
+  if (!session || session.user?.role?.toLowerCase() !== 'lessor') {
     console.log('redirect to home because you are not lessor');
     redirect('/'); // Redirect if not a LESSOR
   }
