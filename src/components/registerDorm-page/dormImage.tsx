@@ -22,8 +22,8 @@ export const ImageBox: React.FC<ImageBoxProps> = ({ images, setImages }) => {
   return (
     <div className="flex flex-col justify-center items-center p-3 gap-3.5">
       {images.length === 0 ? (
-        <div className="flex justify-center items-center h-80 w-80 border-4 border-gray-700 rounded-xl p-6 shadow-lg bg-gradient-to-r from-gray-100 to-gray-0 mb-2">
-          <Image />
+        <div className="flex justify-center items-center h-80 w-80 border-4 border-gray-400 border-dashed rounded-xl p-6  mb-2">
+          <Image className="text-gray-400" />
         </div>
       ) : (
         <ImageCarousel images={images} />
