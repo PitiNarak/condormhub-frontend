@@ -19,15 +19,15 @@ export async function OwnerPropertyScroll({
 
   // Get session and owner ID
   const session = await auth();
-  const OwnerID = session?.user?.id;
+  const ownerId = session?.user?.id;
 
-  if (!OwnerID) {
+  if (!ownerId) {
     console.log('no owner id');
     return redirect(redirectPath);
   }
 
   // Fetch properties by owner ID
-  const response = await fetchOwnerProperty(OwnerID, page, limit);
+  const response = await fetchOwnerProperty(ownerId, page, limit);
 
   if ('message' in response) {
     console.error('Error fetching properties:', response.message);
