@@ -21,7 +21,6 @@ export function EmailVerifyForm() {
       if ('error' in data) {
         setErrorMsg(data.error as string);
       } else {
-        console.log(data);
         update({
           user: data.data?.userInformation,
           accessToken: data.data?.accessToken,
