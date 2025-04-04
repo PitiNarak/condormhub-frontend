@@ -1,13 +1,10 @@
 'use client';
 import Image from 'next/image';
-import { useParams } from 'next/navigation';
 import { Card } from '@/components/ui/card';
 import { Star } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 
 export function ProfileHeader() {
-  const params = useParams<{ tag: string; item: string }>();
-
   //const data = fetch(get user from ID)
   const userName = 'Piti';
   const profileURL = '/mockProfile.png';
@@ -15,7 +12,6 @@ export function ProfileHeader() {
   const ratingScore = 4.5;
   const reviewsAmount = 100;
   const totalRenting = 5;
-  console.log(params);
 
   return (
     <div>

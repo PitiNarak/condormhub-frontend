@@ -51,12 +51,12 @@ const mockData = JSON.stringify([
 ]);
 
 export function LesseeReview() {
-  const params = useParams<{ tag: string; item: string }>();
+  const params = useParams<{ lesseeID: string }>();
+  console.log(params);
 
   //const data = fetch(get lessee history from ID)
   const reviews = JSON.parse(mockData);
   const owner = 'Piti';
-  console.log(params);
   return (
     <div className="mt-3">
       <p className="text-xl font-bold text-center py-3">
