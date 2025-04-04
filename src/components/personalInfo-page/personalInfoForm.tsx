@@ -282,8 +282,8 @@ export const PersonalInfoForm = () => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="Lessee">Lessee</SelectItem>
-                    <SelectItem value="Lessor">Lessor</SelectItem>
+                    <SelectItem value="LESSEE">Lessee</SelectItem>
+                    <SelectItem value="LESSOR">Lessor</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
