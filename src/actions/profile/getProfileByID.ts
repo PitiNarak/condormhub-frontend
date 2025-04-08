@@ -15,7 +15,6 @@ export async function getProfileByID(lesseeID: string) {
       Authorization: `Bearer ${session?.access_token}`,
     },
   });
-  console.log(data)
   if (error || !data.data) {
     return {
       message: error?.error,
