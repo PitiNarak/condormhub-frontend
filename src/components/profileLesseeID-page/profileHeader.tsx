@@ -1,13 +1,13 @@
 import Image from 'next/image';
 import { Card } from '@/components/ui/card';
-import { Star } from 'lucide-react';
+import { Check, X } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 
 interface ProfileHeaderProps {
   userName: string;
   profileURL: string;
   role: string;
-  ratingScore: number;
+  isVerified: boolean;
   reviewsAmount: number;
   totalRenting: number;
 }
@@ -16,10 +16,15 @@ export function ProfileHeader({
   userName,
   profileURL,
   role,
-  ratingScore,
+  isVerified,
   reviewsAmount,
   totalRenting,
 }: ProfileHeaderProps) {
+  const verificationIcon = isVerified ? (
+    <Check color="green" />
+  ) : (
+    <X color="red" />
+  );
   return (
     <div>
       <Card className="flex w-[350px] h-[225px] rounded-3xl border-[1px] shadow-lg">
@@ -44,11 +49,8 @@ export function ProfileHeader({
         </div>
         <div>
           <div className="pt-4 pb-3">
-            <div className="flex">
-              <p className="text-xl font-bold mr-1">{ratingScore}</p>
-              <Star />
-            </div>
-            <p className="text-xs">Rating</p>
+            <div className="flex">{verificationIcon}</div>
+            <p className="text-xs">Verified User</p>
           </div>
           <Separator orientation="horizontal" />
           <div className="py-3">

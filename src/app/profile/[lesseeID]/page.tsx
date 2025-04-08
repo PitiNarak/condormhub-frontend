@@ -1,5 +1,4 @@
 import { getProfileByID } from '@/actions/profile/getProfileByID';
-import { LesseeReview } from '@/components/profileLesseeID-page/lesseeReviews';
 import { ProfileHeader } from '@/components/profileLesseeID-page/profileHeader';
 import { ProfileInfo } from '@/components/profileLesseeID-page/profileInfo';
 import { redirect } from 'next/navigation';
@@ -27,7 +26,7 @@ export default async function page({
                   : 'https://placehold.co/100'
               }
               role={data.role ?? ''}
-              ratingScore={5}
+              isVerified={data.isVerified ?? false}
               reviewsAmount={5}
               totalRenting={5}
             />
@@ -47,9 +46,9 @@ export default async function page({
           />
         </div>
       </div>
-      <div className="flex justify-center mx-auto">
+      {/* <div className="flex justify-center mx-auto">
         <LesseeReview lesseeID={lesseeID} />
-      </div>
+      </div> */}
     </div>
   );
 }
