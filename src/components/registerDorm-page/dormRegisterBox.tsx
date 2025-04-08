@@ -9,8 +9,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { DormRegisterForm } from '@/components/registerDorm-page/dormRegisterForm';
 import { sendDormRegistration } from '@/actions/dorm/createDorm';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import { Loading } from '@/components/ui/loading';
 
 const formSchema = z.object({
   name: z.string().min(5).max(100),
@@ -45,11 +46,13 @@ export default function DormRegisterBox() {
   const { data: session } = useSession();
   const router = useRouter();
   const [images, setImages] = useState<string[]>([]);
+  const [button, setButton] = useState<boolean>(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setButton(true);
     try {
       const res = await sendDormRegistration(values);
       if (!res || !('data' in res) || !res.data) {
@@ -80,19 +83,23 @@ export default function DormRegisterBox() {
         <ImageBox images={images} setImages={setImages} />
       </div>
       <DormRegisterForm form={form} />
-      <div className="p-3">
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="max-w-4xl mx-auto pt-0 "
-        >
+      {!button ? (
+        <div className="flex max-w-4xl mx-auto gap-2 pt-2">
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <Button type="submit">Submit</Button>
+          </form>
+
           <Button
-            type="submit"
-            className="max-w-base w-full flex justify-center"
+            type="button"
+            className=" bg-red-500"
+            onClick={() => redirect(`/`)}
           >
-            <span className="text-lg font-semibold">Submit</span>
+            Cancel
           </Button>
-        </form>
-      </div>
+        </div>
+      ) : (
+        <Loading className="flex max-w-4xl mx-auto gap-2 pt-2"></Loading>
+      )}
     </div>
   );
 }

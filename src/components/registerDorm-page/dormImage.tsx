@@ -41,7 +41,7 @@ export const ImageBox: React.FC<ImageBoxProps> = ({ images, setImages }) => {
           htmlFor="file-input"
           className="max-w-7xl w-full flex items-center justify-center bg-black text-white px-4 py-2 rounded-lg cursor-pointer hover:bg-gray-800 transition"
         >
-          <span className="text-lg font-semibold">Upload Image(s)</span>
+          <span>Upload Image(s)</span>
         </label>
       </div>
     </div>
