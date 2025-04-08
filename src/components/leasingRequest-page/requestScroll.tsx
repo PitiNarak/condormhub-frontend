@@ -14,6 +14,7 @@ export async function RequestScroll({ isLessor }: { isLessor: boolean }) {
                   key={d.id ?? Math.random()}
                   id={d.id ?? ''}
                   dormName={d.dorm?.name ?? 'DORM NAME'}
+                  dormId={d.dorm?.id ?? ''}
                   dormUrl={
                     d.dorm?.imagesUrl?.length && d.dorm.imagesUrl.length > 0
                       ? d.dorm.imagesUrl[0]
