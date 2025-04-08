@@ -1,18 +1,25 @@
-'use client';
 import Image from 'next/image';
 import { Card } from '@/components/ui/card';
 import { Star } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 
-export function ProfileHeader() {
-  //const data = fetch(get user from ID)
-  const userName = 'Piti';
-  const profileURL = '/mockProfile.png';
-  const role = 'Lessee';
-  const ratingScore = 4.5;
-  const reviewsAmount = 100;
-  const totalRenting = 5;
+interface ProfileHeaderProps {
+  userName: string;
+  profileURL: string;
+  role: string;
+  ratingScore: number;
+  reviewsAmount: number;
+  totalRenting: number;
+}
 
+export function ProfileHeader({
+  userName,
+  profileURL,
+  role,
+  ratingScore,
+  reviewsAmount,
+  totalRenting,
+}: ProfileHeaderProps) {
   return (
     <div>
       <Card className="flex w-[350px] h-[225px] rounded-3xl border-[1px] shadow-lg">

@@ -11,18 +11,35 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { TextInCard } from '@/components/profileLesseeID-page/textInCard';
 import { Badge } from '@/components/ui/badge';
 
-export function ProfileInfo() {
-  const birthDate = '29 Febuary 2024';
-  const createAt = '30 Febuary 2024';
-  const email = 'WinnieDaPoo1@gmail.com';
-  const firstName = 'Winnie';
-  const lastName = 'DaPool';
-  const userName = 'Piti';
-  const gender = 'Male';
-  const studentAt = 'Chulalongkorn University';
-  const life1 = 'Gamer';
-  const life2 = 'Chill';
-  const life3 = 'Party';
+interface ProfileInfoProps {
+  birthDate: string;
+  createAt: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  userName: string;
+  gender: string;
+  studentAt: string;
+  life1: string;
+  life2: string;
+  life3: string;
+}
+
+export function ProfileInfo({
+  birthDate,
+  createAt,
+  email,
+  firstName,
+  lastName,
+  userName,
+  gender,
+  studentAt,
+  life1,
+  life2,
+  life3,
+}: ProfileInfoProps) {
+  const bd = new Date(birthDate).toDateString().slice(4);
+  const ca = new Date(createAt).toDateString().slice(4);
   return (
     <div className="flex justify-center mx-auto">
       <Card className="w-[350px] md:w-[700px] shadow-none border-0">
@@ -43,12 +60,8 @@ export function ProfileInfo() {
               header="Name"
               data={firstName + ' ' + lastName}
             />
-            <TextInCard
-              icon={<CakeIcon />}
-              header="Birthday"
-              data={birthDate}
-            />
-            <TextInCard icon={<Calendar />} header="Joined" data={createAt} />
+            <TextInCard icon={<CakeIcon />} header="Birthday" data={bd} />
+            <TextInCard icon={<Calendar />} header="Joined" data={ca} />
             <TextInCard icon={<Mail />} header="Email" data={email} />
             <TextInCard icon={<CircleSlash />} header="Gender" data={gender} />
             <TextInCard
