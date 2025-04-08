@@ -5,7 +5,7 @@ import { auth } from '@/lib/auth';
 import { components } from '@/types/api';
 
 export async function sendPersonalInfo(
-  formData: components['schemas']['dto.UserInformationRequestBody']
+  formData: components['schemas']['dto.UserFirstFillRequestBody']
 ) {
   const session = await auth();
 
@@ -13,7 +13,7 @@ export async function sendPersonalInfo(
   const nID: string = formData['nationalID'] ?? '';
   formData['nationalID'] = nID.replaceAll('-', '');
   formData['birthDate'] = date.toISOString();
-  const { data, error } = await client.PATCH('/user', {
+  const { data, error } = await client.PATCH('/user/firstfill', {
     body: formData,
     headers: {
       Authorization: `Bearer ${session?.access_token}`,
