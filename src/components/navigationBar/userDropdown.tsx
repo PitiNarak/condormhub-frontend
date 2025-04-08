@@ -41,6 +41,11 @@ export async function UserDropdown({ name, avatarUrl }: Props) {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
+          <Link href="/rentHistory" className="w-full">
+            History
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
           <LogoutButton />
         </DropdownMenuItem>
       </DropdownMenuContent>
