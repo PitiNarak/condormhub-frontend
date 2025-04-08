@@ -48,9 +48,21 @@ export function ProfileInfo({
             <p className="hidden lg:flex text-left lg:text-3xl font-bold">
               About {userName}
             </p>
-            <Badge className="px-3 py-1 rounded-lg my-auto">{life1}</Badge>
-            <Badge className="px-3 py-1 rounded-lg my-auto">{life2}</Badge>
-            <Badge className="px-3 py-1 rounded-lg my-auto">{life3}</Badge>
+            {life1 !== '' ? (
+              <Badge className="px-3 py-1 rounded-lg my-auto">{life1}</Badge>
+            ) : (
+              <div />
+            )}
+            {life2 !== '' ? (
+              <Badge className="px-3 py-1 rounded-lg my-auto">{life2}</Badge>
+            ) : (
+              <div />
+            )}
+            {life3 !== '' ? (
+              <Badge className="px-3 py-1 rounded-lg my-auto">{life3}</Badge>
+            ) : (
+              <div />
+            )}
           </div>
         </CardHeader>
         <CardContent className="">
