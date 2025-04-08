@@ -49,13 +49,17 @@ export default async function page({
             life3={data.lifestyles ? (data.lifestyles[2] ?? '') : 'Error'}
           />
         </div>
-        
       </div>
       {/* <div className="flex justify-center mx-auto">
         <LesseeReview lesseeID={lesseeID} />
       </div> */}
-      <div hidden={session?.user?.id != lesseeID} className = "text-center mt-[20px]">
-        <Link href="/setting"><Button >Edit Profile</Button></Link>
+      <div
+        hidden={session?.user?.id != lesseeID}
+        className="text-center mt-[20px]"
+      >
+        <Link href="/setting">
+          <Button>Edit Profile</Button>
+        </Link>
       </div>
     </div>
   );
