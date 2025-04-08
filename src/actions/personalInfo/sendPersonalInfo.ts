@@ -13,7 +13,6 @@ export async function sendPersonalInfo(
   const nID: string = formData['nationalID'] ?? '';
   formData['nationalID'] = nID.replaceAll('-', '');
   formData['birthDate'] = date.toISOString();
-  console.log(formData);
   const { data, error } = await client.PATCH('/user/firstfill', {
     body: formData,
     headers: {
