@@ -33,7 +33,9 @@ export async function UserDropdown({ name, avatarUrl }: Props) {
         <DropdownMenuLabel>{name}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <Link href="/setting">Profile</Link>
+          <Link href="/setting" className="w-full">
+            Profile
+          </Link>
         </DropdownMenuItem>
         {session?.user?.role != 'LESSOR' && (
           <DropdownMenuItem>
@@ -41,7 +43,9 @@ export async function UserDropdown({ name, avatarUrl }: Props) {
           </DropdownMenuItem>
         )}
         <DropdownMenuItem>
-          <Link href="/dorm/register">Domitory</Link>
+          <Link href="/dorm/register" className="w-full">
+            Domitory
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
           <LogoutButton />

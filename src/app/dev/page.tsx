@@ -11,7 +11,10 @@ const page = async () => {
         <SelectedMenu text="Admin Page" path="/admin" />
         <SelectedMenu text="Register Page" path="/register" />
         <SelectedMenu text="Verification Page" path="/verification" />
-        <SelectedMenu text="Lessor Rent Income Page" path="/lessorIncome" />
+        <SelectedMenu
+          text="Lessor Property Dashboard Page"
+          path="/lessorDashboard"
+        />
         <SelectedMenu
           text="Lessor Notification Page"
           path="/lessorNotification"
