@@ -1,6 +1,9 @@
 import { getProfileByID } from '@/actions/profile/getProfileByID';
 import { ProfileHeader } from '@/components/profileLesseeID-page/profileHeader';
 import { ProfileInfo } from '@/components/profileLesseeID-page/profileInfo';
+import { Button } from '@/components/ui/button';
+import { auth } from '@/lib/auth';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
 export default async function page({
@@ -8,6 +11,7 @@ export default async function page({
 }: {
   params: Promise<{ lesseeID: string }>;
 }) {
+  const session = await auth();
   const lesseeID = (await params).lesseeID;
   const data = await getProfileByID(lesseeID);
   if ('message' in data) {
@@ -45,10 +49,14 @@ export default async function page({
             life3={data.lifestyles ? (data.lifestyles[2] ?? '') : 'Error'}
           />
         </div>
+        
       </div>
       {/* <div className="flex justify-center mx-auto">
         <LesseeReview lesseeID={lesseeID} />
       </div> */}
+      <div hidden={session?.user?.id != lesseeID} className = "text-center mt-[20px]">
+        <Link href="/setting"><Button >Edit Profile</Button></Link>
+      </div>
     </div>
   );
 }
