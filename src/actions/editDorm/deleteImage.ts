@@ -1,5 +1,7 @@
 'use server';
 
+import { revalidateTag } from 'next/cache';
+
 export async function deleteImage(url: string, access_token: string) {
   const encodedUrl = encodeURIComponent(url);
   try {
@@ -9,6 +11,7 @@ export async function deleteImage(url: string, access_token: string) {
         Authorization: `Bearer ${access_token}`,
       },
     });
+    revalidateTag('dorm-details');
   } catch (error) {
     if (error instanceof Response) {
       const errorMessage = await error.json();
