@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/carousel';
 import Image from 'next/image';
 import React from 'react';
-import { X } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { useRouter, usePathname } from 'next/navigation';
 import { deleteImage } from '@/actions/editDorm/deleteImage';
@@ -79,7 +79,7 @@ export const ImageCarousel = ({ images }: { images: Array<string> }) => {
                       className="w-[25px] h-[25px] absolute top-2 right-2 z-10"
                       onClick={() => onSubmit(index)}
                     >
-                      <X className="text-gray-300 hover:text-gray-500 transition-colors" />
+                      <Trash2 className="text-gray-300 hover:text-gray-500 transition-colors" />
                     </button>
                   </div>
                 ) : (
