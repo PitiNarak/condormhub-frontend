@@ -46,7 +46,7 @@ export function ProfileInfo({
         <CardHeader className="">
           <div className="flex gap-3 align-middle justify-center mx-auto lg:justify-start lg:mx-0">
             <p className="hidden lg:flex text-left lg:text-3xl font-bold">
-              About {userName}
+              {userName}
             </p>
             {life1 !== '' ? (
               <Badge className="px-3 py-1 rounded-lg my-auto">{life1}</Badge>
