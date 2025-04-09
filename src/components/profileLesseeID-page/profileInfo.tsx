@@ -1,11 +1,4 @@
-import {
-  CakeIcon,
-  Calendar,
-  CircleSlash,
-  Mail,
-  University,
-  User,
-} from 'lucide-react';
+import { CakeIcon, Calendar, CircleSlash, Mail, User } from 'lucide-react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 
 import { TextInCard } from '@/components/profileLesseeID-page/textInCard';
@@ -19,7 +12,6 @@ interface ProfileInfoProps {
   lastName: string;
   userName: string;
   gender: string;
-  studentAt: string;
   life1: string;
   life2: string;
   life3: string;
@@ -33,7 +25,6 @@ export function ProfileInfo({
   lastName,
   userName,
   gender,
-  studentAt,
   life1,
   life2,
   life3,
@@ -76,11 +67,6 @@ export function ProfileInfo({
             <TextInCard icon={<Calendar />} header="Joined" data={ca} />
             <TextInCard icon={<Mail />} header="Email" data={email} />
             <TextInCard icon={<CircleSlash />} header="Gender" data={gender} />
-            <TextInCard
-              icon={<University />}
-              header="Student"
-              data={studentAt}
-            />
           </div>
         </CardContent>
       </Card>

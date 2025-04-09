@@ -43,7 +43,6 @@ export default async function page({
             lastName={data.lastname ?? ''}
             userName={data.username ?? ''}
             gender={data.gender ?? ''}
-            studentAt={data.gender ?? ''}
             life1={data.lifestyles ? (data.lifestyles[0] ?? '') : 'Error'}
             life2={data.lifestyles ? (data.lifestyles[1] ?? '') : 'Error'}
             life3={data.lifestyles ? (data.lifestyles[2] ?? '') : 'Error'}
