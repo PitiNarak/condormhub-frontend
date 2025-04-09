@@ -53,13 +53,19 @@ export function ProfileHeader({
             <p className="text-xs">Verified User</p>
           </div>
           <Separator orientation="horizontal" />
-          <div className="py-3">
-            <div className="flex">
-              <p className="text-xl font-bold mr-1">{reviewsAmount}</p>
+          {role === 'LESSOR' ? (
+            <div>
+              <div className="py-3">
+                <div className="flex">
+                  <p className="text-xl font-bold mr-1">{reviewsAmount}</p>
+                </div>
+                <p className="text-xs">Reviews</p>
+              </div>
+              <Separator orientation="horizontal" />
             </div>
-            <p className="text-xs">Reviews</p>
-          </div>
-          <Separator orientation="horizontal" />
+          ) : (
+            <div />
+          )}
           <div className="pt-3 pb-4">
             <div className="flex">
               <p className="text-xl font-bold mr-1">{totalRenting}</p>
