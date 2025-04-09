@@ -1,5 +1,5 @@
 'use client';
-import { ReviewBox } from '@/components/profileLesseeID-page/review';
+import { ReviewBox } from '@/components/profileID-page/review';
 import * as React from 'react';
 import {
   Carousel,

@@ -1,6 +1,6 @@
 import { getProfileByID } from '@/actions/profile/getProfileByID';
-import { ProfileHeader } from '@/components/profileLesseeID-page/profileHeader';
-import { ProfileInfo } from '@/components/profileLesseeID-page/profileInfo';
+import { ProfileHeader } from '@/components/profileID-page/profileHeader';
+import { ProfileInfo } from '@/components/profileID-page/profileInfo';
 import { Button } from '@/components/ui/button';
 import { auth } from '@/lib/auth';
 import Link from 'next/link';
@@ -9,11 +9,11 @@ import { redirect } from 'next/navigation';
 export default async function page({
   params,
 }: {
-  params: Promise<{ lesseeID: string }>;
+  params: Promise<{ ID: string }>;
 }) {
   const session = await auth();
-  const lesseeID = (await params).lesseeID;
-  const data = await getProfileByID(lesseeID);
+  const ID = (await params).ID;
+  const data = await getProfileByID(ID);
   if ('message' in data) {
     redirect('/');
   }
@@ -50,10 +50,10 @@ export default async function page({
         </div>
       </div>
       {/* <div className="flex justify-center mx-auto">
-        <LesseeReview lesseeID={lesseeID} />
+        <LesseeReview ID={ID} />
       </div> */}
       <div
-        hidden={session?.user?.id != lesseeID}
+        hidden={session?.user?.id != ID}
         className="text-center mt-[20px]"
       >
         <Link href="/setting">

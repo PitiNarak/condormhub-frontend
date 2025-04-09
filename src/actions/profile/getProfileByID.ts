@@ -3,12 +3,12 @@
 import client from '@/api';
 import { auth } from '@/lib/auth';
 
-export async function getProfileByID(lesseeID: string) {
+export async function getProfileByID(ID: string) {
   const session = await auth();
   const { data, error } = await client.GET('/user/{id}', {
     params: {
       path: {
-        id: lesseeID,
+        id: ID,
       },
     },
     headers: {

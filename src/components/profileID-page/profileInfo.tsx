@@ -1,7 +1,7 @@
 import { CakeIcon, Calendar, CircleSlash, Mail, User } from 'lucide-react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 
-import { TextInCard } from '@/components/profileLesseeID-page/textInCard';
+import { TextInCard } from '@/components/profileID-page/textInCard';
 import { Badge } from '@/components/ui/badge';
 
 interface ProfileInfoProps {
