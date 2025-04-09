@@ -52,10 +52,7 @@ export default async function page({
       {/* <div className="flex justify-center mx-auto">
         <LesseeReview ID={ID} />
       </div> */}
-      <div
-        hidden={session?.user?.id != ID}
-        className="text-center mt-[20px]"
-      >
+      <div hidden={session?.user?.id != ID} className="text-center mt-[20px]">
         <Link href="/setting">
           <Button>Edit Profile</Button>
         </Link>
