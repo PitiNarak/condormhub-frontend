@@ -11,14 +11,17 @@ import {
 import Image from 'next/image';
 import React from 'react';
 import { X } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { deleteDorm } from '@/actions/editDorm/deleteDorm';
+import { useSession } from 'next-auth/react';
+import { useRouter, usePathname } from 'next/navigation';
+import { deleteImage } from '@/actions/editDorm/deleteImage';
 
 export const ImageCarousel = ({ images }: { images: Array<string> }) => {
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
   const [count, setCount] = React.useState(0);
   const router = useRouter();
+  const { data: session } = useSession();
+  const pathname = usePathname();
   async function onSubmit(index: number) {
     try {
       const url = images[index];
@@ -27,7 +30,9 @@ export const ImageCarousel = ({ images }: { images: Array<string> }) => {
         setCurrent(current - 1);
       }
       setCount(count - 1);
-      deleteDorm(url);
+      if (session?.access_token) {
+        await deleteImage(url, session?.access_token);
+      }
       router.refresh();
     } catch (e: unknown) {
       console.log(e);
@@ -67,14 +72,19 @@ export const ImageCarousel = ({ images }: { images: Array<string> }) => {
                     className="rounded-xl h-[400px] object-cover"
                   />
                 </CardContent>
-                <div>
-                  <button
-                    className="w-[25px] h-[25px] absolute top-2 right-2 z-10"
-                    onClick={() => onSubmit(index)}
-                  >
-                    <X className="text-gray-300 hover:text-gray-500 transition-colors" />
-                  </button>
-                </div>
+                {pathname.includes('edit') ||
+                pathname.includes('dorm/register') ? (
+                  <div>
+                    <button
+                      className="w-[25px] h-[25px] absolute top-2 right-2 z-10"
+                      onClick={() => onSubmit(index)}
+                    >
+                      <X className="text-gray-300 hover:text-gray-500 transition-colors" />
+                    </button>
+                  </div>
+                ) : (
+                  <div></div>
+                )}
               </Card>
             </CarouselItem>
           ))}
