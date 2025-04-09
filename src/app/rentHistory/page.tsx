@@ -9,7 +9,7 @@ export default async function Page({
   return (
     <div>
       <p className="text-center text-3xl font-bold">Leasing History</p>
-      <div>
+      <div className="pt-7">
         <HistoryList page={Number(page)} />
       </div>
     </div>
