@@ -28,7 +28,7 @@ export default async function Page({
           </h1>
         </div>
       </div>
-      <OwnerPropertyScroll page={pageNum} />
+      <OwnerPropertyScroll showIncome={true} page={pageNum} />
     </div>
   );
 }
