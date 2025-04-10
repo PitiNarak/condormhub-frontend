@@ -1,6 +1,5 @@
 'use client';
-import { ReviewBox } from '@/components/profileLesseeID-page/review';
-import { useParams } from 'next/navigation';
+import { ReviewBox } from '@/components/profileID-page/review';
 import * as React from 'react';
 import {
   Carousel,
@@ -50,13 +49,17 @@ const mockData = JSON.stringify([
   },
 ]);
 
-export function LesseeReview() {
-  const params = useParams<{ tag: string; item: string }>();
+interface lessRev {
+  lesseeID: string;
+}
+
+export function LesseeReview({ lesseeID }: lessRev) {
+  // const params = useParams<{ lesseeID: string }>();
+  console.log(lesseeID);
 
   //const data = fetch(get lessee history from ID)
   const reviews = JSON.parse(mockData);
   const owner = 'Piti';
-  console.log(params);
   return (
     <div className="mt-3">
       <p className="text-xl font-bold text-center py-3">
