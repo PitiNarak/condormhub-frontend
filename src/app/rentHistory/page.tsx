@@ -5,7 +5,8 @@ export default async function Page({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const page = await searchParams;
+  const params = await searchParams;
+  const page = params.page;
   return (
     <div>
       <p className="text-center text-3xl font-bold">Leasing History</p>
