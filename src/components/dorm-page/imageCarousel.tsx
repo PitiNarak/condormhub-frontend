@@ -76,10 +76,10 @@ export const ImageCarousel = ({ images }: { images: Array<string> }) => {
                 pathname.includes('dorm/register') ? (
                   <div>
                     <button
-                      className="w-[25px] h-[25px] absolute top-2 right-2 z-10"
+                      className="w-[35px] h-[35px] absolute top-2 right-2 z-10 bg-black/50 hover:bg-black/75 rounded-lg justify-center flex items-center"
                       onClick={() => onSubmit(index)}
                     >
-                      <Trash2 className="text-gray-300 hover:text-gray-500 transition-colors" />
+                      <Trash2 className="text-gray-300 transition-colors" />
                     </button>
                   </div>
                 ) : (
