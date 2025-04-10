@@ -73,6 +73,7 @@ export default async function page({
           <OwnerPropertyScroll
             showIncome={session.user.id === ID}
             page={page}
+            profileID={ID}
           />
         </div>
       ) : (

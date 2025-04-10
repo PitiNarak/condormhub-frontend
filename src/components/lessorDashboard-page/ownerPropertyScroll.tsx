@@ -2,7 +2,6 @@ import type { components } from '@/types/api';
 import { redirect } from 'next/navigation';
 import { mockData } from '@/mocks/mockProperty';
 import { PropertyCard } from '@/components/home-page/propertyCard';
-import { auth } from '@/lib/auth';
 import { fetchOwnerProperty } from '@/actions/lessorDashboard/fetchOwnerProperty';
 import { PaginationControl } from '@/components/home-page/paginationControl';
 
@@ -10,18 +9,19 @@ interface PropertyScrollProps {
   page?: number;
   limit?: number;
   showIncome: boolean;
+  profileID: string;
 }
 
 export async function OwnerPropertyScroll({
   page = 1,
   limit = 12,
   showIncome,
+  profileID,
 }: PropertyScrollProps) {
   const redirectPath = '/?page=1';
 
   // Get session and owner ID
-  const session = await auth();
-  const ownerId = session?.user?.id;
+  const ownerId = profileID;
 
   if (!ownerId) {
     console.log('no owner id');
@@ -109,7 +109,7 @@ export async function OwnerPropertyScroll({
           </div>
           <PaginationControl
             lastPage={Number(paginationElement?.last_page)}
-            basePath="/lessorDashboard"
+            basePath={`/profile/${profileID}`}
           />
         </div>
       )}

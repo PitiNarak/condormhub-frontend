@@ -28,7 +28,11 @@ export default async function Page({
           </h1>
         </div>
       </div>
-      <OwnerPropertyScroll showIncome={true} page={pageNum} />
+      <OwnerPropertyScroll
+        profileID={session.user.id ?? ''}
+        showIncome={true}
+        page={pageNum}
+      />
     </div>
   );
 }
