@@ -91,7 +91,7 @@ export default function DormRegisterBox() {
 
           <Button
             type="button"
-            className=" bg-red-500"
+            variant="destructive"
             onClick={() => redirect(`/`)}
           >
             Cancel
