@@ -1,4 +1,5 @@
 import { getProfileByID } from '@/actions/profile/getProfileByID';
+import { OwnerPropertyScroll } from '@/components/lessorDashboard-page/ownerPropertyScroll';
 import { ProfileHeader } from '@/components/profileID-page/profileHeader';
 import { ProfileInfo } from '@/components/profileID-page/profileInfo';
 import { Button } from '@/components/ui/button';
@@ -12,8 +13,11 @@ export default async function page({
   params: Promise<{ ID: string }>;
 }) {
   const session = await auth();
-  const ID = (await params).ID;
+  const { ID } = await params;
   const data = await getProfileByID(ID);
+  const { dormPage } = { dormPage: '1' };
+  const page = Number(dormPage);
+
   if ('message' in data) {
     redirect('/');
   }
@@ -57,6 +61,23 @@ export default async function page({
           <Button>Edit Profile</Button>
         </Link>
       </div>
+      {session?.user?.role === 'LESSOR' ? (
+        <div>
+          <div className="flex flex-col justify-center items-center p-10 gap-6">
+            <div className="flex flex-col gap-3 max-w-3xl w-full">
+              <h1 className="text-3xl pt-3 font-semibold text-center">
+                Lessor Property Dashboard
+              </h1>
+            </div>
+          </div>
+          <OwnerPropertyScroll
+            showIncome={session.user.id === ID}
+            page={page}
+          />
+        </div>
+      ) : (
+        <div />
+      )}
     </div>
   );
 }
