@@ -85,4 +85,8 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+  .custom-dashed-border {
+    border: 6px dashed;
+    border-spacing: 10px; /* Adjust this value */
+  }
 }

@@ -22,8 +22,8 @@ export const ImageBox: React.FC<ImageBoxProps> = ({ images, setImages }) => {
   return (
     <div className="flex flex-col justify-center items-center p-3 gap-3.5">
       {images.length === 0 ? (
-        <div className="flex justify-center items-center h-80 w-80 border-4 border-gray-700 rounded-xl p-6 shadow-lg bg-gradient-to-r from-gray-100 to-gray-0 mb-2">
-          <Image />
+        <div className="flex justify-center items-center h-80 w-80 custom-dashed-border rounded-xl p-6 mb-2 border-gray-300">
+          <Image className="text-gray-300 h-12 w-12" />
         </div>
       ) : (
         <ImageCarousel images={images} />
@@ -41,7 +41,7 @@ export const ImageBox: React.FC<ImageBoxProps> = ({ images, setImages }) => {
           htmlFor="file-input"
           className="max-w-7xl w-full flex items-center justify-center bg-black text-white px-4 py-2 rounded-lg cursor-pointer hover:bg-gray-800 transition"
         >
-          <span className="text-lg font-semibold">Upload Image(s)</span>
+          <span>Upload Image(s)</span>
         </label>
       </div>
     </div>
