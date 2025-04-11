@@ -3,7 +3,8 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
-import { Hotel } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Hotel, MapPin } from 'lucide-react';
 import { CreateInput } from 'thai-address-autocomplete-react';
 import {
   Form,
@@ -13,7 +14,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { InputWithIcon } from '@/components/inputWithIcon/inputWithIcon';
 
 const InputThaiAddress = CreateInput();
 
@@ -57,7 +57,12 @@ export const DormRegisterForm: React.FC<FormProb> = ({ form }) => {
     <div>
       <Form {...form}>
         <form onSubmit={() => {}} className="max-w-4xl mx-auto pt-0 space-y-2">
-          <h2 className="text-xl font-semibold pt-2">Information</h2>
+          <div className="relative">
+            <div className="absolute h-2 w-2 text-muted-foreground">
+              <Hotel />
+            </div>
+            <span className="text-xl font-semibold pt-2 pl-7">Information</span>
+          </div>
           <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
             <FormField
               control={form.control}
@@ -66,11 +71,11 @@ export const DormRegisterForm: React.FC<FormProb> = ({ form }) => {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <InputWithIcon
-                      placeholder="Name of your dormitory"
-                      type="text"
-                      icon={<Hotel />}
-                      fields={field}
+                    <Input
+                      type={'text'}
+                      placeholder={'Name of your dormitory'}
+                      className="w-full rounded-lg bg-background"
+                      {...field}
                     />
                   </FormControl>
                   <FormMessage />
@@ -85,11 +90,11 @@ export const DormRegisterForm: React.FC<FormProb> = ({ form }) => {
                 <FormItem>
                   <FormLabel>Price</FormLabel>
                   <FormControl>
-                    <InputWithIcon
-                      placeholder="Price of dormitory"
-                      type="number"
-                      icon={<Hotel />}
-                      fields={field}
+                    <Input
+                      type={'number'}
+                      placeholder={'Price of dormitory'}
+                      className="w-full rounded-lg bg-background"
+                      {...field}
                     />
                   </FormControl>
                   <FormMessage />
@@ -102,13 +107,15 @@ export const DormRegisterForm: React.FC<FormProb> = ({ form }) => {
               name="size"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Size</FormLabel>
+                  <FormLabel>
+                    Size (m<sup>2</sup>)
+                  </FormLabel>
                   <FormControl>
-                    <InputWithIcon
-                      placeholder="Size of dormitory"
-                      type="number"
-                      icon={<Hotel />}
-                      fields={field}
+                    <Input
+                      type={'number'}
+                      placeholder={'Size of dormitory'}
+                      className="w-full rounded-lg bg-background"
+                      {...field}
                     />
                   </FormControl>
                   <FormMessage />
@@ -123,11 +130,11 @@ export const DormRegisterForm: React.FC<FormProb> = ({ form }) => {
                 <FormItem>
                   <FormLabel>Bedrooms</FormLabel>
                   <FormControl>
-                    <InputWithIcon
-                      placeholder="Number of bedrooms"
-                      type="number"
-                      icon={<Hotel />}
-                      fields={field}
+                    <Input
+                      type={'number'}
+                      placeholder={'Number of bedrooms'}
+                      className="w-full rounded-lg bg-background"
+                      {...field}
                     />
                   </FormControl>
                   <FormMessage />
@@ -142,11 +149,11 @@ export const DormRegisterForm: React.FC<FormProb> = ({ form }) => {
                 <FormItem>
                   <FormLabel>Bathrooms</FormLabel>
                   <FormControl>
-                    <InputWithIcon
-                      placeholder="Number of bathrooms"
-                      type="number"
-                      icon={<Hotel />}
-                      fields={field}
+                    <Input
+                      type={'number'}
+                      placeholder={'Number of bathrooms'}
+                      className="w-full rounded-lg bg-background"
+                      {...field}
                     />
                   </FormControl>
                   <FormMessage />
@@ -154,16 +161,19 @@ export const DormRegisterForm: React.FC<FormProb> = ({ form }) => {
               )}
             />
           </div>
-          <h2 className="text-xl font-semibold pt-2">Address</h2>
+          <div className="relative pt-2">
+            <div className="absolute h-2 w-2 text-muted-foreground">
+              <MapPin />
+            </div>
+            <span className="text-xl font-semibold pt-2 pl-7">Address</span>
+          </div>
           <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
             <FormField
               control={form.control}
               name="subdistrict"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="font-bold text-sm">
-                    Subdistrict
-                  </FormLabel>
+                  <FormLabel className="text-sm">Subdistrict</FormLabel>
                   <FormControl>
                     <InputThaiAddress.Province
                       value={field.value}
@@ -188,7 +198,7 @@ export const DormRegisterForm: React.FC<FormProb> = ({ form }) => {
               name="district"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="font-bold text-sm">District</FormLabel>
+                  <FormLabel className="text-sm">District</FormLabel>
                   <FormControl>
                     <InputThaiAddress.Amphoe
                       value={field.value}
@@ -213,7 +223,7 @@ export const DormRegisterForm: React.FC<FormProb> = ({ form }) => {
               name="province"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="font-bold text-sm">Province</FormLabel>
+                  <FormLabel className="text-sm">Province</FormLabel>
                   <FormControl>
                     <InputThaiAddress.Province
                       value={field.value}
@@ -238,7 +248,7 @@ export const DormRegisterForm: React.FC<FormProb> = ({ form }) => {
               name="zipcode"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="font-bold text-sm">Zip Code</FormLabel>
+                  <FormLabel className="text-sm">Zip Code</FormLabel>
                   <FormControl>
                     <InputThaiAddress.Zipcode
                       value={field.value}
