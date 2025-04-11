@@ -10,6 +10,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Link from 'next/link';
 import { LogoutButton } from '@/components/setting-page/logOutButton';
+import { auth } from '@/lib/auth';
 
 interface Props {
   name: string;
@@ -17,6 +18,7 @@ interface Props {
 }
 
 export async function UserDropdown({ name, avatarUrl }: Props) {
+  const session = await auth();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -35,6 +37,11 @@ export async function UserDropdown({ name, avatarUrl }: Props) {
             Profile
           </Link>
         </DropdownMenuItem>
+        {session?.user?.role != 'LESSOR' && (
+          <DropdownMenuItem>
+            <Link href="/requestHistory">Request History</Link>
+          </DropdownMenuItem>
+        )}
         <DropdownMenuItem>
           <Link href="/dorm/register" className="w-full">
             Domitory

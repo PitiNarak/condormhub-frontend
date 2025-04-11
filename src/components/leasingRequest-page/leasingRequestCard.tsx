@@ -11,25 +11,30 @@ import { useToast } from '@/hooks/use-toast';
 
 import { approve } from '@/actions/leasingRequest/approve';
 import { reject } from '@/actions/leasingRequest/reject';
+import Link from 'next/link';
 
 interface LeasingRequestCardProps {
   id: string;
   dormName: string;
+  dormId: string;
   dormUrl: string;
   lesseeName: string;
   createAt: string;
   status: string;
   message: string;
+  isLessor: boolean;
 }
 
 const LeasingRequestCard: React.FC<LeasingRequestCardProps> = ({
   id,
   dormName,
+  dormId,
   dormUrl,
   lesseeName,
   createAt,
   status,
   message,
+  isLessor,
 }) => {
   const { toast } = useToast();
 
@@ -75,13 +80,15 @@ const LeasingRequestCard: React.FC<LeasingRequestCardProps> = ({
       className="flex gap-4 p-4 border rounded-lg shadow-md bg-gray-50"
       data-status={status}
     >
-      <Image
-        src={dormUrl}
-        alt={`Image of ${dormName}`}
-        width={60}
-        height={60}
-        className="object-cover rounded-full h-[60px] w-[60px]"
-      />
+      <Link href={`/dorm/${dormId}`}>
+        <Image
+          src={dormUrl}
+          alt={`Image of ${dormName}`}
+          width={60}
+          height={60}
+          className="object-cover rounded-full h-[60px] w-[60px]"
+        />
+      </Link>
 
       <div className="flex-1">
         {status === 'PENDING' ? (
@@ -113,14 +120,18 @@ const LeasingRequestCard: React.FC<LeasingRequestCardProps> = ({
           </div>
         )}
 
-        <CardTitle className="text-lg font-semibold">{dormName}</CardTitle>
+        <CardTitle className="text-lg font-semibold">
+          <Link href={`/dorm/${dormId}`} className="hover:underline">
+            {dormName}
+          </Link>
+        </CardTitle>
 
         <p className="text-sm text-gray-600 mb-2">Requested by: {lesseeName}</p>
 
         <p className="text-sm">{message}</p>
       </div>
 
-      {status === 'PENDING' && (
+      {status === 'PENDING' && isLessor && (
         <div className="flex flex-col gap-2 items-end w-20">
           <Button variant="outline" className="w-full" onClick={handleAccept}>
             Accept

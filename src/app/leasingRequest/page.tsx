@@ -7,7 +7,7 @@ export default function Page() {
         <p>Property Requests</p>
       </div>
       <div className="pt-7">
-        <RequestScroll />
+        <RequestScroll isLessor={true} />
       </div>
     </div>
   );
