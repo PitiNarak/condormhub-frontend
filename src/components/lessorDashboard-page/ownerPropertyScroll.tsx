@@ -53,30 +53,45 @@ export async function OwnerPropertyScroll({
     <div className="mb-10">
       {/* Income Summary */}
       {showIncome ? (
-        <div className="px-[5px] xl:px-[20px]">
-          <div className="mb-8 grid grid-cols-1 sm:grid-cols-3 gap-6 mx-5">
-            <div className="p-6 bg-white rounded-xl shadow-lg text-center">
-              <p className="text-gray-500">Total Rent Income</p>
-              <p className="text-3xl font-bold text-green-600">
-                {totalIncome.toLocaleString()} ฿
-              </p>
+        <div>
+          <div className="flex flex-col justify-center items-center p-10 gap-6">
+            <div className="flex flex-col gap-3 max-w-3xl w-full">
+              <h1 className="text-3xl pt-3 font-semibold text-center">
+                Lessor Property Dashboard
+              </h1>
             </div>
-            <div className="p-6 bg-white rounded-xl shadow-lg text-center">
-              <p className="text-gray-500">2% Service Fee</p>
-              <p className="text-3xl font-bold text-red-500">
-                -{feeDeduction.toLocaleString()} ฿
-              </p>
-            </div>
-            <div className="p-6 bg-white rounded-xl shadow-lg text-center">
-              <p className="text-gray-500">Your Earnings</p>
-              <p className="text-3xl font-bold text-blue-700">
-                {finalIncome.toLocaleString()} ฿
-              </p>
+          </div>
+          <div className="px-[5px] xl:px-[20px]">
+            <div className="mb-8 grid grid-cols-1 sm:grid-cols-3 gap-6 mx-5">
+              <div className="p-6 bg-white rounded-xl shadow-lg text-center">
+                <p className="text-gray-500">Total Rent Income</p>
+                <p className="text-3xl font-bold text-green-600">
+                  {totalIncome.toLocaleString()} ฿
+                </p>
+              </div>
+              <div className="p-6 bg-white rounded-xl shadow-lg text-center">
+                <p className="text-gray-500">2% Service Fee</p>
+                <p className="text-3xl font-bold text-red-500">
+                  -{feeDeduction.toLocaleString()} ฿
+                </p>
+              </div>
+              <div className="p-6 bg-white rounded-xl shadow-lg text-center">
+                <p className="text-gray-500">Your Earnings</p>
+                <p className="text-3xl font-bold text-blue-700">
+                  {finalIncome.toLocaleString()} ฿
+                </p>
+              </div>
             </div>
           </div>
         </div>
       ) : (
-        <div />
+        <div className="flex flex-col justify-center items-center p-10 gap-6">
+          <div className="flex flex-col gap-3 max-w-3xl w-full">
+            <h1 className="text-3xl pt-3 font-semibold text-center">
+              Lessor Property
+            </h1>
+          </div>
+        </div>
       )}
       {propertyData.length === 0 ? (
         <p className="text-center text-lg text-gray-500 py-10">

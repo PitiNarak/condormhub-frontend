@@ -63,17 +63,10 @@ export default async function page({
           <Button>Edit Profile</Button>
         </Link>
       </div>
-      {session?.user?.role === 'LESSOR' ? (
+      {data.role === 'LESSOR' ? (
         <div>
-          <div className="flex flex-col justify-center items-center p-10 gap-6">
-            <div className="flex flex-col gap-3 max-w-3xl w-full">
-              <h1 className="text-3xl pt-3 font-semibold text-center">
-                Lessor Property Dashboard
-              </h1>
-            </div>
-          </div>
           <OwnerPropertyScroll
-            showIncome={session.user.id === ID}
+            showIncome={session?.user?.id === ID}
             profileID={ID}
             page={dormPage}
           />
