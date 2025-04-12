@@ -9,14 +9,16 @@ import { redirect } from 'next/navigation';
 
 export default async function page({
   params,
+  searchParams,
 }: {
   params: Promise<{ ID: string }>;
+  searchParams: Promise<{ page: string }>;
 }) {
   const session = await auth();
   const { ID } = await params;
+  const { page } = await searchParams;
   const data = await getProfileByID(ID);
-  const { dormPage } = { dormPage: '1' };
-  const page = Number(dormPage);
+  const dormPage = Number(page ?? 1);
 
   if ('message' in data) {
     redirect('/');
@@ -72,8 +74,8 @@ export default async function page({
           </div>
           <OwnerPropertyScroll
             showIncome={session.user.id === ID}
-            page={page}
             profileID={ID}
+            page={dormPage}
           />
         </div>
       ) : (

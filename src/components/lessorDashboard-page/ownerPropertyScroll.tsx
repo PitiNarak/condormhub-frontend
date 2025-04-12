@@ -18,7 +18,8 @@ export async function OwnerPropertyScroll({
   showIncome,
   profileID,
 }: PropertyScrollProps) {
-  const redirectPath = '/?page=1';
+  // const redirectPath = `/profile/${profileID}?page=1`
+  const redirectPath = `/?page=1`;
 
   // Get session and owner ID
   const ownerId = profileID;
@@ -30,7 +31,6 @@ export async function OwnerPropertyScroll({
 
   // Fetch properties by owner ID
   const response = await fetchOwnerProperty(ownerId, page, limit);
-
   if ('message' in response) {
     console.error('Error fetching properties:', response.message);
     return redirect(redirectPath);
