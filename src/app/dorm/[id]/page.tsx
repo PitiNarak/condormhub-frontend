@@ -22,6 +22,7 @@ const getDorm = cache(
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;
   const res = await getDorm(id);
+
   const session = await auth();
   let isRequested = false;
   if (session?.access_token) {

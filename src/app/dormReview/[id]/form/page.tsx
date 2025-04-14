@@ -2,7 +2,7 @@ import { getDormByID } from '@/actions/dorm/getDormByID';
 import React from 'react';
 import { unstable_cache as cache } from 'next/cache';
 
-import { ReviewCard } from '@/components/dormReveiw-page/reviewCard';
+import { ReviewForm } from '@/components/dormReveiw-page/reviewForm';
 
 const getDorm = cache(
   async (id) => {
@@ -23,7 +23,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
         <h1 className="text-center text-5xl font-bold">{res.name}</h1>
         <div className="flex flex-col gap-6  rounded-xl border bg-card shadow px-[100px] py-[80px]">
           <div>
-            <ReviewCard dormId={res.id!}></ReviewCard>
+            <ReviewForm dormId={res.id!}></ReviewForm>
           </div>
         </div>
 
