@@ -67,7 +67,9 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
             </p>
             <div className="flex border-2 rounded-lg w-[50%] justify-between p-5">
               <p>rating</p>
-              <p>link to review</p>
+              <Button>
+                <Link href={`/dormReview/${id}`}>Link to review</Link>
+              </Button>
             </div>
             <div className="gap-2 flex-col flex">
               <h2 className="font-bold">Hosted By</h2>
