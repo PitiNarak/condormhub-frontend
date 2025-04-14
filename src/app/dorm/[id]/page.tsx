@@ -66,7 +66,28 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
               {res.size} m<sup>2</sup>
             </p>
             <div className="flex border-2 rounded-lg w-[50%] justify-between p-5">
-              <p>rating</p>
+              <div className="flex flex-row w-[50%] gap-3">
+                <p className="pt-2 pl-2">{res.rating}</p>
+                <div className="rating rating-half rating-xl bg-yellow pt-1 ">
+                  {[1, 2, 3, 4, 5].map((value) => {
+                    const rating = res.rating!;
+                    const isFull = rating >= value;
+                    const isHalf = rating >= value - 0.5 && rating < value;
+                    return (
+                      <input
+                        key={value}
+                        type="radio"
+                        name={`rating-${res.id}-${Math.random()}`}
+                        value={value}
+                        checked={isFull || isHalf}
+                        className={`mask mask-star ${isFull ? 'mask-half-3 bg-yellow-400' : isHalf ? 'mask-half-1 bg-yellow-400' : 'bg-gray-300'}`}
+                        aria-label={`${value} star`}
+                        readOnly
+                      />
+                    );
+                  })}
+                </div>
+              </div>
               <Button>
                 <Link href={`/dormReview/${id}`}>Link to review</Link>
               </Button>
