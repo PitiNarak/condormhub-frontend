@@ -53,6 +53,9 @@ export default function DormRegisterBox() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    if (images.length === 0) {
+      return;
+    }
     setisLoading(true);
     try {
       const res = await sendDormRegistration(values);
