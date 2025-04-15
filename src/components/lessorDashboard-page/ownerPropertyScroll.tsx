@@ -74,9 +74,11 @@ export async function OwnerPropertyScroll({
         </div>
       </div>
       {propertyData.length === 0 ? (
-        <p className="text-center text-lg text-gray-500 py-10">
-          No properties found.
-        </p>
+        <div className="px-[5px] xl:px-[20px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mx-5">
+            <AddDormButton />
+          </div>
+        </div>
       ) : (
         <div className="px-[5px] xl:px-[20px]">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mx-5">
