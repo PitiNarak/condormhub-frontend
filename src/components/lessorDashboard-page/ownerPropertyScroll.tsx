@@ -77,6 +77,19 @@ export async function OwnerPropertyScroll({
         <div className="px-[5px] xl:px-[20px]">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mx-5">
             <AddDormButton />
+            <div className="invisible">
+              <PropertyCard
+                id=""
+                image="https://placehold.co/300x200"
+                rating={0}
+                bedroom={0}
+                bathroom={0}
+                province=""
+                district=""
+                price={0}
+                propertyName=""
+              />
+            </div>
           </div>
         </div>
       ) : (
