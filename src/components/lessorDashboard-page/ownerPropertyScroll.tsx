@@ -71,6 +71,7 @@ export async function OwnerPropertyScroll({
               {finalIncome.toLocaleString()} ฿
             </p>
           </div>
+          <h1 className="text-2xl pt-2 font-semibold">Dormitory</h1>
         </div>
       </div>
       {propertyData.length === 0 ? (
