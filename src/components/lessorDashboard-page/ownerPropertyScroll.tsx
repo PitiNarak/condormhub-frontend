@@ -5,6 +5,7 @@ import { PropertyCard } from '@/components/home-page/propertyCard';
 import { auth } from '@/lib/auth';
 import { fetchOwnerProperty } from '@/actions/lessorDashboard/fetchOwnerProperty';
 import { PaginationControl } from '@/components/home-page/paginationControl';
+import { AddDormButton } from '@/components/lessorDashboard-page/addDorm';
 
 interface PropertyScrollProps {
   page?: number;
@@ -13,7 +14,7 @@ interface PropertyScrollProps {
 
 export async function OwnerPropertyScroll({
   page = 1,
-  limit = 12,
+  limit = 11,
 }: PropertyScrollProps) {
   const redirectPath = '/?page=1';
 
@@ -79,6 +80,7 @@ export async function OwnerPropertyScroll({
       ) : (
         <div className="px-[5px] xl:px-[20px]">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mx-5">
+            <AddDormButton />
             {propertyData.map(
               (data: components['schemas']['dto.DormResponseBody']) => (
                 <div key={String(data.id)} className="text-sm">
