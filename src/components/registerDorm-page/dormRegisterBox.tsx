@@ -45,6 +45,7 @@ const formSchema = z.object({
 export default function DormRegisterBox() {
   const { data: session } = useSession();
   const router = useRouter();
+  const [isSubmit, setisSubmit] = useState<boolean>(false);
   const [images, setImages] = useState<string[]>([]);
   const [isLoading, setisLoading] = useState<boolean>(false);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -52,6 +53,9 @@ export default function DormRegisterBox() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    if (images.length === 0) {
+      return;
+    }
     setisLoading(true);
     try {
       const res = await sendDormRegistration(values);
@@ -80,13 +84,20 @@ export default function DormRegisterBox() {
   return (
     <div>
       <div>
-        <ImageBox images={images} setImages={setImages} />
+        <ImageBox images={images} setImages={setImages} isSubmit={isSubmit} />
       </div>
       <DormRegisterForm form={form} />
       {!isLoading ? (
         <div className="flex max-w-4xl mx-auto gap-2 pt-2">
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <Button type="submit">Submit</Button>
+            <Button
+              type="submit"
+              onClick={() => {
+                setisSubmit(true);
+              }}
+            >
+              Submit
+            </Button>
           </form>
 
           <Button
