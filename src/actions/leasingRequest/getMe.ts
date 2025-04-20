@@ -3,7 +3,7 @@
 import client from '@/api';
 import { auth } from '@/lib/auth';
 
-export async function getMyLeasingRequest(limit = 50, page = 1) {
+export async function getMyLeasingRequest(page = 1, limit = 20) {
   try {
     const session = await auth();
     const access_token = session?.access_token;
