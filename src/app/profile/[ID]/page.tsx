@@ -1,5 +1,5 @@
 import { getProfileByID } from '@/actions/profile/getProfileByID';
-import { OwnerPropertyScroll } from '@/components/lessorDashboard-page/ownerPropertyScroll';
+import { OwnerPropertyScroll } from '@/components/profileID-page/ownerPropertyScroll';
 import { ProfileHeader } from '@/components/profileID-page/profileHeader';
 import { ProfileInfo } from '@/components/profileID-page/profileInfo';
 import { Button } from '@/components/ui/button';
