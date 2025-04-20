@@ -6,11 +6,14 @@ import { useToast } from '@/hooks/use-toast';
 import { CircleCheckBig } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { redirect } from 'next/navigation';
+import { ImageBox } from '@/components/registerDorm-page/dormImage';
+import { uploadReviewImage } from '@/actions/reviewDorm/uploadReviewImage';
 
-export function ReviewForm({ dormId }: { dormId: string }) {
+export function ReviewForm({ historyId }: { historyId: string }) {
   const { toast } = useToast();
   const [rate, setRate] = useState(2);
   const [message, setMessage] = useState('');
+  const [images, setImages] = useState<string[]>([]);
 
   const handleClick = (value: number) => {
     setRate(value);
@@ -24,7 +27,8 @@ export function ReviewForm({ dormId }: { dormId: string }) {
 
   async function onSubmit() {
     const review = { rate: rate, message: message };
-    const res = await CreateReview(dormId, review);
+    const res = await CreateReview(historyId, review);
+    console.log(res);
     if (res && 'error' in res) {
       toast({
         variant: 'destructive',
@@ -32,6 +36,12 @@ export function ReviewForm({ dormId }: { dormId: string }) {
         description: res.error as string,
       });
     } else {
+      for (const imageUrl of images) {
+        const response = await fetch(imageUrl);
+        const blob = await response.blob();
+        const file = new File([blob], 'image.jpg', { type: blob.type });
+        await uploadReviewImage(file, historyId);
+      }
       toast({
         description: (
           <div className="flex gap-5">
@@ -40,14 +50,14 @@ export function ReviewForm({ dormId }: { dormId: string }) {
           </div>
         ),
       });
+      redirect('/');
     }
-    redirect('/');
   }
 
   return (
-    <div className="flex flex-col gap-10">
-      <div className="flex flex-col justify-items-center">
-        {/* <h1 className='tracking-tight text-2xl text-center'>Rate this dorm</h1> */}
+    <div className="flex flex-col">
+      <div className="flex flex-col justify-items-center items-center gap-10">
+        <ImageBox images={images} setImages={setImages} />
         <div className="rating rating-xl bg-yellow gap-10">
           {[1, 2, 3, 4, 5].map((value) => (
             <input
@@ -62,13 +72,13 @@ export function ReviewForm({ dormId }: { dormId: string }) {
             />
           ))}
         </div>
+        <textarea
+          className="flex h-24 border border-input px-1 py-2 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm w-full rounded-lg bg-background pl-5"
+          placeholder="Review this dorm"
+          onChange={(e) => handleMessage(e.target.value)}
+        ></textarea>
+        <Button onClick={onSubmit}>Submit</Button>
       </div>
-      <textarea
-        className="flex h-24 border border-input px-1 py-2 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm w-full rounded-lg bg-background pl-5"
-        placeholder="Review this dorm"
-        onChange={(e) => handleMessage(e.target.value)}
-      ></textarea>
-      <Button onClick={onSubmit}>Submit</Button>
     </div>
   );
 }

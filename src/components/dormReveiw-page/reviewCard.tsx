@@ -11,7 +11,7 @@ export function ReviewCard({
   return (
     <div className="flex flex-col gap-3 justify-center items-center">
       <div className="scale-[80%]">
-        <ImageCarousel images={review.image} />
+        <ImageCarousel images={review.url} />
       </div>
       <div>
         <div className="rating rating-xl bg-yellow gap-3 pb-3">
