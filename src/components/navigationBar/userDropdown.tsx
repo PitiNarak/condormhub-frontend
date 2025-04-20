@@ -42,11 +42,15 @@ export async function UserDropdown({ name, avatarUrl }: Props) {
             <Link href="/requestHistory">Request History</Link>
           </DropdownMenuItem>
         )}
-        <DropdownMenuItem>
-          <Link href="/dorm/register" className="w-full">
-            Domitory
-          </Link>
-        </DropdownMenuItem>
+        {session?.access_token && session.user?.role != 'LESSEE' ? (
+          <DropdownMenuItem>
+            <Link href="/lessorDashboard" className="w-full">
+              Domitory
+            </Link>
+          </DropdownMenuItem>
+        ) : (
+          <div></div>
+        )}
         <DropdownMenuItem>
           <LogoutButton />
         </DropdownMenuItem>
