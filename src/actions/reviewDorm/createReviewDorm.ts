@@ -2,18 +2,19 @@
 
 import client from '@/api';
 import { auth } from '@/lib/auth';
+import { revalidateTag } from 'next/cache';
 
 interface Review {
   message: string;
   rate: number;
 }
 
-export async function CreateReview(dormId: string, review: Review) {
+export async function CreateReview(historyId: string, review: Review) {
   const session = await auth();
-  const { data, error } = await client.POST('/history/review/{id}', {
+  const { data, error } = await client.POST('/history/{id}/review', {
     params: {
       path: {
-        id: dormId,
+        id: historyId,
       },
     },
     body: {
@@ -24,9 +25,10 @@ export async function CreateReview(dormId: string, review: Review) {
       Authorization: `Bearer ${session?.access_token}`,
     },
   });
+  revalidateTag('dorm-details');
   if (error || !data.data) {
     return {
-      message: error?.error,
+      error: error?.error || 'Unknown error',
     };
   }
   return data;
