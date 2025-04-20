@@ -18,7 +18,7 @@ const getAllReview = async (token: string, id: string) => {
 };
 
 // Outside the cached function:
-export async function getAllReviewWithAuth(id: string) {
+async function getAllReviewWithAuth(id: string) {
   const session = await auth();
   const token = session?.access_token;
   if (!token) return null;
