@@ -37,8 +37,8 @@ export default async function page({
               }
               role={data.role ?? ''}
               isVerified={data.isVerified ?? false}
-              reviewsAmount={5}
-              totalRenting={5}
+              reviewsAmount={data.review_count ?? 0}
+              totalDorms={(data.dorms_leased ?? 0) + (data.dorms_owned ?? 0)}
             />
           </div>
           <ProfileInfo

@@ -9,7 +9,7 @@ interface ProfileHeaderProps {
   role: string;
   isVerified: boolean;
   reviewsAmount: number;
-  totalRenting: number;
+  totalDorms: number;
 }
 
 export function ProfileHeader({
@@ -18,7 +18,7 @@ export function ProfileHeader({
   role,
   isVerified,
   reviewsAmount,
-  totalRenting,
+  totalDorms,
 }: ProfileHeaderProps) {
   const verificationIcon = isVerified ? (
     <Check color="green" />
@@ -68,9 +68,11 @@ export function ProfileHeader({
           )}
           <div className="pt-3 pb-4">
             <div className="flex">
-              <p className="text-xl font-bold mr-1">{totalRenting}</p>
+              <p className="text-xl font-bold mr-1">{totalDorms}</p>
             </div>
-            <p className="text-xs">Rents</p>
+            <p className="text-xs">
+              Dorms{role === 'LESSOR' ? ' Owned' : ' Rented'}
+            </p>
           </div>
         </div>
       </Card>
