@@ -1,3 +1,4 @@
+import { AddDormButton } from '@/components/home-page/addDormButton';
 import { PropertyScroll } from '@/components/home-page/propertyScroll';
 
 export default async function Page({
@@ -42,8 +43,9 @@ export default async function Page({
   };
 
   return (
-    <div className="">
+    <div className="relative">
       <PropertyScroll {...filters} />
+      <AddDormButton />
     </div>
   );
 }
