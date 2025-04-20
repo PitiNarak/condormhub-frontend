@@ -14,31 +14,45 @@ export async function fetchProperty(
   zipcode?: string
 ) {
   // Make API call with query parameters
-  const { data, error } = await client.GET('/dorms', {
-    params: {
-      query: {
-        page,
-        limit,
-        search,
-        minPrice,
-        maxPrice,
-        district,
-        subdistrict,
-        province,
-        zipcode,
+  try {
+    // Make API call to fetch properties by owner ID
+    const { data, error } = await client.GET('/dorms', {
+      params: {
+        query: {
+          page,
+          limit,
+          search,
+          minPrice,
+          maxPrice,
+          district,
+          subdistrict,
+          province,
+          zipcode,
+        },
       },
-    },
-  });
-  if (error || !data.data) {
+    });
+
+    if (error || !data.data) {
+      return {
+        message: error?.error || 'An error occurred.',
+        pagination: {
+          current_page: 1,
+          last_page: 1,
+          limit: 12,
+          total: 0,
+        },
+      };
+    }
+    return data;
+  } catch (err) {
     return {
-      message: error?.error,
+      message: `Unexpected error occurred. ${err}`,
       pagination: {
         current_page: 1,
         last_page: 1,
         limit: 12,
-        total: 2,
+        total: 0,
       },
     };
   }
-  return data;
 }

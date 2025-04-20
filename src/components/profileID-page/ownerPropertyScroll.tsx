@@ -1,6 +1,5 @@
 import type { components } from '@/types/api';
 import { redirect } from 'next/navigation';
-import { mockData } from '@/mocks/mockProperty';
 import { PropertyCard } from '@/components/home-page/propertyCard';
 import { fetchOwnerProperty } from '@/actions/lessorDashboard/fetchOwnerProperty';
 import { PaginationControl } from '@/components/home-page/paginationControl';
@@ -38,11 +37,15 @@ export async function OwnerPropertyScroll({
     return redirect(redirectPath);
   }
 
-  const propertyData = response.data || JSON.parse(mockData);
+  const propertyData = response.data ?? [];
   const paginationElement = response.pagination;
 
   // Range checker: if invalid, redirect to the first page
-  if (propertyData.length < 0 || page < 1 || Number.isNaN(page)) {
+  if (
+    (propertyData.length < 0 && page != 1) ||
+    page < 1 ||
+    Number.isNaN(page)
+  ) {
     redirect(redirectPath);
   }
 
