@@ -4,6 +4,541 @@
  */
 
 export interface paths {
+  '/admin/lessee/pending': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get all pending student verifications
+     * @description Get all pending student verifications
+     */
+    get: {
+      parameters: {
+        query?: {
+          /** @description Number of pending verification to retrieve (default 10, max 50) */
+          limit?: number;
+          /** @description Page number to retrieve (default 1) */
+          page?: number;
+        };
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description All pending verification retrieved */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.PaginationResponse-dto_StudentEvidenceResponse'];
+          };
+        };
+        /** @description unauthorized */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description forbidden */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description not found */
+        404: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description internal server error */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/admin/lessee/{id}/reject': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /**
+     * Reject a lessee student verification
+     * @description Reject a lessee student verification
+     */
+    patch: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description lesseeID */
+          id: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description Lessee rejected */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.SuccessResponse-dto_StudentEvidenceResponse'];
+          };
+        };
+        /** @description bad request */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description unauthorized */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description forbidden */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description not found */
+        404: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description confilct */
+        409: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description internal server error */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    trace?: never;
+  };
+  '/admin/lessee/{id}/verify': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /**
+     * Verify a lessee student verification
+     * @description Verify a lessee student verification
+     */
+    patch: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description lesseeID */
+          id: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description Lessee verified */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.SuccessResponse-dto_StudentEvidenceResponse'];
+          };
+        };
+        /** @description bad request */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description unauthorized */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description forbidden */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description not found */
+        404: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description confilct */
+        409: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description internal server error */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    trace?: never;
+  };
+  '/admin/reviews/reported': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get all reported reviews
+     * @description Endpoint for admins to get a list of all reported reviews
+     */
+    get: {
+      parameters: {
+        query?: {
+          /** @description Number of reviews to retrieve (default 10, max 50) */
+          limit?: number;
+          /** @description Page number to retrieve (default 1) */
+          page?: number;
+        };
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description Retrieve reported reviews successfully */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.PaginationResponse-dto_ReportedReview'];
+          };
+        };
+        /** @description unauthorized */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description forbidden */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description internal server error */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/admin/user/{id}/ban': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /**
+     * Ban a user
+     * @description Ban a user by their ID. Only admins are allowed to use this endpoint
+     */
+    patch: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description userID */
+          id: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description User banned */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.SuccessResponse-dto_UserResponse'];
+          };
+        };
+        /** @description bad request */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description unauthorized */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description forbidden */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description not found */
+        404: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description confilct */
+        409: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description internal server error */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    trace?: never;
+  };
+  '/admin/user/{id}/unban': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /**
+     * Unban a user
+     * @description Unban a user by their ID. Only admins are allowed to use this endpoint
+     */
+    patch: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description userID */
+          id: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description User unbanned */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.SuccessResponse-dto_UserResponse'];
+          };
+        };
+        /** @description bad request */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description unauthorized */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description forbidden */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description not found */
+        404: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description confilct */
+        409: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description internal server error */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    trace?: never;
+  };
   '/auth/login': {
     parameters: {
       query?: never;
@@ -269,6 +804,15 @@ export interface paths {
             'application/json': components['schemas']['dto.ErrorResponse'];
           };
         };
+        /** @description your request is unauthorized */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
         /** @description Failed to retrieve contracts */
         500: {
           headers: {
@@ -281,60 +825,14 @@ export interface paths {
       };
     };
     put?: never;
-    /**
-     * Create a new contract
-     * @description Create a contract between a lessor and lessee for a dorm
-     */
-    post: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path?: never;
-        cookie?: never;
-      };
-      /** @description Contract details */
-      requestBody: {
-        content: {
-          'application/json': components['schemas']['dto.ContractRequestBody'];
-        };
-      };
-      responses: {
-        /** @description Contract created successfully */
-        201: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            'application/json': components['schemas']['dto.SuccessResponse-dto_ContractResponseBody'];
-          };
-        };
-        /** @description Invalid request body */
-        400: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            'application/json': components['schemas']['dto.ErrorResponse'];
-          };
-        };
-        /** @description Failed to create contract */
-        500: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            'application/json': components['schemas']['dto.ErrorResponse'];
-          };
-        };
-      };
-    };
+    post?: never;
     delete?: never;
     options?: never;
     head?: never;
     patch?: never;
     trace?: never;
   };
-  '/contract/{contractId}': {
+  '/contract/{contractID}': {
     parameters: {
       query?: never;
       header?: never;
@@ -351,7 +849,7 @@ export interface paths {
         header?: never;
         path: {
           /** @description Contract ID */
-          contractId: string;
+          contractID: string;
         };
         cookie?: never;
       };
@@ -368,6 +866,15 @@ export interface paths {
         };
         /** @description Invalid contract ID format */
         400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description your request is unauthorized */
+        401: {
           headers: {
             [name: string]: unknown;
           };
@@ -398,7 +905,7 @@ export interface paths {
         header?: never;
         path: {
           /** @description Contract ID */
-          contractId: string;
+          contractID: string;
         };
         cookie?: never;
       };
@@ -413,6 +920,15 @@ export interface paths {
         };
         /** @description Invalid contract ID format */
         400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description your request is unauthorized */
+        401: {
           headers: {
             [name: string]: unknown;
           };
@@ -436,7 +952,7 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/contract/{contractId}/cancel': {
+  '/contract/{contractID}/cancel': {
     parameters: {
       query?: never;
       header?: never;
@@ -459,7 +975,7 @@ export interface paths {
         header?: never;
         path: {
           /** @description Contract ID */
-          contractId: string;
+          contractID: string;
         };
         cookie?: never;
       };
@@ -505,7 +1021,7 @@ export interface paths {
     };
     trace?: never;
   };
-  '/contract/{contractId}/sign': {
+  '/contract/{contractID}/sign': {
     parameters: {
       query?: never;
       header?: never;
@@ -528,7 +1044,7 @@ export interface paths {
         header?: never;
         path: {
           /** @description Contract ID */
-          contractId: string;
+          contractID: string;
         };
         cookie?: never;
       };
@@ -574,7 +1090,7 @@ export interface paths {
     };
     trace?: never;
   };
-  '/contract/{dormId}': {
+  '/contract/{dormID}': {
     parameters: {
       query?: never;
       header?: never;
@@ -613,6 +1129,15 @@ export interface paths {
         };
         /** @description Invalid dorm ID format or query parameters */
         400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description your request is unauthorized */
+        401: {
           headers: {
             [name: string]: unknown;
           };
@@ -1175,8 +1700,8 @@ export interface paths {
     get?: never;
     put?: never;
     /**
-     * Upload an image for a dorm
-     * @description Upload an image for a specific dorm by its ID, by attaching the image as a value for the key field name "image", as a multipart form-data
+     * Upload multiple images for a dorm
+     * @description Upload multiple images for a specific dorm by its ID, by attaching the images as value for the key field name "image", as a multipart form-data
      */
     post: {
       parameters: {
@@ -1411,7 +1936,356 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/history/review/{id}': {
+  '/history/review/image/{url}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    /**
+     * Delete a review image by its url
+     * @description Deletes a review image using its percent encoded url from bucket storage. Encode URL using encodeURIComponent().
+     */
+    delete: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description Percent encoded URL */
+          url: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: {
+        content: {
+          'application/json': Record<string, never>;
+        };
+      };
+      responses: {
+        /** @description Image deleted successfully */
+        204: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content?: never;
+        };
+        /** @description Your request is invalid */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description your request is unauthorized */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description You do not have permission to delete this review image */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Image not found */
+        404: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Failed to delete image */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/history/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get a leasing history by historyid
+     * @description Retrieve a leasing history by historyid
+     */
+    get: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description HistoryID */
+          id: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description Retrive history successfully */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.LeasingHistory'];
+          };
+        };
+        /** @description Incorrect UUID format */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description your request is unauthorized */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description leasing history not found */
+        404: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Can not parse UUID */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    put?: never;
+    /**
+     * Create a new leasing history
+     * @description Add a new leasing history to the database
+     */
+    post: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description DormID */
+          id: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description Dorm successfully created */
+        201: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.SuccessResponse-dto_LeasingHistory'];
+          };
+        };
+        /** @description Incorrect UUID format */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description your request is unauthorized */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Dorm not found or leasing history not found */
+        404: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Can not parse UUID or failed to save leasing history to database */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    /**
+     * Delete a leasing history
+     * @description Delete a leasing history in the database
+     */
+    delete: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description LeasingHistoryId */
+          id: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description No Content */
+        204: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content?: never;
+        };
+        /** @description Incorrect UUID format */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description your request is unauthorized */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description leasing history not found */
+        404: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Can not parse UUID or Failed to delete leasing history */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    options?: never;
+    head?: never;
+    /**
+     * Set end date of a leasing history
+     * @description Set end date of a leasing history in the database
+     */
+    patch: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description LeasingHistoryId */
+          id: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description Set end timestamp successfully */
+        204: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content?: never;
+        };
+        /** @description Incorrect UUID format */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description your request is unauthorized */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description leasing history not found */
+        404: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Can not parse UUID or Failed to update leasing history */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    trace?: never;
+  };
+  '/history/{id}/review': {
     parameters: {
       query?: never;
       header?: never;
@@ -1621,7 +2495,7 @@ export interface paths {
     };
     trace?: never;
   };
-  '/history/{id}': {
+  '/history/{id}/review/images': {
     parameters: {
       query?: never;
       header?: never;
@@ -1631,31 +2505,36 @@ export interface paths {
     get?: never;
     put?: never;
     /**
-     * Create a new leasing history
-     * @description Add a new leasing history to the database
+     * Upload multiple images for a review
+     * @description Upload multiple images for a specific review by its historyID, by attaching the images as value for the key field name "image", as a multipart form-data
      */
     post: {
       parameters: {
         query?: never;
         header?: never;
         path: {
-          /** @description DormID */
+          /** @description historyID */
           id: string;
         };
         cookie?: never;
       };
-      requestBody?: never;
+      /** @description ReviewImage */
+      requestBody: {
+        content: {
+          'multipart/form-data': Record<string, never>;
+        };
+      };
       responses: {
-        /** @description Dorm successfully created */
-        201: {
+        /** @description Successful image upload */
+        200: {
           headers: {
             [name: string]: unknown;
           };
           content: {
-            'application/json': components['schemas']['dto.SuccessResponse-dto_LeasingHistory'];
+            'application/json': components['schemas']['dto.SuccessResponse-dto_ReviewImageUploadResponseBody'];
           };
         };
-        /** @description Incorrect UUID format */
+        /** @description Invalid Request */
         400: {
           headers: {
             [name: string]: unknown;
@@ -1673,7 +2552,16 @@ export interface paths {
             'application/json': components['schemas']['dto.ErrorResponse'];
           };
         };
-        /** @description Dorm not found or leasing history not found */
+        /** @description unauthorized to upload image to review */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description History not found */
         404: {
           headers: {
             [name: string]: unknown;
@@ -1682,7 +2570,7 @@ export interface paths {
             'application/json': components['schemas']['dto.ErrorResponse'];
           };
         };
-        /** @description Can not parse UUID or failed to save leasing history to database */
+        /** @description Server failed to upload review image */
         500: {
           headers: {
             [name: string]: unknown;
@@ -1693,93 +2581,47 @@ export interface paths {
         };
       };
     };
-    /**
-     * Delete a leasing history
-     * @description Delete a leasing history in the database
-     */
-    delete: {
-      parameters: {
-        query?: never;
-        header?: never;
-        path: {
-          /** @description LeasingHistoryId */
-          id: string;
-        };
-        cookie?: never;
-      };
-      requestBody?: never;
-      responses: {
-        /** @description No Content */
-        204: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content?: never;
-        };
-        /** @description Incorrect UUID format */
-        400: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            'application/json': components['schemas']['dto.ErrorResponse'];
-          };
-        };
-        /** @description your request is unauthorized */
-        401: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            'application/json': components['schemas']['dto.ErrorResponse'];
-          };
-        };
-        /** @description leasing history not found */
-        404: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            'application/json': components['schemas']['dto.ErrorResponse'];
-          };
-        };
-        /** @description Can not parse UUID or Failed to delete leasing history */
-        500: {
-          headers: {
-            [name: string]: unknown;
-          };
-          content: {
-            'application/json': components['schemas']['dto.ErrorResponse'];
-          };
-        };
-      };
-    };
+    delete?: never;
     options?: never;
     head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/history/{id}/review/report': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
     /**
-     * Set end date of a leasing history
-     * @description Set end date of a leasing history in the database
+     * Report a review
+     * @description Mark a review as reported
      */
-    patch: {
+    post: {
       parameters: {
         query?: never;
         header?: never;
         path: {
-          /** @description LeasingHistoryId */
+          /** @description HistoryID */
           id: string;
         };
         cookie?: never;
       };
       requestBody?: never;
       responses: {
-        /** @description Set end timestamp successfully */
-        204: {
+        /** @description Review reported successfully */
+        200: {
           headers: {
             [name: string]: unknown;
           };
-          content?: never;
+          content: {
+            'application/json': components['schemas']['dto.SuccessResponse-dto_Review'];
+          };
         };
-        /** @description Incorrect UUID format */
+        /** @description bad request */
         400: {
           headers: {
             [name: string]: unknown;
@@ -1788,7 +2630,7 @@ export interface paths {
             'application/json': components['schemas']['dto.ErrorResponse'];
           };
         };
-        /** @description your request is unauthorized */
+        /** @description unauthorized */
         401: {
           headers: {
             [name: string]: unknown;
@@ -1797,7 +2639,16 @@ export interface paths {
             'application/json': components['schemas']['dto.ErrorResponse'];
           };
         };
-        /** @description leasing history not found */
+        /** @description forbidden */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description not found */
         404: {
           headers: {
             [name: string]: unknown;
@@ -1806,7 +2657,16 @@ export interface paths {
             'application/json': components['schemas']['dto.ErrorResponse'];
           };
         };
-        /** @description Can not parse UUID or Failed to update leasing history */
+        /** @description conflict */
+        409: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description internal server error */
         500: {
           headers: {
             [name: string]: unknown;
@@ -1817,6 +2677,10 @@ export interface paths {
         };
       };
     };
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
     trace?: never;
   };
   '/order': {
@@ -3059,6 +3923,224 @@ export interface paths {
     };
     trace?: never;
   };
+  '/support': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get all support requests
+     * @description Retrieve a list of all support requests.
+     */
+    get: {
+      parameters: {
+        query?: {
+          /** @description Number of support requests to retrieve (default 10, max 50) */
+          limit?: number;
+          /** @description Page number to retrieve (default 1) */
+          page?: number;
+        };
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description All support requests retrieved successfully */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.PaginationResponse-dto_SupportResponseBody'];
+          };
+        };
+        /** @description your request is unauthorized */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Could not fetch support requests */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    put?: never;
+    /**
+     * Submit a support request
+     * @description Let a user send a message to the admin
+     */
+    post: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      /** @description Support Request */
+      requestBody: {
+        content: {
+          'application/json': components['schemas']['dto.SupportRequestBody'];
+        };
+      };
+      responses: {
+        /** @description Support request submitted successfully */
+        201: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.SuccessResponse-dto_SupportResponseBody'];
+          };
+        };
+        /** @description Your request is invalid */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description your request is unauthorized */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Could not submit support request */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/support/{id}': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /**
+     * Update a support request's status
+     * @description Modifies an existing support request's status based on the given ID. The possible status are OPEN, IN-PROGRESS, and RESOLVED.
+     */
+    patch: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path: {
+          /** @description SupportRequestID */
+          id: string;
+        };
+        cookie?: never;
+      };
+      /** @description Status update */
+      requestBody: {
+        content: {
+          'application/json': components['schemas']['dto.UpdateStatusRequestBody'];
+        };
+      };
+      responses: {
+        /** @description Status updated */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.SuccessResponse-dto_SupportResponseBody'];
+          };
+        };
+        /** @description Invalid Request */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description your request is unauthorized */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description You do not have permission to update support request status */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Support request not found */
+        404: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Invalid status value */
+        422: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Server failed to update support request status */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    trace?: never;
+  };
   '/transaction': {
     parameters: {
       query?: never;
@@ -3338,6 +4420,72 @@ export interface paths {
         };
       };
     };
+    trace?: never;
+  };
+  '/user/income': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get monthly income for a lessor
+     * @description Retrieve the monthly leasing income of a lessor based on leasing history
+     */
+    get: {
+      parameters: {
+        query?: never;
+        header?: never;
+        path?: never;
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description Successfully retrieve income */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.SuccessResponse-dto_LessorIncomeResponseBody'];
+          };
+        };
+        /** @description your request is unauthorized */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description User is not a lessor */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description system cannot get lessor income */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
     trace?: never;
   };
   '/user/me': {
@@ -3699,6 +4847,15 @@ export interface paths {
             'application/json': components['schemas']['dto.ErrorResponse'];
           };
         };
+        /** @description forbidden */
+        403: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
         /** @description User not found */
         404: {
           headers: {
@@ -3953,10 +5110,6 @@ export interface components {
       subdistrict?: string;
       zipcode?: string;
     };
-    'dto.ContractRequestBody': {
-      dormId?: string;
-      lesseeId?: string;
-    };
     'dto.ContractResponseBody': {
       contractStatus?: string;
       dorm?: components['schemas']['dto.DormResponseBody'];
@@ -3984,7 +5137,7 @@ export interface components {
       size: number;
     };
     'dto.DormImageUploadResponseBody': {
-      url?: string;
+      url?: string[];
     };
     'dto.DormResponseBody': {
       address?: components['schemas']['dto.Address'];
@@ -4022,6 +5175,7 @@ export interface components {
       price?: number;
       review?: components['schemas']['dto.Review'];
       reviewFlag?: boolean;
+      reviewImages?: string[];
       start?: string;
     };
     'dto.LeasingRequest': {
@@ -4035,6 +5189,9 @@ export interface components {
     };
     'dto.LeasingRequestCreateRequestBody': {
       message?: string;
+    };
+    'dto.LessorIncomeResponseBody': {
+      income?: number;
     };
     'dto.LoginRequestBody': {
       email: string;
@@ -4086,6 +5243,18 @@ export interface components {
       data?: components['schemas']['dto.ReceiptResponseBody'][];
       pagination?: components['schemas']['dto.Pagination'];
     };
+    'dto.PaginationResponse-dto_ReportedReview': {
+      data?: components['schemas']['dto.ReportedReview'][];
+      pagination?: components['schemas']['dto.Pagination'];
+    };
+    'dto.PaginationResponse-dto_StudentEvidenceResponse': {
+      data?: components['schemas']['dto.StudentEvidenceResponse'][];
+      pagination?: components['schemas']['dto.Pagination'];
+    };
+    'dto.PaginationResponse-dto_SupportResponseBody': {
+      data?: components['schemas']['dto.SupportResponseBody'][];
+      pagination?: components['schemas']['dto.Pagination'];
+    };
     'dto.ProfilePictureUploadResponseBody': {
       url?: string;
     };
@@ -4103,6 +5272,14 @@ export interface components {
       password: string;
       username: string;
     };
+    'dto.ReportedReview': {
+      createAt?: string;
+      historyId?: string;
+      message?: string;
+      rate?: number;
+      reviewer?: components['schemas']['dto.UserResponse'];
+      url?: string[];
+    };
     'dto.ResetPasswordCreateRequestBody': {
       email: string;
     };
@@ -4114,17 +5291,28 @@ export interface components {
       createAt?: string;
       message?: string;
       rate?: number;
+      reported?: boolean;
+      url?: string[];
     };
     'dto.ReviewCreateRequestBody': {
       message: string;
       rate: number;
+      url?: string[];
+    };
+    'dto.ReviewImageUploadResponseBody': {
+      url?: string[];
     };
     'dto.ReviewUpdateRequestBody': {
       message?: string;
       rate?: number;
+      url?: string[];
     };
     'dto.Role': string;
     'dto.Status': string;
+    'dto.StudentEvidenceResponse': {
+      evidence?: components['schemas']['dto.StudentEvidenceUploadResponseBody'];
+      user?: components['schemas']['dto.UserResponse'];
+    };
     'dto.StudentEvidenceUploadResponseBody': {
       expired?: string;
       url?: string;
@@ -4147,6 +5335,9 @@ export interface components {
     'dto.SuccessResponse-dto_LeasingRequest': {
       data?: components['schemas']['dto.LeasingRequest'];
     };
+    'dto.SuccessResponse-dto_LessorIncomeResponseBody': {
+      data?: components['schemas']['dto.LessorIncomeResponseBody'];
+    };
     'dto.SuccessResponse-dto_OrderResponseBody': {
       data?: components['schemas']['dto.OrderResponseBody'];
     };
@@ -4159,8 +5350,17 @@ export interface components {
     'dto.SuccessResponse-dto_Review': {
       data?: components['schemas']['dto.Review'];
     };
+    'dto.SuccessResponse-dto_ReviewImageUploadResponseBody': {
+      data?: components['schemas']['dto.ReviewImageUploadResponseBody'];
+    };
+    'dto.SuccessResponse-dto_StudentEvidenceResponse': {
+      data?: components['schemas']['dto.StudentEvidenceResponse'];
+    };
     'dto.SuccessResponse-dto_StudentEvidenceUploadResponseBody': {
       data?: components['schemas']['dto.StudentEvidenceUploadResponseBody'];
+    };
+    'dto.SuccessResponse-dto_SupportResponseBody': {
+      data?: components['schemas']['dto.SupportResponseBody'];
     };
     'dto.SuccessResponse-dto_TokenResponseBody': {
       data?: components['schemas']['dto.TokenResponseBody'];
@@ -4170,6 +5370,17 @@ export interface components {
     };
     'dto.SuccessResponse-dto_UserResponse': {
       data?: components['schemas']['dto.UserResponse'];
+    };
+    'dto.SupportRequestBody': {
+      message: string;
+    };
+    'dto.SupportResponseBody': {
+      createAt?: string;
+      id?: string;
+      message?: string;
+      status?: string;
+      updateAt?: string;
+      userID?: string;
     };
     'dto.TokenResponseBody': {
       accessToken?: string;
@@ -4189,6 +5400,9 @@ export interface components {
       price?: number;
       status?: string;
       updateAt?: string;
+    };
+    'dto.UpdateStatusRequestBody': {
+      status: string;
     };
     'dto.UserFirstFillRequestBody': {
       birthDate?: string;
@@ -4213,19 +5427,23 @@ export interface components {
       username?: string;
     };
     'dto.UserResponse': {
+      banned?: boolean;
       birthDate?: string;
       createAt?: string;
+      dorms_leased?: number;
+      dorms_owned?: number;
       email?: string;
       filledPersonalInfo?: boolean;
       firstname?: string;
       gender?: string;
       id?: string;
-      isStudentVerified?: boolean;
+      isStudentVerified?: string;
       isVerified?: boolean;
       lastname?: string;
       lifestyles?: string[];
       phoneNumber?: string;
       profilePicUrl?: string;
+      review_count?: number;
       role?: string;
       username?: string;
     };
