@@ -67,6 +67,7 @@ export default async function page({
         <div>
           <OwnerPropertyScroll
             showIncome={session?.user?.id === ID}
+            ownerName={data.username ?? ''}
             profileID={ID}
             page={dormPage}
           />

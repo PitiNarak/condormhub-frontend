@@ -10,12 +10,14 @@ interface PropertyScrollProps {
   limit?: number;
   showIncome: boolean;
   profileID: string;
+  ownerName: string;
 }
 
 export async function OwnerPropertyScroll({
   page = 1,
   limit = 12,
   showIncome,
+  ownerName,
   profileID,
 }: PropertyScrollProps) {
   // const redirectPath = `/profile/${profileID}?page=1`
@@ -57,7 +59,7 @@ export async function OwnerPropertyScroll({
           <div className="flex flex-col justify-center items-center p-10 gap-6">
             <div className="flex flex-col gap-3 max-w-3xl w-full">
               <h1 className="text-3xl pt-3 font-semibold text-center">
-                Lessor Property Dashboard
+                Your Income Dashboard
               </h1>
             </div>
           </div>
@@ -88,7 +90,7 @@ export async function OwnerPropertyScroll({
         <div className="flex flex-col justify-center items-center p-10 gap-6">
           <div className="flex flex-col gap-3 max-w-3xl w-full">
             <h1 className="text-3xl pt-3 font-semibold text-center">
-              Lessor Property
+              {ownerName}&apos; dorms
             </h1>
           </div>
         </div>
