@@ -47,6 +47,13 @@ export async function UserDropdown({ name, avatarUrl }: Props) {
             Domitory
           </Link>
         </DropdownMenuItem>
+        {session?.user?.role == 'LESSEE' && (
+          <DropdownMenuItem>
+            <Link href="/leasingHistory" className="w-full">
+              History
+            </Link>
+          </DropdownMenuItem>
+        )}
         <DropdownMenuItem>
           <LogoutButton />
         </DropdownMenuItem>
