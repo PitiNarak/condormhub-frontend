@@ -3,6 +3,7 @@ import { BanDialog } from '@/components/profileID-page/banDialog';
 import { OwnerPropertyScroll } from '@/components/profileID-page/ownerPropertyScroll';
 import { ProfileHeader } from '@/components/profileID-page/profileHeader';
 import { ProfileInfo } from '@/components/profileID-page/profileInfo';
+import { UnbanDialog } from '@/components/profileID-page/unbanDialog';
 import { Button } from '@/components/ui/button';
 import { auth } from '@/lib/auth';
 import Link from 'next/link';
@@ -78,6 +79,15 @@ export default async function page({
           }
         >
           <BanDialog userId={ID} />
+        </div>
+        <div
+          hidden={
+            session?.user?.role != 'ADMIN' ||
+            session?.user?.id === ID ||
+            !data.banned
+          }
+        >
+          <UnbanDialog userId={ID} />
         </div>
       </div>
 
