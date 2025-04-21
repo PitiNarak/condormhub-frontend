@@ -1,7 +1,10 @@
 import type { components } from '@/types/api';
 import { redirect } from 'next/navigation';
 import { PropertyCard } from '@/components/home-page/propertyCard';
-import { fetchOwnerProperty } from '@/actions/lessorDashboard/fetchOwnerProperty';
+import {
+  fetchIncome,
+  fetchOwnerProperty,
+} from '@/actions/lessorDashboard/fetchOwnerProperty';
 import { PaginationControl } from '@/components/home-page/paginationControl';
 
 interface PropertyScrollProps {
@@ -50,7 +53,9 @@ export async function OwnerPropertyScroll({
   }
 
   // Mock the total income, fee, and final earning
-  const totalIncome = 1000;
+  const res = await fetchIncome();
+  const totalIncome =
+    'message' in res ? 0 : res.data ? (res.data.income ?? 0) : 0;
   const feeDeduction = totalIncome * 0.02;
   const finalIncome = totalIncome - feeDeduction;
 
