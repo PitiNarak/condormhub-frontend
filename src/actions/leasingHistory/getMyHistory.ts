@@ -3,7 +3,7 @@
 import client from '@/api';
 import { auth } from '@/lib/auth';
 
-export async function getMyHistory(page: number = 1, limit: number = 1) {
+export async function getMyHistory(page: number = 1, limit: number = 20) {
   // Make API call with query parameters
   const session = await auth();
   const { data, error } = await client.GET('/history/me', {
