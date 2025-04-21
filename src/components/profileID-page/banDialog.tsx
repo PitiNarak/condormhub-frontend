@@ -1,6 +1,6 @@
 'use client';
 
-// import { banUser } from '@/actions/profile/banUser';
+import { banUser } from '@/actions/profile/banUser';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -12,16 +12,30 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { useToast } from '@/hooks/use-toast';
+import { CircleCheckBig } from 'lucide-react';
 
 export const BanDialog = ({ userId }: { userId: string }) => {
+  const { toast } = useToast();
+
   async function onSubmit() {
-    console.log(userId);
-    // const res = await banUser(userId);
-    // if (res?.error) {
-    //   console.log(res.error);
-    // } else {
-    //   redirect('/');
-    // }
+    const res = await banUser(userId);
+    if (res?.error) {
+      toast({
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
+        description: res.error,
+      });
+    } else {
+      toast({
+        description: (
+          <div className="flex gap-5">
+            <CircleCheckBig className="text-green-500" />
+            <p className="text-base">Ban successfully</p>
+          </div>
+        ),
+      });
+    }
   }
   return (
     <Dialog>

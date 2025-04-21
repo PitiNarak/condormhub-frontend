@@ -70,7 +70,9 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
             </div>
             <div className="gap-2 flex-col flex">
               <h2 className="font-bold">Hosted By</h2>
-              <p>{res.owner?.username}</p>
+              <Link href={`/profile/${res.owner?.id}`}>
+                <p>{res.owner?.username}</p>
+              </Link>
             </div>
             <div className="gap-2 flex-col flex">
               <h2 className="font-bold">Description</h2>
