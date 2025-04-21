@@ -25,7 +25,7 @@ export function HistoryScroll() {
             setPage((prevPage) => prevPage + 1);
           }
         },
-        { threshold: 1.0, rootMargin: '-100px' }
+        { threshold: 1.0, rootMargin: '100px' }
       );
       if (node) observer.current.observe(node);
     },
