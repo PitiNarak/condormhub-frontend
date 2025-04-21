@@ -60,9 +60,9 @@ export function HistoryCard({
           <Image
             src={ownerProfileUrl}
             alt={`Image of ${ownerName}`}
-            width={60}
-            height={60}
-            className="object-cover rounded-full  h-[60px] w-[60px] hidden sm:block"
+            width={40}
+            height={40}
+            className="object-cover rounded-full  h-[40px] w-[40px] hidden sm:block"
           />
           <p className="text-sm my-auto sm:ml-2">{ownerName}</p>
         </Link>

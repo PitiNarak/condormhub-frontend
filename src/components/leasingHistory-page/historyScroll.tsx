@@ -121,10 +121,10 @@ export function HistoryScroll() {
                             ? data.dorm.owner.profilePicUrl
                               ? data.dorm.owner.profilePicUrl !== ''
                                 ? data.dorm.owner.profilePicUrl
-                                : 'https://placehold.co/60'
-                              : 'https://placehold.co/60'
-                            : 'https://placehold.co/60'
-                          : 'https://placehold.co/60'
+                                : 'https://placehold.co/40'
+                              : 'https://placehold.co/40'
+                            : 'https://placehold.co/40'
+                          : 'https://placehold.co/40'
                       }
                       ownerID={
                         data.dorm
