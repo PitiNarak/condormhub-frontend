@@ -74,7 +74,9 @@ export function HistoryCard({
           <p className="text-end text-green-500">Done</p>
         ) : (
           <div className="text-end">
-            <Button>Rate</Button>
+            <Link href="#">
+              <Button>Review</Button>
+            </Link>
           </div>
         )}
       </div>
