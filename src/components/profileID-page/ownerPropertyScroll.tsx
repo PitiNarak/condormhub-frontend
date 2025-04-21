@@ -4,7 +4,7 @@ import { PropertyCard } from '@/components/home-page/propertyCard';
 import {
   fetchIncome,
   fetchOwnerProperty,
-} from '@/actions/lessorDashboard/fetchOwnerProperty';
+} from '@/actions/profile/fetchOwnerProperty';
 import { PaginationControl } from '@/components/home-page/paginationControl';
 
 interface PropertyScrollProps {
