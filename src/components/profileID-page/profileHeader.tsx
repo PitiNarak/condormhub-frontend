@@ -1,22 +1,30 @@
-'use client';
 import Image from 'next/image';
-import { useParams } from 'next/navigation';
 import { Card } from '@/components/ui/card';
-import { Star } from 'lucide-react';
+import { Check, X } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 
-export function ProfileHeader() {
-  const params = useParams<{ tag: string; item: string }>();
+interface ProfileHeaderProps {
+  userName: string;
+  profileURL: string;
+  role: string;
+  isVerified: boolean;
+  reviewsAmount: number;
+  totalDorms: number;
+}
 
-  //const data = fetch(get user from ID)
-  const userName = 'Piti';
-  const profileURL = '/mockProfile.png';
-  const role = 'Lessee';
-  const ratingScore = 4.5;
-  const reviewsAmount = 100;
-  const totalRenting = 5;
-  console.log(params);
-
+export function ProfileHeader({
+  userName,
+  profileURL,
+  role,
+  isVerified,
+  reviewsAmount,
+  totalDorms,
+}: ProfileHeaderProps) {
+  const verificationIcon = isVerified ? (
+    <Check color="green" />
+  ) : (
+    <X color="red" />
+  );
   return (
     <div>
       <Card className="flex w-[350px] h-[225px] rounded-3xl border-[1px] shadow-lg">
@@ -41,25 +49,30 @@ export function ProfileHeader() {
         </div>
         <div>
           <div className="pt-4 pb-3">
-            <div className="flex">
-              <p className="text-xl font-bold mr-1">{ratingScore}</p>
-              <Star />
-            </div>
-            <p className="text-xs">Rating</p>
+            <div className="flex">{verificationIcon}</div>
+            <p className="text-xs">Verified User</p>
           </div>
           <Separator orientation="horizontal" />
-          <div className="py-3">
-            <div className="flex">
-              <p className="text-xl font-bold mr-1">{reviewsAmount}</p>
+          {role === 'LESSOR' ? (
+            <div>
+              <div className="py-3">
+                <div className="flex">
+                  <p className="text-xl font-bold mr-1">{reviewsAmount}</p>
+                </div>
+                <p className="text-xs">Reviews</p>
+              </div>
+              <Separator orientation="horizontal" />
             </div>
-            <p className="text-xs">Reviews</p>
-          </div>
-          <Separator orientation="horizontal" />
+          ) : (
+            <div />
+          )}
           <div className="pt-3 pb-4">
             <div className="flex">
-              <p className="text-xl font-bold mr-1">{totalRenting}</p>
+              <p className="text-xl font-bold mr-1">{totalDorms}</p>
             </div>
-            <p className="text-xs">Rents</p>
+            <p className="text-xs">
+              Dorms{role === 'LESSOR' ? ' Owned' : ' Rented'}
+            </p>
           </div>
         </div>
       </Card>

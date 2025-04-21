@@ -33,7 +33,7 @@ export async function UserDropdown({ name, avatarUrl }: Props) {
         <DropdownMenuLabel>{name}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <Link href="/setting" className="w-full">
+          <Link href={`/profile/${session?.user?.id}`} className="w-full">
             Profile
           </Link>
         </DropdownMenuItem>
