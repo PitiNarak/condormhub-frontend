@@ -11,7 +11,7 @@ export function HistoryScroll() {
   const [loading, setLoading] = useState<boolean>(false);
   const [hasMore, setHasMore] = useState<boolean>(true);
   const [page, setPage] = useState<number>(1);
-  const [historyList, setRequests] =
+  const [historyList, setHistory] =
     useState<components['schemas']['dto.LeasingHistory'][]>();
 
   const observer = useRef<IntersectionObserver | null>(null);
@@ -40,7 +40,7 @@ export function HistoryScroll() {
         showErrorToast(res.message ?? '');
       } else {
         setHasMore(res.pagination?.current_page != res.pagination?.last_page);
-        setRequests((prev) => {
+        setHistory((prev) => {
           return prev ? [...prev, ...(res.data ?? [])] : res.data;
         });
       }
