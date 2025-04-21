@@ -9,8 +9,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { DormRegisterForm } from '@/components/registerDorm-page/dormRegisterForm';
 import { sendDormRegistration } from '@/actions/dorm/createDorm';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
+import { Loading } from '@/components/ui/loading';
 
 const formSchema = z.object({
   name: z.string().min(5).max(100),
@@ -44,12 +45,18 @@ const formSchema = z.object({
 export default function DormRegisterBox() {
   const { data: session } = useSession();
   const router = useRouter();
+  const [isSubmit, setisSubmit] = useState<boolean>(false);
   const [images, setImages] = useState<string[]>([]);
+  const [isLoading, setisLoading] = useState<boolean>(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    if (images.length === 0) {
+      return;
+    }
+    setisLoading(true);
     try {
       const res = await sendDormRegistration(values);
       if (!res || !('data' in res) || !res.data) {
@@ -77,22 +84,33 @@ export default function DormRegisterBox() {
   return (
     <div>
       <div>
-        <ImageBox images={images} setImages={setImages} />
+        <ImageBox images={images} setImages={setImages} isSubmit={isSubmit} />
       </div>
       <DormRegisterForm form={form} />
-      <div className="p-3">
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="max-w-4xl mx-auto pt-0 "
-        >
+      {!isLoading ? (
+        <div className="flex max-w-4xl mx-auto gap-2 pt-2">
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <Button
+              type="submit"
+              onClick={() => {
+                setisSubmit(true);
+              }}
+            >
+              Submit
+            </Button>
+          </form>
+
           <Button
-            type="submit"
-            className="max-w-base w-full flex justify-center"
+            type="button"
+            variant="destructive"
+            onClick={() => redirect(`/`)}
           >
-            <span className="text-lg font-semibold">Submit</span>
+            Cancel
           </Button>
-        </form>
-      </div>
+        </div>
+      ) : (
+        <Loading className="flex max-w-4xl mx-auto gap-2 pt-2"></Loading>
+      )}
     </div>
   );
 }
