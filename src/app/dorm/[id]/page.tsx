@@ -24,7 +24,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const res = await getDorm(id);
   const session = await auth();
   let isRequested = false;
-  if (session?.access_token) {
+  if (session?.access_token && session.user?.role === 'LESSEE') {
     const allRequest = await getRequestsByDormId(id);
 
     if (allRequest && 'error' in allRequest) {
