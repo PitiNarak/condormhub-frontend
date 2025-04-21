@@ -1,4 +1,5 @@
 import { getProfileByID } from '@/actions/profile/getProfileByID';
+import { BanDialog } from '@/components/profileID-page/banDialog';
 import { OwnerPropertyScroll } from '@/components/profileID-page/ownerPropertyScroll';
 import { ProfileHeader } from '@/components/profileID-page/profileHeader';
 import { ProfileInfo } from '@/components/profileID-page/profileInfo';
@@ -58,11 +59,19 @@ export default async function page({
       {/* <div className="flex justify-center mx-auto">
         <LesseeReview ID={ID} />
       </div> */}
-      <div hidden={session?.user?.id != ID} className="text-center mt-[20px]">
-        <Link href="/setting">
-          <Button>Edit Profile</Button>
-        </Link>
+      <div className="flex justify-center gap-10 mt-10">
+        <div hidden={session?.user?.id != ID}>
+          <Link href="/setting">
+            <Button>Edit Profile</Button>
+          </Link>
+        </div>
+        <div
+          hidden={session?.user?.role != 'ADMIN' || session?.user?.id === ID}
+        >
+          <BanDialog userId={ID} />
+        </div>
       </div>
+
       {data.role === 'LESSOR' ? (
         <div>
           <OwnerPropertyScroll
