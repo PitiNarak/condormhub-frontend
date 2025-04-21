@@ -1,4 +1,4 @@
-import { HistoryScroll } from '@/components/rentHistory-page/historyList';
+import { HistoryScroll } from '@/components/rentHistory-page/historyScroll';
 
 export default async function Page() {
   return (
