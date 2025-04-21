@@ -25,7 +25,12 @@ export default async function page({
     redirect('/');
   }
   return (
-    <div className="">
+    <div>
+      {data.banned && (
+        <h1 className="text-center p-10 text-red-600 font-bold text-3xl">
+          This user is banned
+        </h1>
+      )}
       <div className="flex justify-center mx-auto">
         <div className="flex flex-col gap-2 lg:flex-row">
           <div className="flex justify-center mx-auto w-[350px] md:w-[700px] lg:w-[350px]">
@@ -69,7 +74,7 @@ export default async function page({
           hidden={
             session?.user?.role != 'ADMIN' ||
             session?.user?.id === ID ||
-            session.user.banned
+            data.banned
           }
         >
           <BanDialog userId={ID} />
