@@ -28,6 +28,5 @@ export async function getMyHistory(page: number = 1, limit: number = 20) {
       },
     };
   }
-  console.log(data);
   return data;
 }
