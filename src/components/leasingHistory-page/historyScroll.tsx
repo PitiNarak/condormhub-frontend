@@ -1,6 +1,6 @@
 'use client';
-import { getMyHistory } from '@/actions/historyList/getMyHistory';
-import { HistoryCard } from '@/components/rentHistory-page/historyCard';
+import { getMyHistory } from '@/actions/leasingHistory/getMyHistory';
+import { HistoryCard } from '@/components/leasingHistory-page/historyCard';
 import { Loading } from '@/components/ui/loading';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useToast } from '@/hooks/use-toast';
