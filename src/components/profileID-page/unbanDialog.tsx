@@ -1,6 +1,6 @@
 'use client';
 
-import { banUser } from '@/actions/profile/banUser';
+import { unbanUser } from '@/actions/profile/unbanUser';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -19,7 +19,7 @@ export const UnbanDialog = ({ userId }: { userId: string }) => {
   const { toast } = useToast();
 
   async function onSubmit() {
-    const res = await banUser(userId);
+    const res = await unbanUser(userId);
     if (res?.error) {
       toast({
         variant: 'destructive',
