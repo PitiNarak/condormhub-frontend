@@ -10,6 +10,7 @@ interface HistoryListProp {
 }
 
 export async function HistoryList({ page = 1 }: HistoryListProp) {
+  const baseUrl = 'rentHistory/';
   const defaultPath = 'rentHistory/?page=1';
   const response = await getMyHistory(page);
   if ('message' in response) {
@@ -94,7 +95,7 @@ export async function HistoryList({ page = 1 }: HistoryListProp) {
             <div className="mt-4">
               <PaginationControl
                 lastPage={Number(paginationElement?.last_page)}
-                basePath={defaultPath}
+                basePath={baseUrl}
               />
             </div>
           </ScrollArea>
