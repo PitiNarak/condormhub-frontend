@@ -66,7 +66,11 @@ export default async function page({
           </Link>
         </div>
         <div
-          hidden={session?.user?.role != 'ADMIN' || session?.user?.id === ID}
+          hidden={
+            session?.user?.role != 'ADMIN' ||
+            session?.user?.id === ID ||
+            session.user.banned
+          }
         >
           <BanDialog userId={ID} />
         </div>
