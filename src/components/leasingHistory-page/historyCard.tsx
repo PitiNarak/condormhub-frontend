@@ -72,7 +72,7 @@ export function HistoryCard({
         {endDate === '0001-01-01T00:00:00Z' ? (
           <p className="text-end text-yellow-600">Pending</p>
         ) : reviewFlag ? (
-          <p className="text-end text-green-500">Done</p>
+          <p className="text-end text-green-500">Reviewed</p>
         ) : (
           <div className="text-end">
             <Link href="#">
