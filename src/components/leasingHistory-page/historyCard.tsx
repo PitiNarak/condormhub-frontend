@@ -70,7 +70,7 @@ export function HistoryCard({
       <div className="flex flex-col gap-3">
         <p className="text-sm text-gray-600 self-start">{displayDate}</p>
         {endDate === '0001-01-01T00:00:00Z' ? (
-          <p className="text-end text-yellow-600">Pending</p>
+          <p className="text-end text-yellow-600">Ongoing</p>
         ) : reviewFlag ? (
           <p className="text-end text-green-500">Reviewed</p>
         ) : (
