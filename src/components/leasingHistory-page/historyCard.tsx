@@ -1,6 +1,4 @@
 import { Button } from '@/components/ui/button';
-import { CardTitle } from '@/components/ui/card';
-import { Star } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -47,13 +45,16 @@ export function HistoryCard({
       />
 
       <div className="flex-1">
-        <CardTitle className="text-lg font-semibold">{dormName}</CardTitle>
+        <div className="flex">
+          <p className="text-lg font-semibold flex">
+            {dormName} {dormRating}
+          </p>
+          <p className="text-[17px] pt-0 self-start">&#9733;</p>
+        </div>
         <div className="flex">
           <p className="text-sm">
             {dormProvince}, {dormDistrict}
           </p>
-          <p className="ml-3 mr-[2px]">{dormRating}</p>
-          <Star size={'18px'} />
         </div>
         <Link className="flex mt-4" href={`/profile/${ownerID}`}>
           <Image
