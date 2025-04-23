@@ -1,3 +1,4 @@
+'use client';
 import { getProfileByID } from '@/actions/profile/getProfileByID';
 import { updateReport } from '@/actions/support/updateReport';
 import { useEffect, useState } from 'react';
@@ -71,6 +72,7 @@ export function ReportCard({
           onClick={() => {
             updateReport(id, 'IN-PROGRESS');
             setdisplayStatus('IN-PROGRESS');
+            window.location.reload();
           }}
         >
           Mark as In Progress
@@ -83,6 +85,7 @@ export function ReportCard({
           onClick={() => {
             updateReport(id, 'RESOLVED');
             setdisplayStatus('RESOLVED');
+            window.location.reload();
           }}
         >
           Mark as Resolved

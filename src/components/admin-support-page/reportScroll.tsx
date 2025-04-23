@@ -1,4 +1,5 @@
 'use client';
+// @refresh reset
 import { getReport } from '@/actions/support/getReport';
 import { ReportCard } from '@/components/admin-support-page/reportCard';
 import { Loading } from '@/components/ui/loading';
