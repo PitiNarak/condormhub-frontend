@@ -11,6 +11,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Link from 'next/link';
 import { LogoutButton } from '@/components/setting-page/logOutButton';
 import { auth } from '@/lib/auth';
+import { ReportDialog } from '@/components/navigationBar/reportDialog';
 
 interface Props {
   name: string;
@@ -53,11 +54,14 @@ export async function UserDropdown({ name, avatarUrl }: Props) {
           </Link>
         </DropdownMenuItem>
         {session?.user?.role == 'LESSEE' && (
-          <DropdownMenuItem>
-            <Link href="/leasingHistory" className="w-full">
-              History
-            </Link>
-          </DropdownMenuItem>
+          <>
+            <DropdownMenuItem>
+              <Link href="/leasingHistory" className="w-full">
+                History
+              </Link>
+            </DropdownMenuItem>
+            <ReportDialog />
+          </>
         )}
         <DropdownMenuItem>
           <LogoutButton />
