@@ -93,16 +93,14 @@ export function ReportCard({
   };
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden w-96">
+    <div className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden w-full">
       <div className="px-4 py-3 bg-gray-50 border-b border-gray-200 flex justify-between items-center">
         <div className="flex items-center">
           <div className="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center text-black font-semibold mr-3">
-            {(displayName || reporter).charAt(0).toUpperCase()}
+            {displayName.charAt(0).toUpperCase()}
           </div>
           <div>
-            <h3 className="text-sm font-medium text-gray-900">
-              {displayName || reporter}
-            </h3>
+            <h3 className="text-sm font-medium text-gray-900">{displayName}</h3>
             <p className="text-xs text-gray-500">{displayDate}</p>
           </div>
         </div>
