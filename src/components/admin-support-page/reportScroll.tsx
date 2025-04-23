@@ -1,5 +1,6 @@
 'use client';
 import { getReport } from '@/actions/support/getReport';
+import { ReportCard } from '@/components/admin-support-page/reportCard';
 import { Loading } from '@/components/ui/loading';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useToast } from '@/hooks/use-toast';
@@ -83,7 +84,14 @@ export function ReportScroll() {
                         : undefined
                     }
                     key={String(data.id)}
-                  ></div>
+                  >
+                    <ReportCard
+                      reporter={data.userID ?? ''}
+                      date={data.createAt ?? ''}
+                      message={data.message ?? ''}
+                      status={data.status ?? ''}
+                    />
+                  </div>
                 )
               )}
               {loading && (
