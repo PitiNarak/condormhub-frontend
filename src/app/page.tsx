@@ -1,4 +1,6 @@
+import { AddDormButton } from '@/components/home-page/addDormButton';
 import { PropertyScroll } from '@/components/home-page/propertyScroll';
+import { auth } from '@/lib/auth';
 
 export default async function Page({
   searchParams,
@@ -41,9 +43,16 @@ export default async function Page({
     zipcode: toString(zipcode),
   };
 
+  const session = await auth();
+
   return (
-    <div className="">
+    <div className="relative">
       <PropertyScroll {...filters} />
+      {session?.access_token && session.user?.role != 'LESSEE' ? (
+        <AddDormButton />
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 }
