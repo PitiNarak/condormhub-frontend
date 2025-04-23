@@ -37,9 +37,14 @@ export async function UserDropdown({ name, avatarUrl }: Props) {
             Profile
           </Link>
         </DropdownMenuItem>
-        {session?.user?.role != 'LESSOR' && (
+        {session?.user?.role == 'LESSEE' && (
           <DropdownMenuItem>
             <Link href="/requestHistory">Request History</Link>
+          </DropdownMenuItem>
+        )}
+        {session?.user?.role == 'LESSOR' && (
+          <DropdownMenuItem>
+            <Link href="/leasingRequest">Leasing Request</Link>
           </DropdownMenuItem>
         )}
         <DropdownMenuItem>
