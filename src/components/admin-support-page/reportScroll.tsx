@@ -67,10 +67,6 @@ export function ReportScroll() {
     });
   };
 
-  const handleFilterChange = (newFilter: StatusFilter) => {
-    setStatusFilter(newFilter);
-  };
-
   return (
     <div className="w-full flex flex-col items-center">
       <h1 className="text-3xl font-bold my-4">Reports</h1>
@@ -79,22 +75,22 @@ export function ReportScroll() {
         <StatusFilterButton
           status="ALL"
           currentFilter={statusFilter}
-          onClick={() => handleFilterChange('ALL')}
+          onClick={() => setStatusFilter('ALL')}
         />
         <StatusFilterButton
           status="OPEN"
           currentFilter={statusFilter}
-          onClick={() => handleFilterChange('OPEN')}
+          onClick={() => setStatusFilter('OPEN')}
         />
         <StatusFilterButton
           status="IN-PROGRESS"
           currentFilter={statusFilter}
-          onClick={() => handleFilterChange('IN-PROGRESS')}
+          onClick={() => setStatusFilter('IN-PROGRESS')}
         />
         <StatusFilterButton
           status="RESOLVED"
           currentFilter={statusFilter}
-          onClick={() => handleFilterChange('RESOLVED')}
+          onClick={() => setStatusFilter('RESOLVED')}
         />
       </div>
 
@@ -134,7 +130,6 @@ export function ReportScroll() {
                         date={data.createAt ?? ''}
                         message={data.message ?? ''}
                         status={data.status ?? ''}
-                        currentStatus={statusFilter}
                       />
                     </div>
                   )
@@ -176,7 +171,7 @@ function StatusFilterButton({
   return (
     <button
       onClick={onClick}
-      className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${getButtonColors()}`}
+      className={`px-4 py-2 w-28 rounded-md text-sm font-medium transition-colors ${getButtonColors()}`}
     >
       {displayText}
     </button>
