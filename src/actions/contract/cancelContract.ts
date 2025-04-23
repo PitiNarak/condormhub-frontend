@@ -3,7 +3,7 @@
 import client from '@/api';
 import { auth } from '@/lib/auth';
 
-export async function acceptContract(contractID: string) {
+export async function cancelContract(contractID: string) {
   const session = await auth();
   const res = await client.PATCH('/contract/{contractID}/cancel', {
     params: {

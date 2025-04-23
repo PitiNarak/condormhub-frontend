@@ -3,7 +3,7 @@
 import client from '@/api';
 import { auth } from '@/lib/auth';
 
-export async function acceptContract() {
+export async function getContract() {
   const session = await auth();
   const res = await client.GET('/contract', {
     headers: {
