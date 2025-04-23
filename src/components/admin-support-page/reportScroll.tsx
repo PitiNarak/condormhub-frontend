@@ -86,6 +86,7 @@ export function ReportScroll() {
                     key={String(data.id)}
                   >
                     <ReportCard
+                      id={data.id ?? ''}
                       reporter={data.userID ?? ''}
                       date={data.createAt ?? ''}
                       message={data.message ?? ''}

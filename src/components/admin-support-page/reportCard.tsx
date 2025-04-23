@@ -1,7 +1,9 @@
 import { getProfileByID } from '@/actions/profile/getProfileByID';
+import { updateReport } from '@/actions/support/updateReport';
 import { useEffect, useState } from 'react';
 
 interface ReportCardProp {
+  id: string;
   reporter: string;
   date: string;
   message: string;
@@ -9,13 +11,14 @@ interface ReportCardProp {
 }
 
 export function ReportCard({
+  id,
   reporter,
   date,
   message,
   status,
 }: ReportCardProp) {
   const [displayName, setDisplayName] = useState('');
-
+  const [displayStatus, setdisplayStatus] = useState(status);
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -61,15 +64,27 @@ export function ReportCard({
   };
 
   const renderStatusButtons = () => {
-    if (status === 'OPEN') {
+    if (displayStatus === 'OPEN') {
       return (
-        <button className="w-40 bg-black text-white py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition-colors">
+        <button
+          className="w-40 bg-black text-white py-2 rounded-md text-sm font-medium hover:bg-gray-800 transition-colors"
+          onClick={() => {
+            updateReport(id, 'IN-PROGRESS');
+            setdisplayStatus('IN-PROGRESS');
+          }}
+        >
           Mark as In Progress
         </button>
       );
-    } else if (status === 'IN-PROGRESS') {
+    } else if (displayStatus === 'IN-PROGRESS') {
       return (
-        <button className="w-40 bg-black text-white py-2 rounded-md text-sm font-medium hover:bg-gray-800  transition-colors">
+        <button
+          className="w-40 bg-black text-white py-2 rounded-md text-sm font-medium hover:bg-gray-800  transition-colors"
+          onClick={() => {
+            updateReport(id, 'RESOLVED');
+            setdisplayStatus('RESOLVED');
+          }}
+        >
           Mark as Resolved
         </button>
       );
@@ -91,12 +106,12 @@ export function ReportCard({
             <p className="text-xs text-gray-500">{displayDate}</p>
           </div>
         </div>
-        <div>{getStatusBadge(status)}</div>
+        <div>{getStatusBadge(displayStatus)}</div>
       </div>
       <div className="p-4">
         <p className="text-sm text-gray-700 whitespace-pre-wrap">{message}</p>
       </div>
-      {(status === 'OPEN' || status === 'IN-PROGRESS') && (
+      {(displayStatus === 'OPEN' || displayStatus === 'IN-PROGRESS') && (
         <div className="px-4 py-3 bg-gray-50 border-t border-gray-200 flex justify-end">
           {renderStatusButtons()}
         </div>
