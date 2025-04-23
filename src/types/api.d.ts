@@ -1790,13 +1790,13 @@ export interface paths {
       cookie?: never;
     };
     /**
-     * Get all leasing history by userid
-     * @description Retrieve a list of all leasing history by userid
+     * Get all leasing history by dormid
+     * @description Retrieve a list of all leasing history by dormid
      */
     get: {
       parameters: {
         query?: {
-          /** @description Number of dorms to retrieve (default 10, max 50) */
+          /** @description Number of leasing histories to retrieve (default 10, max 50) */
           limit?: number;
           /** @description Page number to retrieve (default 1) */
           page?: number;
@@ -1865,6 +1865,89 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/history/bydorm/{id}/review': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get all reviews by dormid
+     * @description Retrieve a list of all reviews by dormid
+     */
+    get: {
+      parameters: {
+        query?: {
+          /** @description Number of reviews to retrieve (default 10, max 50) */
+          limit?: number;
+          /** @description Page number to retrieve (default 1) */
+          page?: number;
+        };
+        header?: never;
+        path: {
+          /** @description DormID */
+          id: string;
+        };
+        cookie?: never;
+      };
+      requestBody?: never;
+      responses: {
+        /** @description Retrive reviews successfully */
+        200: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.PaginationResponse-dto_Review'];
+          };
+        };
+        /** @description Incorrect UUID format or limit parameter is incorrect or page parameter is incorrect or page exceeded */
+        400: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description your request is unauthorized */
+        401: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description leasing history not found */
+        404: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+        /** @description Can not parse UUID */
+        500: {
+          headers: {
+            [name: string]: unknown;
+          };
+          content: {
+            'application/json': components['schemas']['dto.ErrorResponse'];
+          };
+        };
+      };
+    };
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/history/me': {
     parameters: {
       query?: never;
@@ -1873,13 +1956,13 @@ export interface paths {
       cookie?: never;
     };
     /**
-     * Get all leasing history by userid
-     * @description Retrieve a list of all leasing history by userid
+     * Get all leasing history of current user
+     * @description Retrieve a list of all leasing history of current user
      */
     get: {
       parameters: {
         query?: {
-          /** @description Number of dorms to retrieve (default 10, max 50) */
+          /** @description Number of leasing histories to retrieve (default 10, max 50) */
           limit?: number;
           /** @description Page number to retrieve (default 1) */
           page?: number;
@@ -1960,11 +2043,7 @@ export interface paths {
         };
         cookie?: never;
       };
-      requestBody?: {
-        content: {
-          'application/json': Record<string, never>;
-        };
-      };
+      requestBody?: never;
       responses: {
         /** @description Image deleted successfully */
         204: {
@@ -5247,6 +5326,10 @@ export interface components {
       data?: components['schemas']['dto.ReportedReview'][];
       pagination?: components['schemas']['dto.Pagination'];
     };
+    'dto.PaginationResponse-dto_Review': {
+      data?: components['schemas']['dto.Review'][];
+      pagination?: components['schemas']['dto.Pagination'];
+    };
     'dto.PaginationResponse-dto_StudentEvidenceResponse': {
       data?: components['schemas']['dto.StudentEvidenceResponse'][];
       pagination?: components['schemas']['dto.Pagination'];
@@ -5289,9 +5372,11 @@ export interface components {
     };
     'dto.Review': {
       createAt?: string;
+      historyId?: string;
       message?: string;
       rate?: number;
       reported?: boolean;
+      reviewer?: components['schemas']['dto.UserResponse'];
       url?: string[];
     };
     'dto.ReviewCreateRequestBody': {
