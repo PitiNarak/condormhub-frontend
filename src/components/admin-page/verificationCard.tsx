@@ -100,6 +100,37 @@ export function VerificationCard({
 
         {/* Action Buttons with Dialogs */}
         <div className="flex justify-center gap-2 mt-2">
+          {/* Verify Dialog */}
+          <Dialog open={openVerify} onOpenChange={setOpenVerify}>
+            <DialogTrigger asChild>
+              <Button
+                variant="default"
+                size="sm"
+                className="w-full max-w-[120px] bg-black text-white"
+              >
+                Verify
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogTitle>Are you sure?</DialogTitle>
+              <DialogDescription>
+                This will approve the user&apos;s verification request.
+              </DialogDescription>
+              <DialogFooter>
+                <Button
+                  variant="ghost"
+                  onClick={() => setOpenVerify(false)}
+                  disabled={loading}
+                >
+                  Cancel
+                </Button>
+                <Button onClick={handleVerify} disabled={loading}>
+                  {loading ? 'Verifying...' : 'Verify'}
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+
           {/* Reject Dialog */}
           <Dialog open={openReject} onOpenChange={setOpenReject}>
             <DialogTrigger asChild>
@@ -130,37 +161,6 @@ export function VerificationCard({
                   disabled={loading}
                 >
                   {loading ? 'Rejecting...' : 'Reject'}
-                </Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-
-          {/* Verify Dialog */}
-          <Dialog open={openVerify} onOpenChange={setOpenVerify}>
-            <DialogTrigger asChild>
-              <Button
-                variant="default"
-                size="sm"
-                className="w-full max-w-[120px] bg-black text-white"
-              >
-                Verify
-              </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogTitle>Are you sure?</DialogTitle>
-              <DialogDescription>
-                This will approve the user&apos;s verification request.
-              </DialogDescription>
-              <DialogFooter>
-                <Button
-                  variant="ghost"
-                  onClick={() => setOpenVerify(false)}
-                  disabled={loading}
-                >
-                  Cancel
-                </Button>
-                <Button onClick={handleVerify} disabled={loading}>
-                  {loading ? 'Verifying...' : 'Verify'}
                 </Button>
               </DialogFooter>
             </DialogContent>
