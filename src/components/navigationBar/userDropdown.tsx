@@ -66,6 +66,11 @@ export async function UserDropdown({ name, avatarUrl }: Props) {
           </>
         )}
         <DropdownMenuItem>
+          <Link href="/contractNotification" className="w-full">
+            Contract
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
           <LogoutButton />
         </DropdownMenuItem>
       </DropdownMenuContent>
