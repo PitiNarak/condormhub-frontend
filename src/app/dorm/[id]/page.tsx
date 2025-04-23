@@ -89,7 +89,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
                 </div>
               </div>
               <Button>
-                <Link href={`/dormReview/${id}`}>Link to review</Link>
+                <Link href={`/dormReview/${id}`}>Reviews</Link>
               </Button>
             </div>
             <div className="gap-2 flex-col flex">
