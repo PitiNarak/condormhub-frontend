@@ -1,25 +1,32 @@
 import type { components } from '@/types/api';
 import { redirect } from 'next/navigation';
-import { mockData } from '@/mocks/mockProperty';
 import { PropertyCard } from '@/components/home-page/propertyCard';
-import { auth } from '@/lib/auth';
-import { fetchOwnerProperty } from '@/actions/lessorDashboard/fetchOwnerProperty';
+import {
+  fetchIncome,
+  fetchOwnerProperty,
+} from '@/actions/profile/fetchOwnerProperty';
 import { PaginationControl } from '@/components/home-page/paginationControl';
 
 interface PropertyScrollProps {
   page?: number;
   limit?: number;
+  showIncome: boolean;
+  profileID: string;
+  ownerName: string;
 }
 
 export async function OwnerPropertyScroll({
   page = 1,
   limit = 12,
+  showIncome,
+  ownerName,
+  profileID,
 }: PropertyScrollProps) {
-  const redirectPath = '/?page=1';
+  // const redirectPath = `/profile/${profileID}?page=1`
+  const redirectPath = `/?page=1`;
 
   // Get session and owner ID
-  const session = await auth();
-  const ownerId = session?.user?.id;
+  const ownerId = profileID;
 
   if (!ownerId) {
     console.log('no owner id');
@@ -28,50 +35,74 @@ export async function OwnerPropertyScroll({
 
   // Fetch properties by owner ID
   const response = await fetchOwnerProperty(ownerId, page, limit);
-
   if ('message' in response) {
     console.error('Error fetching properties:', response.message);
     return redirect(redirectPath);
   }
 
-  const propertyData = response.data || JSON.parse(mockData);
+  const propertyData = response.data ?? [];
   const paginationElement = response.pagination;
 
   // Range checker: if invalid, redirect to the first page
-  if (propertyData.length < 0 || page < 1 || Number.isNaN(page)) {
+  if (
+    (propertyData.length < 0 && page != 1) ||
+    page < 1 ||
+    Number.isNaN(page)
+  ) {
     redirect(redirectPath);
   }
 
   // Mock the total income, fee, and final earning
-  const totalIncome = 1000;
+  const res = await fetchIncome();
+  const totalIncome =
+    'message' in res ? 0 : res.data ? (res.data.income ?? 0) : 0;
   const feeDeduction = totalIncome * 0.02;
   const finalIncome = totalIncome - feeDeduction;
 
   return (
     <div className="mb-10">
       {/* Income Summary */}
-      <div className="px-[5px] xl:px-[20px]">
-        <div className="mb-8 grid grid-cols-1 sm:grid-cols-3 gap-6 mx-5">
-          <div className="p-6 bg-white rounded-xl shadow-lg text-center">
-            <p className="text-gray-500">Total Rent Income</p>
-            <p className="text-3xl font-bold text-green-600">
-              {totalIncome.toLocaleString()} ฿
-            </p>
+      {showIncome ? (
+        <div>
+          <div className="flex flex-col justify-center items-center p-10 gap-6">
+            <div className="flex flex-col gap-3 max-w-3xl w-full">
+              <h1 className="text-3xl pt-3 font-semibold text-center">
+                Your Income Dashboard
+              </h1>
+            </div>
           </div>
-          <div className="p-6 bg-white rounded-xl shadow-lg text-center">
-            <p className="text-gray-500">2% Service Fee</p>
-            <p className="text-3xl font-bold text-red-500">
-              -{feeDeduction.toLocaleString()} ฿
-            </p>
-          </div>
-          <div className="p-6 bg-white rounded-xl shadow-lg text-center">
-            <p className="text-gray-500">Your Earnings</p>
-            <p className="text-3xl font-bold text-blue-700">
-              {finalIncome.toLocaleString()} ฿
-            </p>
+          <div className="px-[5px] xl:px-[20px]">
+            <div className="mb-8 grid grid-cols-1 sm:grid-cols-3 gap-6 mx-5">
+              <div className="p-6 bg-white rounded-xl shadow-lg text-center">
+                <p className="text-gray-500">Total Rent Income</p>
+                <p className="text-3xl font-bold text-green-600">
+                  {totalIncome.toLocaleString()} ฿
+                </p>
+              </div>
+              <div className="p-6 bg-white rounded-xl shadow-lg text-center">
+                <p className="text-gray-500">2% Service Fee</p>
+                <p className="text-3xl font-bold text-red-500">
+                  -{feeDeduction.toLocaleString()} ฿
+                </p>
+              </div>
+              <div className="p-6 bg-white rounded-xl shadow-lg text-center">
+                <p className="text-gray-500">Your Earnings</p>
+                <p className="text-3xl font-bold text-blue-700">
+                  {finalIncome.toLocaleString()} ฿
+                </p>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="flex flex-col justify-center items-center p-10 gap-6">
+          <div className="flex flex-col gap-3 max-w-3xl w-full">
+            <h1 className="text-3xl pt-3 font-semibold text-center">
+              {ownerName}&apos;s dorms
+            </h1>
+          </div>
+        </div>
+      )}
       {propertyData.length === 0 ? (
         <p className="text-center text-lg text-gray-500 py-10">
           No properties found.
@@ -103,7 +134,7 @@ export async function OwnerPropertyScroll({
           </div>
           <PaginationControl
             lastPage={Number(paginationElement?.last_page)}
-            basePath="/lessorDashboard"
+            basePath={`/profile/${profileID}`}
           />
         </div>
       )}
