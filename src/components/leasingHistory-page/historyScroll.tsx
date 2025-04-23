@@ -83,6 +83,7 @@ export function HistoryScroll() {
                     key={String(data.id)}
                   >
                     <HistoryCard
+                      dormID={data.dorm?.id ?? ''}
                       dormName={data.dorm ? (data.dorm.name ?? '') : ''}
                       dormImageUrl={
                         data.dorm

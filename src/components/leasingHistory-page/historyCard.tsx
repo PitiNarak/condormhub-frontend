@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 interface HistoryCardProp {
+  dormID: string;
   dormName: string;
   dormImageUrl: string;
   dormProvince: string;
@@ -17,6 +18,7 @@ interface HistoryCardProp {
 }
 
 export function HistoryCard({
+  dormID,
   dormName,
   dormImageUrl,
   dormProvince,
@@ -75,7 +77,7 @@ export function HistoryCard({
           <p className="text-end text-green-500">Reviewed</p>
         ) : (
           <div className="text-end">
-            <Link href="#">
+            <Link href={`dormReview/${dormID}`}>
               <Button>Review</Button>
             </Link>
           </div>
