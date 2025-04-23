@@ -99,7 +99,7 @@ export function VerificationCard({
         </div>
 
         {/* Action Buttons with Dialogs */}
-        <div className="flex justify-between gap-2 mt-2">
+        <div className="flex justify-center gap-2 mt-2">
           {/* Reject Dialog */}
           <Dialog open={openReject} onOpenChange={setOpenReject}>
             <DialogTrigger asChild>
