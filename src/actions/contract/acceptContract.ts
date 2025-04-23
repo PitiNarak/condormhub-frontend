@@ -3,7 +3,7 @@
 import client from '@/api';
 import { auth } from '@/lib/auth';
 
-export async function acceptContract(contractID: string) {
+export async function signContract(contractID: string) {
   const session = await auth();
   const res = await client.PATCH('/contract/{contractID}/sign', {
     params: {
