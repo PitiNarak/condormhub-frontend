@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { redirect } from 'next/navigation';
 import { ImageBox } from '@/components/registerDorm-page/dormImage';
 import { uploadReviewImage } from '@/actions/reviewDorm/uploadReviewImage';
+import { GetHistory } from '@/actions/leasingHistory/getHistory';
 
 export function ReviewForm({ historyId }: { historyId: string }) {
   const { toast } = useToast();
@@ -28,7 +29,8 @@ export function ReviewForm({ historyId }: { historyId: string }) {
   async function onSubmit() {
     const review = { rate: rate, message: message };
     const res = await CreateReview(historyId, review);
-    console.log(res);
+    const history = await GetHistory(historyId);
+
     if (res && 'error' in res) {
       toast({
         variant: 'destructive',
@@ -50,7 +52,11 @@ export function ReviewForm({ historyId }: { historyId: string }) {
           </div>
         ),
       });
-      redirect('/');
+      if ('dorm' in history) {
+        redirect(`/dormReview/${history.dorm?.id}`);
+      } else {
+        redirect(`/`);
+      }
     }
   }
 

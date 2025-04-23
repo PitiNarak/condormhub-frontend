@@ -1,4 +1,3 @@
-import { unstable_cache as cache } from 'next/cache';
 import { ReviewCard } from '@/components/dormReveiw-page/reviewCard';
 import {
   Carousel,
@@ -9,56 +8,12 @@ import {
 } from '@/components/ui/carousel';
 import { getReview } from '@/actions/reviewDorm/getReviewDorm';
 import { getDormByID } from '@/actions/dorm/getDormByID';
-import { auth } from '@/lib/auth';
-import { Review } from '@/mocks/mockPropertyReview';
-
-const getAllReview = async (token: string, id: string) => {
-  const res = await getReview(token, id);
-  return res;
-};
-
-// Outside the cached function:
-async function getAllReviewWithAuth(id: string) {
-  const session = await auth();
-  const token = session?.access_token;
-  if (!token) return null;
-  return getAllReview(token, id);
-}
-
-const getDorm = cache(
-  async (id) => {
-    const res = await getDormByID(id);
-    return res;
-  },
-  ['dorm-details'],
-  { tags: ['dorm-details'] }
-);
 
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
-  const id = (await params).id;
-  const res = await getAllReviewWithAuth(id);
-  const dorm = await getDorm(id);
+  const dormId = (await params).id;
+  const res = await getReview(dormId);
+  const dorm = await getDormByID(dormId);
 
-  interface ReviewWithFlag {
-    review: Review;
-    reviewFlag: boolean;
-  }
-
-  let reviews: Review[] = [];
-
-  if (
-    res &&
-    !('error' in res) &&
-    typeof res === 'object' &&
-    'data' in res &&
-    Array.isArray((res as { data: ReviewWithFlag[] }).data)
-  ) {
-    reviews = (res as { data: ReviewWithFlag[] }).data
-      .filter((e) => e.reviewFlag === true)
-      .map((e) => e.review);
-  } else {
-    console.warn('Unexpected res format:', res);
-  }
   if (
     res &&
     !('error' in res) &&
@@ -66,16 +21,27 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
     !('error' in dorm) &&
     res.data?.length != 0
   ) {
+    const reviews = res.data;
     return (
       <div className="flex flex-col justify-center items-center gap-10">
         <h1 className="text-center text-5xl font-bold">{dorm.name} Review</h1>
-
         <Carousel className="w-[1000px]">
           <CarouselContent>
             {reviews!.map((r, index) => (
               <CarouselItem key={index} className="w-full basis-1/2">
-                <div className="flex flex-col gap-6 rounded-xl border bg-card shadow px-[10px] py-[30px]">
-                  <ReviewCard dormId={id} review={r} />
+                <div className="flex flex-col gap-6 rounded-xl border bg-card shadow px-[10px] py-[30px] relative  mt-5">
+                  <ReviewCard
+                    historyId={r.historyId}
+                    dormId={dormId}
+                    message={r.message}
+                    rate={r.rate}
+                    reviewer={{
+                      id: r.reviewer?.id,
+                      username: r.reviewer?.username,
+                      profilePicUrl: r.reviewer?.profilePicUrl,
+                    }}
+                    url={r.url}
+                  />
                 </div>
               </CarouselItem>
             ))}
@@ -94,7 +60,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   ) {
     return (
       <div className="h-screen w-screen flex flex-col justify-items-center items-center">
-        <h1 className="pt-[100px]">There are not review yet.</h1>
+        <h1 className="pt-[100px]">There are no reviews for this dorm yet.</h1>
       </div>
     );
   } else {
