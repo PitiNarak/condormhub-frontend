@@ -14,7 +14,7 @@ export default async function Page() {
           <h1 className="text-3xl pt-3 font-semibold">
             Student Verification Review
           </h1>
-          <Divider className="max-w-6xl w-full" />
+          <Divider className="max-w-6xl w-full mb-5" />
           <VerificationScroll />
         </div>
       </div>
