@@ -12,7 +12,7 @@ export const AddDormButton = () => {
         onClick={() => router.push('/dorm/register')}
       >
         <Plus className="text-white h-8 w-8" />
-        <span className="pt-1 pl-1 text-white">Add dorminatory</span>
+        <span className="pt-1 pl-1 text-white">Add dormitory</span>
       </div>
     </div>
   );
