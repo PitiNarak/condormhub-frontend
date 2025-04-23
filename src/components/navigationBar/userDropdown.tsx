@@ -48,11 +48,6 @@ export async function UserDropdown({ name, avatarUrl }: Props) {
             <Link href="/leasingRequest">Leasing Request</Link>
           </DropdownMenuItem>
         )}
-        <DropdownMenuItem>
-          <Link href="/dorm/register" className="w-full">
-            Domitory
-          </Link>
-        </DropdownMenuItem>
         {session?.user?.role == 'LESSEE' && (
           <>
             <DropdownMenuItem>
