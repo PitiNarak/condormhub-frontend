@@ -1,10 +1,20 @@
+'use client';
+
 import * as React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import { DialogTitle } from '@radix-ui/react-dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from '@/components/ui/dialog';
+import { rejectLessee, verifyLessee } from '@/actions/admin/verifyStudent';
+import { useRouter } from 'next/navigation';
 
 interface VerificationCardProps {
   id: string;
@@ -21,6 +31,27 @@ export function VerificationCard({
   lastname,
   username,
 }: VerificationCardProps) {
+  const router = useRouter();
+  const [openReject, setOpenReject] = React.useState(false);
+  const [openVerify, setOpenVerify] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+
+  const handleReject = async () => {
+    setLoading(true);
+    await rejectLessee(id);
+    setLoading(false);
+    setOpenReject(false);
+    router.refresh();
+  };
+
+  const handleVerify = async () => {
+    setLoading(true);
+    await verifyLessee(id);
+    setLoading(false);
+    setOpenVerify(false);
+    router.refresh();
+  };
+
   return (
     <Card className="w-full rounded-2xl shadow-md border border-gray-200 overflow-hidden hover:shadow-lg transition min-h-[350px]">
       <CardContent className="px-6 py-5 flex flex-col gap-4 h-full">
@@ -67,18 +98,73 @@ export function VerificationCard({
           </p>
         </div>
 
-        {/* Action buttons */}
+        {/* Action Buttons with Dialogs */}
         <div className="flex justify-between gap-2 mt-2">
-          <Button variant="outline" size="sm" className="w-full max-w-[120px]">
-            Reject
-          </Button>
-          <Button
-            variant="default"
-            size="sm"
-            className="w-full max-w-[120px] bg-black text-white"
-          >
-            Verify
-          </Button>
+          {/* Reject Dialog */}
+          <Dialog open={openReject} onOpenChange={setOpenReject}>
+            <DialogTrigger asChild>
+              <Button
+                variant="outline"
+                size="sm"
+                className="w-full max-w-[120px]"
+              >
+                Reject
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogTitle>Are you sure?</DialogTitle>
+              <DialogDescription>
+                This will reject the user&apos;s verification request.
+              </DialogDescription>
+              <DialogFooter>
+                <Button
+                  variant="ghost"
+                  onClick={() => setOpenReject(false)}
+                  disabled={loading}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  variant="default"
+                  onClick={handleReject}
+                  disabled={loading}
+                >
+                  {loading ? 'Rejecting...' : 'Reject'}
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+
+          {/* Verify Dialog */}
+          <Dialog open={openVerify} onOpenChange={setOpenVerify}>
+            <DialogTrigger asChild>
+              <Button
+                variant="default"
+                size="sm"
+                className="w-full max-w-[120px] bg-black text-white"
+              >
+                Verify
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogTitle>Are you sure?</DialogTitle>
+              <DialogDescription>
+                This will approve the user&apos;s verification request.
+              </DialogDescription>
+              <DialogFooter>
+                <Button
+                  variant="ghost"
+                  onClick={() => setOpenVerify(false)}
+                  disabled={loading}
+                >
+                  Cancel
+                </Button>
+                <Button onClick={handleVerify} disabled={loading}>
+                  {loading ? 'Verifying...' : 'Verify'}
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
       </CardContent>
     </Card>
