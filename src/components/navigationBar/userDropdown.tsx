@@ -54,6 +54,13 @@ export async function UserDropdown({ name, avatarUrl }: Props) {
             </Link>
           </DropdownMenuItem>
         )}
+        {session?.user?.role == 'ADMIN' && (
+          <DropdownMenuItem>
+            <Link href="/admin" className="w-full">
+              Verification Review
+            </Link>
+          </DropdownMenuItem>
+        )}
         <DropdownMenuItem>
           <LogoutButton />
         </DropdownMenuItem>
