@@ -9,6 +9,7 @@ interface ReportCardProp {
   date: string;
   message: string;
   status: string;
+  handle: (id: string, status: string) => void;
 }
 
 export function ReportCard({
@@ -17,6 +18,7 @@ export function ReportCard({
   date,
   message,
   status,
+  handle,
 }: ReportCardProp) {
   const [displayName, setDisplayName] = useState('');
   const [displayStatus, setdisplayStatus] = useState(status);
@@ -72,7 +74,8 @@ export function ReportCard({
           onClick={() => {
             updateReport(id, 'IN-PROGRESS');
             setdisplayStatus('IN-PROGRESS');
-            window.location.reload();
+            // window.location.reload();
+            handle(id, 'IN-PROGRESS');
           }}
         >
           Mark as In Progress
@@ -85,7 +88,8 @@ export function ReportCard({
           onClick={() => {
             updateReport(id, 'RESOLVED');
             setdisplayStatus('RESOLVED');
-            window.location.reload();
+            // window.location.reload();
+            handle(id, 'RESOLVED');
           }}
         >
           Mark as Resolved

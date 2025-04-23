@@ -1,5 +1,4 @@
 'use client';
-// @refresh reset
 import { getReport } from '@/actions/support/getReport';
 import { ReportCard } from '@/components/admin-support-page/reportCard';
 import { Loading } from '@/components/ui/loading';
@@ -17,6 +16,12 @@ export function ReportScroll() {
   const [reportList, setReport] =
     useState<components['schemas']['dto.SupportResponseBody'][]>();
   const [statusFilter, setStatusFilter] = useState<StatusFilter>('ALL');
+
+  const handle = (id: string, status: string) => {
+    setReport((reportList) =>
+      reportList?.map((item) => (item.id === id ? { ...item, status } : item))
+    );
+  };
 
   const observer = useRef<IntersectionObserver | null>(null);
   const lastPostElementRef = useCallback(
@@ -44,8 +49,12 @@ export function ReportScroll() {
         showErrorToast(res.message ?? '');
       } else {
         setHasMore(res.pagination?.current_page != res.pagination?.last_page);
+        const newData = res.data ?? [];
         setReport((prev) => {
-          return prev ? [...prev, ...(res.data ?? [])] : res.data;
+          if (!prev) return newData;
+          const seen = new Set(prev.map((item) => item.id));
+          const filtered = newData.filter((item) => !seen.has(item.id));
+          return [...prev, ...filtered];
         });
       }
     } catch (err) {
@@ -131,6 +140,7 @@ export function ReportScroll() {
                         date={data.createAt ?? ''}
                         message={data.message ?? ''}
                         status={data.status ?? ''}
+                        handle={handle}
                       />
                     </div>
                   )
