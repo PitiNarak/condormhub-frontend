@@ -49,7 +49,7 @@ export async function UserDropdown({ name, avatarUrl }: Props) {
           </DropdownMenuItem>
         )}
         <DropdownMenuItem>
-          <Link href="/dorm/register" className="w-full">
+          <Link href="/lessorDashboard" className="w-full">
             Domitory
           </Link>
         </DropdownMenuItem>
