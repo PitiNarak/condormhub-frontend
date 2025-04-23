@@ -42,7 +42,7 @@ export async function UserDropdown({ name, avatarUrl }: Props) {
             <Link href="/requestHistory">Request History</Link>
           </DropdownMenuItem>
         )}
-        {session?.user?.role != 'LESSEE' && (
+        {session?.user?.role != 'LESSOR' && (
           <DropdownMenuItem>
             <Link href="/leasingRequest">Leasing Request</Link>
           </DropdownMenuItem>
