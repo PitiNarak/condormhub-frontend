@@ -69,13 +69,7 @@ export function ReportScroll() {
 
   const handleFilterChange = (newFilter: StatusFilter) => {
     setStatusFilter(newFilter);
-    setPage(1);
-    setHasMore(true);
   };
-
-  const filteredReports = reportList?.filter(
-    (report) => statusFilter === 'ALL' || report.status === statusFilter
-  );
 
   return (
     <div className="w-full flex flex-col items-center">
@@ -106,7 +100,7 @@ export function ReportScroll() {
 
       {loading && <Loading className="flex max-w-4xl mx-auto gap-2 pt-2" />}
 
-      {!filteredReports || filteredReports.length === 0 ? (
+      {!reportList || reportList.length === 0 ? (
         <p className="text-center text-lg text-gray-500 py-10">
           {!loading
             ? `No ${statusFilter === 'ALL' ? '' : statusFilter.toLowerCase()} reports found`
@@ -116,30 +110,35 @@ export function ReportScroll() {
         <div className="w-full max-w-5xl mx-auto p-4">
           <ScrollArea className="w-full">
             <div className="grid grid-cols-1 gap-5 mx-5">
-              {filteredReports.map(
-                (
-                  data: components['schemas']['dto.SupportResponseBody'],
-                  index
-                ) => (
-                  <div
-                    ref={
-                      index + 1 === filteredReports.length &&
-                      statusFilter === 'ALL'
-                        ? lastPostElementRef
-                        : undefined
-                    }
-                    key={String(data.id)}
-                  >
-                    <ReportCard
-                      id={data.id ?? ''}
-                      reporter={data.userID ?? ''}
-                      date={data.createAt ?? ''}
-                      message={data.message ?? ''}
-                      status={data.status ?? ''}
-                    />
-                  </div>
+              {reportList
+                .filter(
+                  (r) => statusFilter === 'ALL' || r.status === statusFilter
                 )
-              )}
+                .map(
+                  (
+                    data: components['schemas']['dto.SupportResponseBody'],
+                    index
+                  ) => (
+                    <div
+                      ref={
+                        index + 1 === reportList.length &&
+                        statusFilter === 'ALL'
+                          ? lastPostElementRef
+                          : undefined
+                      }
+                      key={String(data.id)}
+                    >
+                      <ReportCard
+                        id={data.id ?? ''}
+                        reporter={data.userID ?? ''}
+                        date={data.createAt ?? ''}
+                        message={data.message ?? ''}
+                        status={data.status ?? ''}
+                        currentStatus={statusFilter}
+                      />
+                    </div>
+                  )
+                )}
             </div>
           </ScrollArea>
         </div>
