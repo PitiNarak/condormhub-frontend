@@ -25,7 +25,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const res = await getDorm(id);
   const session = await auth();
   let isRequested = false;
-  if (session?.access_token) {
+  if (session?.access_token && session.user?.role === 'LESSEE') {
     const allRequest = await getRequestsByDormId(id);
 
     if (allRequest && 'error' in allRequest) {
@@ -75,7 +75,9 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
             </div>
             <div className="gap-2 flex-col flex">
               <h2 className="font-bold">Hosted By</h2>
-              <p>{res.owner?.username}</p>
+              <Link href={`/profile/${res.owner?.id}`} className="w-min">
+                <p className="hover:underline">{res.owner?.username}</p>
+              </Link>
             </div>
             <div className="gap-2 flex-col flex">
               <h2 className="font-bold">Description</h2>

@@ -5,6 +5,7 @@ import React from 'react';
 import { auth } from '@/lib/auth';
 import { UserDropdown } from '@/components/navigationBar/userDropdown';
 import { NotiBtn } from '@/components/navigationBar/notificationButton';
+import { AuthProvider } from '@/components/auth/authProvider';
 
 export async function Navbar() {
   const session = await auth();
@@ -42,9 +43,13 @@ export async function Navbar() {
                   <SelectedMenu icon={<Bell />} path="/lesseeNotification" />
                 )} */}
                 <NotiBtn />
-                <UserDropdown
-                  name={session.user?.firstname + ' ' + session.user?.lastname}
-                />
+                <AuthProvider session={session}>
+                  <UserDropdown
+                    name={
+                      session.user?.firstname + ' ' + session.user?.lastname
+                    }
+                  />
+                </AuthProvider>
               </>
               // <LogoutButton />
             )}

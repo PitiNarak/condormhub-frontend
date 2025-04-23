@@ -2,6 +2,7 @@ import { getProfileByID } from '@/actions/profile/getProfileByID';
 import { OwnerPropertyScroll } from '@/components/profileID-page/ownerPropertyScroll';
 import { ProfileHeader } from '@/components/profileID-page/profileHeader';
 import { ProfileInfo } from '@/components/profileID-page/profileInfo';
+import { UnbanDialog } from '@/components/profileID-page/banAndUnbanDialog';
 import { Button } from '@/components/ui/button';
 import { auth } from '@/lib/auth';
 import Link from 'next/link';
@@ -24,7 +25,12 @@ export default async function page({
     redirect('/');
   }
   return (
-    <div className="">
+    <div>
+      {data.banned && (
+        <h1 className="text-center p-10 text-red-600 font-bold text-3xl">
+          This user is banned
+        </h1>
+      )}
       <div className="flex justify-center mx-auto">
         <div className="flex flex-col gap-2 lg:flex-row">
           <div className="flex justify-center mx-auto w-[350px] md:w-[700px] lg:w-[350px]">
@@ -58,11 +64,19 @@ export default async function page({
       {/* <div className="flex justify-center mx-auto">
         <LesseeReview ID={ID} />
       </div> */}
-      <div hidden={session?.user?.id != ID} className="text-center mt-[20px]">
-        <Link href="/setting">
-          <Button>Edit Profile</Button>
-        </Link>
+      <div className="flex justify-center gap-10 mt-10">
+        <div hidden={session?.user?.id != ID}>
+          <Link href="/setting">
+            <Button>Edit Profile</Button>
+          </Link>
+        </div>
+        <div
+          hidden={session?.user?.role != 'ADMIN' || session?.user?.id === ID}
+        >
+          <UnbanDialog userId={ID} isBan={data.banned ?? false} />
+        </div>
       </div>
+
       {data.role === 'LESSOR' ? (
         <div>
           <OwnerPropertyScroll

@@ -6,6 +6,7 @@ import {
   fetchOwnerProperty,
 } from '@/actions/profile/fetchOwnerProperty';
 import { PaginationControl } from '@/components/home-page/paginationControl';
+import { AddDormButton } from '@/components/profileID-page/addDorm';
 
 interface PropertyScrollProps {
   page?: number;
@@ -17,7 +18,7 @@ interface PropertyScrollProps {
 
 export async function OwnerPropertyScroll({
   page = 1,
-  limit = 12,
+  limit = 11,
   showIncome,
   ownerName,
   profileID,
@@ -93,6 +94,7 @@ export async function OwnerPropertyScroll({
               </div>
             </div>
           </div>
+          <h1 className="text-2xl pl-10 pb-3 font-semibold">Dormitory</h1>
         </div>
       ) : (
         <div className="flex flex-col justify-center items-center p-10 gap-6">
@@ -104,12 +106,28 @@ export async function OwnerPropertyScroll({
         </div>
       )}
       {propertyData.length === 0 ? (
-        <p className="text-center text-lg text-gray-500 py-10">
-          No properties found.
-        </p>
+        <div className="px-[5px] xl:px-[20px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mx-5">
+            <AddDormButton />
+            <div className="invisible">
+              <PropertyCard
+                id=""
+                image="https://placehold.co/300x200"
+                rating={0}
+                bedroom={0}
+                bathroom={0}
+                province=""
+                district=""
+                price={0}
+                propertyName=""
+              />
+            </div>
+          </div>
+        </div>
       ) : (
         <div className="px-[5px] xl:px-[20px]">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mx-5">
+            <AddDormButton />
             {propertyData.map(
               (data: components['schemas']['dto.DormResponseBody']) => (
                 <div key={String(data.id)} className="text-sm">
