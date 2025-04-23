@@ -6,7 +6,7 @@ import {
   fetchOwnerProperty,
 } from '@/actions/profile/fetchOwnerProperty';
 import { PaginationControl } from '@/components/home-page/paginationControl';
-import { AddDormButton } from '@/components/lessorDashboard-page/addDorm';
+import { AddDormButton } from '@/components/profileID-page/addDorm';
 
 interface PropertyScrollProps {
   page?: number;
@@ -94,7 +94,7 @@ export async function OwnerPropertyScroll({
               </div>
             </div>
           </div>
-          <h1 className="text-2xl pt-2 font-semibold">Dormitory</h1>
+          <h1 className="text-2xl pl-10 pb-3 font-semibold">Dormitory</h1>
         </div>
       ) : (
         <div className="flex flex-col justify-center items-center p-10 gap-6">
