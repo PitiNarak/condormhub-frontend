@@ -33,18 +33,31 @@ export async function UserDropdown({ name, avatarUrl }: Props) {
         <DropdownMenuLabel>{name}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <Link href="/setting" className="w-full">
+          <Link href={`/profile/${session?.user?.id}`} className="w-full">
             Profile
           </Link>
         </DropdownMenuItem>
-        {session?.access_token && session.user?.role != 'LESSEE' ? (
+        {session?.user?.role == 'LESSEE' && (
           <DropdownMenuItem>
-            <Link href="/lessorDashboard" className="w-full">
-              Domitory
+            <Link href="/requestHistory">Request History</Link>
+          </DropdownMenuItem>
+        )}
+        {session?.user?.role == 'LESSOR' && (
+          <DropdownMenuItem>
+            <Link href="/leasingRequest">Leasing Request</Link>
+          </DropdownMenuItem>
+        )}
+        <DropdownMenuItem>
+          <Link href="/lessorDashboard" className="w-full">
+            Domitory
+          </Link>
+        </DropdownMenuItem>
+        {session?.user?.role == 'LESSEE' && (
+          <DropdownMenuItem>
+            <Link href="/leasingHistory" className="w-full">
+              History
             </Link>
           </DropdownMenuItem>
-        ) : (
-          <div></div>
         )}
         <DropdownMenuItem>
           <LogoutButton />

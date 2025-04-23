@@ -7,9 +7,14 @@ import { ImageCarousel } from '@/components/dorm-page/imageCarousel';
 interface ImageBoxProps {
   images: string[];
   setImages: React.Dispatch<React.SetStateAction<string[]>>;
+  isSubmit: boolean;
 }
 
-export const ImageBox: React.FC<ImageBoxProps> = ({ images, setImages }) => {
+export const ImageBox: React.FC<ImageBoxProps> = ({
+  images,
+  setImages,
+  isSubmit,
+}) => {
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (!files) return;
@@ -22,9 +27,23 @@ export const ImageBox: React.FC<ImageBoxProps> = ({ images, setImages }) => {
   return (
     <div className="flex flex-col justify-center items-center p-3 gap-3.5">
       {images.length === 0 ? (
-        <div className="flex justify-center items-center h-80 w-80 custom-dashed-border rounded-xl p-6 mb-2 border-gray-300">
-          <Image className="text-gray-300 h-12 w-12" />
-        </div>
+        (() => {
+          if (isSubmit)
+            return (
+              <div className="flex flex-col justify-center items-center h-80 w-80 border-4 rounded-xl p-6 mb-2 border-red-400">
+                <Image className="text-red-400 h-12 w-12" />
+                <span className="mt-2 text-red-400 font-sans">
+                  You have to add an image
+                </span>
+              </div>
+            );
+          else
+            return (
+              <div className="flex justify-center items-center h-80 w-80 custom-dashed-border rounded-xl p-6 mb-2 border-gray-300">
+                <Image className="text-gray-300 h-12 w-12" />
+              </div>
+            );
+        })()
       ) : (
         <ImageCarousel images={images} />
       )}
