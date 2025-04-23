@@ -74,7 +74,6 @@ export function ReportCard({
           onClick={() => {
             updateReport(id, 'IN-PROGRESS');
             setdisplayStatus('IN-PROGRESS');
-            // window.location.reload();
             handle(id, 'IN-PROGRESS');
           }}
         >
@@ -88,7 +87,6 @@ export function ReportCard({
           onClick={() => {
             updateReport(id, 'RESOLVED');
             setdisplayStatus('RESOLVED');
-            // window.location.reload();
             handle(id, 'RESOLVED');
           }}
         >
