@@ -13,6 +13,7 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -100,6 +101,9 @@ export const ReportDialog = () => {
                       <FormControl>
                         <Input required {...field} />
                       </FormControl>
+                      <FormDescription className="text-start">
+                        Your report message will be sent to admin
+                      </FormDescription>
                       <FormMessage className="text-start" />
                     </FormItem>
                   )}
