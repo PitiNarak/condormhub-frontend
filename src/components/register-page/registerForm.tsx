@@ -22,15 +22,22 @@ import { signIn } from 'next-auth/react';
 const formSchema = z
   .object({
     email: z.string().email({ message: 'Invalid email address' }),
-    username: z.string().min(1).max(20),
-    password: z.string().min(5).max(20),
-    confirmPassword: z.string().min(5).max(20),
+    username: z.string().min(1, { message: 'Username is required' }),
+    password: z
+      .string()
+      .min(5, { message: 'Password must be atleast 5 characters' })
+      .max(20, {
+        message: 'Password must be no more than 20 chracters',
+      }),
+    confirmPassword: z
+      .string()
+      .min(1, { message: 'Confirmed password is required' }),
   })
   .superRefine(({ confirmPassword, password }, ctx) => {
     if (confirmPassword !== password) {
       ctx.addIssue({
         code: 'custom',
-        message: 'The passwords did not match',
+        message: 'The passwords do not match',
         path: ['confirmPassword'],
       });
     }

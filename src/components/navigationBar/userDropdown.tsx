@@ -10,6 +10,8 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Link from 'next/link';
 import { LogoutButton } from '@/components/setting-page/logOutButton';
+import { auth } from '@/lib/auth';
+import { ReportDialog } from '@/components/navigationBar/reportDialog';
 
 interface Props {
   name: string;
@@ -17,6 +19,7 @@ interface Props {
 }
 
 export async function UserDropdown({ name, avatarUrl }: Props) {
+  const session = await auth();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -31,15 +34,30 @@ export async function UserDropdown({ name, avatarUrl }: Props) {
         <DropdownMenuLabel>{name}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <Link href="/setting" className="w-full">
+          <Link href={`/profile/${session?.user?.id}`} className="w-full">
             Profile
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Link href="/dorm/register" className="w-full">
-            Domitory
-          </Link>
-        </DropdownMenuItem>
+        {session?.user?.role == 'LESSEE' && (
+          <DropdownMenuItem>
+            <Link href="/requestHistory">Request History</Link>
+          </DropdownMenuItem>
+        )}
+        {session?.user?.role == 'LESSOR' && (
+          <DropdownMenuItem>
+            <Link href="/leasingRequest">Leasing Request</Link>
+          </DropdownMenuItem>
+        )}
+        {session?.user?.role == 'LESSEE' && (
+          <>
+            <DropdownMenuItem>
+              <Link href="/leasingHistory" className="w-full">
+                History
+              </Link>
+            </DropdownMenuItem>
+            <ReportDialog />
+          </>
+        )}
         <DropdownMenuItem>
           <LogoutButton />
         </DropdownMenuItem>

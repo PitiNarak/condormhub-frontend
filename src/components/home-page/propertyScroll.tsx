@@ -3,7 +3,6 @@ import type { components } from '@/types/api';
 import { PaginationControl } from '@/components/home-page/paginationControl';
 import { redirect } from 'next/navigation';
 
-import { mockData } from '@/mocks/mockProperty';
 import { PropertyCard } from '@/components/home-page/propertyCard';
 import { SearchBox } from '@/components/home-page/searchBox';
 
@@ -42,13 +41,11 @@ export async function PropertyScroll({
     province,
     zipcode
   );
-
-  const propertyData =
-    'message' in response ? JSON.parse(mockData) : response.data;
+  const propertyData = 'message' in response ? [] : (response.data ?? []);
   const paginationElement = response.pagination;
 
   //Range checker if not valid go to first page
-  if (propertyData.length < 0 || page < 1 || Number.isNaN(page)) {
+  if ((propertyData.length < 0 && page > 1) || page < 1 || Number.isNaN(page)) {
     redirect(lesseePagePath);
   }
 

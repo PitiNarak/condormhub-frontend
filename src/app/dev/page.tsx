@@ -23,7 +23,7 @@ const page = async () => {
           text="Lessee Notification Page"
           path="/lesseeNotification"
         />
-        <SelectedMenu text="Lessor Property Requests" path="/lessorRequest" />
+        <SelectedMenu text="Lessor Property Requests" path="/leasingRequest" />
         <SelectedMenu
           text="Email verification Page"
           path="/emailVerification"
