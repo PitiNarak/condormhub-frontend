@@ -71,4 +71,3 @@ const b: components['schemas']['dto.DormResponseBody'] = {
 const mockArray = [a, b];
 
 export const mockData = JSON.stringify(mockArray);
-
