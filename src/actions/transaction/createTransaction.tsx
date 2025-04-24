@@ -3,19 +3,19 @@
 import client from '@/api';
 import { auth } from '@/lib/auth';
 
-export async function getUnpaidOrder(page = 1, limit = 10) {
+export async function createTransaction(id: string) {
   const session = await auth();
   if (!session?.access_token)
     return {
       message: 'no session',
     };
 
-  const { data, error } = await client.GET('/order/unpaid/me', {
+  const { data, error } = await client.POST('/transaction', {
     headers: {
       Authorization: `Bearer ${session.access_token}`,
     },
-    params: {
-      query: { page, limit },
+    body: {
+      orderID: id,
     },
   });
   if (error || !data.data) {

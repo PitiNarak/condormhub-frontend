@@ -43,6 +43,11 @@ export async function UserDropdown({ name, avatarUrl }: Props) {
             <Link href="/requestHistory">Request History</Link>
           </DropdownMenuItem>
         )}
+        {session?.user?.role == 'LESSEE' && (
+          <DropdownMenuItem>
+            <Link href="/order/unpaid">Unpaid Order</Link>
+          </DropdownMenuItem>
+        )}
         {session?.user?.role == 'LESSOR' && (
           <DropdownMenuItem>
             <Link href="/leasingRequest">Leasing Request</Link>
