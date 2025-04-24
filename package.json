@@ -11,6 +11,8 @@
     "lint:fix": "next lint --fix",
     "types:gen:api": "eval $(grep '^BACKEND_URL' .env) && openapi-typescript $BACKEND_URL/swagger/docs.json -o src/types/api.d.ts",
     "gen:api": "powershell -Command \"$env:BACKEND_URL = (Get-Content .env | Where-Object { $_ -like 'BACKEND_URL=*' }).Split('=')[1].Trim(); npx openapi-typescript \\\"$env:BACKEND_URL/swagger/docs.json\\\" -o src/types/api.d.ts\"",
+    "types:gen:api": "eval $(grep '^BACKEND_URL' .env) && openapi-typescript $BACKEND_URL/swagger/docs.json -o src/types/api.d.ts",
+    "gen:api": "powershell -Command \"$env:BACKEND_URL = (Get-Content .env | Where-Object { $_ -like 'BACKEND_URL=*' }).Split('=')[1].Trim(); npx openapi-typescript \\\"$env:BACKEND_URL/swagger/doc.json\\\" -o src/types/api.d.ts\"",
     "types:gen:env": "npx gen-env-types .env -o src/types/env.d.ts -e .",
     "prepare": "npx husky"
   },
@@ -82,6 +84,7 @@
     "@types/react": "19.0.12",
     "@types/react-dom": "19.0.4",
     "conventional-changelog-atom": "^5.0.0",
+    "daisyui": "^5.0.19",
     "eslint-config-next": "15.2.4",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.3",
