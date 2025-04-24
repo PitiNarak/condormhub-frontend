@@ -109,7 +109,11 @@ export const PersonalInfoForm = () => {
             role: values.role,
           },
         });
-        router.push('/');
+        if (values.role === 'LESSEE') {
+          router.push('/studentVerification');
+        } else {
+          router.push('/');
+        }
       }
     }
   }
