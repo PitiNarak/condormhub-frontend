@@ -15,6 +15,7 @@ export function ReviewForm({ historyId }: { historyId: string }) {
   const [rate, setRate] = useState(2);
   const [message, setMessage] = useState('');
   const [images, setImages] = useState<string[]>([]);
+  const [isSubmit, setisSubmit] = useState<boolean>(false);
 
   const handleClick = (value: number) => {
     setRate(value);
@@ -30,6 +31,7 @@ export function ReviewForm({ historyId }: { historyId: string }) {
     const review = { rate: rate, message: message };
     const res = await CreateReview(historyId, review);
     const history = await GetHistory(historyId);
+    setisSubmit(true);
 
     if (res && 'error' in res) {
       toast({
@@ -63,7 +65,7 @@ export function ReviewForm({ historyId }: { historyId: string }) {
   return (
     <div className="flex flex-col">
       <div className="flex flex-col justify-items-center items-center gap-10">
-        <ImageBox images={images} setImages={setImages} />
+        <ImageBox images={images} setImages={setImages} isSubmit={isSubmit} />
         <div className="rating rating-xl bg-yellow gap-10">
           {[1, 2, 3, 4, 5].map((value) => (
             <input
