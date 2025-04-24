@@ -48,6 +48,13 @@ export async function UserDropdown({ name, avatarUrl }: Props) {
             <Link href="/leasingRequest">Leasing Request</Link>
           </DropdownMenuItem>
         )}
+        {session?.user?.role == 'ADMIN' && (
+          <DropdownMenuItem>
+            <Link href="/admin" className="w-full">
+              Verification Review
+            </Link>
+          </DropdownMenuItem>
+        )}
         {session?.user?.role == 'LESSEE' && (
           <>
             <DropdownMenuItem>
@@ -58,6 +65,20 @@ export async function UserDropdown({ name, avatarUrl }: Props) {
             <ReportDialog />
           </>
         )}
+        {session?.user?.role == 'ADMIN' && (
+          <>
+            <DropdownMenuItem>
+              <Link href="/admin/support" className="w-full">
+                Support
+              </Link>
+            </DropdownMenuItem>
+          </>
+        )}
+        <DropdownMenuItem>
+          <Link href="/contractNotification" className="w-full">
+            Contract
+          </Link>
+        </DropdownMenuItem>
         <DropdownMenuItem>
           <LogoutButton />
         </DropdownMenuItem>

@@ -10,7 +10,10 @@ const page = async () => {
       <div>
         <SelectedMenu text="Admin Page" path="/admin" />
         <SelectedMenu text="Register Page" path="/register" />
-        <SelectedMenu text="Verification Page" path="/verification" />
+        <SelectedMenu
+          text="Student Verification Page"
+          path="/studentVerification"
+        />
         <SelectedMenu
           text="Lessor Property Dashboard Page"
           path="/lessorDashboard"
