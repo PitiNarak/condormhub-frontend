@@ -17,6 +17,13 @@ pnpm install
 pnpm dev
 ```
 
+### Docker
+```bash
+cp .env.example .env
+docker run --env-file .env ghcr.io/pitinarak/condormhub-frontend
+```
+Or you can use `Dockerfile` to build on your machine.
+
 ### Scripts
 
 | Script       | Description                                      |
